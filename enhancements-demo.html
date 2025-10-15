@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tessera-Amoris Enhancements Demo</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/application.css">
+    <link rel="stylesheet" href="css/enhanced-verification.css">
+    <link rel="stylesheet" href="css/enhanced-review.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            background: #f5f3f0;
+            padding: 40px 20px;
+        }
+        .demo-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .demo-section {
+            background: white;
+            padding: 40px;
+            margin-bottom: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .demo-title {
+            font-size: 2.5em;
+            color: #1a365d;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .demo-subtitle {
+            font-size: 1.2em;
+            color: #666;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .enhancement-title {
+            font-size: 2em;
+            color: #2c5282;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #d4af37;
+            padding-bottom: 10px;
+        }
+        .before-after {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+        .before, .after {
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .before {
+            background: #f8f8f8;
+            border: 2px dashed #ccc;
+        }
+        .after {
+            background: #f0f9ff;
+            border: 2px solid #d4af37;
+        }
+        .label {
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .before .label {
+            color: #999;
+        }
+        .after .label {
+            color: #d4af37;
+        }
+        @media (max-width: 768px) {
+            .before-after {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <h1 class="demo-title">Tessera-Amoris Platform Enhancements</h1>
+        <p class="demo-subtitle">Three Major Improvements Based on Luxury Matchmaking Research</p>
+
+        <!-- Enhancement 1: Homepage Hero -->
+        <div class="demo-section">
+            <h2 class="enhancement-title">1. Homepage Hero Section</h2>
+            <div class="before-after">
+                <div class="before">
+                    <div class="label">❌ Before</div>
+                    <h3>Beyond the Superficial. For a Love That Lasts.</h3>
+                    <p>An exclusive community for discerning individuals seeking to build a legacy of love.</p>
+                    <button style="background: #d4af37; color: white; padding: 15px 30px; border: none; border-radius: 4px; font-size: 1.1em;">Start Your Journey</button>
+                </div>
+                <div class="after">
+                    <div class="label">✅ After</div>
+                    <h3>Where Continents Connect, Legacies Begin.</h3>
+                    <p>An exclusive international matchmaking community connecting purpose-driven individuals between Paraguay and Europe.</p>
+                    <button style="background: #d4af37; color: white; padding: 15px 30px; border: none; border-radius: 4px; font-size: 1.1em;">Start Your Legacy</button>
+                </div>
+            </div>
+            <div style="margin-top: 20px; padding: 20px; background: #e6f7ff; border-left: 4px solid #1890ff; border-radius: 4px;">
+                <strong>✨ Key Improvements:</strong>
+                <ul>
+                    <li>Immediately communicates international focus (Paraguay-Europe)</li>
+                    <li>"Legacy" positioning creates depth beyond typical dating</li>
+                    <li>Artistic Van Gogh-inspired background image (couple with cross)</li>
+                    <li>More specific target audience ("purpose-driven individuals")</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Enhancement 2: Verification Section -->
+        <div class="demo-section">
+            <h2 class="enhancement-title">2. Verification Section</h2>
+            
+            <!-- Trust Header -->
+            <div class="verification-trust-header">
+                <h3>Building Trust Together</h3>
+                <p>Your safety and privacy are our highest priorities. This verification process ensures every member of our community is genuine, serious, and committed to finding meaningful connection.</p>
+            </div>
+
+            <!-- Privacy Banner -->
+            <div class="verification-privacy-banner">
+                <div class="privacy-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="privacy-content">
+                    <h4>Your Privacy is Protected</h4>
+                    <ul>
+                        <li>All information is kept strictly confidential</li>
+                        <li>References are only contacted after mutual interest</li>
+                        <li>Background checks are conducted through secure, professional channels</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Photo Upload -->
+            <div style="margin: 30px 0;">
+                <h4 style="font-size: 1.3em; margin-bottom: 15px;">Recent Photos</h4>
+                <div class="photo-upload-area" style="border: 2px dashed #d4af37; padding: 40px; text-align: center; border-radius: 8px; background: #fafafa;">
+                    <i class="fas fa-images" style="font-size: 3em; color: #d4af37; margin-bottom: 15px;"></i>
+                    <p style="font-size: 1.2em; margin-bottom: 10px;">Drag and drop your photos here, or click to browse</p>
+                    <button style="background: #2c5282; color: white; padding: 12px 25px; border: none; border-radius: 4px; margin-top: 10px; cursor: pointer;">Browse Files</button>
+                    <div style="margin-top: 20px; text-align: left; max-width: 500px; margin-left: auto; margin-right: auto;">
+                        <strong>Photo Guidelines:</strong>
+                        <ul style="margin-top: 10px; color: #666;">
+                            <li>Recent photos (within last 6 months)</li>
+                            <li>Clear view of your face</li>
+                            <li>Good lighting and quality</li>
+                            <li>Appropriate attire</li>
+                            <li>No group photos</li>
+                            <li>No filters or heavy editing</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reference Cards -->
+            <div style="margin: 30px 0;">
+                <h4 style="font-size: 1.3em; margin-bottom: 15px;">Character References</h4>
+                <div class="reference-card" style="background: white; border: 1px solid #e0e0e0; padding: 25px; border-radius: 8px; margin-bottom: 20px;">
+                    <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                        <div style="background: #d4af37; color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-right: 15px;">1</div>
+                        <h5 style="font-size: 1.2em; margin: 0;">Character Reference #1</h5>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div>
+                            <label style="display: block; margin-bottom: 5px; font-weight: 600;">Name</label>
+                            <input type="text" placeholder="Reference name" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                        </div>
+                        <div>
+                            <label style="display: block; margin-bottom: 5px; font-weight: 600;">Relationship</label>
+                            <input type="text" placeholder="e.g., Pastor, Friend" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                        </div>
+                        <div>
+                            <label style="display: block; margin-bottom: 5px; font-weight: 600;">Email</label>
+                            <input type="email" placeholder="reference@example.com" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                        </div>
+                        <div>
+                            <label style="display: block; margin-bottom: 5px; font-weight: 600;">Phone</label>
+                            <input type="tel" placeholder="Phone number" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                        </div>
+                    </div>
+                    <div style="margin-top: 15px;">
+                        <p style="font-size: 0.9em; color: #666; margin-bottom: 8px;">Suggested relationships:</p>
+                        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                            <span style="background: #f0f0f0; padding: 6px 12px; border-radius: 20px; font-size: 0.9em; cursor: pointer;">Pastor</span>
+                            <span style="background: #f0f0f0; padding: 6px 12px; border-radius: 20px; font-size: 0.9em; cursor: pointer;">Friend</span>
+                            <span style="background: #f0f0f0; padding: 6px 12px; border-radius: 20px; font-size: 0.9em; cursor: pointer;">Colleague</span>
+                            <span style="background: #f0f0f0; padding: 6px 12px; border-radius: 20px; font-size: 0.9em; cursor: pointer;">Mentor</span>
+                            <span style="background: #f0f0f0; padding: 6px 12px; border-radius: 20px; font-size: 0.9em; cursor: pointer;">Family Member</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Why We Verify -->
+            <div style="margin: 30px 0;">
+                <h4 style="font-size: 1.5em; margin-bottom: 20px; text-align: center;">Why We Verify</h4>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                    <div style="text-align: center; padding: 20px; background: #f8f9fa; border-radius: 8px;">
+                        <i class="fas fa-shield-alt" style="font-size: 2.5em; color: #d4af37; margin-bottom: 10px;"></i>
+                        <h5 style="font-size: 1.1em; margin-bottom: 10px;">Safety First</h5>
+                        <p style="color: #666; font-size: 0.95em;">Protecting our community from fraud and misrepresentation</p>
+                    </div>
+                    <div style="text-align: center; padding: 20px; background: #f8f9fa; border-radius: 8px;">
+                        <i class="fas fa-heart" style="font-size: 2.5em; color: #d4af37; margin-bottom: 10px;"></i>
+                        <h5 style="font-size: 1.1em; margin-bottom: 10px;">Serious Intent</h5>
+                        <p style="color: #666; font-size: 0.95em;">Ensuring all members are genuinely seeking meaningful relationships</p>
+                    </div>
+                    <div style="text-align: center; padding: 20px; background: #f8f9fa; border-radius: 8px;">
+                        <i class="fas fa-star" style="font-size: 2.5em; color: #d4af37; margin-bottom: 10px;"></i>
+                        <h5 style="font-size: 1.1em; margin-bottom: 10px;">Quality Matches</h5>
+                        <p style="color: #666; font-size: 0.95em;">Verified profiles lead to more authentic connections</p>
+                    </div>
+                    <div style="text-align: center; padding: 20px; background: #f8f9fa; border-radius: 8px;">
+                        <i class="fas fa-lock" style="font-size: 2.5em; color: #d4af37; margin-bottom: 10px;"></i>
+                        <h5 style="font-size: 1.1em; margin-bottom: 10px;">Confidentiality</h5>
+                        <p style="color: #666; font-size: 0.95em;">Your information is never shared publicly or sold</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 20px; padding: 20px; background: #e6f7ff; border-left: 4px solid #1890ff; border-radius: 4px;">
+                <strong>✨ Key Improvements:</strong>
+                <ul>
+                    <li>Trust-building header reduces anxiety</li>
+                    <li>Privacy assurance banner builds confidence</li>
+                    <li>Professional photo upload interface with guidelines</li>
+                    <li>Enhanced reference cards with relationship suggestions</li>
+                    <li>"Why We Verify" section explains value transparently</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Enhancement 3: Review Section -->
+        <div class="demo-section">
+            <h2 class="enhancement-title">3. Review Section</h2>
+            
+            <!-- Review Header -->
+            <div class="review-header" style="background: linear-gradient(135deg, #2c5282 0%, #1a365d 100%); color: white; padding: 30px; border-radius: 8px; margin-bottom: 30px;">
+                <h3 style="font-size: 2em; margin-bottom: 10px;">Review Your Application</h3>
+                <p style="font-size: 1.1em; opacity: 0.9;">Please review your information before submitting your application. You can edit any section by clicking the "Edit" button.</p>
+            </div>
+
+            <!-- Completion Indicator -->
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 30px;">
+                <div style="background: #f0f9ff; padding: 20px; border-radius: 8px; text-align: center; border: 2px solid #d4af37;">
+                    <div style="font-size: 2.5em; font-weight: bold; color: #2c5282; margin-bottom: 5px;">5</div>
+                    <div style="color: #666;">Sections Completed</div>
+                </div>
+                <div style="background: #f0f9ff; padding: 20px; border-radius: 8px; text-align: center; border: 2px solid #d4af37;">
+                    <div style="font-size: 2.5em; font-weight: bold; color: #2c5282; margin-bottom: 5px;">100%</div>
+                    <div style="color: #666;">Profile Complete</div>
+                </div>
+                <div style="background: #f0f9ff; padding: 20px; border-radius: 8px; text-align: center; border: 2px solid #d4af37;">
+                    <div style="font-size: 2.5em; font-weight: bold; color: #2c5282; margin-bottom: 5px;">1</div>
+                    <div style="color: #666;">Step to Submit</div>
+                </div>
+            </div>
+
+            <!-- Profile Highlights -->
+            <div style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); padding: 25px; border-radius: 8px; margin-bottom: 30px;">
+                <h4 style="font-size: 1.5em; margin-bottom: 20px; color: #92400e;">Profile Highlights</h4>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                    <div>
+                        <div style="font-weight: 600; color: #92400e; margin-bottom: 5px;">Name & Location</div>
+                        <div style="color: #78350f;">John Doe</div>
+                        <div style="color: #78350f; font-size: 0.9em;">New York, United States</div>
+                    </div>
+                    <div>
+                        <div style="font-weight: 600; color: #92400e; margin-bottom: 5px;">Occupation & Education</div>
+                        <div style="color: #78350f;">Software Engineer</div>
+                        <div style="color: #78350f; font-size: 0.9em;">Bachelor's Degree</div>
+                    </div>
+                    <div>
+                        <div style="font-weight: 600; color: #92400e; margin-bottom: 5px;">Top Values</div>
+                        <div style="color: #78350f;">Family, Integrity, Faith</div>
+                    </div>
+                    <div>
+                        <div style="font-weight: 600; color: #92400e; margin-bottom: 5px;">Relationship Goal</div>
+                        <div style="color: #78350f;">Long-term commitment</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Review Cards -->
+            <div style="margin-bottom: 20px;">
+                <div style="background: white; border: 1px solid #e0e0e0; border-radius: 8px; padding: 25px; margin-bottom: 20px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <div style="display: flex; align-items: center;">
+                            <i class="fas fa-user" style="font-size: 1.5em; color: #2c5282; margin-right: 10px;"></i>
+                            <h5 style="font-size: 1.3em; margin: 0;">Personal Information</h5>
+                        </div>
+                        <button style="background: #d4af37; color: white; padding: 8px 20px; border: none; border-radius: 4px; cursor: pointer;">Edit</button>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                        <div>
+                            <div style="font-weight: 600; color: #666; font-size: 0.9em; margin-bottom: 3px;">Full Name</div>
+                            <div>John Doe</div>
+                        </div>
+                        <div>
+                            <div style="font-weight: 600; color: #666; font-size: 0.9em; margin-bottom: 3px;">Date of Birth</div>
+                            <div>January 1, 1990</div>
+                        </div>
+                        <div>
+                            <div style="font-weight: 600; color: #666; font-size: 0.9em; margin-bottom: 3px;">Gender</div>
+                            <div>Male</div>
+                        </div>
+                        <div>
+                            <div style="font-weight: 600; color: #666; font-size: 0.9em; margin-bottom: 3px;">Email</div>
+                            <div>john.doe@example.com</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- What Happens Next -->
+            <div style="margin-top: 40px;">
+                <h4 style="font-size: 1.5em; margin-bottom: 25px; text-align: center;">What Happens Next</h4>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                    <div style="position: relative; padding: 20px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #d4af37;">
+                        <div style="background: #d4af37; color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-bottom: 10px;">1</div>
+                        <h5 style="font-size: 1.1em; margin-bottom: 8px;">Application Review</h5>
+                        <p style="color: #666; font-size: 0.95em;">Our team will review your application within 3-5 business days</p>
+                    </div>
+                    <div style="position: relative; padding: 20px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #d4af37;">
+                        <div style="background: #d4af37; color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-bottom: 10px;">2</div>
+                        <h5 style="font-size: 1.1em; margin-bottom: 8px;">Initial Interview</h5>
+                        <p style="color: #666; font-size: 0.95em;">If approved, we'll schedule a personal interview to get to know you better</p>
+                    </div>
+                    <div style="position: relative; padding: 20px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #d4af37;">
+                        <div style="background: #d4af37; color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-bottom: 10px;">3</div>
+                        <h5 style="font-size: 1.1em; margin-bottom: 8px;">Verification Process</h5>
+                        <p style="color: #666; font-size: 0.95em;">Complete background checks and reference verification</p>
+                    </div>
+                    <div style="position: relative; padding: 20px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #d4af37;">
+                        <div style="background: #d4af37; color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-bottom: 10px;">4</div>
+                        <h5 style="font-size: 1.1em; margin-bottom: 8px;">Begin Your Journey</h5>
+                        <p style="color: #666; font-size: 0.95em;">Start receiving thoughtfully curated introductions</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 20px; padding: 20px; background: #e6f7ff; border-left: 4px solid #1890ff; border-radius: 4px;">
+                <strong>✨ Key Improvements:</strong>
+                <ul>
+                    <li>Professional header celebrates completion</li>
+                    <li>Completion indicators create sense of achievement</li>
+                    <li>Profile highlights provide quick visual summary</li>
+                    <li>Enhanced review cards with easy edit buttons</li>
+                    <li>"What Happens Next" timeline reduces post-submission anxiety</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Summary -->
+        <div class="demo-section" style="background: linear-gradient(135deg, #2c5282 0%, #1a365d 100%); color: white;">
+            <h2 style="font-size: 2em; margin-bottom: 20px; text-align: center;">Summary of Enhancements</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 30px;">
+                <div>
+                    <h3 style="font-size: 1.5em; margin-bottom: 15px; color: #fde68a;">🎨 Homepage Hero</h3>
+                    <ul style="line-height: 1.8;">
+                        <li>International positioning (Paraguay-Europe)</li>
+                        <li>Legacy-focused messaging</li>
+                        <li>Artistic, emotional imagery</li>
+                        <li>Clear value proposition</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 style="font-size: 1.5em; margin-bottom: 15px; color: #fde68a;">🛡️ Verification Section</h3>
+                    <ul style="line-height: 1.8;">
+                        <li>Trust-building transparency</li>
+                        <li>Professional interface design</li>
+                        <li>Privacy assurance messaging</li>
+                        <li>Efficient, guided process</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 style="font-size: 1.5em; margin-bottom: 15px; color: #fde68a;">⭐ Review Section</h3>
+                    <ul style="line-height: 1.8;">
+                        <li>Beautiful information presentation</li>
+                        <li>Achievement celebration</li>
+                        <li>Easy editing capability</li>
+                        <li>Clear next steps timeline</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

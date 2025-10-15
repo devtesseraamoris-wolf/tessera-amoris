@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application | Tessera Amoris</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/application.css">
+    <link rel="stylesheet" href="css/enhanced-logo.css">
+    <link rel="stylesheet" href="css/sophisticated-forms.css">
+    <link rel="stylesheet" href="css/occupation-language-styles.css">
+    <link rel="stylesheet" href="css/values-preferences-styles.css">
+    <link rel="stylesheet" href="css/references-verification-styles.css">
+    <link rel="stylesheet" href="css/enhanced-form-elements.css">
+    <link rel="stylesheet" href="css/contact-fields-harmony.css">
+    <link rel="stylesheet" href="css/creative-occupation-selector.css">
+    <link rel="stylesheet" href="css/occupation-others-fix.css">
+    <link rel="stylesheet" href="css/elegant-languages-selector.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <div class="logo-text-container">
+                    <span class="logo-main-text">TESSERA AMORIS</span>
+                    <span class="logo-tagline">Where Hearts Unite by Shared Purpose</span>
+                </div>
+            </a>
+            <nav>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="index.html" class="nav-link">HOME</a></li>
+                    <li class="nav-item"><a href="index.html#our-vision" class="nav-link">OUR VISION</a></li>
+                    <li class="nav-item"><a href="index.html#our-process" class="nav-link">THE PROCESS</a></li>
+                    <li class="nav-item"><a href="index.html#who-we-serve" class="nav-link">WHO WE SERVE</a></li>
+                    <li class="nav-item"><a href="index.html#contact" class="nav-link">CONTACT</a></li>
+                </ul>
+            </nav>
+            <a href="application.html" class="btn apply-btn">APPLY</a>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Application Form -->
+    <div class="application-container">
+        <div class="application-header">
+            <h1 class="application-title">Begin Your Journey</h1>
+            <p class="application-subtitle">Complete this application to take the first step toward finding a relationship with purpose and building a lasting legacy.</p>
+        </div>
+        
+        <div class="progress-bar">
+            <div class="progress-step active" data-step="1">
+                <div class="step-number">1</div>
+                <div class="step-title">Personal</div>
+            </div>
+            <div class="progress-step" data-step="2">
+                <div class="step-number">2</div>
+                <div class="step-title">Faith & Values</div>
+            </div>
+            <div class="progress-step" data-step="3">
+                <div class="step-number">3</div>
+                <div class="step-title">Relationship</div>
+            </div>
+            <div class="progress-step" data-step="4">
+                <div class="step-number">4</div>
+                <div class="step-title">Verification</div>
+            </div>
+            <div class="progress-step" data-step="5">
+                <div class="step-number">5</div>
+                <div class="step-title">Review</div>
+            </div>
+        </div>
+        
+        <div class="form-content">
+            <!-- Personal Information Section -->
+            <div class="form-section active" data-section="1">
+                <div class="inspiration-reference">
+                    <p class="inspiration-text">"Every individual brings unique gifts and perspectives to a relationship. We celebrate the distinctive qualities that make you who you are."</p>
+                    <p class="inspiration-source">Tessera Amoris Values</p>
+                </div>
+                
+                <h2>Personal Information</h2>
+                <p>Please provide your basic information so we can get to know you better.</p>
+                
+                <div class="form-group">
+                    <label for="full-name" class="form-label">Full Name</label>
+                    <input type="text" id="full-name" class="form-input" required>
+                </div>
+                
+                <div class="sophisticated-field-group">
+                    <div class="sophisticated-field">
+                        <label class="sophisticated-label">Date of Birth</label>
+                        <div class="date-picker-container">
+                            <select id="birth-month" class="location-select date-select" required>
+                                <option value="">Month</option>
+                            </select>
+                            <select id="birth-day" class="location-select date-select" required>
+                                <option value="">Day</option>
+                            </select>
+                            <select id="birth-year" class="location-select date-select" required>
+                                <option value="">Year</option>
+                            </select>
+                        </div>
+                        <div class="field-description">We use this to ensure age-appropriate matching</div>
+                    </div>
+                    <div class="sophisticated-field">
+                        <label for="gender" class="sophisticated-label">Gender</label>
+                        <select id="gender" class="location-select" required>
+                            <option value="" selected disabled>Select your gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="contact-fields-row">
+                    <div class="contact-field-email">
+                        <div class="sophisticated-field">
+                            <label for="email" class="sophisticated-label">Email Address</label>
+                            <input type="email" id="email" class="form-input email-input-full" placeholder="your.email@example.com" required>
+                        </div>
+                    </div>
+                    <div class="contact-field-phone">
+                        <div class="sophisticated-field">
+                            <label for="phone" class="sophisticated-label">Phone Number</label>
+                            <div class="phone-input-harmonized">
+                                <select id="country-code" class="country-code-harmonized">
+                                    <option value="+1">+1</option>
+                                    <option value="+44">+44</option>
+                                    <option value="+49">+49</option>
+                                    <option value="+33">+33</option>
+                                    <option value="+34">+34</option>
+                                    <option value="+39">+39</option>
+                                    <option value="+55">+55</option>
+                                    <option value="+595">+595</option>
+                                </select>
+                                <input type="tel" id="phone" class="phone-number-harmonized" placeholder="123-456-7890" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="location-selector-container">
+                    <div class="location-row">
+                        <div class="location-field">
+                            <label for="country" class="sophisticated-label">Country of Residence</label>
+                            <select id="country" class="location-select" required>
+                                <option value="">Select your country</option>
+                            </select>
+                            <div class="field-description">Select the country where you currently reside</div>
+                        </div>
+                        <div class="location-field">
+                            <label for="state" class="sophisticated-label">State/Province</label>
+                            <select id="state" class="location-select" disabled required>
+                                <option value="">Select your state/province</option>
+                            </select>
+                            <div class="field-description">Choose your state or province</div>
+                        </div>
+                        <div class="location-field">
+                            <label for="city" class="sophisticated-label">City</label>
+                            <select id="city" class="location-select" disabled required>
+                                <option value="">Select your city</option>
+                            </select>
+                            <div class="field-description">Choose your city or select "Other" to specify</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group" id="custom-city-group" style="display: none;">
+                    <div class="sophisticated-field">
+                        <label for="custom-city" class="sophisticated-label">Custom City</label>
+                        <input type="text" id="custom-city" class="form-input" placeholder="Enter your city name">
+                        <div class="field-description">Please specify your city if not listed above</div>
+                    </div>
+                </div>
+                
+                <div class="sophisticated-field">
+                    <label for="nationality" class="sophisticated-label">Nationality</label>
+                    <input type="text" id="nationality" class="form-input" placeholder="e.g., American, Brazilian, German" required>
+                    <div class="field-description">Your nationality or citizenship</div>
+                </div>
+                
+                <div class="sophisticated-field-group">
+                    <div class="sophisticated-field">
+                        <label for="occupation" class="sophisticated-label">Occupation</label>
+                        <div class="occupation-selector-container">
+                            <div class="occupation-search-box">
+                                <input type="text" id="occupation-search" class="occupation-search-input" placeholder="Start typing your profession..." autocomplete="off">
+                                <i class="fas fa-search occupation-search-icon"></i>
+                            </div>
+                            <div class="occupation-categories" id="occupation-categories">
+                                <div class="occupation-category" data-category="business">
+                                    <i class="fas fa-briefcase"></i>
+                                    <span>Business & Finance</span>
+                                </div>
+                                <div class="occupation-category" data-category="healthcare">
+                                    <i class="fas fa-user-md"></i>
+                                    <span>Healthcare</span>
+                                </div>
+                                <div class="occupation-category" data-category="technology">
+                                    <i class="fas fa-laptop-code"></i>
+                                    <span>Technology</span>
+                                </div>
+                                <div class="occupation-category" data-category="education">
+                                    <i class="fas fa-graduation-cap"></i>
+                                    <span>Education</span>
+                                </div>
+                                <div class="occupation-category" data-category="legal">
+                                    <i class="fas fa-balance-scale"></i>
+                                    <span>Legal</span>
+                                </div>
+                                <div class="occupation-category" data-category="creative">
+                                    <i class="fas fa-palette"></i>
+                                    <span>Creative Arts</span>
+                                </div>
+                                <div class="occupation-category" data-category="engineering">
+                                    <i class="fas fa-cogs"></i>
+                                    <span>Engineering</span>
+                                </div>
+                                <div class="occupation-category" data-category="others">
+                                    <i class="fas fa-ellipsis-h"></i>
+                                    <span>Others</span>
+                                </div>
+                            </div>
+                            <div class="occupation-suggestions" id="occupation-suggestions" style="display: none;"></div>
+                            <input type="hidden" id="occupation" name="occupation" required>
+                        </div>
+                        <div class="field-description">Choose your profession category or search for specific roles</div>
+                    </div>
+                    <div class="sophisticated-field">
+                        <label for="education" class="sophisticated-label">Highest Level of Education</label>
+                        <select id="education" class="location-select" required>
+                            <option value="" selected disabled>Select your education level</option>
+                            <option value="High School">High School</option>
+                            <option value="Associate's Degree">Associate's Degree</option>
+                            <option value="Bachelor's Degree">Bachelor's Degree</option>
+                            <option value="Master's Degree">Master's Degree</option>
+                            <option value="Doctorate">Doctorate</option>
+                            <option value="Professional Degree">Professional Degree</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <div class="field-description">Your highest completed level of formal education</div>
+                    </div>
+                </div>
+                
+                <div class="sophisticated-field">
+                    <label for="languages" class="sophisticated-label">Languages Spoken</label>
+                    <div class="elegant-languages-selector">
+                        <div class="selected-languages-container">
+                            <div class="selected-languages-tags"></div>
+                            <input type="text" id="languages-search" class="languages-search-input" placeholder="Type to add languages..." autocomplete="off">
+                        </div>
+                        <div class="languages-suggestions" id="languages-suggestions"></div>
+                        <input type="hidden" id="languages" name="languages" required>
+                    </div>
+                    <div class="field-description">Select all languages you speak fluently</div>
+                </div>
+            </div>
+            
+            <!-- Faith & Values Section -->
+            <div class="form-section" data-section="2">
+                <div class="inspiration-reference">
+                    <p class="inspiration-text">"Shared values and mutual respect form the foundation of lasting relationships, regardless of specific beliefs or traditions."</p>
+                    <p class="inspiration-source">Tessera Amoris Philosophy</p>
+                </div>
+                
+                <h2>Values & Beliefs</h2>
+                <p>Please share your spiritual journey and the values that guide your life.</p>
+                
+                <div class="form-group">
+                    <label for="faith-tradition" class="form-label">Faith/Spiritual Tradition</label>
+                    <select id="faith-tradition" class="form-select">
+                        <option value="" selected disabled>Select your tradition</option>
+                        <option value="Catholic">Catholic</option>
+                        <option value="Protestant">Protestant</option>
+                        <option value="Orthodox">Orthodox</option>
+                        <option value="Evangelical">Evangelical</option>
+                        <option value="Other Christian">Other Christian</option>
+                        <option value="Jewish">Jewish</option>
+                        <option value="Muslim">Muslim</option>
+                        <option value="Hindu">Hindu</option>
+                        <option value="Buddhist">Buddhist</option>
+                        <option value="Other">Other</option>
+                        <option value="Spiritual but not religious">Spiritual but not religious</option>
+                        <option value="Prefer not to answer">Prefer not to answer</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="faith-custom" class="form-label">If "Other", please specify (optional)</label>
+                    <input type="text" id="faith-custom" class="form-input" placeholder="Please describe your spiritual tradition">
+                </div>
+                
+                <div class="form-group">
+                    <label for="community-involvement" class="form-label">Religious/Spiritual Community Involvement</label>
+                    <select id="community-involvement" class="form-select">
+                        <option value="" selected disabled>Select your level of involvement</option>
+                        <option value="Very active">Very active</option>
+                        <option value="Regularly participate">Regularly participate</option>
+                        <option value="Occasionally participate">Occasionally participate</option>
+                        <option value="Rarely participate">Rarely participate</option>
+                        <option value="Not currently involved">Not currently involved</option>
+                        <option value="Prefer not to answer">Prefer not to answer</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="values-importance" class="form-label">Importance of Shared Values in Your Life</label>
+                    <select id="values-importance" class="form-select" required>
+                        <option value="" selected disabled>Select importance level</option>
+                        <option value="Central to my identity">Central to my identity</option>
+                        <option value="Very important">Very important</option>
+                        <option value="Important">Important</option>
+                        <option value="Somewhat important">Somewhat important</option>
+                        <option value="Not very important">Not very important</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="values-journey" class="form-label">Briefly describe your values and what guides your life decisions (optional)</label>
+                    <textarea id="values-journey" class="form-textarea" rows="4" placeholder="Share what's important to you in life and relationships..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Which values are most important to you? (Select up to 5)</label>
+                    <div class="value-tags">
+                        <span class="value-tag" data-value="family">Family</span>
+                        <span class="value-tag" data-value="faith">Faith</span>
+                        <span class="value-tag" data-value="integrity">Integrity</span>
+                        <span class="value-tag" data-value="commitment">Commitment</span>
+                        <span class="value-tag" data-value="respect">Respect</span>
+                        <span class="value-tag" data-value="honesty">Honesty</span>
+                        <span class="value-tag" data-value="loyalty">Loyalty</span>
+                        <span class="value-tag" data-value="service">Service</span>
+                        <span class="value-tag" data-value="generosity">Generosity</span>
+                        <span class="value-tag" data-value="humility">Humility</span>
+                        <span class="value-tag" data-value="wisdom">Wisdom</span>
+                        <span class="value-tag" data-value="courage">Courage</span>
+                    </div>
+                    <div class="hidden">
+                        <input type="checkbox" name="values[]" value="family" class="value-input">
+                        <input type="checkbox" name="values[]" value="faith" class="value-input">
+                        <input type="checkbox" name="values[]" value="integrity" class="value-input">
+                        <input type="checkbox" name="values[]" value="commitment" class="value-input">
+                        <input type="checkbox" name="values[]" value="respect" class="value-input">
+                        <input type="checkbox" name="values[]" value="honesty" class="value-input">
+                        <input type="checkbox" name="values[]" value="loyalty" class="value-input">
+                        <input type="checkbox" name="values[]" value="service" class="value-input">
+                        <input type="checkbox" name="values[]" value="generosity" class="value-input">
+                        <input type="checkbox" name="values[]" value="humility" class="value-input">
+                        <input type="checkbox" name="values[]" value="wisdom" class="value-input">
+                        <input type="checkbox" name="values[]" value="courage" class="value-input">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="family-vision" class="form-label">What is your vision for family life?</label>
+                    <textarea id="family-vision" class="form-textarea" rows="4" required></textarea>
+                </div>
+            </div>
+            
+            <!-- Relationship Section -->
+            <div class="form-section" data-section="3">
+                <div class="inspiration-reference">
+                    <p class="inspiration-text">"True partnership is built on mutual respect, shared dreams, and the courage to build a life together."</p>
+                    <p class="inspiration-source">Tessera Amoris Philosophy</p>
+                </div>
+                
+                <h2>Relationship Preferences</h2>
+                <p>Please share your preferences and expectations for a potential partner.</p>
+                
+                <div class="form-group">
+                    <label for="relationship-goal" class="form-label">What is your primary goal in seeking a relationship?</label>
+                    <select id="relationship-goal" class="form-select" required>
+                        <option value="" selected disabled>Select your goal</option>
+                        <option value="Marriage and family">Marriage and family</option>
+                        <option value="Long-term commitment">Long-term commitment</option>
+                        <option value="Companionship">Companionship</option>
+                        <option value="Exploring compatibility">Exploring compatibility</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="previous-marriage" class="form-label">Have you been previously married?</label>
+                    <select id="previous-marriage" class="form-select" required>
+                        <option value="" selected disabled>Select an option</option>
+                        <option value="No">No</option>
+                        <option value="Yes, divorced">Yes, divorced</option>
+                        <option value="Yes, widowed">Yes, widowed</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="have-children" class="form-label">Do you have children?</label>
+                    <select id="have-children" class="form-select" required>
+                        <option value="" selected disabled>Select an option</option>
+                        <option value="No">No</option>
+                        <option value="Yes, living with me">Yes, living with me</option>
+                        <option value="Yes, not living with me">Yes, not living with me</option>
+                        <option value="Yes, adult children">Yes, adult children</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="want-children" class="form-label">Do you want (more) children?</label>
+                    <select id="want-children" class="form-select" required>
+                        <option value="" selected disabled>Select an option</option>
+                        <option value="Yes, definitely">Yes, definitely</option>
+                        <option value="Open to children">Open to children</option>
+                        <option value="Undecided">Undecided</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="partner-age-range" class="form-label">Preferred age range for a partner</label>
+                    <select id="partner-age-range" class="form-select" required>
+                        <option value="" selected disabled>Select age range</option>
+                        <option value="20-30">20-30</option>
+                        <option value="25-35">25-35</option>
+                        <option value="30-40">30-40</option>
+                        <option value="35-45">35-45</option>
+                        <option value="40-50">40-50</option>
+                        <option value="45-55">45-55</option>
+                        <option value="50-60">50-60</option>
+                        <option value="55-65">55-65</option>
+                        <option value="60-70">60-70</option>
+                        <option value="No preference">No preference</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="partner-location" class="form-label">Preferred location for a partner</label>
+                    <select id="partner-location" class="form-select" required>
+                        <option value="" selected disabled>Select location preference</option>
+                        <option value="Same country">Same country</option>
+                        <option value="Same continent">Same continent</option>
+                        <option value="Paraguay">Paraguay</option>
+                        <option value="Europe">Europe</option>
+                        <option value="No preference">No preference</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="relocation" class="form-label">Would you be willing to relocate for the right relationship?</label>
+                    <select id="relocation" class="form-select" required>
+                        <option value="" selected disabled>Select an option</option>
+                        <option value="Yes, anywhere">Yes, anywhere</option>
+                        <option value="Yes, within my continent">Yes, within my continent</option>
+                        <option value="Yes, to specific countries">Yes, to specific countries</option>
+                        <option value="No, partner must relocate">No, partner must relocate</option>
+                        <option value="No, looking for someone local">No, looking for someone local</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="partner-qualities" class="form-label">What qualities are most important to you in a partner?</label>
+                    <textarea id="partner-qualities" class="form-textarea" rows="4" required></textarea>
+                </div>
+            </div>
+            
+            <!-- Verification Section -->
+            <div class="form-section" data-section="4">
+                <div class="inspiration-reference">
+                    <p class="inspiration-text">"Trust is built through transparency and genuine connections. We create a safe space for authentic relationships to flourish."</p>
+                    <p class="inspiration-source">Tessera Amoris Community Standards</p>
+                </div>
+                
+                <h2>Photos & Verification</h2>
+                <p>Help us get to know you better by sharing some photos. Additional verification steps will be completed later in the process.</p>
+                
+                <div class="form-group">
+                    <label class="form-label">Recent Photos</label>
+                    <p class="form-text" id="photo-requirements">Please upload 1-2 recent photos of yourself (taken within the last 6 months)</p>
+                    <div class="file-upload">
+                        <i class="fas fa-images file-upload-icon"></i>
+                        <p class="file-upload-text">Drag and drop your photos here, or click to browse</p>
+                        <button type="button" class="file-upload-btn">Browse Files</button>
+                        <input type="file" class="file-upload-input" accept="image/*" multiple required>
+                    </div>
+                    <div class="file-preview"></div>
+                    <p class="form-note"><small>Note: Photo requirements may vary based on your preferences. Additional verification documents will be requested during the matching process.</small></p>
+                </div>
+                
+                <div class="form-group">
+                    <label for="reference-name-1" class="form-label">Character Reference #1</label>
+                    <div class="form-row">
+                        <div class="form-col-6">
+                            <div class="form-group">
+                                <label for="reference-name-1" class="form-label">Name</label>
+                                <input type="text" id="reference-name-1" class="form-input" required>
+                            </div>
+                        </div>
+                        <div class="form-col-6">
+                            <div class="form-group">
+                                <label for="reference-relationship-1" class="form-label">Relationship</label>
+                                <input type="text" id="reference-relationship-1" class="form-input" placeholder="e.g., Pastor, Friend, Colleague" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-col-6">
+                            <div class="form-group">
+                                <label for="reference-email-1" class="form-label">Email</label>
+                                <input type="email" id="reference-email-1" class="form-input" required>
+                            </div>
+                        </div>
+                        <div class="form-col-6">
+                            <div class="form-group">
+                                <label for="reference-phone-1" class="form-label">Phone</label>
+                                <input type="tel" id="reference-phone-1" class="form-input" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="reference-name-2" class="form-label">Character Reference #2</label>
+                    <div class="form-row">
+                        <div class="form-col-6">
+                            <div class="form-group">
+                                <label for="reference-name-2" class="form-label">Name</label>
+                                <input type="text" id="reference-name-2" class="form-input" required>
+                            </div>
+                        </div>
+                        <div class="form-col-6">
+                            <div class="form-group">
+                                <label for="reference-relationship-2" class="form-label">Relationship</label>
+                                <input type="text" id="reference-relationship-2" class="form-input" placeholder="e.g., Pastor, Friend, Colleague" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-col-6">
+                            <div class="form-group">
+                                <label for="reference-email-2" class="form-label">Email</label>
+                                <input type="email" id="reference-email-2" class="form-input" required>
+                            </div>
+                        </div>
+                        <div class="form-col-6">
+                            <div class="form-group">
+                                <label for="reference-phone-2" class="form-label">Phone</label>
+                                <input type="tel" id="reference-phone-2" class="form-input" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Background Check Authorization</label>
+                    <div class="form-check">
+                        <input type="checkbox" id="background-check" class="form-check-input" required>
+                        <label for="background-check" class="form-check-label">I authorize Tessera Amoris to conduct a background check to verify my identity and ensure the safety of the community.</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Review Section -->
+            <div class="form-section" data-section="5">
+                <div class="inspiration-reference">
+                    <p class="inspiration-text">"Excellence is achieved through careful attention to detail and thoughtful preparation."</p>
+                    <p class="inspiration-source">Tessera Amoris Standards</p>
+                </div>
+                
+                <h2>Review Your Application</h2>
+                <p>Please review your information before submitting your application.</p>
+                
+                <div class="review-section">
+                    <div class="review-group">
+                        <h3 class="review-title">Personal Information</h3>
+                        <div class="review-item">
+                            <div class="review-label">Full Name:</div>
+                            <div class="review-value" id="review-full-name">John Doe</div>
+                        </div>
+                        <div class="review-item">
+                            <div class="review-label">Date of Birth:</div>
+                            <div class="review-value" id="review-date-of-birth">January 1, 1980</div>
+                        </div>
+                        <div class="review-item">
+                            <div class="review-label">Gender:</div>
+                            <div class="review-value" id="review-gender">Male</div>
+                        </div>
+                        <div class="review-item">
+                            <div class="review-label">Email:</div>
+                            <div class="review-value" id="review-email">john.doe@example.com</div>
+                        </div>
+                        <div class="review-item">
+                            <div class="review-label">Phone:</div>
+                            <div class="review-value" id="review-phone">+1 123-456-7890</div>
+                        </div>
+                        <div class="review-item">
+                            <div class="review-label">Country:</div>
+                            <div class="review-value" id="review-country">United States</div>
+                        </div>
+                        <div class="review-item">
+                            <div class="review-label">City:</div>
+                            <div class="review-value" id="review-city">New York</div>
+                        </div>
+                        <div class="review-item">
+                            <div class="review-label">Nationality:</div>
+                            <div class="review-value" id="review-nationality">American</div>
+                        </div>
+                        <div class="review-item">
+                            <div class="review-label">Occupation:</div>
+                            <div class="review-value" id="review-occupation">Software Engineer</div>
+                        </div>
+                        <div class="review-item">
+                            <div class="review-label">Education:</div>
+                            <div class="review-value" id="review-education">Bachelor's Degree</div>
+                        </div>
+                        <div class="review-item">
+                            <div class="review-label">Languages:</div>
+                            <div class="review-value" id="review-languages">English, Spanish</div>
+                        </div>
+                    </div>
+                    
+                    <div class="review-group">
+                        <h3 class="review-title">Faith & Values</h3>
+                        <div class="review-item">
+                            <div class="review-label">Faith Tradition:</div>
+                            <div class="review-value" id="review-faith-tradition">Protestant</div>
+                        </div>
+                        <div class="review-item">
+                            <div class="review-label">Church Involvement:</div>
+                            <div class="review-value" id="review-church-involvement">Attend weekly</div>
+                        </div>
+                        <div class="review-item">
+                            <div class="review-label">Faith Importance:</div>
+                            <div class="review-value" id="review-faith-importance">Very important</div>
+                        </div>
+                        <div class="review-item">
+                            <div class="review-label">Faith Journey:</div>
+                            <div class="review-value" id="review-faith-journey">I grew up in a Christian home and have been actively involved in church ministry for the past 10 years.</div>
+                        </div>
+                        <div class="review-item">
+                            <div class="review-label">Key Values:</div>
+                            <div class="review-value" id="review-values">Faith, Family, Integrity, Commitment, Respect</div>
+                        </div>
+                        <div class="review-item">
+                            <div class="review-label">Family Vision:</div>
+                            <div class="review-value" id="review-family-vision">I envision a Christ-centered home where faith is lived out daily and children are raised to know and love God.</div>
+                        </div>
+                    </div>
+                    
+                    <div class="review-group">
+                        <h3 class="review-title">Relationship Preferences</h3>
+                        <div class="review-item">
+                            <div class="review-label">Relationship Goal:</div>
+                            <div class="review-value" id="review-relationship-goal">Marriage and family</div>
+                        </div>
+                        <div class="review-item">
+                            <div class="review-label">Previously Married:</div>
+                            <div class="review-value" id="review-previous-marriage">No</div>
+                        </div>
+                        <div class="review-item">
+                            <div class="review-label">Have Children:</div>
+                            <div class="review-value" id="review-have-children">No</div>
+                        </div>
+                        <div class="review-item">
+                            <div class="review-label">Want Children:</div>
+                            <div class="review-value" id="review-want-children">Yes, definitely</div>
+                        </div>
+                        <div class="review-item">
+                            <div class="review-label">Partner Age Range:</div>
+                            <div class="review-value" id="review-partner-age-range">25-35</div>
+                        </div>
+                        <div class="review-item">
+                            <div class="review-label">Partner Location:</div>
+                            <div class="review-value" id="review-partner-location">Europe</div>
+                        </div>
+                        <div class="review-item">
+                            <div class="review-label">Willing to Relocate:</div>
+                            <div class="review-value" id="review-relocation">Yes, to specific countries</div>
+                        </div>
+                        <div class="review-item">
+                            <div class="review-label">Partner Qualities:</div>
+                            <div class="review-value" id="review-partner-qualities">I'm looking for someone who shares my faith, values family, has a kind heart, and is committed to growing together in Christ.</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input type="checkbox" id="terms-agreement" class="form-check-input" required>
+                            <label for="terms-agreement" class="form-check-label">I confirm that all information provided is accurate and complete. I understand that any misrepresentation may result in the termination of my membership.</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input type="checkbox" id="privacy-agreement" class="form-check-input" required>
+                            <label for="privacy-agreement" class="form-check-label">I have read and agree to the <a href="privacy-policy.html" target="_blank">Privacy Policy</a> and <a href="terms-of-service.html" target="_blank">Terms of Service</a>.</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Success Message -->
+            <div class="success-message">
+                <i class="fas fa-check-circle success-icon"></i>
+                <h2 class="success-title">Application Submitted Successfully!</h2>
+                <p class="success-text">Thank you for taking the first step toward finding a relationship with purpose. Our team will review your application and contact you within 3-5 business days to schedule an initial interview.</p>
+                <a href="index.html" class="btn">Return to Homepage</a>
+            </div>
+        </div>
+        
+        <div class="form-navigation">
+            <button type="button" class="btn-prev">Previous</button>
+            <button type="button" class="btn-next">Continue</button>
+            <button type="button" class="btn-submit" style="display: none;">Submit Application</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-logo">
+                        <img src="images/logo_text_horizontal.png" alt="Tessera Amoris">
+                    </div>
+                    <p class="footer-about">Tessera Amoris is a premium matchmaking agency connecting purpose-driven individuals from Paraguay and Europe who seek to build meaningful relationships and lasting legacies.</p>
+                </div>
+                <div>
+                    <h4 class="footer-title">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="index.html">Home</a></li>
+                        <li class="footer-link"><a href="our-vision.html">Our Vision</a></li>
+                        <li class="footer-link"><a href="the-process.html">The Process</a></li>
+                        <li class="footer-link"><a href="who-we-serve.html">Who We Serve</a></li>
+                        <li class="footer-link"><a href="resources.html">Resources</a></li>
+                        <li class="footer-link"><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-title">Contact Us</h4>
+                    <div class="footer-contact-item">
+                        <i class="fas fa-envelope footer-contact-icon"></i>
+                        <div>info@tesseraamoris.com</div>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fas fa-phone footer-contact-icon"></i>
+                        <div>+595 XXX XXX XXX</div>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fas fa-map-marker-alt footer-contact-icon"></i>
+                        <div>Asunción, Paraguay</div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Tessera Amoris. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/comprehensive-city-database.js"></script>
+    <script src="js/creative-occupation-selector.js"></script>
+    <script src="js/elegant-languages-selector.js"></script>
+    <script src="js/fixed-forms.js"></script>
+    <script src="js/application-fixed.js"></script>
+</html>

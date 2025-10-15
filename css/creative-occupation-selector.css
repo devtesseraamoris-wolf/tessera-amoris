@@ -1,0 +1,242 @@
+/* Creative Occupation Selector Styles */
+
+.occupation-selector-container {
+    width: 100%;
+    position: relative;
+}
+
+.occupation-search-box {
+    position: relative;
+    margin-bottom: 16px;
+}
+
+.occupation-search-input {
+    width: 100%;
+    padding: 12px 45px 12px 16px;
+    border: 2px solid #e1e5e9;
+    border-radius: 8px;
+    font-size: 16px;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #ffffff;
+    color: #2c3e50;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.occupation-search-input:focus {
+    outline: none;
+    border-color: #d4af37;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+}
+
+.occupation-search-icon {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #7f8c8d;
+    font-size: 16px;
+}
+
+.occupation-categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.occupation-category {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    border: 2px solid #e1e5e9;
+    border-radius: 8px;
+    background-color: #ffffff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    color: #2c3e50;
+}
+
+.occupation-category:hover {
+    border-color: #d4af37;
+    background-color: #fefcf7;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.15);
+}
+
+.occupation-category.selected {
+    border-color: #d4af37;
+    background-color: #d4af37;
+    color: #ffffff;
+}
+
+.occupation-category i {
+    font-size: 20px;
+    width: 24px;
+    text-align: center;
+}
+
+.occupation-category span {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.occupation-suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #ffffff;
+    border: 2px solid #e1e5e9;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.occupation-suggestion {
+    padding: 12px 16px;
+    cursor: pointer;
+    border-bottom: 1px solid #f8f9fa;
+    font-family: 'Montserrat', sans-serif;
+    color: #2c3e50;
+    transition: background-color 0.2s ease;
+}
+
+.occupation-suggestion:hover {
+    background-color: #f8f9fa;
+}
+
+.occupation-suggestion:last-child {
+    border-bottom: none;
+}
+
+.occupation-suggestion.highlighted {
+    background-color: #d4af37;
+    color: #ffffff;
+}
+
+/* Selected occupation display */
+.selected-occupation {
+    display: none;
+    padding: 12px 16px;
+    background-color: #f8f9fa;
+    border: 2px solid #d4af37;
+    border-radius: 8px;
+    margin-top: 12px;
+    font-family: 'Montserrat', sans-serif;
+    color: #2c3e50;
+    position: relative;
+}
+
+.selected-occupation.show {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.selected-occupation-text {
+    font-weight: 600;
+}
+
+.selected-occupation-remove {
+    background: none;
+    border: none;
+    color: #e74c3c;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+}
+
+.selected-occupation-remove:hover {
+    background-color: #e74c3c;
+    color: #ffffff;
+}
+
+/* Others category special styling */
+.occupation-category[data-category="others"] {
+    border-style: dashed;
+    border-color: #95a5a6;
+}
+
+.occupation-category[data-category="others"]:hover {
+    border-color: #d4af37;
+    border-style: solid;
+}
+
+/* Custom occupation input for Others */
+.custom-occupation-input {
+    display: none;
+    margin-top: 12px;
+}
+
+.custom-occupation-input.show {
+    display: block;
+}
+
+.custom-occupation-input input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e1e5e9;
+    border-radius: 8px;
+    font-size: 16px;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #ffffff;
+    color: #2c3e50;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.custom-occupation-input input:focus {
+    outline: none;
+    border-color: #d4af37;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .occupation-categories {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 8px;
+    }
+    
+    .occupation-category {
+        padding: 12px;
+        gap: 8px;
+    }
+    
+    .occupation-category i {
+        font-size: 18px;
+    }
+    
+    .occupation-category span {
+        font-size: 12px;
+    }
+    
+    .occupation-search-input {
+        font-size: 14px;
+        padding: 10px 40px 10px 14px;
+    }
+}
+
+/* Animation for category selection */
+@keyframes categorySelect {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.95); }
+    100% { transform: scale(1); }
+}
+
+.occupation-category.selecting {
+    animation: categorySelect 0.2s ease;
+}

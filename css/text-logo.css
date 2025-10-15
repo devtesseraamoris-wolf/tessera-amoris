@@ -1,0 +1,60 @@
+/* Text Logo Styles */
+.logo-text {
+    font-family: 'Garamond', 'Times New Roman', serif;
+    font-size: 28px;
+    font-weight: 600;
+    color: #d4af37;
+    text-decoration: none;
+    letter-spacing: 1px;
+    display: inline-block;
+    padding: 5px 0;
+    position: relative;
+    transition: all 0.3s ease;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.logo-text:hover {
+    color: #e5c158;
+    transform: scale(1.02);
+}
+
+.logo-text:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #d4af37;
+    transition: width 0.3s ease;
+}
+
+.logo-text:hover:after {
+    width: 100%;
+}
+
+/* Footer logo text */
+.footer-logo .logo-text {
+    font-size: 24px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .logo-text {
+        font-size: 24px;
+    }
+    
+    .footer-logo .logo-text {
+        font-size: 22px;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo-text {
+        font-size: 22px;
+    }
+    
+    .footer-logo .logo-text {
+        font-size: 20px;
+    }
+}

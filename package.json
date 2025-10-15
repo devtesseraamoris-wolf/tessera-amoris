@@ -1,0 +1,26 @@
+{
+  "name": "tessera-amoris",
+  "version": "1.0.0",
+  "description": "Tessera Amoris - Where Continents Connect, Legacies Begin",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "echo 'Static site - no build needed'",
+    "deploy": "vercel --prod"
+  },
+  "keywords": [
+    "matchmaking",
+    "international",
+    "paraguay",
+    "europe"
+  ],
+  "author": "Tessera Amoris",
+  "license": "MIT",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.0"
+  },
+  "devDependencies": {
+    "vercel": "^33.0.0"
+  }
+}
+

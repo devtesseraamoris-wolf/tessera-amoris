@@ -1,0 +1,549 @@
+/* Sophisticated Values Selection and Partner Preferences Styles */
+
+/* Values Selector Styles */
+.sophisticated-values-selector {
+    background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 24px;
+    margin: 20px 0;
+}
+
+.values-header {
+    text-align: center;
+    margin-bottom: 24px;
+    transition: all 0.3s ease;
+}
+
+.values-header h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    color: #2d3748;
+    margin-bottom: 8px;
+}
+
+.values-header p {
+    color: #718096;
+    font-size: 14px;
+    margin-bottom: 16px;
+}
+
+.selection-counter {
+    display: inline-block;
+    background: linear-gradient(135deg, #d4af37, #b8941f);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.values-header.limit-reached .selection-counter {
+    background: linear-gradient(135deg, #38a169, #2f855a);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    margin-top: 24px;
+}
+
+.value-card {
+    background: white;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.value-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.value-card:hover::before {
+    left: 100%;
+}
+
+.value-card:hover {
+    border-color: #d4af37;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.2);
+}
+
+.value-card.selected {
+    border-color: #d4af37;
+    background: linear-gradient(135deg, #fffbf0, #ffffff);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+}
+
+.value-icon {
+    font-size: 32px;
+    text-align: center;
+    margin-bottom: 12px;
+    filter: grayscale(100%);
+    transition: all 0.3s ease;
+}
+
+.value-card.selected .value-icon,
+.value-card:hover .value-icon {
+    filter: grayscale(0%);
+    transform: scale(1.1);
+}
+
+.value-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: #2d3748;
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.value-description {
+    font-size: 13px;
+    color: #718096;
+    text-align: center;
+    line-height: 1.4;
+}
+
+.selection-indicator {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #e2e8f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    opacity: 0;
+}
+
+.value-card.selected .selection-indicator {
+    background: linear-gradient(135deg, #d4af37, #b8941f);
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.checkmark {
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.limit-message {
+    background: #fed7d7;
+    color: #c53030;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 12px;
+    margin-top: 12px;
+    animation: slideDown 0.3s ease;
+}
+
+/* Partner Preferences Styles */
+.sophisticated-partner-preferences {
+    background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 24px;
+    margin: 20px 0;
+}
+
+.preference-section {
+    margin-bottom: 32px;
+}
+
+.preference-section:last-child {
+    margin-bottom: 0;
+}
+
+.preference-section h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    color: #2d3748;
+    margin-bottom: 8px;
+}
+
+.preference-section p {
+    color: #718096;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+/* Location Preferences */
+.location-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.location-option {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+.location-option:hover {
+    border-color: #d4af37;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.1);
+}
+
+.location-option.selected {
+    border-color: #d4af37;
+    background: linear-gradient(135deg, #fffbf0, #ffffff);
+    box-shadow: 0 2px 8px rgba(212, 175, 55, 0.2);
+}
+
+.option-icon {
+    font-size: 24px;
+    margin-right: 12px;
+    filter: grayscale(100%);
+    transition: filter 0.3s ease;
+}
+
+.location-option.selected .option-icon,
+.location-option:hover .option-icon {
+    filter: grayscale(0%);
+}
+
+.option-content {
+    flex: 1;
+}
+
+.option-title {
+    font-weight: 600;
+    color: #2d3748;
+    margin-bottom: 4px;
+}
+
+.option-description {
+    font-size: 13px;
+    color: #718096;
+}
+
+/* Relocation Preferences */
+.relocation-preference {
+    margin-top: 24px;
+}
+
+.preference-label {
+    display: block;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: #2d3748;
+    margin-bottom: 12px;
+}
+
+.relocation-options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.radio-option {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+}
+
+.radio-option:hover {
+    background: #f7fafc;
+}
+
+.radio-option input[type="radio"] {
+    display: none;
+}
+
+.radio-custom {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #e2e8f0;
+    border-radius: 50%;
+    margin-right: 12px;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.radio-option input[type="radio"]:checked + .radio-custom {
+    border-color: #d4af37;
+    background: #d4af37;
+}
+
+.radio-option input[type="radio"]:checked + .radio-custom::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 6px;
+    height: 6px;
+    background: white;
+    border-radius: 50%;
+}
+
+.radio-text {
+    font-size: 14px;
+    color: #2d3748;
+}
+
+/* Age Range Selector */
+.age-range-container {
+    background: white;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.age-inputs {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.age-input-group {
+    text-align: center;
+}
+
+.age-input-group label {
+    display: block;
+    font-size: 12px;
+    color: #718096;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.age-input {
+    width: 60px;
+    padding: 8px;
+    border: 2px solid #e2e8f0;
+    border-radius: 6px;
+    text-align: center;
+    font-weight: 600;
+    color: #2d3748;
+    transition: border-color 0.3s ease;
+}
+
+.age-input:focus {
+    outline: none;
+    border-color: #d4af37;
+}
+
+.age-range-display {
+    flex: 1;
+    text-align: center;
+    margin: 0 20px;
+}
+
+.age-range-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: #d4af37;
+    background: linear-gradient(135deg, #fffbf0, #ffffff);
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: 1px solid #d4af37;
+}
+
+.age-slider-container {
+    position: relative;
+    height: 40px;
+}
+
+.age-slider {
+    position: absolute;
+    width: 100%;
+    height: 6px;
+    border-radius: 3px;
+    background: #e2e8f0;
+    outline: none;
+    appearance: none;
+    cursor: pointer;
+}
+
+.age-slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #d4af37, #b8941f);
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(212, 175, 55, 0.3);
+    transition: all 0.3s ease;
+}
+
+.age-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
+}
+
+.age-slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #d4af37, #b8941f);
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 6px rgba(212, 175, 55, 0.3);
+}
+
+/* Lifestyle Preferences */
+.lifestyle-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+}
+
+.lifestyle-category h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    color: #2d3748;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.lifestyle-options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.lifestyle-option {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+.lifestyle-option:hover {
+    border-color: #d4af37;
+    background: #fffbf0;
+    transform: translateX(4px);
+}
+
+.lifestyle-option input[type="checkbox"] {
+    display: none;
+}
+
+.lifestyle-option input[type="checkbox"]:checked + .option-icon {
+    filter: grayscale(0%);
+    transform: scale(1.1);
+}
+
+.lifestyle-option input[type="checkbox"]:checked ~ .option-text {
+    color: #d4af37;
+    font-weight: 600;
+}
+
+.lifestyle-option .option-icon {
+    font-size: 20px;
+    margin-right: 12px;
+    filter: grayscale(100%);
+    transition: all 0.3s ease;
+}
+
+.lifestyle-option .option-text {
+    font-size: 14px;
+    color: #2d3748;
+    transition: all 0.3s ease;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .values-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .location-options {
+        grid-template-columns: 1fr;
+    }
+    
+    .age-inputs {
+        flex-direction: column;
+        gap: 16px;
+    }
+    
+    .age-range-display {
+        margin: 16px 0;
+    }
+    
+    .lifestyle-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .relocation-options {
+        gap: 12px;
+    }
+}
+
+/* Animation for smooth transitions */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Focus states for accessibility */
+.value-card:focus,
+.location-option:focus,
+.lifestyle-option:focus {
+    outline: 2px solid #d4af37;
+    outline-offset: 2px;
+}
+
+.age-input:focus {
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+}
+
+/* Hide redundant age dropdown - keep only slider */
+#partner-age-range {
+    display: none !important;
+}
+
+label[for="partner-age-range"] {
+    display: none !important;
+}

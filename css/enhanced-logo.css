@@ -1,0 +1,127 @@
+/* Enhanced Logo Styles */
+.logo {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1.5rem;
+    border-radius: 12px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.logo::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(212, 175, 55, 0.05) 100%);
+    border-radius: 12px;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.logo:hover::before {
+    opacity: 1;
+}
+
+.logo::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    transition: width 0.4s ease;
+}
+
+.logo:hover::after {
+    width: 90%;
+}
+
+.logo-text-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+    z-index: 2;
+}
+
+.logo-main-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 2px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    line-height: 1;
+    margin-bottom: 0.2rem;
+}
+
+.logo-tagline {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.9);
+    font-style: italic;
+    letter-spacing: 0.5px;
+    opacity: 0.8;
+    transition: all 0.3s ease;
+    line-height: 1;
+}
+
+.logo:hover .logo-main-text {
+    color: #f4d03f;
+    text-shadow: 0 4px 8px rgba(212, 175, 55, 0.4);
+    transform: scale(1.02);
+}
+
+.logo:hover .logo-tagline {
+    opacity: 1;
+    color: rgba(255, 255, 255, 1);
+}
+
+/* Enhanced header background for better logo contrast */
+header {
+    background: linear-gradient(135deg, rgba(12, 27, 51, 0.98) 0%, rgba(12, 27, 51, 0.95) 100%);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+}
+
+header.scrolled {
+    background: linear-gradient(135deg, rgba(12, 27, 51, 0.99) 0%, rgba(12, 27, 51, 0.98) 100%);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .logo {
+        padding: 0.5rem 1rem;
+    }
+    
+    .logo-main-text {
+        font-size: 1.4rem;
+        letter-spacing: 1px;
+    }
+    
+    .logo-tagline {
+        font-size: 0.65rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo-main-text {
+        font-size: 1.2rem;
+    }
+    
+    .logo-tagline {
+        font-size: 0.6rem;
+    }
+}

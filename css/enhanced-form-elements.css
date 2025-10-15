@@ -1,0 +1,311 @@
+/* Enhanced Form Elements for Sophisticated User Experience */
+
+/* Date Picker Container */
+.date-picker-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.date-select {
+    background-color: #ffffff !important;
+    color: #2c3e50 !important;
+    border: 2px solid #e1e8ed !important;
+    padding: 12px 16px !important;
+    font-size: 16px !important;
+    border-radius: 8px !important;
+    transition: all 0.3s ease !important;
+    cursor: pointer !important;
+}
+
+.date-select:focus {
+    border-color: #d4af37 !important;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1) !important;
+    outline: none !important;
+}
+
+.date-select:hover {
+    border-color: #d4af37 !important;
+}
+
+/* Phone Input Container */
+.phone-input-container {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.country-code-select {
+    flex: 0 0 80px;
+    background-color: #ffffff !important;
+    color: #2c3e50 !important;
+    border: 2px solid #e1e8ed !important;
+    padding: 12px 8px !important;
+    font-size: 16px !important;
+    border-radius: 8px !important;
+    transition: all 0.3s ease !important;
+    cursor: pointer !important;
+}
+
+.country-code-select:focus {
+    border-color: #d4af37 !important;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1) !important;
+    outline: none !important;
+}
+
+.phone-number-input {
+    flex: 1;
+    background-color: #ffffff !important;
+    color: #2c3e50 !important;
+    border: 2px solid #e1e8ed !important;
+    padding: 12px 16px !important;
+    font-size: 16px !important;
+    border-radius: 8px !important;
+    transition: all 0.3s ease !important;
+}
+
+.phone-number-input:focus {
+    border-color: #d4af37 !important;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1) !important;
+    outline: none !important;
+}
+
+/* Enhanced Form Field Consistency */
+.sophisticated-field {
+    margin-bottom: 24px;
+}
+
+.sophisticated-field-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+.sophisticated-label {
+    display: block;
+    color: #2c3e50 !important;
+    font-weight: 600 !important;
+    font-size: 16px !important;
+    margin-bottom: 8px !important;
+    font-family: 'Montserrat', sans-serif !important;
+}
+
+.field-description {
+    color: #6c757d !important;
+    font-size: 14px !important;
+    margin-top: 6px !important;
+    font-style: italic !important;
+    line-height: 1.4 !important;
+}
+
+/* Enhanced Input Styling */
+.form-input {
+    width: 100% !important;
+    background-color: #ffffff !important;
+    color: #2c3e50 !important;
+    border: 2px solid #e1e8ed !important;
+    padding: 12px 16px !important;
+    font-size: 16px !important;
+    border-radius: 8px !important;
+    transition: all 0.3s ease !important;
+    font-family: 'Montserrat', sans-serif !important;
+    box-sizing: border-box !important;
+}
+
+.form-input:focus {
+    border-color: #d4af37 !important;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1) !important;
+    outline: none !important;
+}
+
+.form-input::placeholder {
+    color: #9ca3af !important;
+    font-style: italic !important;
+}
+
+/* Enhanced Select Styling */
+.location-select {
+    width: 100% !important;
+    background-color: #ffffff !important;
+    color: #2c3e50 !important;
+    border: 2px solid #e1e8ed !important;
+    padding: 12px 16px !important;
+    font-size: 16px !important;
+    border-radius: 8px !important;
+    transition: all 0.3s ease !important;
+    font-family: 'Montserrat', sans-serif !important;
+    cursor: pointer !important;
+    box-sizing: border-box !important;
+    appearance: none !important;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 12px center !important;
+    background-size: 16px !important;
+    padding-right: 40px !important;
+}
+
+.location-select:focus {
+    border-color: #d4af37 !important;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1) !important;
+    outline: none !important;
+}
+
+.location-select:disabled {
+    background-color: #f8f9fa !important;
+    color: #6c757d !important;
+    cursor: not-allowed !important;
+    opacity: 0.7 !important;
+}
+
+/* Form Row Styling */
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+.form-col-6 {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Enhanced Textarea Styling */
+.form-textarea {
+    width: 100% !important;
+    background-color: #ffffff !important;
+    color: #2c3e50 !important;
+    border: 2px solid #e1e8ed !important;
+    padding: 12px 16px !important;
+    font-size: 16px !important;
+    border-radius: 8px !important;
+    transition: all 0.3s ease !important;
+    font-family: 'Montserrat', sans-serif !important;
+    box-sizing: border-box !important;
+    resize: vertical !important;
+    min-height: 120px !important;
+}
+
+.form-textarea:focus {
+    border-color: #d4af37 !important;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1) !important;
+    outline: none !important;
+}
+
+.form-textarea::placeholder {
+    color: #9ca3af !important;
+    font-style: italic !important;
+}
+
+/* Enhanced Checkbox Styling */
+.form-check {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.form-check-input {
+    width: 20px !important;
+    height: 20px !important;
+    border: 2px solid #e1e8ed !important;
+    border-radius: 4px !important;
+    background-color: #ffffff !important;
+    cursor: pointer !important;
+    margin: 0 !important;
+    flex-shrink: 0 !important;
+}
+
+.form-check-input:checked {
+    background-color: #d4af37 !important;
+    border-color: #d4af37 !important;
+}
+
+.form-check-label {
+    color: #2c3e50 !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    cursor: pointer !important;
+    font-family: 'Montserrat', sans-serif !important;
+}
+
+.form-check-label a {
+    color: #d4af37 !important;
+    text-decoration: none !important;
+    font-weight: 600 !important;
+}
+
+.form-check-label a:hover {
+    text-decoration: underline !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .date-picker-container {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+    
+    .sophisticated-field-group {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    
+    .phone-input-container {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .country-code-select {
+        flex: none;
+        width: 100%;
+    }
+}
+
+/* Enhanced Focus States */
+.sophisticated-field:focus-within .sophisticated-label {
+    color: #d4af37 !important;
+    transition: color 0.3s ease !important;
+}
+
+/* Loading States */
+.form-input:disabled,
+.location-select:disabled,
+.form-textarea:disabled {
+    background-color: #f8f9fa !important;
+    color: #6c757d !important;
+    cursor: not-allowed !important;
+    opacity: 0.7 !important;
+}
+
+/* Success States */
+.form-input.valid {
+    border-color: #28a745 !important;
+}
+
+.form-input.valid:focus {
+    box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.1) !important;
+}
+
+/* Error States */
+.form-input.invalid {
+    border-color: #dc3545 !important;
+}
+
+.form-input.invalid:focus {
+    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1) !important;
+}
+
+.error-message {
+    color: #dc3545 !important;
+    font-size: 14px !important;
+    margin-top: 6px !important;
+    font-style: italic !important;
+}

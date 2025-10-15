@@ -1,0 +1,123 @@
+/**
+ * Clean References Layout - No JavaScript Required
+ * Simple, clean, and well-aligned reference section
+ */
+
+/* Section 4 - Verification specific styles */
+[data-section="4"] h2 {
+    color: #2d3748 !important;
+    font-family: 'Cormorant Garamond', serif !important;
+    font-size: 2rem !important;
+    margin-bottom: 12px !important;
+}
+
+[data-section="4"] > p {
+    color: #4a5568 !important;
+    margin-bottom: 30px !important;
+}
+
+/* Character Reference Sections */
+[data-section="4"] .form-group > .form-label {
+    font-family: 'Cormorant Garamond', serif !important;
+    font-size: 1.4rem !important;
+    color: #2d3748 !important;
+    font-weight: 600 !important;
+    margin-bottom: 20px !important;
+    display: block !important;
+    border-bottom: 2px solid #e2e8f0 !important;
+    padding-bottom: 10px !important;
+}
+
+/* Form rows - ensure they display as grid */
+[data-section="4"] .form-row {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 20px !important;
+    margin-bottom: 16px !important;
+}
+
+/* Form columns */
+[data-section="4"] .form-col-6 {
+    width: 100% !important;
+}
+
+/* Nested form groups inside rows */
+[data-section="4"] .form-row .form-group {
+    margin-bottom: 0 !important;
+}
+
+/* Labels inside form rows */
+[data-section="4"] .form-row .form-label {
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 0.95rem !important;
+    font-weight: 600 !important;
+    color: #4a5568 !important;
+    margin-bottom: 8px !important;
+    display: block !important;
+    border-bottom: none !important;
+    padding-bottom: 0 !important;
+}
+
+/* Input fields */
+[data-section="4"] .form-input {
+    width: 100% !important;
+    padding: 12px 16px !important;
+    border: 2px solid #e2e8f0 !important;
+    border-radius: 8px !important;
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 14px !important;
+    color: #2d3748 !important;
+    transition: all 0.3s ease !important;
+    background: white !important;
+}
+
+[data-section="4"] .form-input:focus {
+    outline: none !important;
+    border-color: #d4af37 !important;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1) !important;
+}
+
+[data-section="4"] .form-input::placeholder {
+    color: #a0aec0 !important;
+}
+
+/* Background check section */
+[data-section="4"] .form-check {
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+    padding: 16px !important;
+    background: #f7fafc !important;
+    border-radius: 8px !important;
+    border: 2px solid #e2e8f0 !important;
+}
+
+[data-section="4"] .form-check-input {
+    margin-top: 4px !important;
+    flex-shrink: 0 !important;
+    width: 20px !important;
+    height: 20px !important;
+    cursor: pointer !important;
+}
+
+[data-section="4"] .form-check-label {
+    color: #4a5568 !important;
+    font-size: 0.95rem !important;
+    line-height: 1.6 !important;
+    cursor: pointer !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    [data-section="4"] .form-row {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+/* Hide any dynamically added malformed elements */
+.reference-card-left,
+.verification-banner,
+.why-verify-section {
+    display: none !important;
+}
+

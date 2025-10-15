@@ -1,0 +1,72 @@
+/**
+ * Fix Review Section Title Colors
+ */
+
+/* Section 5 - Review section */
+[data-section="5"] h2 {
+    color: #2d3748 !important;
+}
+
+/* If there's a review header with blue background */
+.review-header {
+    background: linear-gradient(135deg, #2c5282, #2b6cb0) !important;
+    padding: 40px !important;
+    border-radius: 12px !important;
+    text-align: center !important;
+    margin-bottom: 30px !important;
+}
+
+.review-header-title,
+.review-header h1,
+.review-header h2 {
+    color: white !important;
+    font-family: 'Cormorant Garamond', serif !important;
+    font-size: 2.5rem !important;
+    margin-bottom: 16px !important;
+}
+
+.review-header-subtitle,
+.review-header p {
+    color: rgba(255, 255, 255, 0.95) !important;
+    font-size: 1.1rem !important;
+    line-height: 1.6 !important;
+}
+
+/* What Happens Next section */
+.review-next-steps,
+.next-steps-section {
+    background: linear-gradient(135deg, #2c5282, #2b6cb0) !important;
+    padding: 40px !important;
+    border-radius: 12px !important;
+    margin-top: 40px !important;
+}
+
+.review-next-steps-title,
+.next-steps-title,
+.review-next-steps h2,
+.review-next-steps h3 {
+    color: white !important;
+    font-family: 'Cormorant Garamond', serif !important;
+    font-size: 2rem !important;
+    text-align: center !important;
+    margin-bottom: 30px !important;
+}
+
+.timeline-item h4,
+.timeline-content h4 {
+    color: white !important;
+    font-weight: 600 !important;
+    margin-bottom: 8px !important;
+}
+
+.timeline-item p,
+.timeline-content p {
+    color: rgba(255, 255, 255, 0.95) !important;
+    line-height: 1.6 !important;
+}
+
+.timeline-number {
+    color: white !important;
+    background: rgba(255, 255, 255, 0.2) !important;
+}
+
