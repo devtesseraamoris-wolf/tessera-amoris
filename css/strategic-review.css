@@ -133,10 +133,22 @@
     50% { transform: translateY(-10px); }
 }
 
+.journey-step-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
 .journey-step-label {
-    font-size: 0.85rem;
-    color: #4a5568;
+    font-size: 0.9rem;
+    color: #2d3748;
     font-weight: 600;
+}
+
+.journey-step-description {
+    font-size: 0.75rem;
+    color: #718096;
+    line-height: 1.4;
 }
 
 .journey-step::after {

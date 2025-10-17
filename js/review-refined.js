@@ -11,8 +11,8 @@ function refineReviewSection() {
     const reviewSection = document.querySelector('[data-section="5"]');
     if (!reviewSection) return;
     
-    // Add journey container with vertical progress
-    addJourneyContainerVertical(reviewSection);
+    // Journey container removed - using horizontal from strategic-review.js
+    // addJourneyContainerVertical(reviewSection);
     
     // Enhance "What Happens Next" title color
     enhanceNextStepsTitle(reviewSection);
