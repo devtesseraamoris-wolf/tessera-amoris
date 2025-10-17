@@ -253,7 +253,62 @@
 .expansion-success-message {
     display: none;
     text-align: center;
-    padding: 40px;
+    padding: 40px 20px;
+}
+
+.expansion-next-steps {
+    margin: 32px 0;
+    text-align: left;
+}
+
+.expansion-step-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 20px;
+    padding: 16px;
+    background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+    border-radius: 12px;
+    border-left: 4px solid #D4AF37;
+}
+
+.expansion-step-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.expansion-step-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.expansion-step-text strong {
+    color: #0c1b33;
+    font-size: 1rem;
+    font-family: 'Cormorant Garamond', serif;
+}
+
+.expansion-step-text span {
+    color: #4a5568;
+    font-size: 0.875rem;
+    line-height: 1.5;
+}
+
+.expansion-timeline-note {
+    margin-top: 24px;
+    padding: 16px;
+    background: #fff5e6;
+    border-radius: 8px;
+    color: #744210;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    text-align: left;
+}
+
+.expansion-timeline-note i {
+    margin-right: 8px;
+    color: #D4AF37;
 }
 
 .expansion-success-message.active {

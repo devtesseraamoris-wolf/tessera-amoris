@@ -1,12 +1,13 @@
 /**
  * Smart Country Selector with Expansion Modal
  * Paraguay + ALL 44 European Countries (UN Official List)
+ * With warm, professional messaging
  */
 
-// Paraguay + ALL 44 European Countries (Complete List)
+// Paraguay + ALL 44 European Countries (Complete List - UN Official)
 const COUNTRIES = [
     { value: 'PY', label: '🇵🇾 Paraguay', region: 'paraguay' },
-    { value: 'divider1', label: '──────────── Europe ────────────', disabled: true },
+    { value: 'divider1', label: '─────────────── Europe ───────────────', disabled: true, style: 'divider' },
     { value: 'AL', label: '🇦🇱 Albania', region: 'europe' },
     { value: 'AD', label: '🇦🇩 Andorra', region: 'europe' },
     { value: 'AT', label: '🇦🇹 Austria', region: 'europe' },
@@ -51,8 +52,8 @@ const COUNTRIES = [
     { value: 'CH', label: '🇨🇭 Switzerland', region: 'europe' },
     { value: 'UA', label: '🇺🇦 Ukraine', region: 'europe' },
     { value: 'GB', label: '🇬🇧 United Kingdom', region: 'europe' },
-    { value: 'divider2', label: '──────────────────────────────', disabled: true },
-    { value: 'OTHER', label: '🌍 My country isn\'t listed yet', region: 'other' }
+    { value: 'divider2', label: '───────────────────────────────────', disabled: true, style: 'divider' },
+    { value: 'OTHER', label: '🌍 My country isn\'t listed yet', region: 'other', style: 'special' }
 ];
 
 // Expansion regions (NO PARAGUAY - only for countries NOT in the list)
@@ -88,17 +89,26 @@ class SmartCountrySelector {
             this.countrySelect.remove(1);
         }
         
-        // Add all countries
+        // Add all countries with improved styling
         COUNTRIES.forEach(country => {
             const option = document.createElement('option');
             option.value = country.value;
             option.textContent = country.label;
+            
             if (country.disabled) {
                 option.disabled = true;
-                option.style.fontWeight = 'bold';
-                option.style.color = '#718096';
+                option.style.fontWeight = '600';
+                option.style.color = '#D4AF37';
                 option.style.textAlign = 'center';
+                option.style.backgroundColor = '#f7fafc';
+                option.style.fontSize = '0.85rem';
+                option.style.letterSpacing = '1px';
+            } else if (country.style === 'special') {
+                option.style.fontWeight = '500';
+                option.style.color = '#4299e1';
+                option.style.fontStyle = 'italic';
             }
+            
             this.countrySelect.appendChild(option);
         });
     }
@@ -109,23 +119,23 @@ class SmartCountrySelector {
                 <div class="expansion-modal">
                     <div class="expansion-modal-header">
                         <div class="expansion-modal-icon">🌍</div>
-                        <h2 class="expansion-modal-title">We're Expanding Soon</h2>
+                        <h2 class="expansion-modal-title">We're Growing Globally</h2>
                         <p class="expansion-modal-subtitle">
-                            Help us prioritize which region to launch next
+                            Help shape our expansion roadmap
                         </p>
                     </div>
                     
                     <div class="expansion-modal-body" id="expansionForm">
                         <div class="expansion-intro">
                             <p>
-                                Tessera Amoris currently serves <strong>Paraguay and Europe</strong> 
-                                as we perfect our matchmaking process. We're planning strategic 
-                                expansion to other regions based on demand.
+                                We're thrilled by your interest in Tessera Amoris! Currently, we're 
+                                focused on creating exceptional matches between <strong>Paraguay and Europe</strong> 
+                                as we refine our process and build our community.
                             </p>
-                            <p style="margin-top: 12px;">
-                                <strong>Important:</strong> This is NOT our waitlist for matches. 
-                                This helps us know where to expand next. We'll notify you when 
-                                we launch in your region.
+                            <p style="margin-top: 16px;">
+                                <strong>Your input matters:</strong> By sharing where you're from, you help us 
+                                prioritize which regions to launch next. We'll keep you informed as we expand 
+                                and would love to welcome you when we reach your area.
                             </p>
                         </div>
                         
@@ -162,7 +172,7 @@ class SmartCountrySelector {
                         
                         <div class="expansion-form-group">
                             <label for="expansionEmail" class="expansion-form-label">
-                                Email (optional)
+                                Stay in touch (optional)
                             </label>
                             <input type="email" 
                                    id="expansionEmail" 
@@ -170,34 +180,58 @@ class SmartCountrySelector {
                                    placeholder="your@email.com">
                             <div class="expansion-input-hint">
                                 <i class="fas fa-bell"></i>
-                                We'll notify you when we launch in your region
+                                Be the first to know when we launch in your region
                             </div>
                         </div>
                     </div>
                     
                     <div class="expansion-success-message" id="expansionSuccess">
-                        <div class="expansion-success-icon">✓</div>
-                        <h3 class="expansion-success-title">Thank You!</h3>
+                        <div class="expansion-success-icon">✨</div>
+                        <h3 class="expansion-success-title">Thank You for Your Interest!</h3>
                         <p class="expansion-success-text">
-                            Your interest has been recorded. We'll prioritize regions with the most 
-                            demand and notify you when we launch in your area.
+                            We've recorded your interest and will prioritize regions based on demand. 
+                            You're helping us build something truly special.
                         </p>
-                        <p class="expansion-success-text" style="font-size: 0.9rem; color: #4a5568; margin-top: 16px;">
-                            <strong>Note:</strong> You won't be added to our matchmaking waitlist yet, 
-                            as we only serve Paraguay and Europe currently. We'll reach out when we 
-                            expand to your region.
+                        <div class="expansion-next-steps">
+                            <div class="expansion-step-item">
+                                <div class="expansion-step-icon">📊</div>
+                                <div class="expansion-step-text">
+                                    <strong>We'll analyze demand</strong>
+                                    <span>Your region will be considered for our next phase</span>
+                                </div>
+                            </div>
+                            <div class="expansion-step-item">
+                                <div class="expansion-step-icon">🚀</div>
+                                <div class="expansion-step-text">
+                                    <strong>We'll notify you first</strong>
+                                    <span>When we launch in your area, you'll be among the first to know</span>
+                                </div>
+                            </div>
+                            <div class="expansion-step-item">
+                                <div class="expansion-step-icon">💝</div>
+                                <div class="expansion-step-text">
+                                    <strong>You'll get priority access</strong>
+                                    <span>Early supporters receive special consideration</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="expansion-timeline-note">
+                            <i class="fas fa-info-circle"></i>
+                            We're currently focused on Paraguay-Europe connections. We'll reach out 
+                            when we're ready to expand to your region—typically within 6-12 months 
+                            based on demand.
                         </p>
                         <button class="expansion-btn expansion-btn-primary" id="successClose">
-                            Close
+                            Got It, Thanks!
                         </button>
                     </div>
                     
                     <div class="expansion-modal-footer" id="expansionFooter">
                         <button class="expansion-btn expansion-btn-secondary" id="cancelModal">
-                            Cancel
+                            Maybe Later
                         </button>
                         <button class="expansion-btn expansion-btn-primary" id="submitInterest">
-                            Submit Interest
+                            Share My Interest
                         </button>
                     </div>
                 </div>
