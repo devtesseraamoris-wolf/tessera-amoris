@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="css/clean-references.css">
     <link rel="stylesheet" href="css/fix-review-title.css">
     <link rel="stylesheet" href="css/strategic-review.css">
+    <link rel="stylesheet" href="css/pre-screening-quiz.css">
 </head>
 <body>
     <!-- Header -->
@@ -48,8 +49,35 @@
         </div>
     </header>
 
-    <!-- Application Form -->
-    <div class="application-container">
+    <!-- Pre-Screening Quiz Modal -->
+    <div id="quiz-modal-overlay" class="quiz-modal-overlay">
+        <div id="quiz-container" class="quiz-container">
+            <div class="quiz-header">
+                <h2 class="quiz-title">Are You Ready for a Meaningful Legacy?</h2>
+                <p class="quiz-subtitle">Before applying, help us understand your values and intentions with a few thoughtful questions.</p>
+                <div class="quiz-progress-container">
+                    <span id="quiz-progress-text" class="quiz-progress-text">Question 1 of 5</span>
+                    <div class="quiz-progress-bar">
+                        <div id="quiz-progress-fill" class="quiz-progress-fill" style="width: 20%"></div>
+                    </div>
+                </div>
+            </div>
+            <div id="quiz-content" class="quiz-content">
+                <!-- Quiz questions will be rendered here by JavaScript -->
+            </div>
+            <div class="quiz-footer">
+                <button id="quiz-prev-btn" class="quiz-btn quiz-btn-secondary" style="display: none;">
+                    ← Previous
+                </button>
+                <button id="quiz-next-btn" class="quiz-btn quiz-btn-primary">
+                    Next →
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Form (Initially Hidden) -->
+    <div id="application-form-container" class="application-container" style="display: none;">
         <div class="application-header">
             <h1 class="application-title">Begin Your Journey</h1>
             <p class="application-subtitle">Complete this application to take the first step toward finding a relationship with purpose and building a lasting legacy.</p>
@@ -770,6 +798,8 @@
     <script src="js/form-data-persistence.js"></script>
     <script src="js/fix-references-layout.js"></script>
     <script src="js/strategic-review.js"></script>
+    <!-- Pre-Screening Quiz -->
+    <script src="js/pre-screening-quiz.js"></script>
     <!-- Production API Integration -->
     <script src="js/application-production.js"></script>
 </body>

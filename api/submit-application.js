@@ -31,6 +31,9 @@ export default async function handler(req, res) {
 
     // Get form data from request body
     const formData = req.body;
+    
+    // Extract quiz data if present
+    const quizData = formData.quizData || null;
 
     // Validate required fields
     if (!formData.fullName || !formData.email) {
@@ -82,6 +85,13 @@ export default async function handler(req, res) {
           reference_2_email: formData.reference2Email,
           reference_2_phone: formData.reference2Phone,
           
+          // Quiz Data (if completed)
+          quiz_score: quizData ? quizData.score : null,
+          quiz_responses: quizData ? quizData.responses : null,
+          quiz_completed_at: quizData ? quizData.completedAt : null,
+          quiz_result_category: quizData ? quizData.category : null,
+          quiz_time_spent: quizData ? quizData.timeSpent : null,
+          
           // Metadata
           ip_address: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
           user_agent: req.headers['user-agent'],
@@ -98,11 +108,18 @@ export default async function handler(req, res) {
       });
     }
 
-    // Send success response
+    // Get total count of applications for position number
+    const { count } = await supabase
+      .from('applications')
+      .select('*', { count: 'exact', head: true });
+
+    // Send success response with position
     return res.status(200).json({
       success: true,
       message: 'Application submitted successfully',
-      applicationId: data[0].id
+      applicationId: data[0].id,
+      position: count || 1,
+      email: formData.email
     });
 
   } catch (error) {
