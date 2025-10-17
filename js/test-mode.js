@@ -105,8 +105,8 @@ if (TEST_MODE) {
             }
         };
         
-        // Add test mode indicator to page
-        addTestModeIndicator();
+        // Test mode indicator removed per user request
+        // addTestModeIndicator();
     });
 }
 
