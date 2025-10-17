@@ -40,8 +40,8 @@
                 <div class="review-hero-badge">Application Complete</div>
             </div>
             
-            <!-- Journey Progress -->
-            <div class="journey-progress">
+            <!-- Journey Progress (HIDDEN - using vertical from review-refined.js instead) -->
+            <div class="journey-progress" style="display: none;">
                 <h2 class="journey-progress-title">Your Application Journey</h2>
                 <div class="journey-steps">
                     <div class="journey-step">
