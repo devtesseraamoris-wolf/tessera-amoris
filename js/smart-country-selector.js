@@ -1,17 +1,20 @@
 /**
  * Smart Country Selector with Expansion Modal
- * Paraguay + Europe focus with intelligent expansion capture
+ * Paraguay + ALL 44 European Countries (UN Official List)
  */
 
-// Paraguay + All European Countries
+// Paraguay + ALL 44 European Countries (Complete List)
 const COUNTRIES = [
     { value: 'PY', label: '🇵🇾 Paraguay', region: 'paraguay' },
     { value: 'divider1', label: '──────────── Europe ────────────', disabled: true },
+    { value: 'AL', label: '🇦🇱 Albania', region: 'europe' },
+    { value: 'AD', label: '🇦🇩 Andorra', region: 'europe' },
     { value: 'AT', label: '🇦🇹 Austria', region: 'europe' },
+    { value: 'BY', label: '🇧🇾 Belarus', region: 'europe' },
     { value: 'BE', label: '🇧🇪 Belgium', region: 'europe' },
+    { value: 'BA', label: '🇧🇦 Bosnia and Herzegovina', region: 'europe' },
     { value: 'BG', label: '🇧🇬 Bulgaria', region: 'europe' },
     { value: 'HR', label: '🇭🇷 Croatia', region: 'europe' },
-    { value: 'CY', label: '🇨🇾 Cyprus', region: 'europe' },
     { value: 'CZ', label: '🇨🇿 Czech Republic', region: 'europe' },
     { value: 'DK', label: '🇩🇰 Denmark', region: 'europe' },
     { value: 'EE', label: '🇪🇪 Estonia', region: 'europe' },
@@ -19,6 +22,7 @@ const COUNTRIES = [
     { value: 'FR', label: '🇫🇷 France', region: 'europe' },
     { value: 'DE', label: '🇩🇪 Germany', region: 'europe' },
     { value: 'GR', label: '🇬🇷 Greece', region: 'europe' },
+    { value: 'VA', label: '🇻🇦 Holy See (Vatican City)', region: 'europe' },
     { value: 'HU', label: '🇭🇺 Hungary', region: 'europe' },
     { value: 'IS', label: '🇮🇸 Iceland', region: 'europe' },
     { value: 'IE', label: '🇮🇪 Ireland', region: 'europe' },
@@ -47,18 +51,17 @@ const COUNTRIES = [
     { value: 'CH', label: '🇨🇭 Switzerland', region: 'europe' },
     { value: 'UA', label: '🇺🇦 Ukraine', region: 'europe' },
     { value: 'GB', label: '🇬🇧 United Kingdom', region: 'europe' },
-    { value: 'VA', label: '🇻🇦 Vatican City', region: 'europe' },
     { value: 'divider2', label: '──────────────────────────────', disabled: true },
     { value: 'OTHER', label: '🌍 My country isn\'t listed yet', region: 'other' }
 ];
 
-// Expansion regions
+// Expansion regions (NO PARAGUAY - only for countries NOT in the list)
 const EXPANSION_REGIONS = [
-    { value: 'americas', label: 'Americas', icon: '🌎', examples: 'USA, Canada, Brazil, Argentina, Chile...' },
-    { value: 'asia', label: 'Asia', icon: '🌏', examples: 'Japan, Singapore, South Korea, India...' },
-    { value: 'middle_east', label: 'Middle East', icon: '🕌', examples: 'UAE, Israel, Saudi Arabia, Qatar...' },
-    { value: 'oceania', label: 'Oceania', icon: '🦘', examples: 'Australia, New Zealand, Fiji...' },
-    { value: 'africa', label: 'Africa', icon: '🦁', examples: 'South Africa, Kenya, Egypt, Morocco...' }
+    { value: 'americas', label: 'Americas', icon: '🌎', examples: 'USA, Canada, Brazil, Argentina, Chile, Mexico...' },
+    { value: 'asia', label: 'Asia', icon: '🌏', examples: 'Japan, Singapore, South Korea, India, China...' },
+    { value: 'middle_east', label: 'Middle East', icon: '🕌', examples: 'UAE, Israel, Saudi Arabia, Qatar, Turkey...' },
+    { value: 'oceania', label: 'Oceania', icon: '🦘', examples: 'Australia, New Zealand, Fiji, Papua New Guinea...' },
+    { value: 'africa', label: 'Africa', icon: '🦁', examples: 'South Africa, Kenya, Egypt, Morocco, Nigeria...' }
 ];
 
 class SmartCountrySelector {
@@ -106,18 +109,23 @@ class SmartCountrySelector {
                 <div class="expansion-modal">
                     <div class="expansion-modal-header">
                         <div class="expansion-modal-icon">🌍</div>
-                        <h2 class="expansion-modal-title">Help Us Expand</h2>
+                        <h2 class="expansion-modal-title">We're Expanding Soon</h2>
                         <p class="expansion-modal-subtitle">
-                            Your interest helps us prioritize global expansion
+                            Help us prioritize which region to launch next
                         </p>
                     </div>
                     
                     <div class="expansion-modal-body" id="expansionForm">
                         <div class="expansion-intro">
                             <p>
-                                Tessera Amoris currently focuses on <strong>Paraguay-Europe connections</strong> 
-                                as we perfect our matchmaking process. However, we're planning strategic 
-                                expansion based on community demand.
+                                Tessera Amoris currently serves <strong>Paraguay and Europe</strong> 
+                                as we perfect our matchmaking process. We're planning strategic 
+                                expansion to other regions based on demand.
+                            </p>
+                            <p style="margin-top: 12px;">
+                                <strong>Important:</strong> This is NOT our waitlist for matches. 
+                                This helps us know where to expand next. We'll notify you when 
+                                we launch in your region.
                             </p>
                         </div>
                         
@@ -172,16 +180,21 @@ class SmartCountrySelector {
                         <h3 class="expansion-success-title">Thank You!</h3>
                         <p class="expansion-success-text">
                             Your interest has been recorded. We'll prioritize regions with the most 
-                            demand and notify you when we expand to your area.
+                            demand and notify you when we launch in your area.
                         </p>
-                        <button class="expansion-btn expansion-btn-primary" id="successContinue">
-                            Continue Application
+                        <p class="expansion-success-text" style="font-size: 0.9rem; color: #4a5568; margin-top: 16px;">
+                            <strong>Note:</strong> You won't be added to our matchmaking waitlist yet, 
+                            as we only serve Paraguay and Europe currently. We'll reach out when we 
+                            expand to your region.
+                        </p>
+                        <button class="expansion-btn expansion-btn-primary" id="successClose">
+                            Close
                         </button>
                     </div>
                     
                     <div class="expansion-modal-footer" id="expansionFooter">
-                        <button class="expansion-btn expansion-btn-secondary" id="continueAnyway">
-                            Continue Anyway
+                        <button class="expansion-btn expansion-btn-secondary" id="cancelModal">
+                            Cancel
                         </button>
                         <button class="expansion-btn expansion-btn-primary" id="submitInterest">
                             Submit Interest
@@ -203,7 +216,7 @@ class SmartCountrySelector {
         });
         
         // Modal buttons
-        document.getElementById('continueAnyway').addEventListener('click', () => {
+        document.getElementById('cancelModal').addEventListener('click', () => {
             this.closeModal();
             // Reset to empty selection
             this.countrySelect.value = '';
@@ -213,7 +226,7 @@ class SmartCountrySelector {
             this.submitExpansionInterest();
         });
         
-        document.getElementById('successContinue').addEventListener('click', () => {
+        document.getElementById('successClose').addEventListener('click', () => {
             this.closeModal();
             this.countrySelect.value = '';
         });
