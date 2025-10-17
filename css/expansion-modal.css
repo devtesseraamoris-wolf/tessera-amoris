@@ -1,0 +1,301 @@
+/**
+ * Expansion Interest Modal
+ * Smart approach for countries outside Paraguay-Europe
+ */
+
+.expansion-modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(12, 27, 51, 0.85);
+    backdrop-filter: blur(8px);
+    z-index: 10000;
+    animation: fadeIn 0.3s ease;
+}
+
+.expansion-modal-overlay.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.expansion-modal {
+    background: white;
+    border-radius: 16px;
+    max-width: 540px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: slideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.expansion-modal-header {
+    text-align: center;
+    padding: 40px 40px 30px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.expansion-modal-icon {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.expansion-modal-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    color: #0c1b33;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.expansion-modal-subtitle {
+    font-size: 1rem;
+    color: #718096;
+    line-height: 1.6;
+}
+
+.expansion-modal-body {
+    padding: 30px 40px;
+}
+
+.expansion-intro {
+    background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+    border-left: 4px solid #D4AF37;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+.expansion-intro p {
+    font-size: 0.95rem;
+    color: #2d3748;
+    line-height: 1.7;
+    margin: 0;
+}
+
+.expansion-intro strong {
+    color: #D4AF37;
+    font-weight: 600;
+}
+
+.expansion-form-group {
+    margin-bottom: 24px;
+}
+
+.expansion-form-label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #2d3748;
+    margin-bottom: 12px;
+}
+
+.expansion-region-options {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+}
+
+.expansion-region-option {
+    position: relative;
+}
+
+.expansion-region-option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+}
+
+.expansion-region-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+.expansion-region-label:hover {
+    border-color: #D4AF37;
+    background: #fffef8;
+}
+
+.expansion-region-option input[type="radio"]:checked + .expansion-region-label {
+    border-color: #D4AF37;
+    background: linear-gradient(135deg, #fffef8 0%, #fefce8 100%);
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.15);
+}
+
+.expansion-region-icon {
+    font-size: 1.3rem;
+    min-width: 24px;
+}
+
+.expansion-region-text {
+    flex: 1;
+}
+
+.expansion-region-name {
+    font-weight: 600;
+    color: #2d3748;
+    display: block;
+    margin-bottom: 2px;
+}
+
+.expansion-region-examples {
+    font-size: 0.8rem;
+    color: #718096;
+}
+
+.expansion-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.expansion-input:focus {
+    outline: none;
+    border-color: #D4AF37;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+}
+
+.expansion-input-hint {
+    font-size: 0.8rem;
+    color: #718096;
+    margin-top: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.expansion-input-hint i {
+    color: #D4AF37;
+}
+
+.expansion-modal-footer {
+    padding: 20px 40px 40px;
+    display: flex;
+    gap: 12px;
+}
+
+.expansion-btn {
+    flex: 1;
+    padding: 14px 24px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.expansion-btn-primary {
+    background: linear-gradient(135deg, #D4AF37, #b8941f);
+    color: white;
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+}
+
+.expansion-btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+}
+
+.expansion-btn-primary:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.expansion-btn-secondary {
+    background: white;
+    color: #4a5568;
+    border: 2px solid #e2e8f0;
+}
+
+.expansion-btn-secondary:hover {
+    background: #f7fafc;
+    border-color: #cbd5e0;
+}
+
+.expansion-success-message {
+    display: none;
+    text-align: center;
+    padding: 40px;
+}
+
+.expansion-success-message.active {
+    display: block;
+}
+
+.expansion-success-icon {
+    font-size: 4rem;
+    color: #48bb78;
+    margin-bottom: 20px;
+}
+
+.expansion-success-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    color: #0c1b33;
+    margin-bottom: 12px;
+}
+
+.expansion-success-text {
+    font-size: 1rem;
+    color: #718096;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .expansion-modal {
+        width: 95%;
+        margin: 20px;
+    }
+    
+    .expansion-modal-header,
+    .expansion-modal-body,
+    .expansion-modal-footer {
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+    
+    .expansion-modal-footer {
+        flex-direction: column;
+    }
+}
+
