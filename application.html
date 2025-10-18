@@ -214,8 +214,9 @@
                 
                 <div class="sophisticated-field">
                     <label for="nationality" class="sophisticated-label">Nationality</label>
-                    <input type="text" id="nationality" class="form-input" placeholder="e.g., American, Brazilian, German" required>
+                    <input type="text" id="nationality" class="form-input" placeholder="Start typing your nationality" autocomplete="off" required>
                     <div class="field-description">Your nationality or citizenship</div>
+                    <div class="nationality-suggestion-container" id="nationality-suggestions" role="listbox" aria-label="Nationality suggestions"></div>
                 </div>
                 
                 <div class="sophisticated-field-group">
