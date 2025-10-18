@@ -7,6 +7,7 @@
     'use strict';
 
     function initializeExpansionModal() {
+        console.log('[Tessera] Expansion Modal Handler v2.0 initializing...');
         const modal = document.getElementById('expansionModal');
         const form = document.getElementById('expansionInterestForm');
         const cancelBtn = document.getElementById('expansionCancelBtn');
@@ -15,9 +16,10 @@
         const successMessage = document.getElementById('expansionSuccessMessage');
         
         if (!modal || !form) {
-            console.warn('Expansion modal elements not found');
+            console.warn('[Tessera] Expansion modal elements not found');
             return;
         }
+        console.log('[Tessera] Expansion modal initialized successfully');
         
         // Cancel button handler
         if (cancelBtn) {
@@ -39,6 +41,7 @@
     }
     
     function showExpansionModal() {
+        console.log('[Tessera] Opening expansion modal');
         const modal = document.getElementById('expansionModal');
         if (modal) {
             modal.classList.add('active');

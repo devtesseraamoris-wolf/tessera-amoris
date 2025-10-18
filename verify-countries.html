@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Country List Verification - Tessera Amoris</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: #f7fafc;
+        }
+        h1 {
+            color: #0c1b33;
+            border-bottom: 3px solid #D4AF37;
+            padding-bottom: 1rem;
+        }
+        .status {
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            font-weight: 600;
+        }
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #c3e6cb;
+        }
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 2px solid #f5c6cb;
+        }
+        .status.warning {
+            background: #fff3cd;
+            color: #856404;
+            border: 2px solid #ffeaa7;
+        }
+        .country-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+        .country-item {
+            padding: 0.75rem;
+            background: white;
+            border-radius: 6px;
+            border-left: 4px solid #D4AF37;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .country-item.paraguay {
+            border-left-color: #0c1b33;
+            font-weight: 600;
+        }
+        .section {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .section h2 {
+            color: #0c1b33;
+            margin-top: 0;
+        }
+        .test-result {
+            padding: 0.5rem 1rem;
+            margin: 0.5rem 0;
+            border-radius: 4px;
+        }
+        .test-pass {
+            background: #d4edda;
+            color: #155724;
+        }
+        .test-fail {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        .divider {
+            padding: 0.5rem;
+            background: #f7fafc;
+            text-align: center;
+            font-weight: 600;
+            color: #D4AF37;
+            border-radius: 4px;
+            margin: 0.5rem 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>🌍 Tessera Amoris - Country List Verification</h1>
+    
+    <div id="status" class="status">
+        <p>⏳ Running verification tests...</p>
+    </div>
+    
+    <div class="section">
+        <h2>📊 Test Results</h2>
+        <div id="test-results"></div>
+    </div>
+    
+    <div class="section">
+        <h2>🗺️ Country List (from RAW_COUNTRIES)</h2>
+        <div id="country-list" class="country-list"></div>
+    </div>
+    
+    <div class="section">
+        <h2>📋 Dropdown Options (from DOM)</h2>
+        <div id="dropdown-options"></div>
+    </div>
+    
+    <div class="section">
+        <h2>🔍 Problematic Countries Check</h2>
+        <div id="problematic-check"></div>
+    </div>
+
+    <!-- Hidden select for testing -->
+    <select id="test-country-select" style="display: none;"></select>
+
+    <script src="js/paraguay-europe-data.js?v=2.0"></script>
+    <script src="js/paraguay-europe-selector.js?v=2.0"></script>
+    
+    <script>
+        // Wait for selector to initialize
+        setTimeout(function() {
+            const testResults = [];
+            const statusDiv = document.getElementById('status');
+            const testResultsDiv = document.getElementById('test-results');
+            const countryListDiv = document.getElementById('country-list');
+            const dropdownOptionsDiv = document.getElementById('dropdown-options');
+            const problematicCheckDiv = document.getElementById('problematic-check');
+            
+            // Expected countries
+            const expectedCountries = [
+                'Paraguay',
+                'Albania', 'Andorra', 'Austria', 'Belarus', 'Belgium',
+                'Bosnia and Herzegovina', 'Bulgaria', 'Croatia', 'Cyprus',
+                'Czech Republic', 'Denmark', 'Estonia', 'Finland', 'France',
+                'Germany', 'Greece', 'Holy See (Vatican City)', 'Hungary',
+                'Iceland', 'Ireland', 'Italy', 'Latvia', 'Liechtenstein',
+                'Lithuania', 'Luxembourg', 'Malta', 'Moldova', 'Monaco',
+                'Montenegro', 'Netherlands', 'North Macedonia', 'Norway',
+                'Poland', 'Portugal', 'Romania', 'Russia', 'San Marino',
+                'Serbia', 'Slovakia', 'Slovenia', 'Spain', 'Sweden',
+                'Switzerland', 'Ukraine', 'United Kingdom'
+            ];
+            
+            // Problematic countries that should NOT appear
+            const problematicCountries = [
+                'Brazil', 'Canada', 'United States', 'Argentina', 'Mexico',
+                'Chile', 'Colombia', 'Peru', 'Venezuela', 'Australia',
+                'Japan', 'China', 'India', 'South Africa'
+            ];
+            
+            // Test 1: Check if selector initialized
+            const selectorInitialized = window.tesseraParaguayEuropeSelectorInitialized;
+            if (selectorInitialized) {
+                testResults.push({ pass: true, message: 'Paraguay-Europe Selector initialized: ' + selectorInitialized });
+            } else {
+                testResults.push({ pass: false, message: 'Paraguay-Europe Selector NOT initialized' });
+            }
+            
+            // Test 2: Get country select element
+            const countrySelect = document.getElementById('test-country-select');
+            if (countrySelect && countrySelect.options.length > 0) {
+                testResults.push({ pass: true, message: 'Country dropdown populated: ' + countrySelect.options.length + ' options' });
+            } else {
+                testResults.push({ pass: false, message: 'Country dropdown NOT populated or empty' });
+            }
+            
+            // Test 3: Check country count (should be 46 + 2 = 48: placeholder, 46 countries, divider, OTHER)
+            const optionCount = countrySelect.options.length;
+            const expectedCount = 49; // placeholder + 46 countries + divider + OTHER
+            if (optionCount >= 47 && optionCount <= 50) {
+                testResults.push({ pass: true, message: 'Country count is correct: ' + optionCount + ' options (expected ~' + expectedCount + ')' });
+            } else {
+                testResults.push({ pass: false, message: 'Country count is WRONG: ' + optionCount + ' options (expected ~' + expectedCount + ')' });
+            }
+            
+            // Test 4: Check if Paraguay is first
+            let paraguayFirst = false;
+            if (countrySelect.options.length > 1) {
+                const firstCountry = countrySelect.options[1].textContent;
+                paraguayFirst = firstCountry.includes('Paraguay');
+                if (paraguayFirst) {
+                    testResults.push({ pass: true, message: 'Paraguay is first country: ' + firstCountry });
+                } else {
+                    testResults.push({ pass: false, message: 'Paraguay is NOT first: ' + firstCountry });
+                }
+            }
+            
+            // Test 5: Check for problematic countries
+            let foundProblematic = [];
+            for (let i = 0; i < countrySelect.options.length; i++) {
+                const optionText = countrySelect.options[i].textContent;
+                problematicCountries.forEach(country => {
+                    if (optionText.includes(country)) {
+                        foundProblematic.push(country);
+                    }
+                });
+            }
+            
+            if (foundProblematic.length === 0) {
+                testResults.push({ pass: true, message: 'No problematic countries found (Brazil, Canada, USA, etc.)' });
+            } else {
+                testResults.push({ pass: false, message: 'FOUND problematic countries: ' + foundProblematic.join(', ') });
+            }
+            
+            // Test 6: Check for Europe divider
+            let hasDivider = false;
+            for (let i = 0; i < countrySelect.options.length; i++) {
+                const optionText = countrySelect.options[i].textContent;
+                if (optionText.includes('Europe')) {
+                    hasDivider = true;
+                    break;
+                }
+            }
+            if (hasDivider) {
+                testResults.push({ pass: true, message: 'Europe divider found in dropdown' });
+            } else {
+                testResults.push({ pass: false, message: 'Europe divider NOT found' });
+            }
+            
+            // Test 7: Check for "My country isn't listed yet" option
+            let hasOtherOption = false;
+            for (let i = 0; i < countrySelect.options.length; i++) {
+                const optionValue = countrySelect.options[i].value;
+                if (optionValue === 'OTHER') {
+                    hasOtherOption = true;
+                    break;
+                }
+            }
+            if (hasOtherOption) {
+                testResults.push({ pass: true, message: '"My country isn\'t listed yet" option found' });
+            } else {
+                testResults.push({ pass: false, message: '"My country isn\'t listed yet" option NOT found' });
+            }
+            
+            // Display test results
+            const allPassed = testResults.every(r => r.pass);
+            if (allPassed) {
+                statusDiv.className = 'status success';
+                statusDiv.innerHTML = '<p>✅ All tests PASSED! Country list is correct.</p>';
+            } else {
+                statusDiv.className = 'status error';
+                statusDiv.innerHTML = '<p>❌ Some tests FAILED! Please review the issues below.</p>';
+            }
+            
+            testResults.forEach(result => {
+                const div = document.createElement('div');
+                div.className = 'test-result ' + (result.pass ? 'test-pass' : 'test-fail');
+                div.textContent = (result.pass ? '✓ ' : '✗ ') + result.message;
+                testResultsDiv.appendChild(div);
+            });
+            
+            // Display country list
+            for (let i = 0; i < countrySelect.options.length; i++) {
+                const option = countrySelect.options[i];
+                if (option.disabled && option.textContent.includes('Europe')) {
+                    const divider = document.createElement('div');
+                    divider.className = 'divider';
+                    divider.textContent = option.textContent;
+                    countryListDiv.appendChild(divider);
+                } else if (option.value && option.value !== '') {
+                    const div = document.createElement('div');
+                    div.className = 'country-item';
+                    if (option.textContent.includes('Paraguay')) {
+                        div.className += ' paraguay';
+                    }
+                    div.textContent = option.textContent + ' (' + option.value + ')';
+                    countryListDiv.appendChild(div);
+                }
+            }
+            
+            // Display dropdown options
+            let optionsHTML = '<ol>';
+            for (let i = 0; i < countrySelect.options.length; i++) {
+                const option = countrySelect.options[i];
+                optionsHTML += '<li><code>' + option.value + '</code> - ' + option.textContent + '</li>';
+            }
+            optionsHTML += '</ol>';
+            dropdownOptionsDiv.innerHTML = optionsHTML;
+            
+            // Display problematic countries check
+            if (foundProblematic.length === 0) {
+                problematicCheckDiv.innerHTML = '<div class="test-result test-pass">✓ No problematic countries found. List is clean!</div>';
+            } else {
+                problematicCheckDiv.innerHTML = '<div class="test-result test-fail">✗ Found problematic countries: ' + foundProblematic.join(', ') + '</div>';
+            }
+            
+        }, 1000);
+    </script>
+</body>
+</html>
+

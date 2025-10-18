@@ -1,19 +1,18 @@
-/**
- * Paraguay-Europe Country Selector
- * Provides full country → state/region → city hierarchy
- * while keeping the existing expansion modal experience.
- */
 
 (function() {
     'use strict';
 
-    if (window.tesseraParaguayEuropeSelectorInitialized) {
+    const SELECTOR_FLAG = 'paraguay-europe-v2.0';
+    if (window.tesseraParaguayEuropeSelectorInitialized === SELECTOR_FLAG) {
+        console.log('[Tessera] Selector already initialized, skipping');
         return;
     }
-    window.tesseraParaguayEuropeSelectorInitialized = true;
 
-    // Expose a flag so other scripts know a custom location selector is active
-    window.tesseraLocationSelectorActive = 'paraguay-europe-v2';
+    // Block any other location selector from running
+    window.tesseraParaguayEuropeSelectorInitialized = SELECTOR_FLAG;
+    window.tesseraLocationSelectorActive = SELECTOR_FLAG;
+    window.tesseraBlockOtherLocationSelectors = true;
+    console.log('[Tessera] Selector flag set:', SELECTOR_FLAG);
 
     const LOCATION_DATA = window.tesseraParaguayEuropeData || {};
 
@@ -115,19 +114,77 @@
         GB: 'British'
     };
 
+    const MANUAL_NATIONALITY_SYNONYMS = {
+        Paraguayan: ['Paraguay', 'Paraguaya'],
+        Brazilian: ['Brazil', 'Brasil', 'Brazilia', 'Brasilian', 'Brasileiro', 'Brasileira', 'Brazillian'],
+        American: ['USA', 'US', 'United States', 'Estados Unidos', 'Estadounidense'],
+        Canadian: ['Canada', 'Canadien', 'Canadienne'],
+        Argentine: ['Argentina', 'Argentinian', 'Argentino', 'Argentina'],
+        Mexican: ['Mexico', 'Mexican', 'Mexicano', 'Mexicana'],
+        British: ['United Kingdom', 'UK', 'Great Britain', 'Britain', 'England', 'English', 'Scotland', 'Scottish', 'Wales', 'Welsh', 'Northern Ireland'],
+        Dutch: ['Netherlands', 'Holland', 'Hollandaise'],
+        Swiss: ['Switzerland', 'Suisse', 'Schweiz'],
+        German: ['Germany', 'Deutschland', 'Deutsch'],
+        French: ['France', 'Français', 'Francaise', 'Française'],
+        Spanish: ['Spain', 'España', 'Espanol', 'Español', 'Española'],
+        Portuguese: ['Portugal', 'Portugués', 'Portuguesa'],
+        Italian: ['Italy', 'Italia', 'Italiano', 'Italiana'],
+        Polish: ['Poland', 'Polska'],
+        Romanian: ['Romania', 'România'],
+        Hungarian: ['Hungary', 'Magyarorszag', 'Magyar'],
+        Czech: ['Czechia', 'Czech Republic'],
+        Slovak: ['Slovakia', 'Slovakian'],
+        Slovenian: ['Slovenia', 'Slovene'],
+        Serbian: ['Serbia', 'Srpski'],
+        Bosnian: ['Bosnia', 'Bosnia and Herzegovina', 'Herzegovina'],
+        Croatian: ['Croatia', 'Hrvatska'],
+        Greek: ['Greece', 'Hellas', 'Ελλάδα'],
+        Lithuanian: ['Lithuania', 'Lietuva'],
+        Latvian: ['Latvia', 'Latvija'],
+        Estonian: ['Estonia', 'Eesti'],
+        Finnish: ['Finland', 'Suomi'],
+        Swedish: ['Sweden', 'Sverige'],
+        Norwegian: ['Norway', 'Norge'],
+        Danish: ['Denmark', 'Danmark'],
+        Irish: ['Ireland', 'Éire'],
+        Icelandic: ['Iceland', 'Ísland'],
+        Austrian: ['Austria', 'Österreich'],
+        Belarusian: ['Belarus', 'Беларусь'],
+        Ukrainian: ['Ukraine', 'Україна'],
+        Russian: ['Russia', 'Российский', 'Россия'],
+        Moldovan: ['Moldova', 'Moldavia'],
+        Maltese: ['Malta', 'Maltija'],
+        Cypriot: ['Cyprus', 'Κύπρος'],
+        Luxembourgish: ['Luxembourg', 'Letzebuerg'],
+        Andorran: ['Andorra'],
+        Monegasque: ['Monaco'],
+        Montenegrin: ['Montenegro'],
+        North Macedonian: ['North Macedonia', 'Macedonia'],
+        Sammarinese: ['San Marino'],
+        Vatican Citizen: ['Vatican', 'Holy See'],
+        Albanian: ['Albania', 'Shqipëri'],
+        Bulgarian: ['Bulgaria', 'България'],
+    };
+
+    const DEFAULT_NATIONALITY_SUGGESTIONS = [
+        'Paraguayan',
+        'Brazilian',
+        'American',
+        'British',
+        'German',
+        'Spanish',
+        'French',
+        'Italian',
+        'Dutch',
+        'Portuguese'
+    ];
+
+    const EXTRA_NATIONALITY_OPTIONS = ['American', 'Brazilian', 'Canadian', 'Argentine', 'Mexican'];
+
     const PHONE_CODE_FALLBACKS = [
         { dialCode: '+1', label: 'United States / Canada' },
         { dialCode: '+55', label: 'Brazil' }
     ];
-
-    const ADDITIONAL_NATIONALITIES = ['American', 'Canadian', 'Brazilian', 'Argentine', 'Mexican'];
-    const DEFAULT_NATIONALITY_SUGGESTIONS = ['Paraguayan', 'Brazilian', 'American', 'German', 'Spanish', 'French', 'British'];
-    const ADDITIONAL_NATIONALITIES = ['United States', 'Canada', 'Brazil', 'Argentina', 'Mexico'];
-
-    const AVAILABLE_COUNTRIES = RAW_COUNTRIES.map(country => ({
-        ...country,
-        hasStates: Boolean(LOCATION_DATA[country.code]?.regions?.length)
-    }));
 
     const EXPANSION_REGIONS = [
         { value: 'americas', label: 'Americas', icon: '🌎', examples: 'USA, Canada, Brazil, Argentina, Chile, Mexico...' },
@@ -137,22 +194,26 @@
         { value: 'africa', label: 'Africa', icon: '🦁', examples: 'South Africa, Kenya, Egypt, Morocco, Nigeria...' }
     ];
 
-    function slugify(value) {
+    const AVAILABLE_COUNTRIES = RAW_COUNTRIES.map(country => ({
+        ...country,
+        hasStates: Boolean(LOCATION_DATA[country.code]?.regions?.length)
+    }));
+
+    function normalizeText(value) {
+        if (!value) {
+            return '';
+        }
         return value
             .toString()
             .normalize('NFD')
             .replace(/[\u0300-\u036f]/g, '')
             .toLowerCase()
-            .replace(/[^a-z0-9]+/g, '-')
-            .replace(/^-+|-+$/g, '');
+            .replace(/[^a-z0-9]+/g, ' ')
+            .trim();
     }
 
-    function normalizeText(value) {
-        return value
-            .toString()
-            .normalize('NFD')
-            .replace(/[\u0300-\u036f]/g, '')
-            .toLowerCase();
+    function slugify(value) {
+        return normalizeText(value).replace(/\s+/g, '-');
     }
 
     function getPersistedLocation() {
@@ -173,53 +234,204 @@
         return { country: '', state: '', city: '', nationality: '' };
     }
 
-    function getAvailableCountries() {
-        // Return ONLY Paraguay + European countries (46 total)
-        return AVAILABLE_COUNTRIES;
-    }
+    function buildNationalityIndex() {
+        const options = [];
+        const optionLookup = new Map();
+        const synonymMap = new Map();
 
-    function populateCountries(countrySelect, selectedCountry) {
-        const availableCountries = getAvailableCountries();
-        countrySelect.innerHTML = '<option value="">Select your country</option>';
+        function register(label, synonyms) {
+            if (!label) {
+                return;
+            }
+            const normalizedLabel = normalizeText(label);
+            if (!normalizedLabel) {
+                return;
+            }
 
-        const paraguay = availableCountries.find(country => country.code === 'PY');
-        if (paraguay) {
-            countrySelect.appendChild(createCountryOption(paraguay));
+            let option = optionLookup.get(label);
+            if (!option) {
+                option = {
+                    label,
+                    normalized: normalizedLabel,
+                    keywords: new Set([normalizedLabel])
+                };
+                options.push(option);
+                optionLookup.set(label, option);
+            }
+
+            synonymMap.set(normalizedLabel, label);
+
+            if (Array.isArray(synonyms)) {
+                synonyms.forEach(value => {
+                    const normalized = normalizeText(value);
+                    if (!normalized) {
+                        return;
+                    }
+                    synonymMap.set(normalized, label);
+                    option.keywords.add(normalized);
+                });
+            }
         }
 
-        const europeDivider = document.createElement('option');
-        europeDivider.disabled = true;
-        europeDivider.textContent = '─────────────── Europe ───────────────';
-        europeDivider.style.fontWeight = '600';
-        europeDivider.style.color = '#D4AF37';
-        europeDivider.style.textAlign = 'center';
-        europeDivider.style.backgroundColor = '#f7fafc';
-        countrySelect.appendChild(europeDivider);
-
-        availableCountries.filter(country => country.code !== 'PY').forEach(country => {
-            countrySelect.appendChild(createCountryOption(country));
+        RAW_COUNTRIES.forEach(country => {
+            const demonym = COUNTRY_NATIONALITIES[country.code];
+            if (!demonym) {
+                return;
+            }
+            const synonyms = [country.name, country.code];
+            if (MANUAL_NATIONALITY_SYNONYMS[demonym]) {
+                synonyms.push(...MANUAL_NATIONALITY_SYNONYMS[demonym]);
+            }
+            register(demonym, synonyms);
         });
 
-        const bottomDivider = document.createElement('option');
-        bottomDivider.disabled = true;
-        bottomDivider.textContent = '───────────────────────────────────';
-        bottomDivider.style.fontWeight = '600';
-        bottomDivider.style.color = '#D4AF37';
-        bottomDivider.style.textAlign = 'center';
-        countrySelect.appendChild(bottomDivider);
+        EXTRA_NATIONALITY_OPTIONS.forEach(label => {
+            const synonyms = MANUAL_NATIONALITY_SYNONYMS[label] || [];
+            register(label, synonyms);
+        });
+
+        return { options, synonymMap };
+    }
+
+    function dedupeList(list) {
+        const seen = new Set();
+        return list.filter(item => {
+            if (seen.has(item)) {
+                return false;
+            }
+            seen.add(item);
+            return true;
+        });
+    }
+
+    function buildSuggestionsBuilder(index) {
+        const { options } = index;
+
+        return function buildSuggestions(query) {
+            const normalizedQuery = normalizeText(query);
+
+            if (!normalizedQuery) {
+                return DEFAULT_NATIONALITY_SUGGESTIONS.slice();
+            }
+
+            const startsWithMatches = [];
+            const keywordMatches = [];
+            const containsMatches = [];
+
+            options.forEach(option => {
+                if (option.normalized.startsWith(normalizedQuery)) {
+                    startsWithMatches.push(option.label);
+                    return;
+                }
+
+                const keywordHit = Array.from(option.keywords).some(keyword => keyword.startsWith(normalizedQuery));
+                if (keywordHit) {
+                    keywordMatches.push(option.label);
+                    return;
+                }
+
+                if (option.normalized.includes(normalizedQuery)) {
+                    containsMatches.push(option.label);
+                    return;
+                }
+
+                const keywordContains = Array.from(option.keywords).some(keyword => keyword.includes(normalizedQuery));
+                if (keywordContains) {
+                    containsMatches.push(option.label);
+                }
+            });
+
+            return dedupeList([...startsWithMatches, ...keywordMatches, ...containsMatches]).slice(0, 10);
+        };
+    }
+
+    function resolveNationalityValue(value, index) {
+        const normalized = normalizeText(value);
+        if (!normalized) {
+            return '';
+        }
+
+        const { options, synonymMap } = index;
+
+        if (synonymMap.has(normalized)) {
+            return synonymMap.get(normalized);
+        }
+
+        const exact = options.find(option => option.normalized === normalized);
+        if (exact) {
+            return exact.label;
+        }
+
+        const keyword = options.find(option => option.keywords.has(normalized));
+        if (keyword) {
+            return keyword.label;
+        }
+
+        const startsWith = options.find(option => option.normalized.startsWith(normalized));
+        if (startsWith) {
+            return startsWith.label;
+        }
+
+        const keywordStarts = options.find(option => Array.from(option.keywords).some(keyword => keyword.startsWith(normalized)));
+        if (keywordStarts) {
+            return keywordStarts.label;
+        }
+
+        const contains = options.find(option => option.normalized.includes(normalized));
+        if (contains) {
+            return contains.label;
+        }
+
+        const keywordContains = options.find(option => Array.from(option.keywords).some(keyword => keyword.includes(normalized)));
+        if (keywordContains) {
+            return keywordContains.label;
+        }
+
+        return value;
+    }
+
+    function populateCountries(select, selectedCountry) {
+        if (!select) {
+            return;
+        }
+
+        select.innerHTML = '';
+
+        const placeholder = document.createElement('option');
+        placeholder.value = '';
+        placeholder.textContent = 'Select your country';
+        placeholder.disabled = true;
+        placeholder.selected = true;
+        select.appendChild(placeholder);
+
+        const paraguay = AVAILABLE_COUNTRIES.find(country => country.code === 'PY');
+        if (paraguay) {
+            select.appendChild(createCountryOption(paraguay));
+        }
+
+        const divider = document.createElement('option');
+        divider.textContent = '─────────────── Europe ───────────────';
+        divider.disabled = true;
+        divider.style.fontWeight = '600';
+        divider.style.color = '#D4AF37';
+        divider.style.textAlign = 'center';
+        divider.style.backgroundColor = '#f7fafc';
+        select.appendChild(divider);
+
+        AVAILABLE_COUNTRIES
+            .filter(country => country.code !== 'PY')
+            .forEach(country => select.appendChild(createCountryOption(country)));
 
         const otherOption = document.createElement('option');
         otherOption.value = 'OTHER';
-        otherOption.textContent = '🌍 My country isn\'t listed yet';
+        otherOption.textContent = '🌍 My country isn't listed yet';
         otherOption.style.fontWeight = '500';
         otherOption.style.color = '#4299e1';
         otherOption.style.fontStyle = 'italic';
-        countrySelect.appendChild(otherOption);
+        select.appendChild(otherOption);
 
-        if (selectedCountry && countrySelect.querySelector(`option[value="${selectedCountry}"]`)) {
-            countrySelect.value = selectedCountry;
-        } else {
-            countrySelect.value = '';
+        if (selectedCountry && select.querySelector(`option[value="${selectedCountry}"]`)) {
+            select.value = selectedCountry;
         }
     }
 
@@ -230,8 +442,8 @@
         return option;
     }
 
-    function populatePhoneCodes(phoneCodeSelect) {
-        if (!phoneCodeSelect) {
+    function populatePhoneCodes(select) {
+        if (!select) {
             return;
         }
 
@@ -239,14 +451,9 @@
         const entries = [];
 
         RAW_COUNTRIES.forEach(country => {
-            if (!country.dialCode) {
+            if (!country.dialCode || seen.has(country.dialCode)) {
                 return;
             }
-
-            if (seen.has(country.dialCode)) {
-                return;
-            }
-
             seen.add(country.dialCode);
             entries.push({
                 dialCode: country.dialCode,
@@ -258,340 +465,73 @@
             if (!fallback.dialCode || seen.has(fallback.dialCode)) {
                 return;
             }
-
             seen.add(fallback.dialCode);
             entries.push({ dialCode: fallback.dialCode, label: `${fallback.dialCode} (${fallback.label})` });
         });
 
-        entries.sort((a, b) => {
-            const codeA = parseInt(a.dialCode.replace('+', ''), 10);
-            const codeB = parseInt(b.dialCode.replace('+', ''), 10);
-            return codeA - codeB;
-        });
+        entries.sort((a, b) => parseInt(a.dialCode.slice(1), 10) - parseInt(b.dialCode.slice(1), 10));
 
-        const currentValue = phoneCodeSelect.value;
-        phoneCodeSelect.innerHTML = '';
+        const currentValue = select.value;
+        select.innerHTML = '';
 
         entries.forEach(entry => {
             const option = document.createElement('option');
             option.value = entry.dialCode;
             option.textContent = entry.label;
-            phoneCodeSelect.appendChild(option);
+            select.appendChild(option);
         });
 
         if (currentValue) {
-            phoneCodeSelect.value = currentValue;
-        } else if (PHONE_CODE_FALLBACKS.length) {
-            const preferred = PHONE_CODE_FALLBACKS[0].dialCode;
-            if (preferred && seen.has(preferred)) {
-                phoneCodeSelect.value = preferred;
-            }
+            select.value = currentValue;
+        } else if (PHONE_CODE_FALLBACKS[0]) {
+            select.value = PHONE_CODE_FALLBACKS[0].dialCode;
         }
     }
 
-    function getDialCodeForCountry(countryCode) {
+    function syncPhoneDialCode(countryCode, select) {
+        if (!select) {
+            return;
+        }
         const entry = RAW_COUNTRIES.find(country => country.code === countryCode);
-        return entry?.dialCode || '';
-    }
-
-    function syncPhoneDialCode(countryCode, phoneCodeSelect) {
-        if (!phoneCodeSelect) {
+        if (!entry || !entry.dialCode) {
             return;
         }
 
-        const dialCode = getDialCodeForCountry(countryCode);
-        if (!dialCode) {
-            return;
-        }
-
-        if (!Array.from(phoneCodeSelect.options).some(option => option.value === dialCode)) {
+        if (!Array.from(select.options).some(option => option.value === entry.dialCode)) {
             const option = document.createElement('option');
-            option.value = dialCode;
-            option.textContent = dialCode;
-            phoneCodeSelect.appendChild(option);
+            option.value = entry.dialCode;
+            option.textContent = entry.dialCode;
+            select.appendChild(option);
         }
 
-        phoneCodeSelect.value = dialCode;
-    }
-
-    function populateNationalityOptions(datalist) {
-        const seen = new Set();
-        const options = [];
-
-        RAW_COUNTRIES.forEach(country => {
-            const candidates = [COUNTRY_NATIONALITIES[country.code], country.name].filter(Boolean);
-            candidates.forEach(label => {
-                if (label && !seen.has(label)) {
-                    seen.add(label);
-                    options.push(label);
-                }
-            });
-        });
-
-        ADDITIONAL_NATIONALITIES.forEach(label => {
-            if (!seen.has(label)) {
-                seen.add(label);
-                options.push(label);
-            }
-        });
-
-        options.sort((a, b) => a.localeCompare(b));
-        if (datalist) {
-            datalist.innerHTML = '';
-
-            options.forEach(label => {
-                const option = document.createElement('option');
-                option.value = label;
-                datalist.appendChild(option);
-            });
-        }
-
-        return options;
-    }
-
-    function setupNationalityAutocomplete(input, options) {
-        if (!input || !Array.isArray(options) || options.length === 0) {
-            return;
-        }
-
-        if (input.dataset.autocompleteBound === 'true') {
-            return;
-        }
-
-        const wrapper = input.closest('.form-group') || input.parentElement;
-        if (!wrapper) {
-            return;
-        }
-
-        input.dataset.autocompleteBound = 'true';
-        wrapper.classList.add('has-nationality-autocomplete');
-
-        const normalizedOptions = options.map(label => ({
-            label,
-            normalized: label.toLowerCase()
-        }));
-
-        const preferredDefaults = [];
-        DEFAULT_NATIONALITY_SUGGESTIONS.forEach(label => {
-            const match = normalizedOptions.find(option => option.label === label);
-            if (match && !preferredDefaults.includes(match.label)) {
-                preferredDefaults.push(match.label);
-            }
-        });
-
-        const fallbackDefaults = options.slice(0, 7);
-        const defaultSuggestions = preferredDefaults.length
-            ? [
-                ...preferredDefaults,
-                ...options.filter(label => !preferredDefaults.includes(label)).slice(0, Math.max(0, 7 - preferredDefaults.length))
-            ]
-            : fallbackDefaults;
-
-        const datalistId = input.getAttribute('list');
-        const datalistElement = datalistId ? document.getElementById(datalistId) : null;
-        const suggestionList = document.createElement('div');
-        suggestionList.className = 'nationality-suggestion-list';
-
-        const listId = input.id ? `${input.id}-suggestions` : 'nationality-suggestions';
-        suggestionList.id = listId;
-        suggestionList.setAttribute('role', 'listbox');
-
-        if (datalistElement && datalistElement.parentNode) {
-            datalistElement.parentNode.insertBefore(suggestionList, datalistElement);
-        } else {
-            input.insertAdjacentElement('afterend', suggestionList);
-        }
-
-        if (datalistId) {
-            input.setAttribute('data-original-list', datalistId);
-            input.removeAttribute('list');
-        }
-
-        input.setAttribute('autocomplete', 'off');
-        input.setAttribute('role', 'combobox');
-        input.setAttribute('aria-haspopup', 'listbox');
-        input.setAttribute('aria-controls', listId);
-        input.setAttribute('aria-expanded', 'false');
-        input.setAttribute('aria-autocomplete', 'list');
-
-        let currentSuggestions = [];
-        let activeIndex = -1;
-
-        function closeSuggestions() {
-            suggestionList.innerHTML = '';
-            suggestionList.classList.remove('is-visible');
-            input.setAttribute('aria-expanded', 'false');
-            input.removeAttribute('aria-activedescendant');
-            currentSuggestions = [];
-            activeIndex = -1;
-        }
-
-        function highlightSuggestion(index) {
-            const items = suggestionList.querySelectorAll('.nationality-suggestion-item');
-            items.forEach((item, itemIndex) => {
-                if (itemIndex === index) {
-                    item.classList.add('is-active');
-                    input.setAttribute('aria-activedescendant', item.id);
-                    item.scrollIntoView({ block: 'nearest' });
-                } else {
-                    item.classList.remove('is-active');
-                }
-            });
-            activeIndex = index;
-            if (index < 0) {
-                input.removeAttribute('aria-activedescendant');
-            }
-        }
-
-        function openSuggestions(list) {
-            suggestionList.innerHTML = '';
-
-            if (!list.length) {
-                closeSuggestions();
-                return;
-            }
-
-            list.forEach((label, index) => {
-                const item = document.createElement('div');
-                item.className = 'nationality-suggestion-item';
-                const itemId = `${listId}-item-${index}`;
-                item.id = itemId;
-                item.setAttribute('role', 'option');
-                item.textContent = label;
-                item.dataset.value = label;
-                suggestionList.appendChild(item);
-            });
-
-            suggestionList.classList.add('is-visible');
-            input.setAttribute('aria-expanded', 'true');
-            currentSuggestions = list;
-            highlightSuggestion(-1);
-        }
-
-        function buildSuggestions(query) {
-            const normalizedQuery = query.trim().toLowerCase();
-
-            if (!normalizedQuery) {
-                return defaultSuggestions.slice();
-            }
-
-            const startsWithMatches = [];
-            const containsMatches = [];
-
-            normalizedOptions.forEach(option => {
-                if (option.normalized.startsWith(normalizedQuery)) {
-                    startsWithMatches.push(option.label);
-                } else if (option.normalized.includes(normalizedQuery)) {
-                    containsMatches.push(option.label);
-                }
-            });
-
-            return [...startsWithMatches, ...containsMatches].slice(0, 10);
-        }
-
-        function selectSuggestion(value) {
-            if (!value) {
-                return;
-            }
-
-            input.value = value;
-            input.dispatchEvent(new Event('input', { bubbles: true }));
-            input.dispatchEvent(new Event('change', { bubbles: true }));
-            closeSuggestions();
-        }
-
-        input.addEventListener('input', function() {
-            const suggestions = buildSuggestions(input.value);
-            if (suggestions.length) {
-                openSuggestions(suggestions);
-            } else {
-                closeSuggestions();
-            }
-        });
-
-        input.addEventListener('focus', function() {
-            const suggestions = buildSuggestions(input.value);
-            if (suggestions.length) {
-                openSuggestions(suggestions);
-            }
-        });
-
-        input.addEventListener('blur', function() {
-            setTimeout(closeSuggestions, 120);
-        });
-
-        input.addEventListener('keydown', function(event) {
-            if (!suggestionList.classList.contains('is-visible')) {
-                if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
-                    const suggestions = buildSuggestions(input.value);
-                    if (suggestions.length) {
-                        event.preventDefault();
-                        openSuggestions(suggestions);
-                    }
-                }
-                return;
-            }
-
-            if (event.key === 'ArrowDown') {
-                event.preventDefault();
-                if (currentSuggestions.length) {
-                    const nextIndex = activeIndex + 1 >= currentSuggestions.length ? 0 : activeIndex + 1;
-                    highlightSuggestion(nextIndex);
-                }
-            } else if (event.key === 'ArrowUp') {
-                event.preventDefault();
-                if (currentSuggestions.length) {
-                    const prevIndex = activeIndex - 1 < 0 ? currentSuggestions.length - 1 : activeIndex - 1;
-                    highlightSuggestion(prevIndex);
-                }
-            } else if (event.key === 'Enter') {
-                if (activeIndex >= 0 && currentSuggestions[activeIndex]) {
-                    event.preventDefault();
-                    selectSuggestion(currentSuggestions[activeIndex]);
-                }
-            } else if (event.key === 'Escape') {
-                closeSuggestions();
-            }
-        });
-
-        suggestionList.addEventListener('pointerdown', function(event) {
-            event.preventDefault();
-            const item = event.target.closest('.nationality-suggestion-item');
-            if (item) {
-                selectSuggestion(item.dataset.value);
-            }
-        });
-
-        suggestionList.addEventListener('mousemove', function(event) {
-            const item = event.target.closest('.nationality-suggestion-item');
-            if (!item) {
-                return;
-            }
-
-            const items = Array.from(suggestionList.querySelectorAll('.nationality-suggestion-item'));
-            const index = items.indexOf(item);
-            if (index >= 0 && index !== activeIndex) {
-                highlightSuggestion(index);
-            }
-        });
+        select.value = entry.dialCode;
     }
 
     function resetStateCity(stateSelect, citySelect, customCityGroup, customCityInput) {
-        stateSelect.innerHTML = '<option value="">Select your state/province</option>';
-        stateSelect.disabled = true;
-        citySelect.innerHTML = '<option value="">Select your city</option>';
-        citySelect.disabled = true;
+        if (stateSelect) {
+            stateSelect.innerHTML = '<option value="">Select your state/province</option>';
+            stateSelect.disabled = true;
+        }
+        if (citySelect) {
+            citySelect.innerHTML = '<option value="">Select your city</option>';
+            citySelect.disabled = true;
+        }
         if (customCityGroup) {
             customCityGroup.style.display = 'none';
         }
         if (customCityInput) {
             customCityInput.required = false;
+            customCityInput.value = '';
         }
     }
 
     function populateStates(stateSelect, citySelect, countryCode, preservedState, preservedCity, customCityGroup, customCityInput) {
+        if (!stateSelect || !citySelect) {
+            return;
+        }
+
         const countryData = LOCATION_DATA[countryCode];
-        if (!countryData || !countryData.regions || countryData.regions.length === 0) {
+        if (!countryData || !Array.isArray(countryData.regions) || countryData.regions.length === 0) {
             resetStateCity(stateSelect, citySelect, customCityGroup, customCityInput);
             return;
         }
@@ -612,18 +552,17 @@
         } else {
             citySelect.innerHTML = '<option value="">Select your city</option>';
             citySelect.disabled = true;
-            if (customCityGroup) {
-                customCityGroup.style.display = 'none';
-            }
-            if (customCityInput) {
-                customCityInput.required = false;
-            }
         }
     }
 
     function populateCities(citySelect, countryCode, stateValue, preservedCity, customCityGroup, customCityInput) {
+        if (!citySelect) {
+            return;
+        }
+
         const countryData = LOCATION_DATA[countryCode];
         const region = countryData?.regions?.find(entry => entry.value === stateValue);
+
         citySelect.innerHTML = '<option value="">Select your city</option>';
 
         if (!region) {
@@ -640,8 +579,7 @@
         citySelect.disabled = false;
         region.cities.forEach(city => {
             const option = document.createElement('option');
-            const value = slugify(city);
-            option.value = value;
+            option.value = slugify(city);
             option.textContent = city;
             citySelect.appendChild(option);
         });
@@ -658,66 +596,8 @@
         handleCityChange(citySelect, customCityGroup, customCityInput);
     }
 
-    function handleCountryChange(countrySelect, stateSelect, citySelect, customCityGroup, customCityInput, phoneCodeSelect) {
-    function handleCountryChange(countrySelect, stateSelect, citySelect, customCityGroup, customCityInput) {
-        const selectedCountry = countrySelect.value;
-
-        if (!selectedCountry) {
-            resetStateCity(stateSelect, citySelect, customCityGroup, customCityInput);
-            if (phoneCodeSelect && PHONE_CODE_FALLBACKS.length) {
-                phoneCodeSelect.value = PHONE_CODE_FALLBACKS[0].dialCode;
-            }
-            return;
-        }
-
-        if (selectedCountry === 'OTHER') {
-            showExpansionModal();
-            resetStateCity(stateSelect, citySelect, customCityGroup, customCityInput);
-            if (phoneCodeSelect) {
-                phoneCodeSelect.value = '';
-            }
-            return;
-        }
-
-        syncPhoneDialCode(selectedCountry, phoneCodeSelect);
-            return;
-        }
-
-        populateStates(stateSelect, citySelect, selectedCountry, undefined, undefined, customCityGroup, customCityInput);
-    }
-
-    function handleStateChange(countrySelect, stateSelect, citySelect, customCityGroup, customCityInput) {
-        const countryCode = countrySelect.value;
-        const stateValue = stateSelect.value;
-
-        if (!countryCode || !stateValue) {
-            citySelect.innerHTML = '<option value="">Select your city</option>';
-            citySelect.disabled = true;
-            if (customCityGroup) {
-                customCityGroup.style.display = 'none';
-            }
-            if (customCityInput) {
-                customCityInput.required = false;
-            }
-            return;
-        }
-
-        populateCities(citySelect, countryCode, stateValue, undefined, customCityGroup, customCityInput);
-    }
-
     function handleCityChange(citySelect, customCityGroup, customCityInput) {
-        if (!customCityGroup) {
-            return;
-        }
-
-            return;
-        }
-
-        populateCities(citySelect, countryCode, stateValue, undefined, customCityGroup, customCityInput);
-    }
-
-    function handleCityChange(citySelect, customCityGroup, customCityInput) {
-        if (!customCityGroup) {
+        if (!citySelect || !customCityGroup) {
             return;
         }
 
@@ -732,88 +612,6 @@
                 customCityInput.required = false;
             }
         }
-    }
-
-    function initializeParaguayEuropeSelector() {
-        if (window.tesseraParaguayEuropeSelectorInitialized) {
-            return;
-        }
-
-        if (!hasLocationData()) {
-            if (!waitingForLocationData) {
-                waitingForLocationData = true;
-                window.addEventListener('tesseraParaguayEuropeDataReady', handleLocationDataReady, { once: true });
-            }
-            return;
-        }
-
-        const countrySelect = document.getElementById('country');
-        const stateSelect = document.getElementById('state');
-        const citySelect = document.getElementById('city');
-        const customCityGroup = document.getElementById('custom-city-group');
-        const customCityInput = document.getElementById('custom-city');
-        const phoneCodeSelect = document.getElementById('country-code');
-        const nationalityInput = document.getElementById('nationality');
-        const nationalityDatalist = document.getElementById('nationality-options');
-
-        if (!countrySelect || !stateSelect || !citySelect) {
-            console.warn('Location selectors not found on the page.');
-            window.tesseraParaguayEuropeSelectorInitialized = false;
-            return;
-        }
-
-        const persisted = getPersistedLocation();
-
-        if (nationalityInput) {
-            if (persisted.nationality) {
-                nationalityInput.value = persisted.nationality;
-                const demonym = COUNTRY_NATIONALITIES[persisted.country];
-                if (demonym && normalizeText(demonym) === normalizeText(persisted.nationality)) {
-                    nationalityInput.dataset.autofilledFromCountry = 'true';
-                } else if (nationalityInput.dataset.autofilledFromCountry) {
-                    delete nationalityInput.dataset.autofilledFromCountry;
-                }
-            } else if (nationalityInput.dataset.autofilledFromCountry) {
-                delete nationalityInput.dataset.autofilledFromCountry;
-            }
-        }
-
-        populateCountries(countrySelect, persisted.country);
-        populatePhoneCodes(phoneCodeSelect);
-        const nationalityOptions = populateNationalityOptions(nationalityDatalist);
-        setupNationalityAutocomplete(nationalityInput, nationalityOptions);
-        resetStateCity(stateSelect, citySelect, customCityGroup, customCityInput);
-
-        countrySelect.addEventListener('change', function() {
-            handleCountryChange(countrySelect, stateSelect, citySelect, customCityGroup, customCityInput, phoneCodeSelect);
-        resetStateCity(stateSelect, citySelect, customCityGroup, customCityInput);
-
-        countrySelect.addEventListener('change', function() {
-            handleCountryChange(countrySelect, stateSelect, citySelect, customCityGroup, customCityInput);
-        });
-
-        stateSelect.addEventListener('change', function() {
-            handleStateChange(countrySelect, stateSelect, citySelect, customCityGroup, customCityInput);
-        });
-
-        citySelect.addEventListener('change', function() {
-            handleCityChange(citySelect, customCityGroup, customCityInput);
-        });
-
-        if (persisted.country && persisted.country !== 'OTHER') {
-            populateStates(stateSelect, citySelect, persisted.country, persisted.state, persisted.city, customCityGroup, customCityInput);
-            syncPhoneDialCode(persisted.country, phoneCodeSelect);
-        } else if (persisted.country === 'OTHER' && phoneCodeSelect) {
-            phoneCodeSelect.value = '';
-        }
-
-        if (persisted.city === 'other') {
-            handleCityChange(citySelect, customCityGroup, customCityInput);
-        }
-
-        createExpansionModal();
-
-        window.tesseraParaguayEuropeSelectorInitialized = true;
     }
 
     function showExpansionModal() {
@@ -832,30 +630,37 @@
         }
 
         const countrySelect = document.getElementById('country');
-        if (countrySelect) {
+        if (countrySelect && countrySelect.value === 'OTHER') {
             countrySelect.value = '';
         }
 
+        document.querySelectorAll('input[name="expansion-region"]').forEach(input => {
+            input.checked = false;
+        });
+
+        const countryInput = document.getElementById('expansionCountry');
+        if (countryInput) {
+            countryInput.value = '';
+        }
+
+        const emailInput = document.getElementById('expansionEmail');
+        if (emailInput) {
+            emailInput.value = '';
+        }
+
         const form = document.getElementById('expansionForm');
+        const footer = document.getElementById('expansionFooter');
+        const success = document.getElementById('expansionSuccess');
+
         if (form) {
             form.style.display = 'block';
         }
-
-        const footer = document.getElementById('expansionFooter');
         if (footer) {
             footer.style.display = 'flex';
         }
-
-        const success = document.getElementById('expansionSuccess');
         if (success) {
             success.classList.remove('active');
         }
-
-        document.querySelectorAll('input[name="expansion-region"]').forEach(input => input.checked = false);
-        const countryInput = document.getElementById('expansionCountry');
-        if (countryInput) countryInput.value = '';
-        const emailInput = document.getElementById('expansionEmail');
-        if (emailInput) emailInput.value = '';
     }
 
     function createExpansionModal() {
@@ -956,8 +761,8 @@
 
         document.body.insertAdjacentHTML('beforeend', modalHTML);
 
-        document.getElementById('expansionModal').addEventListener('click', function(e) {
-            if (e.target.id === 'expansionModal') {
+        document.getElementById('expansionModal').addEventListener('click', function(event) {
+            if (event.target.id === 'expansionModal') {
                 closeExpansionModal();
             }
         });
@@ -979,9 +784,8 @@
             const existing = JSON.parse(localStorage.getItem('expansionInterests') || '[]');
             existing.push(data);
             localStorage.setItem('expansionInterests', JSON.stringify(existing));
-            console.log('Expansion interest saved:', data);
         } catch (error) {
-            console.error('Error saving to localStorage:', error);
+            console.error('Error saving expansion interest:', error);
         }
 
         try {
@@ -991,18 +795,298 @@
                 body: JSON.stringify(data)
             });
         } catch (error) {
-            console.log('API not available, saved to localStorage only');
+            console.log('Expansion interest API not available. Saved locally.');
         }
 
-        document.getElementById('expansionForm').style.display = 'none';
-        document.getElementById('expansionFooter').style.display = 'none';
-        document.getElementById('expansionSuccess').classList.add('active');
+        const form = document.getElementById('expansionForm');
+        const footer = document.getElementById('expansionFooter');
+        const success = document.getElementById('expansionSuccess');
+
+        if (form) {
+            form.style.display = 'none';
+        }
+        if (footer) {
+            footer.style.display = 'none';
+        }
+        if (success) {
+            success.classList.add('active');
+        }
+    }
+
+    function setupNationalityAutocomplete(input, suggestionContainer, index) {
+        if (!input || !suggestionContainer) {
+            return;
+        }
+
+        const buildSuggestions = buildSuggestionsBuilder(index);
+        let currentSuggestions = [];
+        let activeIndex = -1;
+
+        function closeSuggestions() {
+            suggestionContainer.innerHTML = '';
+            suggestionContainer.classList.remove('is-visible');
+            input.setAttribute('aria-expanded', 'false');
+            input.removeAttribute('aria-activedescendant');
+            currentSuggestions = [];
+            activeIndex = -1;
+        }
+
+        function highlightSuggestion(index) {
+            const items = suggestionContainer.querySelectorAll('.nationality-suggestion-item');
+            items.forEach((item, itemIndex) => {
+                if (itemIndex === index) {
+                    item.classList.add('is-active');
+                    input.setAttribute('aria-activedescendant', item.id);
+                    item.scrollIntoView({ block: 'nearest' });
+                } else {
+                    item.classList.remove('is-active');
+                }
+            });
+            activeIndex = index;
+            if (index < 0) {
+                input.removeAttribute('aria-activedescendant');
+            }
+        }
+
+        function openSuggestions(list) {
+            suggestionContainer.innerHTML = '';
+
+            if (!list.length) {
+                closeSuggestions();
+                return;
+            }
+
+            list.forEach((label, index) => {
+                const item = document.createElement('div');
+                item.className = 'nationality-suggestion-item';
+                item.id = `${input.id || 'nationality'}-suggestion-${index}`;
+                item.setAttribute('role', 'option');
+                item.textContent = label;
+                item.dataset.value = label;
+                suggestionContainer.appendChild(item);
+            });
+
+            suggestionContainer.classList.add('is-visible');
+            input.setAttribute('aria-expanded', 'true');
+            currentSuggestions = list;
+            highlightSuggestion(-1);
+        }
+
+        function selectSuggestion(value) {
+            if (!value) {
+                return;
+            }
+            input.value = value;
+            input.dispatchEvent(new Event('input', { bubbles: true }));
+            input.dispatchEvent(new Event('change', { bubbles: true }));
+            closeSuggestions();
+        }
+
+        input.setAttribute('autocomplete', 'off');
+        input.setAttribute('role', 'combobox');
+        input.setAttribute('aria-haspopup', 'listbox');
+        input.setAttribute('aria-expanded', 'false');
+        suggestionContainer.setAttribute('role', 'listbox');
+
+        input.addEventListener('input', function(event) {
+            if (input.dataset.autofilledFromCountry === 'true') {
+                delete input.dataset.autofilledFromCountry;
+            }
+            const suggestions = buildSuggestions(event.target.value);
+            if (suggestions.length) {
+                openSuggestions(suggestions);
+            } else {
+                closeSuggestions();
+            }
+        });
+
+        input.addEventListener('focus', function() {
+            const suggestions = buildSuggestions(input.value);
+            if (suggestions.length) {
+                openSuggestions(suggestions);
+            }
+        });
+
+        input.addEventListener('blur', function() {
+            setTimeout(closeSuggestions, 120);
+            const resolved = resolveNationalityValue(input.value, index);
+            if (resolved && resolved !== input.value) {
+                input.value = resolved;
+            }
+        });
+
+        input.addEventListener('keydown', function(event) {
+            if (!suggestionContainer.classList.contains('is-visible')) {
+                if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+                    const suggestions = buildSuggestions(input.value);
+                    if (suggestions.length) {
+                        event.preventDefault();
+                        openSuggestions(suggestions);
+                    }
+                }
+                return;
+            }
+
+            if (event.key === 'ArrowDown') {
+                event.preventDefault();
+                if (currentSuggestions.length) {
+                    const nextIndex = activeIndex + 1 >= currentSuggestions.length ? 0 : activeIndex + 1;
+                    highlightSuggestion(nextIndex);
+                }
+            } else if (event.key === 'ArrowUp') {
+                event.preventDefault();
+                if (currentSuggestions.length) {
+                    const prevIndex = activeIndex - 1 < 0 ? currentSuggestions.length - 1 : activeIndex - 1;
+                    highlightSuggestion(prevIndex);
+                }
+            } else if (event.key === 'Enter') {
+                if (activeIndex >= 0 && currentSuggestions[activeIndex]) {
+                    event.preventDefault();
+                    selectSuggestion(currentSuggestions[activeIndex]);
+                }
+            } else if (event.key === 'Escape') {
+                closeSuggestions();
+            }
+        });
+
+        suggestionContainer.addEventListener('pointerdown', function(event) {
+            event.preventDefault();
+            const item = event.target.closest('.nationality-suggestion-item');
+            if (item) {
+                selectSuggestion(item.dataset.value);
+            }
+        });
+
+        suggestionContainer.addEventListener('mousemove', function(event) {
+            const item = event.target.closest('.nationality-suggestion-item');
+            if (!item) {
+                return;
+            }
+            const items = Array.from(suggestionContainer.querySelectorAll('.nationality-suggestion-item'));
+            const index = items.indexOf(item);
+            if (index >= 0 && index !== activeIndex) {
+                highlightSuggestion(index);
+            }
+        });
+    }
+
+    function setNationalityFromCountry(countryCode, input, index) {
+        if (!input) {
+            return;
+        }
+        const demonym = COUNTRY_NATIONALITIES[countryCode];
+        if (!demonym) {
+            return;
+        }
+
+        if (!input.value || input.dataset.autofilledFromCountry === 'true') {
+            const resolved = resolveNationalityValue(demonym, index) || demonym;
+            input.value = resolved;
+            input.dataset.autofilledFromCountry = 'true';
+            input.dispatchEvent(new Event('input', { bubbles: true }));
+            input.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+    }
+
+    function handleCountryChange(countrySelect, stateSelect, citySelect, customCityGroup, customCityInput, phoneCodeSelect, nationalityInput, nationalityIndex) {
+        const selectedCountry = countrySelect.value;
+
+        if (!selectedCountry) {
+            resetStateCity(stateSelect, citySelect, customCityGroup, customCityInput);
+            if (phoneCodeSelect && PHONE_CODE_FALLBACKS[0]) {
+                phoneCodeSelect.value = PHONE_CODE_FALLBACKS[0].dialCode;
+            }
+            return;
+        }
+
+        if (selectedCountry === 'OTHER') {
+            showExpansionModal();
+            resetStateCity(stateSelect, citySelect, customCityGroup, customCityInput);
+            if (phoneCodeSelect) {
+                phoneCodeSelect.value = '';
+            }
+            if (nationalityInput) {
+                nationalityInput.value = '';
+                delete nationalityInput.dataset.autofilledFromCountry;
+                nationalityInput.dispatchEvent(new Event('input', { bubbles: true }));
+                nationalityInput.dispatchEvent(new Event('change', { bubbles: true }));
+            }
+            return;
+        }
+
+        setNationalityFromCountry(selectedCountry, nationalityInput, nationalityIndex);
+        syncPhoneDialCode(selectedCountry, phoneCodeSelect);
+        populateStates(stateSelect, citySelect, selectedCountry, undefined, undefined, customCityGroup, customCityInput);
+    }
+
+    function initializeSelector() {
+        console.log('[Tessera] Paraguay-Europe Selector v2.0 initializing...');
+        console.log('[Tessera] Available countries:', AVAILABLE_COUNTRIES.length);
+        console.log('[Tessera] Countries:', AVAILABLE_COUNTRIES.map(c => c.name).join(', '));
+        const countrySelect = document.getElementById('country');
+        const stateSelect = document.getElementById('state');
+        const citySelect = document.getElementById('city');
+        const customCityGroup = document.getElementById('custom-city-group');
+        const customCityInput = document.getElementById('custom-city');
+        const phoneCodeSelect = document.getElementById('country-code');
+        const nationalityInput = document.getElementById('nationality');
+        const suggestionContainer = document.getElementById('nationality-suggestions');
+
+        if (!countrySelect || !stateSelect || !citySelect) {
+            console.warn('Location selectors not found on the page.');
+            return;
+        }
+
+        const nationalityIndex = buildNationalityIndex();
+        const persisted = getPersistedLocation();
+
+        populateCountries(countrySelect, persisted.country);
+        console.log('[Tessera] Country dropdown populated with', countrySelect.options.length - 1, 'options (excluding placeholder)');
+        populatePhoneCodes(phoneCodeSelect);
+        setupNationalityAutocomplete(nationalityInput, suggestionContainer, nationalityIndex);
+        resetStateCity(stateSelect, citySelect, customCityGroup, customCityInput);
+        createExpansionModal();
+
+        if (nationalityInput) {
+            nationalityInput.addEventListener('input', function() {
+                if (nationalityInput.dataset.autofilledFromCountry === 'true') {
+                    delete nationalityInput.dataset.autofilledFromCountry;
+                }
+            });
+            if (persisted.nationality) {
+                nationalityInput.value = persisted.nationality;
+            }
+        }
+
+        countrySelect.addEventListener('change', function() {
+            handleCountryChange(countrySelect, stateSelect, citySelect, customCityGroup, customCityInput, phoneCodeSelect, nationalityInput, nationalityIndex);
+        });
+
+        stateSelect.addEventListener('change', function() {
+            populateCities(citySelect, countrySelect.value, stateSelect.value, undefined, customCityGroup, customCityInput);
+        });
+
+        citySelect.addEventListener('change', function() {
+            handleCityChange(citySelect, customCityGroup, customCityInput);
+        });
+
+        if (persisted.country && persisted.country !== 'OTHER') {
+            populateStates(stateSelect, citySelect, persisted.country, persisted.state, persisted.city, customCityGroup, customCityInput);
+            syncPhoneDialCode(persisted.country, phoneCodeSelect);
+            setNationalityFromCountry(persisted.country, nationalityInput, nationalityIndex);
+        } else if (persisted.country === 'OTHER' && phoneCodeSelect) {
+            phoneCodeSelect.value = '';
+        }
+
+        if (persisted.city === 'other') {
+            handleCityChange(citySelect, customCityGroup, customCityInput);
+        }
     }
 
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initializeParaguayEuropeSelector);
+        document.addEventListener('DOMContentLoaded', initializeSelector);
     } else {
-        initializeParaguayEuropeSelector();
+        initializeSelector();
     }
 
     window.closeExpansionModal = closeExpansionModal;
