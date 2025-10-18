@@ -60,60 +60,12 @@
         { code: 'GB', name: 'United Kingdom', flag: '🇬🇧', dialCode: '+44' }
     ];
 
-    const COUNTRY_NATIONALITIES = {
-        PY: 'Paraguayan',
-        AL: 'Albanian',
-        AD: 'Andorran',
-        AT: 'Austrian',
-        BY: 'Belarusian',
-        BE: 'Belgian',
-        BA: 'Bosnian',
-        BG: 'Bulgarian',
-        HR: 'Croatian',
-        CZ: 'Czech',
-        DK: 'Danish',
-        EE: 'Estonian',
-        FI: 'Finnish',
-        FR: 'French',
-        DE: 'German',
-        GR: 'Greek',
-        VA: 'Vatican Citizen',
-        HU: 'Hungarian',
-        IS: 'Icelandic',
-        IE: 'Irish',
-        IT: 'Italian',
-        LV: 'Latvian',
-        LI: 'Liechtensteiner',
-        LT: 'Lithuanian',
-        LU: 'Luxembourgish',
-        MT: 'Maltese',
-        MD: 'Moldovan',
-        MC: 'Monegasque',
-        ME: 'Montenegrin',
-        NL: 'Dutch',
-        MK: 'North Macedonian',
-        NO: 'Norwegian',
-        PL: 'Polish',
-        PT: 'Portuguese',
-        RO: 'Romanian',
-        RU: 'Russian',
-        SM: 'Sammarinese',
-        RS: 'Serbian',
-        SK: 'Slovak',
-        SI: 'Slovenian',
-        ES: 'Spanish',
-        SE: 'Swedish',
-        CH: 'Swiss',
-        UA: 'Ukrainian',
-        GB: 'British'
-    };
-
     const PHONE_CODE_FALLBACKS = [
         { dialCode: '+1', label: 'United States / Canada' },
         { dialCode: '+55', label: 'Brazil' }
     ];
 
-    const ADDITIONAL_NATIONALITIES = ['American', 'Canadian', 'Brazilian', 'Argentine', 'Mexican'];
+    const ADDITIONAL_NATIONALITIES = ['United States', 'Canada', 'Brazil', 'Argentina', 'Mexico'];
 
     const AVAILABLE_COUNTRIES = RAW_COUNTRIES.map(country => ({
         ...country,
@@ -206,125 +158,6 @@
         return option;
     }
 
-    function populatePhoneCodes(phoneCodeSelect) {
-        if (!phoneCodeSelect) {
-            return;
-        }
-
-        const seen = new Set();
-        const entries = [];
-
-        RAW_COUNTRIES.forEach(country => {
-            if (!country.dialCode) {
-                return;
-            }
-
-            if (seen.has(country.dialCode)) {
-                return;
-            }
-
-            seen.add(country.dialCode);
-            entries.push({
-                dialCode: country.dialCode,
-                label: `${country.dialCode} ${country.flag} ${country.name}`
-            });
-        });
-
-        PHONE_CODE_FALLBACKS.forEach(fallback => {
-            if (!fallback.dialCode || seen.has(fallback.dialCode)) {
-                return;
-            }
-
-            seen.add(fallback.dialCode);
-            entries.push({ dialCode: fallback.dialCode, label: `${fallback.dialCode} (${fallback.label})` });
-        });
-
-        entries.sort((a, b) => {
-            const codeA = parseInt(a.dialCode.replace('+', ''), 10);
-            const codeB = parseInt(b.dialCode.replace('+', ''), 10);
-            return codeA - codeB;
-        });
-
-        const currentValue = phoneCodeSelect.value;
-        phoneCodeSelect.innerHTML = '';
-
-        entries.forEach(entry => {
-            const option = document.createElement('option');
-            option.value = entry.dialCode;
-            option.textContent = entry.label;
-            phoneCodeSelect.appendChild(option);
-        });
-
-        if (currentValue) {
-            phoneCodeSelect.value = currentValue;
-        } else if (PHONE_CODE_FALLBACKS.length) {
-            const preferred = PHONE_CODE_FALLBACKS[0].dialCode;
-            if (preferred && seen.has(preferred)) {
-                phoneCodeSelect.value = preferred;
-            }
-        }
-    }
-
-    function getDialCodeForCountry(countryCode) {
-        const entry = RAW_COUNTRIES.find(country => country.code === countryCode);
-        return entry?.dialCode || '';
-    }
-
-    function syncPhoneDialCode(countryCode, phoneCodeSelect) {
-        if (!phoneCodeSelect) {
-            return;
-        }
-
-        const dialCode = getDialCodeForCountry(countryCode);
-        if (!dialCode) {
-            return;
-        }
-
-        if (!Array.from(phoneCodeSelect.options).some(option => option.value === dialCode)) {
-            const option = document.createElement('option');
-            option.value = dialCode;
-            option.textContent = dialCode;
-            phoneCodeSelect.appendChild(option);
-        }
-
-        phoneCodeSelect.value = dialCode;
-    }
-
-    function populateNationalityOptions(datalist) {
-        if (!datalist) {
-            return;
-        }
-
-        const seen = new Set();
-        const options = [];
-
-        RAW_COUNTRIES.forEach(country => {
-            const candidates = [COUNTRY_NATIONALITIES[country.code], country.name].filter(Boolean);
-            candidates.forEach(label => {
-                if (label && !seen.has(label)) {
-                    seen.add(label);
-                    options.push(label);
-                }
-            });
-        });
-
-        ADDITIONAL_NATIONALITIES.forEach(label => {
-            if (!seen.has(label)) {
-                seen.add(label);
-                options.push(label);
-            }
-        });
-
-        options.sort((a, b) => a.localeCompare(b));
-        datalist.innerHTML = '';
-
-        options.forEach(label => {
-            const option = document.createElement('option');
-            option.value = label;
-            datalist.appendChild(option);
-        });
-    }
-
     function resetStateCity(stateSelect, citySelect, customCityGroup, customCityInput) {
         stateSelect.innerHTML = '<option value="">Select your state/province</option>';
         stateSelect.disabled = true;
@@ -407,27 +240,20 @@
         handleCityChange(citySelect, customCityGroup, customCityInput);
     }
 
-    function handleCountryChange(countrySelect, stateSelect, citySelect, customCityGroup, customCityInput, phoneCodeSelect) {
+    function handleCountryChange(countrySelect, stateSelect, citySelect, customCityGroup, customCityInput) {
         const selectedCountry = countrySelect.value;
 
         if (!selectedCountry) {
             resetStateCity(stateSelect, citySelect, customCityGroup, customCityInput);
-            if (phoneCodeSelect && PHONE_CODE_FALLBACKS.length) {
-                phoneCodeSelect.value = PHONE_CODE_FALLBACKS[0].dialCode;
-            }
             return;
         }
 
         if (selectedCountry === 'OTHER') {
             showExpansionModal();
             resetStateCity(stateSelect, citySelect, customCityGroup, customCityInput);
-            if (phoneCodeSelect) {
-                phoneCodeSelect.value = '';
-            }
             return;
         }
 
-        syncPhoneDialCode(selectedCountry, phoneCodeSelect);
         populateStates(stateSelect, citySelect, selectedCountry, undefined, undefined, customCityGroup, customCityInput);
     }
 
@@ -474,8 +300,6 @@
         const citySelect = document.getElementById('city');
         const customCityGroup = document.getElementById('custom-city-group');
         const customCityInput = document.getElementById('custom-city');
-        const phoneCodeSelect = document.getElementById('country-code');
-        const nationalityDatalist = document.getElementById('nationality-options');
 
         if (!countrySelect || !stateSelect || !citySelect) {
             console.warn('Location selectors not found on the page.');
@@ -485,12 +309,10 @@
         const persisted = getPersistedLocation();
 
         populateCountries(countrySelect, persisted.country);
-        populatePhoneCodes(phoneCodeSelect);
-        populateNationalityOptions(nationalityDatalist);
         resetStateCity(stateSelect, citySelect, customCityGroup, customCityInput);
 
         countrySelect.addEventListener('change', function() {
-            handleCountryChange(countrySelect, stateSelect, citySelect, customCityGroup, customCityInput, phoneCodeSelect);
+            handleCountryChange(countrySelect, stateSelect, citySelect, customCityGroup, customCityInput);
         });
 
         stateSelect.addEventListener('change', function() {
@@ -503,9 +325,6 @@
 
         if (persisted.country && persisted.country !== 'OTHER') {
             populateStates(stateSelect, citySelect, persisted.country, persisted.state, persisted.city, customCityGroup, customCityInput);
-            syncPhoneDialCode(persisted.country, phoneCodeSelect);
-        } else if (persisted.country === 'OTHER' && phoneCodeSelect) {
-            phoneCodeSelect.value = '';
         }
 
         if (persisted.city === 'other') {
