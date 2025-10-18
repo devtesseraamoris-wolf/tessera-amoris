@@ -7,6 +7,11 @@
 (function() {
     'use strict';
 
+    if (window.tesseraParaguayEuropeSelectorInitialized) {
+        return;
+    }
+    window.tesseraParaguayEuropeSelectorInitialized = true;
+
     // Expose a flag so other scripts know a custom location selector is active
     window.tesseraLocationSelectorActive = 'paraguay-europe-v2';
 
@@ -140,6 +145,14 @@
             .replace(/^-+|-+$/g, '');
     }
 
+    function normalizeText(value) {
+        return value
+            .toString()
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .toLowerCase();
+    }
+
     function getPersistedLocation() {
         try {
             const stored = localStorage.getItem('tessera_form_data');
@@ -148,13 +161,14 @@
                 return {
                     country: parsed.country || '',
                     state: parsed.state || '',
-                    city: parsed.city || ''
+                    city: parsed.city || '',
+                    nationality: parsed.nationality || ''
                 };
             }
         } catch (error) {
             console.warn('Unable to read persisted location data:', error);
         }
-        return { country: '', state: '', city: '' };
+        return { country: '', state: '', city: '', nationality: '' };
     }
 
     function populateCountries(countrySelect, selectedCountry) {
@@ -724,10 +738,25 @@
 
         if (!countrySelect || !stateSelect || !citySelect) {
             console.warn('Location selectors not found on the page.');
+            window.tesseraParaguayEuropeSelectorInitialized = false;
             return;
         }
 
         const persisted = getPersistedLocation();
+
+        if (nationalityInput) {
+            if (persisted.nationality) {
+                nationalityInput.value = persisted.nationality;
+                const demonym = COUNTRY_NATIONALITIES[persisted.country];
+                if (demonym && normalizeText(demonym) === normalizeText(persisted.nationality)) {
+                    nationalityInput.dataset.autofilledFromCountry = 'true';
+                } else if (nationalityInput.dataset.autofilledFromCountry) {
+                    delete nationalityInput.dataset.autofilledFromCountry;
+                }
+            } else if (nationalityInput.dataset.autofilledFromCountry) {
+                delete nationalityInput.dataset.autofilledFromCountry;
+            }
+        }
 
         populateCountries(countrySelect, persisted.country);
         populatePhoneCodes(phoneCodeSelect);
