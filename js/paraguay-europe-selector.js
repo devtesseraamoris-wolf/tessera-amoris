@@ -10,419 +10,62 @@
     // Expose a flag so other scripts know a custom location selector is active
     window.tesseraLocationSelectorActive = 'paraguay-europe-v2';
 
-    const LOCATION_DATA = {
-        PY: {
-            label: 'Paraguay',
-            regions: [
-                { value: 'asuncion', label: 'Asunción Capital District', cities: ['Asunción', 'Villa Morra', 'Recoleta'] },
-                { value: 'central', label: 'Central', cities: ['San Lorenzo', 'Fernando de la Mora', 'Luque', 'Lambaré'] },
-                { value: 'alto-parana', label: 'Alto Paraná', cities: ['Ciudad del Este', 'Presidente Franco', 'Hernandarias', 'Minga Guazú'] },
-                { value: 'itapua', label: 'Itapúa', cities: ['Encarnación', 'Hohenau', 'Obligado', 'Bella Vista'] },
-                { value: 'caaguazu', label: 'Caaguazú', cities: ['Coronel Oviedo', 'Caaguazú', 'Repatriación'] },
-                { value: 'misiones', label: 'Misiones', cities: ['San Juan Bautista', 'San Ignacio', 'Santa Rosa'] },
-                { value: 'presidente-hayes', label: 'Presidente Hayes', cities: ['Villa Hayes', 'Benjamín Aceval', 'Nanawa'] },
-                { value: 'amambay', label: 'Amambay', cities: ['Pedro Juan Caballero', 'Bella Vista Norte', 'Capitán Bado'] }
-            ]
-        },
-        AL: {
-            label: 'Albania',
-            regions: [
-                { value: 'tirana', label: 'Tirana County', cities: ['Tirana', 'Durrës', 'Kavajë'] },
-                { value: 'shkoder', label: 'Shkodër County', cities: ['Shkodër', 'Lezhë', 'Pukë'] },
-                { value: 'vlore', label: 'Vlorë County', cities: ['Vlorë', 'Fier', 'Sarandë'] }
-            ]
-        },
-        AD: {
-            label: 'Andorra',
-            regions: [
-                { value: 'andorra-la-vella', label: 'Andorra la Vella Parish', cities: ['Andorra la Vella', 'Santa Coloma', 'La Margineda'] },
-                { value: 'escaldes-engordany', label: 'Escaldes-Engordany Parish', cities: ['Escaldes-Engordany', 'Engolasters', 'Les Escaldes'] },
-                { value: 'encamp', label: 'Encamp Parish', cities: ['Encamp', 'Pas de la Casa', 'Vila'] }
-            ]
-        },
-        AT: {
-            label: 'Austria',
-            regions: [
-                { value: 'vienna', label: 'Vienna', cities: ['Vienna', 'Döbling', 'Favoriten'] },
-                { value: 'upper-austria', label: 'Upper Austria', cities: ['Linz', 'Wels', 'Steyr'] },
-                { value: 'tyrol', label: 'Tyrol', cities: ['Innsbruck', 'Kufstein', 'Lienz'] }
-            ]
-        },
-        BY: {
-            label: 'Belarus',
-            regions: [
-                { value: 'minsk-region', label: 'Minsk Region', cities: ['Minsk', 'Barysaw', 'Maladzyechna'] },
-                { value: 'brest', label: 'Brest Region', cities: ['Brest', 'Baranavichy', 'Pinsk'] },
-                { value: 'vitebsk', label: 'Vitebsk Region', cities: ['Vitebsk', 'Orsha', 'Polotsk'] }
-            ]
-        },
-        BE: {
-            label: 'Belgium',
-            regions: [
-                { value: 'flanders', label: 'Flanders', cities: ['Antwerp', 'Ghent', 'Bruges'] },
-                { value: 'wallonia', label: 'Wallonia', cities: ['Liège', 'Namur', 'Mons'] },
-                { value: 'brussels', label: 'Brussels-Capital', cities: ['Brussels', 'Schaerbeek', 'Ixelles'] }
-            ]
-        },
-        BA: {
-            label: 'Bosnia and Herzegovina',
-            regions: [
-                { value: 'federation', label: 'Federation of Bosnia and Herzegovina', cities: ['Sarajevo', 'Mostar', 'Tuzla'] },
-                { value: 'republika-srpska', label: 'Republika Srpska', cities: ['Banja Luka', 'Bijeljina', 'Prijedor'] },
-                { value: 'brcko', label: 'Brčko District', cities: ['Brčko'] }
-            ]
-        },
-        BG: {
-            label: 'Bulgaria',
-            regions: [
-                { value: 'sofia', label: 'Sofia City Province', cities: ['Sofia', 'Bankya', 'Novi Iskar'] },
-                { value: 'plovdiv', label: 'Plovdiv Province', cities: ['Plovdiv', 'Asenovgrad', 'Karlovo'] },
-                { value: 'varna', label: 'Varna Province', cities: ['Varna', 'Devnya', 'Provadiya'] }
-            ]
-        },
-        HR: {
-            label: 'Croatia',
-            regions: [
-                { value: 'zagreb', label: 'Zagreb Region', cities: ['Zagreb', 'Samobor', 'Velika Gorica'] },
-                { value: 'split-dalmatia', label: 'Split-Dalmatia', cities: ['Split', 'Makarska', 'Trogir'] },
-                { value: 'istria', label: 'Istria', cities: ['Pula', 'Rovinj', 'Poreč'] }
-            ]
-        },
-        CZ: {
-            label: 'Czech Republic',
-            regions: [
-                { value: 'prague', label: 'Prague Region', cities: ['Prague', 'Prague 4', 'Prague 6'] },
-                { value: 'south-moravian', label: 'South Moravian', cities: ['Brno', 'Znojmo', 'Břeclav'] },
-                { value: 'moravian-silesian', label: 'Moravian-Silesian', cities: ['Ostrava', 'Opava', 'Karviná'] }
-            ]
-        },
-        DK: {
-            label: 'Denmark',
-            regions: [
-                { value: 'capital-region', label: 'Capital Region', cities: ['Copenhagen', 'Frederiksberg', 'Hillerød'] },
-                { value: 'central-denmark', label: 'Central Denmark', cities: ['Aarhus', 'Randers', 'Viborg'] },
-                { value: 'southern-denmark', label: 'Southern Denmark', cities: ['Odense', 'Esbjerg', 'Kolding'] }
-            ]
-        },
-        EE: {
-            label: 'Estonia',
-            regions: [
-                { value: 'harju', label: 'Harju County', cities: ['Tallinn', 'Maardu', 'Keila'] },
-                { value: 'tartu', label: 'Tartu County', cities: ['Tartu', 'Elva', 'Võru'] },
-                { value: 'ida-viru', label: 'Ida-Viru County', cities: ['Narva', 'Kohtla-Järve', 'Jõhvi'] }
-            ]
-        },
-        FI: {
-            label: 'Finland',
-            regions: [
-                { value: 'uusimaa', label: 'Uusimaa', cities: ['Helsinki', 'Espoo', 'Vantaa'] },
-                { value: 'pirkanmaa', label: 'Pirkanmaa', cities: ['Tampere', 'Nokia', 'Ylöjärvi'] },
-                { value: 'southwest-finland', label: 'Southwest Finland', cities: ['Turku', 'Salo', 'Raisio'] }
-            ]
-        },
-        FR: {
-            label: 'France',
-            regions: [
-                { value: 'ile-de-france', label: 'Île-de-France', cities: ['Paris', 'Versailles', 'Boulogne-Billancourt'] },
-                { value: 'auvergne-rhone-alpes', label: 'Auvergne-Rhône-Alpes', cities: ['Lyon', 'Grenoble', 'Saint-Étienne'] },
-                { value: 'provence-alpes-cote-dazur', label: 'Provence-Alpes-Côte d\'Azur', cities: ['Marseille', 'Nice', 'Toulon'] }
-            ]
-        },
-        DE: {
-            label: 'Germany',
-            regions: [
-                { value: 'bavaria', label: 'Bavaria', cities: ['Munich', 'Nuremberg', 'Augsburg'] },
-                { value: 'north-rhine-westphalia', label: 'North Rhine-Westphalia', cities: ['Cologne', 'Düsseldorf', 'Dortmund'] },
-                { value: 'berlin', label: 'Berlin', cities: ['Berlin', 'Charlottenburg', 'Spandau'] }
-            ]
-        },
-        GR: {
-            label: 'Greece',
-            regions: [
-                { value: 'attica', label: 'Attica', cities: ['Athens', 'Piraeus', 'Marousi'] },
-                { value: 'central-macedonia', label: 'Central Macedonia', cities: ['Thessaloniki', 'Katerini', 'Serres'] },
-                { value: 'crete', label: 'Crete', cities: ['Heraklion', 'Chania', 'Rethymno'] }
-            ]
-        },
-        VA: {
-            label: 'Vatican City',
-            regions: [
-                { value: 'vatican-city', label: 'Vatican City', cities: ['Vatican City'] }
-            ]
-        },
-        HU: {
-            label: 'Hungary',
-            regions: [
-                { value: 'central-hungary', label: 'Central Hungary', cities: ['Budapest', 'Érd', 'Szentendre'] },
-                { value: 'central-transdanubia', label: 'Central Transdanubia', cities: ['Székesfehérvár', 'Tatabánya', 'Dunaújváros'] },
-                { value: 'northern-great-plain', label: 'Northern Great Plain', cities: ['Debrecen', 'Nyíregyháza', 'Szolnok'] }
-            ]
-        },
-        IS: {
-            label: 'Iceland',
-            regions: [
-                { value: 'capital-region', label: 'Capital Region', cities: ['Reykjavík', 'Kópavogur', 'Hafnarfjörður'] },
-                { value: 'southern-region', label: 'Southern Region', cities: ['Selfoss', 'Hveragerði', 'Vestmannaeyjar'] },
-                { value: 'northern-region', label: 'Northern Region', cities: ['Akureyri', 'Húsavík', 'Sauðárkrókur'] }
-            ]
-        },
-        IE: {
-            label: 'Ireland',
-            regions: [
-                { value: 'dublin', label: 'Dublin Region', cities: ['Dublin', 'Dún Laoghaire', 'Swords'] },
-                { value: 'munster', label: 'Munster', cities: ['Cork', 'Limerick', 'Waterford'] },
-                { value: 'connacht', label: 'Connacht', cities: ['Galway', 'Sligo', 'Castlebar'] }
-            ]
-        },
-        IT: {
-            label: 'Italy',
-            regions: [
-                { value: 'lazio', label: 'Lazio', cities: ['Rome', 'Frosinone', 'Viterbo'] },
-                { value: 'lombardy', label: 'Lombardy', cities: ['Milan', 'Bergamo', 'Brescia'] },
-                { value: 'sicily', label: 'Sicily', cities: ['Palermo', 'Catania', 'Messina'] }
-            ]
-        },
-        LV: {
-            label: 'Latvia',
-            regions: [
-                { value: 'riga', label: 'Riga Region', cities: ['Riga', 'Jūrmala', 'Sigulda'] },
-                { value: 'vidzeme', label: 'Vidzeme', cities: ['Valmiera', 'Cēsis', 'Madona'] },
-                { value: 'latgale', label: 'Latgale', cities: ['Daugavpils', 'Rēzekne', 'Ludza'] }
-            ]
-        },
-        LI: {
-            label: 'Liechtenstein',
-            regions: [
-                { value: 'oberland', label: 'Oberland', cities: ['Vaduz', 'Triesen', 'Balzers'] },
-                { value: 'unterland', label: 'Unterland', cities: ['Eschen', 'Mauren', 'Schellenberg'] }
-            ]
-        },
-        LT: {
-            label: 'Lithuania',
-            regions: [
-                { value: 'vilnius', label: 'Vilnius County', cities: ['Vilnius', 'Trakai', 'Elektrėnai'] },
-                { value: 'kaunas', label: 'Kaunas County', cities: ['Kaunas', 'Kėdainiai', 'Jonava'] },
-                { value: 'klaipeda', label: 'Klaipėda County', cities: ['Klaipėda', 'Palanga', 'Šilutė'] }
-            ]
-        },
-        LU: {
-            label: 'Luxembourg',
-            regions: [
-                { value: 'luxembourg-district', label: 'Luxembourg District', cities: ['Luxembourg City', 'Esch-sur-Alzette', 'Differdange'] },
-                { value: 'grevenmacher', label: 'Grevenmacher District', cities: ['Grevenmacher', 'Echternach', 'Remich'] },
-                { value: 'diekirch', label: 'Diekirch District', cities: ['Diekirch', 'Ettelbruck', 'Wiltz'] }
-            ]
-        },
-        MT: {
-            label: 'Malta',
-            regions: [
-                { value: 'northern-harbour', label: 'Northern Harbour', cities: ['Birkirkara', 'Mosta', 'Sliema'] },
-                { value: 'southern-harbour', label: 'Southern Harbour', cities: ['Valletta', 'Birgu', 'Żabbar'] },
-                { value: 'gozo', label: 'Gozo', cities: ['Victoria', 'Xewkija', 'Nadur'] }
-            ]
-        },
-        MD: {
-            label: 'Moldova',
-            regions: [
-                { value: 'chisinau', label: 'Chișinău Municipality', cities: ['Chișinău', 'Codru', 'Durlești'] },
-                { value: 'balti', label: 'Bălți Municipality', cities: ['Bălți', 'Fălești', 'Râșcani'] },
-                { value: 'gagauzia', label: 'Gagauzia', cities: ['Comrat', 'Ceadîr-Lunga', 'Vulcănești'] }
-            ]
-        },
-        MC: {
-            label: 'Monaco',
-            regions: [
-                { value: 'monte-carlo', label: 'Monte Carlo', cities: ['Monte Carlo', 'Larvotto', 'Saint Roman'] },
-                { value: 'la-condamine', label: 'La Condamine', cities: ['La Condamine', 'Port Hercules', 'Moneghetti'] },
-                { value: 'fontvieille', label: 'Fontvieille', cities: ['Fontvieille', 'Jardin Exotique', 'Les Révoires'] }
-            ]
-        },
-        ME: {
-            label: 'Montenegro',
-            regions: [
-                { value: 'podgorica', label: 'Podgorica Region', cities: ['Podgorica', 'Tuzi', 'Danilovgrad'] },
-                { value: 'budva', label: 'Budva Riviera', cities: ['Budva', 'Kotor', 'Tivat'] },
-                { value: 'niksic', label: 'Nikšić Region', cities: ['Nikšić', 'Plužine', 'Šavnik'] }
-            ]
-        },
-        NL: {
-            label: 'Netherlands',
-            regions: [
-                { value: 'north-holland', label: 'North Holland', cities: ['Amsterdam', 'Haarlem', 'Alkmaar'] },
-                { value: 'south-holland', label: 'South Holland', cities: ['Rotterdam', 'The Hague', 'Leiden'] },
-                { value: 'north-brabant', label: 'North Brabant', cities: ['Eindhoven', 'Breda', 'Tilburg'] }
-            ]
-        },
-        MK: {
-            label: 'North Macedonia',
-            regions: [
-                { value: 'skopje', label: 'Skopje Region', cities: ['Skopje', 'Tetovo', 'Kumanovo'] },
-                { value: 'polog', label: 'Polog', cities: ['Gostivar', 'Debar', 'Mavrovo'] },
-                { value: 'pelagonia', label: 'Pelagonia', cities: ['Bitola', 'Prilep', 'Kruševo'] }
-            ]
-        },
-        NO: {
-            label: 'Norway',
-            regions: [
-                { value: 'eastern-norway', label: 'Eastern Norway', cities: ['Oslo', 'Drammen', 'Fredrikstad'] },
-                { value: 'western-norway', label: 'Western Norway', cities: ['Bergen', 'Stavanger', 'Haugesund'] },
-                { value: 'northern-norway', label: 'Northern Norway', cities: ['Tromsø', 'Bodø', 'Narvik'] }
-            ]
-        },
-        PL: {
-            label: 'Poland',
-            regions: [
-                { value: 'masovian', label: 'Masovian Voivodeship', cities: ['Warsaw', 'Radom', 'Płock'] },
-                { value: 'lesser-poland', label: 'Lesser Poland Voivodeship', cities: ['Kraków', 'Tarnów', 'Nowy Sącz'] },
-                { value: 'silesian', label: 'Silesian Voivodeship', cities: ['Katowice', 'Częstochowa', 'Gliwice'] }
-            ]
-        },
-        PT: {
-            label: 'Portugal',
-            regions: [
-                { value: 'lisbon', label: 'Lisbon Metropolitan Area', cities: ['Lisbon', 'Sintra', 'Cascais'] },
-                { value: 'porto', label: 'Porto Metropolitan Area', cities: ['Porto', 'Vila Nova de Gaia', 'Braga'] },
-                { value: 'algarve', label: 'Algarve', cities: ['Faro', 'Albufeira', 'Lagos'] }
-            ]
-        },
-        RO: {
-            label: 'Romania',
-            regions: [
-                { value: 'bucharest-ilfov', label: 'Bucharest-Ilfov', cities: ['Bucharest', 'Otopeni', 'Voluntari'] },
-                { value: 'cluj', label: 'Cluj County', cities: ['Cluj-Napoca', 'Turda', 'Dej'] },
-                { value: 'timis', label: 'Timiș County', cities: ['Timișoara', 'Lugoj', 'Sânnicolau Mare'] }
-            ]
-        },
-        RU: {
-            label: 'Russia',
-            regions: [
-                { value: 'moscow', label: 'Moscow', cities: ['Moscow', 'Zelenograd', 'Khimki'] },
-                { value: 'saint-petersburg', label: 'Saint Petersburg', cities: ['Saint Petersburg', 'Pushkin', 'Kronstadt'] },
-                { value: 'novosibirsk', label: 'Novosibirsk Oblast', cities: ['Novosibirsk', 'Berdsk', 'Iskitim'] }
-            ]
-        },
-        SM: {
-            label: 'San Marino',
-            regions: [
-                { value: 'san-marino', label: 'San Marino City', cities: ['San Marino', 'Fiorentino', 'Acquaviva'] },
-                { value: 'serravalle', label: 'Serravalle', cities: ['Serravalle', 'Dogana', 'Falciano'] },
-                { value: 'borgo-maggiore', label: 'Borgo Maggiore', cities: ['Borgo Maggiore', 'Cailungo', 'Valdragone'] }
-            ]
-        },
-        RS: {
-            label: 'Serbia',
-            regions: [
-                { value: 'belgrade', label: 'Belgrade Region', cities: ['Belgrade', 'Zemun', 'Pančevo'] },
-                { value: 'vojvodina', label: 'Vojvodina', cities: ['Novi Sad', 'Subotica', 'Sombor'] },
-                { value: 'sumadija', label: 'Šumadija and Western Serbia', cities: ['Kragujevac', 'Čačak', 'Užice'] }
-            ]
-        },
-        SK: {
-            label: 'Slovakia',
-            regions: [
-                { value: 'bratislava', label: 'Bratislava Region', cities: ['Bratislava', 'Pezinok', 'Malacky'] },
-                { value: 'kosice', label: 'Košice Region', cities: ['Košice', 'Michalovce', 'Trebišov'] },
-                { value: 'zilina', label: 'Žilina Region', cities: ['Žilina', 'Martin', 'Ružomberok'] }
-            ]
-        },
-        SI: {
-            label: 'Slovenia',
-            regions: [
-                { value: 'central-slovenia', label: 'Central Slovenia', cities: ['Ljubljana', 'Domžale', 'Kamnik'] },
-                { value: 'drava', label: 'Drava Region', cities: ['Maribor', 'Ptuj', 'Slovenska Bistrica'] },
-                { value: 'coastal-karst', label: 'Coastal–Karst', cities: ['Koper', 'Izola', 'Piran'] }
-            ]
-        },
-        ES: {
-            label: 'Spain',
-            regions: [
-                { value: 'madrid', label: 'Community of Madrid', cities: ['Madrid', 'Alcalá de Henares', 'Getafe'] },
-                { value: 'catalonia', label: 'Catalonia', cities: ['Barcelona', 'Girona', 'Tarragona'] },
-                { value: 'andalusia', label: 'Andalusia', cities: ['Seville', 'Málaga', 'Granada'] }
-            ]
-        },
-        SE: {
-            label: 'Sweden',
-            regions: [
-                { value: 'stockholm', label: 'Stockholm County', cities: ['Stockholm', 'Solna', 'Södertälje'] },
-                { value: 'vastra-gotaland', label: 'Västra Götaland County', cities: ['Gothenburg', 'Borås', 'Trollhättan'] },
-                { value: 'skane', label: 'Skåne County', cities: ['Malmö', 'Lund', 'Helsingborg'] }
-            ]
-        },
-        CH: {
-            label: 'Switzerland',
-            regions: [
-                { value: 'zurich', label: 'Canton of Zurich', cities: ['Zurich', 'Winterthur', 'Uster'] },
-                { value: 'geneva', label: 'Canton of Geneva', cities: ['Geneva', 'Carouge', 'Lancy'] },
-                { value: 'bern', label: 'Canton of Bern', cities: ['Bern', 'Thun', 'Biel/Bienne'] }
-            ]
-        },
-        UA: {
-            label: 'Ukraine',
-            regions: [
-                { value: 'kyiv', label: 'Kyiv City & Region', cities: ['Kyiv', 'Brovary', 'Boryspil'] },
-                { value: 'lviv', label: 'Lviv Oblast', cities: ['Lviv', 'Drohobych', 'Truskavets'] },
-                { value: 'odessa', label: 'Odessa Oblast', cities: ['Odessa', 'Chornomorsk', 'Izmail'] }
-            ]
-        },
-        GB: {
-            label: 'United Kingdom',
-            regions: [
-                { value: 'england', label: 'England', cities: ['London', 'Manchester', 'Birmingham'] },
-                { value: 'scotland', label: 'Scotland', cities: ['Edinburgh', 'Glasgow', 'Aberdeen'] },
-                { value: 'wales', label: 'Wales', cities: ['Cardiff', 'Swansea', 'Newport'] },
-                { value: 'northern-ireland', label: 'Northern Ireland', cities: ['Belfast', 'Londonderry', 'Lisburn'] }
-            ]
-        }
-    };
+    const LOCATION_DATA = window.tesseraParaguayEuropeData || {};
 
     const RAW_COUNTRIES = [
-        { code: 'PY', name: 'Paraguay', flag: '🇵🇾' },
-        { code: 'AL', name: 'Albania', flag: '🇦🇱' },
-        { code: 'AD', name: 'Andorra', flag: '🇦🇩' },
-        { code: 'AT', name: 'Austria', flag: '🇦🇹' },
-        { code: 'BY', name: 'Belarus', flag: '🇧🇾' },
-        { code: 'BE', name: 'Belgium', flag: '🇧🇪' },
-        { code: 'BA', name: 'Bosnia and Herzegovina', flag: '🇧🇦' },
-        { code: 'BG', name: 'Bulgaria', flag: '🇧🇬' },
-        { code: 'HR', name: 'Croatia', flag: '🇭🇷' },
-        { code: 'CZ', name: 'Czech Republic', flag: '🇨🇿' },
-        { code: 'DK', name: 'Denmark', flag: '🇩🇰' },
-        { code: 'EE', name: 'Estonia', flag: '🇪🇪' },
-        { code: 'FI', name: 'Finland', flag: '🇫🇮' },
-        { code: 'FR', name: 'France', flag: '🇫🇷' },
-        { code: 'DE', name: 'Germany', flag: '🇩🇪' },
-        { code: 'GR', name: 'Greece', flag: '🇬🇷' },
-        { code: 'VA', name: 'Holy See (Vatican City)', flag: '🇻🇦' },
-        { code: 'HU', name: 'Hungary', flag: '🇭🇺' },
-        { code: 'IS', name: 'Iceland', flag: '🇮🇸' },
-        { code: 'IE', name: 'Ireland', flag: '🇮🇪' },
-        { code: 'IT', name: 'Italy', flag: '🇮🇹' },
-        { code: 'LV', name: 'Latvia', flag: '🇱🇻' },
-        { code: 'LI', name: 'Liechtenstein', flag: '🇱🇮' },
-        { code: 'LT', name: 'Lithuania', flag: '🇱🇹' },
-        { code: 'LU', name: 'Luxembourg', flag: '🇱🇺' },
-        { code: 'MT', name: 'Malta', flag: '🇲🇹' },
-        { code: 'MD', name: 'Moldova', flag: '🇲🇩' },
-        { code: 'MC', name: 'Monaco', flag: '🇲🇨' },
-        { code: 'ME', name: 'Montenegro', flag: '🇲🇪' },
-        { code: 'NL', name: 'Netherlands', flag: '🇳🇱' },
-        { code: 'MK', name: 'North Macedonia', flag: '🇲🇰' },
-        { code: 'NO', name: 'Norway', flag: '🇳🇴' },
-        { code: 'PL', name: 'Poland', flag: '🇵🇱' },
-        { code: 'PT', name: 'Portugal', flag: '🇵🇹' },
-        { code: 'RO', name: 'Romania', flag: '🇷🇴' },
-        { code: 'RU', name: 'Russia', flag: '🇷🇺' },
-        { code: 'SM', name: 'San Marino', flag: '🇸🇲' },
-        { code: 'RS', name: 'Serbia', flag: '🇷🇸' },
-        { code: 'SK', name: 'Slovakia', flag: '🇸🇰' },
-        { code: 'SI', name: 'Slovenia', flag: '🇸🇮' },
-        { code: 'ES', name: 'Spain', flag: '🇪🇸' },
-        { code: 'SE', name: 'Sweden', flag: '🇸🇪' },
-        { code: 'CH', name: 'Switzerland', flag: '🇨🇭' },
-        { code: 'UA', name: 'Ukraine', flag: '🇺🇦' },
-        { code: 'GB', name: 'United Kingdom', flag: '🇬🇧' }
+        { code: 'PY', name: 'Paraguay', flag: '🇵🇾', dialCode: '+595' },
+        { code: 'AL', name: 'Albania', flag: '🇦🇱', dialCode: '+355' },
+        { code: 'AD', name: 'Andorra', flag: '🇦🇩', dialCode: '+376' },
+        { code: 'AT', name: 'Austria', flag: '🇦🇹', dialCode: '+43' },
+        { code: 'BY', name: 'Belarus', flag: '🇧🇾', dialCode: '+375' },
+        { code: 'BE', name: 'Belgium', flag: '🇧🇪', dialCode: '+32' },
+        { code: 'BA', name: 'Bosnia and Herzegovina', flag: '🇧🇦', dialCode: '+387' },
+        { code: 'BG', name: 'Bulgaria', flag: '🇧🇬', dialCode: '+359' },
+        { code: 'HR', name: 'Croatia', flag: '🇭🇷', dialCode: '+385' },
+        { code: 'CZ', name: 'Czech Republic', flag: '🇨🇿', dialCode: '+420' },
+        { code: 'DK', name: 'Denmark', flag: '🇩🇰', dialCode: '+45' },
+        { code: 'EE', name: 'Estonia', flag: '🇪🇪', dialCode: '+372' },
+        { code: 'FI', name: 'Finland', flag: '🇫🇮', dialCode: '+358' },
+        { code: 'FR', name: 'France', flag: '🇫🇷', dialCode: '+33' },
+        { code: 'DE', name: 'Germany', flag: '🇩🇪', dialCode: '+49' },
+        { code: 'GR', name: 'Greece', flag: '🇬🇷', dialCode: '+30' },
+        { code: 'VA', name: 'Holy See (Vatican City)', flag: '🇻🇦', dialCode: '+379' },
+        { code: 'HU', name: 'Hungary', flag: '🇭🇺', dialCode: '+36' },
+        { code: 'IS', name: 'Iceland', flag: '🇮🇸', dialCode: '+354' },
+        { code: 'IE', name: 'Ireland', flag: '🇮🇪', dialCode: '+353' },
+        { code: 'IT', name: 'Italy', flag: '🇮🇹', dialCode: '+39' },
+        { code: 'LV', name: 'Latvia', flag: '🇱🇻', dialCode: '+371' },
+        { code: 'LI', name: 'Liechtenstein', flag: '🇱🇮', dialCode: '+423' },
+        { code: 'LT', name: 'Lithuania', flag: '🇱🇹', dialCode: '+370' },
+        { code: 'LU', name: 'Luxembourg', flag: '🇱🇺', dialCode: '+352' },
+        { code: 'MT', name: 'Malta', flag: '🇲🇹', dialCode: '+356' },
+        { code: 'MD', name: 'Moldova', flag: '🇲🇩', dialCode: '+373' },
+        { code: 'MC', name: 'Monaco', flag: '🇲🇨', dialCode: '+377' },
+        { code: 'ME', name: 'Montenegro', flag: '🇲🇪', dialCode: '+382' },
+        { code: 'NL', name: 'Netherlands', flag: '🇳🇱', dialCode: '+31' },
+        { code: 'MK', name: 'North Macedonia', flag: '🇲🇰', dialCode: '+389' },
+        { code: 'NO', name: 'Norway', flag: '🇳🇴', dialCode: '+47' },
+        { code: 'PL', name: 'Poland', flag: '🇵🇱', dialCode: '+48' },
+        { code: 'PT', name: 'Portugal', flag: '🇵🇹', dialCode: '+351' },
+        { code: 'RO', name: 'Romania', flag: '🇷🇴', dialCode: '+40' },
+        { code: 'RU', name: 'Russia', flag: '🇷🇺', dialCode: '+7' },
+        { code: 'SM', name: 'San Marino', flag: '🇸🇲', dialCode: '+378' },
+        { code: 'RS', name: 'Serbia', flag: '🇷🇸', dialCode: '+381' },
+        { code: 'SK', name: 'Slovakia', flag: '🇸🇰', dialCode: '+421' },
+        { code: 'SI', name: 'Slovenia', flag: '🇸🇮', dialCode: '+386' },
+        { code: 'ES', name: 'Spain', flag: '🇪🇸', dialCode: '+34' },
+        { code: 'SE', name: 'Sweden', flag: '🇸🇪', dialCode: '+46' },
+        { code: 'CH', name: 'Switzerland', flag: '🇨🇭', dialCode: '+41' },
+        { code: 'UA', name: 'Ukraine', flag: '🇺🇦', dialCode: '+380' },
+        { code: 'GB', name: 'United Kingdom', flag: '🇬🇧', dialCode: '+44' }
     ];
+
+    const PHONE_CODE_FALLBACKS = [
+        { dialCode: '+1', label: 'United States / Canada' },
+        { dialCode: '+55', label: 'Brazil' }
+    ];
+
+    const ADDITIONAL_NATIONALITIES = ['United States', 'Canada', 'Brazil', 'Argentina', 'Mexico'];
 
     const AVAILABLE_COUNTRIES = RAW_COUNTRIES.map(country => ({
         ...country,
