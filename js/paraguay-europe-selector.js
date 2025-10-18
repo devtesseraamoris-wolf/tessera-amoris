@@ -115,6 +115,7 @@
 
     const ADDITIONAL_NATIONALITIES = ['American', 'Canadian', 'Brazilian', 'Argentine', 'Mexican'];
     const DEFAULT_NATIONALITY_SUGGESTIONS = ['Paraguayan', 'Brazilian', 'American', 'German', 'Spanish', 'French', 'British'];
+    const ADDITIONAL_NATIONALITIES = ['United States', 'Canada', 'Brazil', 'Argentina', 'Mexico'];
 
     const AVAILABLE_COUNTRIES = RAW_COUNTRIES.map(country => ({
         ...country,
@@ -636,6 +637,7 @@
     }
 
     function handleCountryChange(countrySelect, stateSelect, citySelect, customCityGroup, customCityInput, phoneCodeSelect) {
+    function handleCountryChange(countrySelect, stateSelect, citySelect, customCityGroup, customCityInput) {
         const selectedCountry = countrySelect.value;
 
         if (!selectedCountry) {
@@ -656,6 +658,9 @@
         }
 
         syncPhoneDialCode(selectedCountry, phoneCodeSelect);
+            return;
+        }
+
         populateStates(stateSelect, citySelect, selectedCountry, undefined, undefined, customCityGroup, customCityInput);
     }
 
@@ -672,6 +677,17 @@
             if (customCityInput) {
                 customCityInput.required = false;
             }
+            return;
+        }
+
+        populateCities(citySelect, countryCode, stateValue, undefined, customCityGroup, customCityInput);
+    }
+
+    function handleCityChange(citySelect, customCityGroup, customCityInput) {
+        if (!customCityGroup) {
+            return;
+        }
+
             return;
         }
 
@@ -721,6 +737,10 @@
 
         countrySelect.addEventListener('change', function() {
             handleCountryChange(countrySelect, stateSelect, citySelect, customCityGroup, customCityInput, phoneCodeSelect);
+        resetStateCity(stateSelect, citySelect, customCityGroup, customCityInput);
+
+        countrySelect.addEventListener('change', function() {
+            handleCountryChange(countrySelect, stateSelect, citySelect, customCityGroup, customCityInput);
         });
 
         stateSelect.addEventListener('change', function() {
