@@ -127,115 +127,153 @@ function fixFormStyling() {
 
 function initializeLocationSelectors() {
     console.log('Initializing location selectors');
-    
+
     const countrySelect = document.getElementById('country');
     const stateSelect = document.getElementById('state');
     const citySelect = document.getElementById('city');
     const customCityGroup = document.getElementById('custom-city-group');
-    
+    const customCityInput = document.getElementById('custom-city');
+    const locationService = window.locationDataService;
+
     if (!countrySelect || !stateSelect || !citySelect) {
         console.error('Location selectors not found');
         return;
     }
-    
-    // Use comprehensive city database
-    const locationData = window.comprehensiveCityDatabase || {};
-    const citySearcher = window.createDynamicCitySearch ? window.createDynamicCitySearch() : null;
-    
-    // Populate countries
-    Object.keys(locationData).forEach(countryKey => {
-        const option = document.createElement('option');
-        option.value = countryKey;
-        option.textContent = locationData[countryKey].label;
-        countrySelect.appendChild(option);
-    });
-    
-    // Country change handler
-    countrySelect.addEventListener('change', function() {
-        const selectedCountry = this.value;
-        console.log('Country selected:', selectedCountry);
-        
-        // Reset state and city selectors
-        stateSelect.innerHTML = '<option value=\"\">Select your state/province</option>';
-        citySelect.innerHTML = '<option value=\"\">Select your city</option>';
-        stateSelect.disabled = !selectedCountry;
+
+    if (!locationService) {
+        console.error('Location data service is unavailable');
+        return;
+    }
+
+    const allowedCountries = new Set(Object.keys(locationService.countries));
+
+    function resetStateSelect(placeholderText) {
+        stateSelect.innerHTML = `<option value="">${placeholderText}</option>`;
+        stateSelect.disabled = true;
+    }
+
+    function resetCitySelect(placeholderText) {
+        citySelect.innerHTML = `<option value="">${placeholderText}</option>`;
         citySelect.disabled = true;
-        if (customCityGroup) customCityGroup.style.display = 'none';
-        
-        if (selectedCountry && locationData[selectedCountry]) {
-            // Populate states
-            const states = locationData[selectedCountry].states;
-            Object.keys(states).forEach(stateKey => {
-                const option = document.createElement('option');
-                option.value = stateKey;
-                option.textContent = states[stateKey].label;
-                stateSelect.appendChild(option);
-            });
-            stateSelect.disabled = false;
+    }
+
+    function toggleCustomCity(shouldShow) {
+        if (!customCityGroup) return;
+        customCityGroup.style.display = shouldShow ? 'block' : 'none';
+        if (customCityInput) {
+            customCityInput.required = shouldShow;
+            if (!shouldShow) {
+                customCityInput.value = '';
+            }
         }
-    });
-    
-    // State change handler
-    stateSelect.addEventListener('change', function() {
+    }
+
+    async function handleCountryChange() {
         const selectedCountry = countrySelect.value;
-        const selectedState = this.value;
-        console.log('State selected:', selectedState);
-        
-        // Reset city selector
-        citySelect.innerHTML = '<option value=\"\">Select your city</option>';
-        citySelect.disabled = !selectedState;
-        if (customCityGroup) customCityGroup.style.display = 'none';
-        
-        if (selectedCountry && selectedState && locationData[selectedCountry] && locationData[selectedCountry].states[selectedState]) {
-            // Get all cities for the selected state
-            const allCities = citySearcher ? citySearcher.getAllCities(selectedCountry, selectedState) : 
-                             locationData[selectedCountry].states[selectedState].cities;
-            
-            // Show first 15 cities initially
-            const citiesToShow = allCities.slice(0, 15);
-            
-            citiesToShow.forEach(city => {
-                const option = document.createElement('option');
-                option.value = city.toLowerCase().replace(/\\s+/g, '-');
-                option.textContent = city;
-                citySelect.appendChild(option);
-            });
-            
-            // Add "More cities..." option if there are more than 15 cities
-            if (allCities.length > 15) {
-                const moreOption = document.createElement('option');
-                moreOption.value = 'search-more';
-                moreOption.textContent = `+ ${allCities.length - 15} more cities (type to search)`;
-                moreOption.disabled = true;
-                moreOption.style.fontStyle = 'italic';
-                moreOption.style.color = '#666';
-                citySelect.appendChild(moreOption);
-            }
-            
-            // Add "Other" option
-            const otherOption = document.createElement('option');
-            otherOption.value = 'other';
-            otherOption.textContent = 'Other (specify below)';
-            citySelect.appendChild(otherOption);
-            
-            citySelect.disabled = false;
+        console.log('Country selected:', selectedCountry);
+
+        toggleCustomCity(false);
+        resetStateSelect('Select your state/province');
+        resetCitySelect('Select your city');
+
+        if (!selectedCountry) {
+            return;
         }
-    });
-    
-    // City change handler
-    citySelect.addEventListener('change', function() {
-        if (customCityGroup) {
-            if (this.value === 'other') {
-                customCityGroup.style.display = 'block';
-                const customCityInput = document.getElementById('custom-city');
-                if (customCityInput) customCityInput.required = true;
+
+        if (!allowedCountries.has(selectedCountry)) {
+            toggleCustomCity(true);
+            return;
+        }
+
+        stateSelect.innerHTML = '<option value="">Loading states...</option>';
+        stateSelect.disabled = true;
+
+        try {
+            const states = await locationService.getStates(selectedCountry);
+            resetStateSelect('Select your state/province');
+
+            if (states.length) {
+                states.forEach(state => {
+                    const option = document.createElement('option');
+                    option.value = state.code;
+                    option.textContent = state.name;
+                    stateSelect.appendChild(option);
+                });
+                stateSelect.disabled = false;
             } else {
-                customCityGroup.style.display = 'none';
-                const customCityInput = document.getElementById('custom-city');
-                if (customCityInput) customCityInput.required = false;
+                stateSelect.innerHTML = '<option value="">No regions available</option>';
+                toggleCustomCity(true);
             }
+        } catch (error) {
+            console.error('Unable to populate states', error);
+            resetStateSelect('Unable to load states');
+            toggleCustomCity(true);
+        }
+    }
+
+    async function handleStateChange() {
+        const selectedCountry = countrySelect.value;
+        const selectedState = stateSelect.value;
+        console.log('State selected:', selectedState);
+
+        toggleCustomCity(false);
+        resetCitySelect('Select your city');
+
+        if (!selectedCountry || !selectedState) {
+            return;
+        }
+
+        citySelect.innerHTML = '<option value="">Loading cities...</option>';
+        citySelect.disabled = true;
+
+        try {
+            const cities = await locationService.getCities(selectedCountry, selectedState);
+            resetCitySelect('Select your city');
+
+            if (cities.length) {
+                cities.forEach(city => {
+                    const option = document.createElement('option');
+                    option.value = city.toLowerCase().replace(/\s+/g, '-');
+                    option.textContent = city;
+                    citySelect.appendChild(option);
+                });
+
+                const otherOption = document.createElement('option');
+                otherOption.value = 'other';
+                otherOption.textContent = 'Other (specify below)';
+                citySelect.appendChild(otherOption);
+
+                citySelect.disabled = false;
+            } else {
+                citySelect.innerHTML = '<option value="">No cities available</option>';
+                toggleCustomCity(true);
+            }
+        } catch (error) {
+            console.error('Unable to populate cities', error);
+            resetCitySelect('Unable to load cities');
+            toggleCustomCity(true);
+        }
+    }
+
+    countrySelect.addEventListener('change', handleCountryChange);
+    stateSelect.addEventListener('change', handleStateChange);
+
+    citySelect.addEventListener('change', function() {
+        if (!customCityGroup) return;
+        if (this.value === 'other') {
+            toggleCustomCity(true);
+        } else {
+            toggleCustomCity(false);
         }
     });
+
+    if (countrySelect.value) {
+        handleCountryChange().then(() => {
+            if (stateSelect.value) {
+                handleStateChange();
+            }
+        });
+    }
 }
 
 function initializeDatePicker() {
