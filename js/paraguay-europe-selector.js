@@ -60,11 +60,61 @@
         { code: 'GB', name: 'United Kingdom', flag: '🇬🇧', dialCode: '+44' }
     ];
 
+    const COUNTRY_NATIONALITIES = {
+        PY: 'Paraguayan',
+        AL: 'Albanian',
+        AD: 'Andorran',
+        AT: 'Austrian',
+        BY: 'Belarusian',
+        BE: 'Belgian',
+        BA: 'Bosnian',
+        BG: 'Bulgarian',
+        HR: 'Croatian',
+        CZ: 'Czech',
+        DK: 'Danish',
+        EE: 'Estonian',
+        FI: 'Finnish',
+        FR: 'French',
+        DE: 'German',
+        GR: 'Greek',
+        VA: 'Vatican Citizen',
+        HU: 'Hungarian',
+        IS: 'Icelandic',
+        IE: 'Irish',
+        IT: 'Italian',
+        LV: 'Latvian',
+        LI: 'Liechtensteiner',
+        LT: 'Lithuanian',
+        LU: 'Luxembourgish',
+        MT: 'Maltese',
+        MD: 'Moldovan',
+        MC: 'Monegasque',
+        ME: 'Montenegrin',
+        NL: 'Dutch',
+        MK: 'North Macedonian',
+        NO: 'Norwegian',
+        PL: 'Polish',
+        PT: 'Portuguese',
+        RO: 'Romanian',
+        RU: 'Russian',
+        SM: 'Sammarinese',
+        RS: 'Serbian',
+        SK: 'Slovak',
+        SI: 'Slovenian',
+        ES: 'Spanish',
+        SE: 'Swedish',
+        CH: 'Swiss',
+        UA: 'Ukrainian',
+        GB: 'British'
+    };
+
     const PHONE_CODE_FALLBACKS = [
         { dialCode: '+1', label: 'United States / Canada' },
         { dialCode: '+55', label: 'Brazil' }
     ];
 
+    const ADDITIONAL_NATIONALITIES = ['American', 'Canadian', 'Brazilian', 'Argentine', 'Mexican'];
+    const DEFAULT_NATIONALITY_SUGGESTIONS = ['Paraguayan', 'Brazilian', 'American', 'German', 'Spanish', 'French', 'British'];
     const ADDITIONAL_NATIONALITIES = ['United States', 'Canada', 'Brazil', 'Argentina', 'Mexico'];
 
     const AVAILABLE_COUNTRIES = RAW_COUNTRIES.map(country => ({
@@ -158,6 +208,352 @@
         return option;
     }
 
+    function populatePhoneCodes(phoneCodeSelect) {
+        if (!phoneCodeSelect) {
+            return;
+        }
+
+        const seen = new Set();
+        const entries = [];
+
+        RAW_COUNTRIES.forEach(country => {
+            if (!country.dialCode) {
+                return;
+            }
+
+            if (seen.has(country.dialCode)) {
+                return;
+            }
+
+            seen.add(country.dialCode);
+            entries.push({
+                dialCode: country.dialCode,
+                label: `${country.dialCode} ${country.flag} ${country.name}`
+            });
+        });
+
+        PHONE_CODE_FALLBACKS.forEach(fallback => {
+            if (!fallback.dialCode || seen.has(fallback.dialCode)) {
+                return;
+            }
+
+            seen.add(fallback.dialCode);
+            entries.push({ dialCode: fallback.dialCode, label: `${fallback.dialCode} (${fallback.label})` });
+        });
+
+        entries.sort((a, b) => {
+            const codeA = parseInt(a.dialCode.replace('+', ''), 10);
+            const codeB = parseInt(b.dialCode.replace('+', ''), 10);
+            return codeA - codeB;
+        });
+
+        const currentValue = phoneCodeSelect.value;
+        phoneCodeSelect.innerHTML = '';
+
+        entries.forEach(entry => {
+            const option = document.createElement('option');
+            option.value = entry.dialCode;
+            option.textContent = entry.label;
+            phoneCodeSelect.appendChild(option);
+        });
+
+        if (currentValue) {
+            phoneCodeSelect.value = currentValue;
+        } else if (PHONE_CODE_FALLBACKS.length) {
+            const preferred = PHONE_CODE_FALLBACKS[0].dialCode;
+            if (preferred && seen.has(preferred)) {
+                phoneCodeSelect.value = preferred;
+            }
+        }
+    }
+
+    function getDialCodeForCountry(countryCode) {
+        const entry = RAW_COUNTRIES.find(country => country.code === countryCode);
+        return entry?.dialCode || '';
+    }
+
+    function syncPhoneDialCode(countryCode, phoneCodeSelect) {
+        if (!phoneCodeSelect) {
+            return;
+        }
+
+        const dialCode = getDialCodeForCountry(countryCode);
+        if (!dialCode) {
+            return;
+        }
+
+        if (!Array.from(phoneCodeSelect.options).some(option => option.value === dialCode)) {
+            const option = document.createElement('option');
+            option.value = dialCode;
+            option.textContent = dialCode;
+            phoneCodeSelect.appendChild(option);
+        }
+
+        phoneCodeSelect.value = dialCode;
+    }
+
+    function populateNationalityOptions(datalist) {
+        const seen = new Set();
+        const options = [];
+
+        RAW_COUNTRIES.forEach(country => {
+            const candidates = [COUNTRY_NATIONALITIES[country.code], country.name].filter(Boolean);
+            candidates.forEach(label => {
+                if (label && !seen.has(label)) {
+                    seen.add(label);
+                    options.push(label);
+                }
+            });
+        });
+
+        ADDITIONAL_NATIONALITIES.forEach(label => {
+            if (!seen.has(label)) {
+                seen.add(label);
+                options.push(label);
+            }
+        });
+
+        options.sort((a, b) => a.localeCompare(b));
+        if (datalist) {
+            datalist.innerHTML = '';
+
+            options.forEach(label => {
+                const option = document.createElement('option');
+                option.value = label;
+                datalist.appendChild(option);
+            });
+        }
+
+        return options;
+    }
+
+    function setupNationalityAutocomplete(input, options) {
+        if (!input || !Array.isArray(options) || options.length === 0) {
+            return;
+        }
+
+        if (input.dataset.autocompleteBound === 'true') {
+            return;
+        }
+
+        const wrapper = input.closest('.form-group') || input.parentElement;
+        if (!wrapper) {
+            return;
+        }
+
+        input.dataset.autocompleteBound = 'true';
+        wrapper.classList.add('has-nationality-autocomplete');
+
+        const normalizedOptions = options.map(label => ({
+            label,
+            normalized: label.toLowerCase()
+        }));
+
+        const preferredDefaults = [];
+        DEFAULT_NATIONALITY_SUGGESTIONS.forEach(label => {
+            const match = normalizedOptions.find(option => option.label === label);
+            if (match && !preferredDefaults.includes(match.label)) {
+                preferredDefaults.push(match.label);
+            }
+        });
+
+        const fallbackDefaults = options.slice(0, 7);
+        const defaultSuggestions = preferredDefaults.length
+            ? [
+                ...preferredDefaults,
+                ...options.filter(label => !preferredDefaults.includes(label)).slice(0, Math.max(0, 7 - preferredDefaults.length))
+            ]
+            : fallbackDefaults;
+
+        const datalistId = input.getAttribute('list');
+        const datalistElement = datalistId ? document.getElementById(datalistId) : null;
+        const suggestionList = document.createElement('div');
+        suggestionList.className = 'nationality-suggestion-list';
+
+        const listId = input.id ? `${input.id}-suggestions` : 'nationality-suggestions';
+        suggestionList.id = listId;
+        suggestionList.setAttribute('role', 'listbox');
+
+        if (datalistElement && datalistElement.parentNode) {
+            datalistElement.parentNode.insertBefore(suggestionList, datalistElement);
+        } else {
+            input.insertAdjacentElement('afterend', suggestionList);
+        }
+
+        if (datalistId) {
+            input.setAttribute('data-original-list', datalistId);
+            input.removeAttribute('list');
+        }
+
+        input.setAttribute('autocomplete', 'off');
+        input.setAttribute('role', 'combobox');
+        input.setAttribute('aria-haspopup', 'listbox');
+        input.setAttribute('aria-controls', listId);
+        input.setAttribute('aria-expanded', 'false');
+        input.setAttribute('aria-autocomplete', 'list');
+
+        let currentSuggestions = [];
+        let activeIndex = -1;
+
+        function closeSuggestions() {
+            suggestionList.innerHTML = '';
+            suggestionList.classList.remove('is-visible');
+            input.setAttribute('aria-expanded', 'false');
+            input.removeAttribute('aria-activedescendant');
+            currentSuggestions = [];
+            activeIndex = -1;
+        }
+
+        function highlightSuggestion(index) {
+            const items = suggestionList.querySelectorAll('.nationality-suggestion-item');
+            items.forEach((item, itemIndex) => {
+                if (itemIndex === index) {
+                    item.classList.add('is-active');
+                    input.setAttribute('aria-activedescendant', item.id);
+                    item.scrollIntoView({ block: 'nearest' });
+                } else {
+                    item.classList.remove('is-active');
+                }
+            });
+            activeIndex = index;
+            if (index < 0) {
+                input.removeAttribute('aria-activedescendant');
+            }
+        }
+
+        function openSuggestions(list) {
+            suggestionList.innerHTML = '';
+
+            if (!list.length) {
+                closeSuggestions();
+                return;
+            }
+
+            list.forEach((label, index) => {
+                const item = document.createElement('div');
+                item.className = 'nationality-suggestion-item';
+                const itemId = `${listId}-item-${index}`;
+                item.id = itemId;
+                item.setAttribute('role', 'option');
+                item.textContent = label;
+                item.dataset.value = label;
+                suggestionList.appendChild(item);
+            });
+
+            suggestionList.classList.add('is-visible');
+            input.setAttribute('aria-expanded', 'true');
+            currentSuggestions = list;
+            highlightSuggestion(-1);
+        }
+
+        function buildSuggestions(query) {
+            const normalizedQuery = query.trim().toLowerCase();
+
+            if (!normalizedQuery) {
+                return defaultSuggestions.slice();
+            }
+
+            const startsWithMatches = [];
+            const containsMatches = [];
+
+            normalizedOptions.forEach(option => {
+                if (option.normalized.startsWith(normalizedQuery)) {
+                    startsWithMatches.push(option.label);
+                } else if (option.normalized.includes(normalizedQuery)) {
+                    containsMatches.push(option.label);
+                }
+            });
+
+            return [...startsWithMatches, ...containsMatches].slice(0, 10);
+        }
+
+        function selectSuggestion(value) {
+            if (!value) {
+                return;
+            }
+
+            input.value = value;
+            input.dispatchEvent(new Event('input', { bubbles: true }));
+            input.dispatchEvent(new Event('change', { bubbles: true }));
+            closeSuggestions();
+        }
+
+        input.addEventListener('input', function() {
+            const suggestions = buildSuggestions(input.value);
+            if (suggestions.length) {
+                openSuggestions(suggestions);
+            } else {
+                closeSuggestions();
+            }
+        });
+
+        input.addEventListener('focus', function() {
+            const suggestions = buildSuggestions(input.value);
+            if (suggestions.length) {
+                openSuggestions(suggestions);
+            }
+        });
+
+        input.addEventListener('blur', function() {
+            setTimeout(closeSuggestions, 120);
+        });
+
+        input.addEventListener('keydown', function(event) {
+            if (!suggestionList.classList.contains('is-visible')) {
+                if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+                    const suggestions = buildSuggestions(input.value);
+                    if (suggestions.length) {
+                        event.preventDefault();
+                        openSuggestions(suggestions);
+                    }
+                }
+                return;
+            }
+
+            if (event.key === 'ArrowDown') {
+                event.preventDefault();
+                if (currentSuggestions.length) {
+                    const nextIndex = activeIndex + 1 >= currentSuggestions.length ? 0 : activeIndex + 1;
+                    highlightSuggestion(nextIndex);
+                }
+            } else if (event.key === 'ArrowUp') {
+                event.preventDefault();
+                if (currentSuggestions.length) {
+                    const prevIndex = activeIndex - 1 < 0 ? currentSuggestions.length - 1 : activeIndex - 1;
+                    highlightSuggestion(prevIndex);
+                }
+            } else if (event.key === 'Enter') {
+                if (activeIndex >= 0 && currentSuggestions[activeIndex]) {
+                    event.preventDefault();
+                    selectSuggestion(currentSuggestions[activeIndex]);
+                }
+            } else if (event.key === 'Escape') {
+                closeSuggestions();
+            }
+        });
+
+        suggestionList.addEventListener('pointerdown', function(event) {
+            event.preventDefault();
+            const item = event.target.closest('.nationality-suggestion-item');
+            if (item) {
+                selectSuggestion(item.dataset.value);
+            }
+        });
+
+        suggestionList.addEventListener('mousemove', function(event) {
+            const item = event.target.closest('.nationality-suggestion-item');
+            if (!item) {
+                return;
+            }
+
+            const items = Array.from(suggestionList.querySelectorAll('.nationality-suggestion-item'));
+            const index = items.indexOf(item);
+            if (index >= 0 && index !== activeIndex) {
+                highlightSuggestion(index);
+            }
+        });
+    }
+
     function resetStateCity(stateSelect, citySelect, customCityGroup, customCityInput) {
         stateSelect.innerHTML = '<option value="">Select your state/province</option>';
         stateSelect.disabled = true;
@@ -240,17 +636,28 @@
         handleCityChange(citySelect, customCityGroup, customCityInput);
     }
 
+    function handleCountryChange(countrySelect, stateSelect, citySelect, customCityGroup, customCityInput, phoneCodeSelect) {
     function handleCountryChange(countrySelect, stateSelect, citySelect, customCityGroup, customCityInput) {
         const selectedCountry = countrySelect.value;
 
         if (!selectedCountry) {
             resetStateCity(stateSelect, citySelect, customCityGroup, customCityInput);
+            if (phoneCodeSelect && PHONE_CODE_FALLBACKS.length) {
+                phoneCodeSelect.value = PHONE_CODE_FALLBACKS[0].dialCode;
+            }
             return;
         }
 
         if (selectedCountry === 'OTHER') {
             showExpansionModal();
             resetStateCity(stateSelect, citySelect, customCityGroup, customCityInput);
+            if (phoneCodeSelect) {
+                phoneCodeSelect.value = '';
+            }
+            return;
+        }
+
+        syncPhoneDialCode(selectedCountry, phoneCodeSelect);
             return;
         }
 
@@ -281,6 +688,17 @@
             return;
         }
 
+            return;
+        }
+
+        populateCities(citySelect, countryCode, stateValue, undefined, customCityGroup, customCityInput);
+    }
+
+    function handleCityChange(citySelect, customCityGroup, customCityInput) {
+        if (!customCityGroup) {
+            return;
+        }
+
         if (citySelect.value === 'other') {
             customCityGroup.style.display = 'block';
             if (customCityInput) {
@@ -300,6 +718,9 @@
         const citySelect = document.getElementById('city');
         const customCityGroup = document.getElementById('custom-city-group');
         const customCityInput = document.getElementById('custom-city');
+        const phoneCodeSelect = document.getElementById('country-code');
+        const nationalityInput = document.getElementById('nationality');
+        const nationalityDatalist = document.getElementById('nationality-options');
 
         if (!countrySelect || !stateSelect || !citySelect) {
             console.warn('Location selectors not found on the page.');
@@ -309,6 +730,13 @@
         const persisted = getPersistedLocation();
 
         populateCountries(countrySelect, persisted.country);
+        populatePhoneCodes(phoneCodeSelect);
+        const nationalityOptions = populateNationalityOptions(nationalityDatalist);
+        setupNationalityAutocomplete(nationalityInput, nationalityOptions);
+        resetStateCity(stateSelect, citySelect, customCityGroup, customCityInput);
+
+        countrySelect.addEventListener('change', function() {
+            handleCountryChange(countrySelect, stateSelect, citySelect, customCityGroup, customCityInput, phoneCodeSelect);
         resetStateCity(stateSelect, citySelect, customCityGroup, customCityInput);
 
         countrySelect.addEventListener('change', function() {
@@ -325,6 +753,9 @@
 
         if (persisted.country && persisted.country !== 'OTHER') {
             populateStates(stateSelect, citySelect, persisted.country, persisted.state, persisted.city, customCityGroup, customCityInput);
+            syncPhoneDialCode(persisted.country, phoneCodeSelect);
+        } else if (persisted.country === 'OTHER' && phoneCodeSelect) {
+            phoneCodeSelect.value = '';
         }
 
         if (persisted.city === 'other') {
