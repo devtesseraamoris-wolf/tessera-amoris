@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="css/occupation-others-fix.css">
     <link rel="stylesheet" href="css/elegant-languages-selector.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/expansion-modal.css">
 </head>
 <body>
     <!-- Header -->
@@ -177,11 +178,60 @@
                     </div>
                 </div>
                 
-                <div class="sophisticated-field">
-                    <label for="nationality" class="sophisticated-label">Nationality</label>
-                    <input type="text" id="nationality" class="form-input" placeholder="e.g., American, Brazilian, German" required>
-                    <div class="field-description">Your nationality or citizenship</div>
-                </div>
+                    <div class="sophisticated-field">
+                        <label for="nationality" class="sophisticated-label">Nationality</label>
+                        <input type="text" id="nationality" class="form-input" placeholder="Start typing your nationality" list="nationality-options" autocomplete="on" required>
+                        <div class="field-description">Your nationality or citizenship</div>
+                        <datalist id="nationality-options">
+                            <option value="Paraguayan"></option>
+                            <option value="Albanian"></option>
+                            <option value="Andorran"></option>
+                            <option value="Austrian"></option>
+                            <option value="Belarusian"></option>
+                            <option value="Belgian"></option>
+                            <option value="Bosnian and Herzegovinian"></option>
+                            <option value="Bulgarian"></option>
+                            <option value="Croatian"></option>
+                            <option value="Czech"></option>
+                            <option value="Danish"></option>
+                            <option value="Estonian"></option>
+                            <option value="Finnish"></option>
+                            <option value="French"></option>
+                            <option value="German"></option>
+                            <option value="Greek"></option>
+                            <option value="Vatican Citizen"></option>
+                            <option value="Hungarian"></option>
+                            <option value="Icelandic"></option>
+                            <option value="Irish"></option>
+                            <option value="Italian"></option>
+                            <option value="Latvian"></option>
+                            <option value="Liechtensteiner"></option>
+                            <option value="Lithuanian"></option>
+                            <option value="Luxembourgish"></option>
+                            <option value="Maltese"></option>
+                            <option value="Moldovan"></option>
+                            <option value="Monégasque"></option>
+                            <option value="Montenegrin"></option>
+                            <option value="Dutch"></option>
+                            <option value="North Macedonian"></option>
+                            <option value="Norwegian"></option>
+                            <option value="Polish"></option>
+                            <option value="Portuguese"></option>
+                            <option value="Romanian"></option>
+                            <option value="Russian"></option>
+                            <option value="Sammarinese"></option>
+                            <option value="Serbian"></option>
+                            <option value="Slovak"></option>
+                            <option value="Slovenian"></option>
+                            <option value="Spanish"></option>
+                            <option value="Swedish"></option>
+                            <option value="Swiss"></option>
+                            <option value="Ukrainian"></option>
+                            <option value="British"></option>
+                            <option value="Dual Nationality"></option>
+                            <option value="My nationality isn't listed"></option>
+                        </datalist>
+                    </div>
                 
                 <div class="sophisticated-field-group">
                     <div class="sophisticated-field">
@@ -756,6 +806,7 @@
         </div>
     </footer>
 
+    <script src="js/smart-country-selector.js"></script>
     <script src="js/comprehensive-city-database.js"></script>
     <script src="js/creative-occupation-selector.js"></script>
     <script src="js/elegant-languages-selector.js"></script>
