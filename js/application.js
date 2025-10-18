@@ -156,6 +156,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const countrySelect = document.getElementById('country');
         const countryCodeSelect = document.getElementById('country-code');
         
+        if (window.tesseraLocationSelectorActive === 'paraguay-europe-v2') {
+            return;
+        }
+
         if (countrySelect && countryCodeSelect) {
             // Country codes mapping (simplified version)
             const countryCodes = {
