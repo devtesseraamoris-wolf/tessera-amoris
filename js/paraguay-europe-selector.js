@@ -515,17 +515,23 @@
         return option;
     }
 
-    function resetStateCity(stateSelect, citySelect) {
+    function resetStateCity(stateSelect, citySelect, customCityGroup, customCityInput) {
         stateSelect.innerHTML = '<option value="">Select your state/province</option>';
         stateSelect.disabled = true;
         citySelect.innerHTML = '<option value="">Select your city</option>';
         citySelect.disabled = true;
+        if (customCityGroup) {
+            customCityGroup.style.display = 'none';
+        }
+        if (customCityInput) {
+            customCityInput.required = false;
+        }
     }
 
-    function populateStates(stateSelect, citySelect, countryCode, preservedState, preservedCity) {
+    function populateStates(stateSelect, citySelect, countryCode, preservedState, preservedCity, customCityGroup, customCityInput) {
         const countryData = LOCATION_DATA[countryCode];
         if (!countryData || !countryData.regions || countryData.regions.length === 0) {
-            resetStateCity(stateSelect, citySelect);
+            resetStateCity(stateSelect, citySelect, customCityGroup, customCityInput);
             return;
         }
 
@@ -541,20 +547,32 @@
 
         if (preservedState && stateSelect.querySelector(`option[value="${preservedState}"]`)) {
             stateSelect.value = preservedState;
-            populateCities(citySelect, countryCode, preservedState, preservedCity);
+            populateCities(citySelect, countryCode, preservedState, preservedCity, customCityGroup, customCityInput);
         } else {
             citySelect.innerHTML = '<option value="">Select your city</option>';
             citySelect.disabled = true;
+            if (customCityGroup) {
+                customCityGroup.style.display = 'none';
+            }
+            if (customCityInput) {
+                customCityInput.required = false;
+            }
         }
     }
 
-    function populateCities(citySelect, countryCode, stateValue, preservedCity) {
+    function populateCities(citySelect, countryCode, stateValue, preservedCity, customCityGroup, customCityInput) {
         const countryData = LOCATION_DATA[countryCode];
         const region = countryData?.regions?.find(entry => entry.value === stateValue);
         citySelect.innerHTML = '<option value="">Select your city</option>';
 
         if (!region) {
             citySelect.disabled = true;
+            if (customCityGroup) {
+                customCityGroup.style.display = 'none';
+            }
+            if (customCityInput) {
+                customCityInput.required = false;
+            }
             return;
         }
 
@@ -575,42 +593,70 @@
         if (preservedCity && citySelect.querySelector(`option[value="${preservedCity}"]`)) {
             citySelect.value = preservedCity;
         }
+
+        handleCityChange(citySelect, customCityGroup, customCityInput);
     }
 
-    function handleCountryChange(countrySelect, stateSelect, citySelect) {
+    function handleCountryChange(countrySelect, stateSelect, citySelect, customCityGroup, customCityInput) {
         const selectedCountry = countrySelect.value;
 
         if (!selectedCountry) {
-            resetStateCity(stateSelect, citySelect);
+            resetStateCity(stateSelect, citySelect, customCityGroup, customCityInput);
             return;
         }
 
         if (selectedCountry === 'OTHER') {
             showExpansionModal();
-            resetStateCity(stateSelect, citySelect);
+            resetStateCity(stateSelect, citySelect, customCityGroup, customCityInput);
             return;
         }
 
-        populateStates(stateSelect, citySelect, selectedCountry);
+        populateStates(stateSelect, citySelect, selectedCountry, undefined, undefined, customCityGroup, customCityInput);
     }
 
-    function handleStateChange(countrySelect, stateSelect, citySelect) {
+    function handleStateChange(countrySelect, stateSelect, citySelect, customCityGroup, customCityInput) {
         const countryCode = countrySelect.value;
         const stateValue = stateSelect.value;
 
         if (!countryCode || !stateValue) {
             citySelect.innerHTML = '<option value="">Select your city</option>';
             citySelect.disabled = true;
+            if (customCityGroup) {
+                customCityGroup.style.display = 'none';
+            }
+            if (customCityInput) {
+                customCityInput.required = false;
+            }
             return;
         }
 
-        populateCities(citySelect, countryCode, stateValue);
+        populateCities(citySelect, countryCode, stateValue, undefined, customCityGroup, customCityInput);
+    }
+
+    function handleCityChange(citySelect, customCityGroup, customCityInput) {
+        if (!customCityGroup) {
+            return;
+        }
+
+        if (citySelect.value === 'other') {
+            customCityGroup.style.display = 'block';
+            if (customCityInput) {
+                customCityInput.required = true;
+            }
+        } else {
+            customCityGroup.style.display = 'none';
+            if (customCityInput) {
+                customCityInput.required = false;
+            }
+        }
     }
 
     function initializeParaguayEuropeSelector() {
         const countrySelect = document.getElementById('country');
         const stateSelect = document.getElementById('state');
         const citySelect = document.getElementById('city');
+        const customCityGroup = document.getElementById('custom-city-group');
+        const customCityInput = document.getElementById('custom-city');
 
         if (!countrySelect || !stateSelect || !citySelect) {
             console.warn('Location selectors not found on the page.');
@@ -620,18 +666,26 @@
         const persisted = getPersistedLocation();
 
         populateCountries(countrySelect, persisted.country);
-        resetStateCity(stateSelect, citySelect);
+        resetStateCity(stateSelect, citySelect, customCityGroup, customCityInput);
 
         countrySelect.addEventListener('change', function() {
-            handleCountryChange(countrySelect, stateSelect, citySelect);
+            handleCountryChange(countrySelect, stateSelect, citySelect, customCityGroup, customCityInput);
         });
 
         stateSelect.addEventListener('change', function() {
-            handleStateChange(countrySelect, stateSelect, citySelect);
+            handleStateChange(countrySelect, stateSelect, citySelect, customCityGroup, customCityInput);
+        });
+
+        citySelect.addEventListener('change', function() {
+            handleCityChange(citySelect, customCityGroup, customCityInput);
         });
 
         if (persisted.country && persisted.country !== 'OTHER') {
-            populateStates(stateSelect, citySelect, persisted.country, persisted.state, persisted.city);
+            populateStates(stateSelect, citySelect, persisted.country, persisted.state, persisted.city, customCityGroup, customCityInput);
+        }
+
+        if (persisted.city === 'other') {
+            handleCityChange(citySelect, customCityGroup, customCityInput);
         }
 
         createExpansionModal();
