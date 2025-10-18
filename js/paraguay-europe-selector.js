@@ -2,6 +2,7 @@
 (function() {
     'use strict';
 
+<<<<<<< HEAD
     const SELECTOR_FLAG = 'paraguay-europe-v2.0';
     if (window.tesseraParaguayEuropeSelectorInitialized === SELECTOR_FLAG) {
         console.log('[Tessera] Selector already initialized, skipping');
@@ -13,6 +14,15 @@
     window.tesseraLocationSelectorActive = SELECTOR_FLAG;
     window.tesseraBlockOtherLocationSelectors = true;
     console.log('[Tessera] Selector flag set:', SELECTOR_FLAG);
+=======
+    const SELECTOR_FLAG = 'paraguay-europe-v3';
+    if (window.tesseraParaguayEuropeSelectorInitialized === SELECTOR_FLAG) {
+        return;
+    }
+
+    window.tesseraParaguayEuropeSelectorInitialized = SELECTOR_FLAG;
+    window.tesseraLocationSelectorActive = SELECTOR_FLAG;
+>>>>>>> 1382a83eb0b3ba63d61db45d9d2699a9d4e1d85e
 
     const LOCATION_DATA = window.tesseraParaguayEuropeData || {};
 
@@ -1020,9 +1030,12 @@
     }
 
     function initializeSelector() {
+<<<<<<< HEAD
         console.log('[Tessera] Paraguay-Europe Selector v2.0 initializing...');
         console.log('[Tessera] Available countries:', AVAILABLE_COUNTRIES.length);
         console.log('[Tessera] Countries:', AVAILABLE_COUNTRIES.map(c => c.name).join(', '));
+=======
+>>>>>>> 1382a83eb0b3ba63d61db45d9d2699a9d4e1d85e
         const countrySelect = document.getElementById('country');
         const stateSelect = document.getElementById('state');
         const citySelect = document.getElementById('city');
@@ -1041,7 +1054,10 @@
         const persisted = getPersistedLocation();
 
         populateCountries(countrySelect, persisted.country);
+<<<<<<< HEAD
         console.log('[Tessera] Country dropdown populated with', countrySelect.options.length - 1, 'options (excluding placeholder)');
+=======
+>>>>>>> 1382a83eb0b3ba63d61db45d9d2699a9d4e1d85e
         populatePhoneCodes(phoneCodeSelect);
         setupNationalityAutocomplete(nationalityInput, suggestionContainer, nationalityIndex);
         resetStateCity(stateSelect, citySelect, customCityGroup, customCityInput);
