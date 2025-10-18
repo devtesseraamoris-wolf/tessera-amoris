@@ -471,6 +471,17 @@ window.tesseraParaguayEuropeData = {
             {"value": "zaporizhzhia", "label": "Zaporizhzhia Oblast", "cities": ["Zaporizhzhia", "Melitopol", "Berdyansk", "Enerhodar"]}
         ]
     },
+    "CY": {
+        "label": "Cyprus",
+        "regions": [
+            {"value": "nicosia", "label": "Nicosia District", "cities": ["Nicosia", "Strovolos", "Lakatamia", "Latsia"]},
+            {"value": "limassol", "label": "Limassol District", "cities": ["Limassol", "Agios Athanasios", "Germasogeia", "Mesa Geitonia"]},
+            {"value": "larnaca", "label": "Larnaca District", "cities": ["Larnaca", "Aradippou", "Livadia", "Oroklini"]},
+            {"value": "paphos", "label": "Paphos District", "cities": ["Paphos", "Geroskipou", "Peyia", "Polis Chrysochous"]},
+            {"value": "famagusta", "label": "Famagusta District", "cities": ["Famagusta", "Paralimni", "Protaras", "Ayia Napa"]},
+            {"value": "kyrenia", "label": "Kyrenia District", "cities": ["Kyrenia", "Lapithos", "Karavas"]}
+        ]
+    },
     "GB": {
         "label": "United Kingdom",
         "regions": [
