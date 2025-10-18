@@ -120,6 +120,7 @@
 
     const ADDITIONAL_NATIONALITIES = ['American', 'Canadian', 'Brazilian', 'Argentine', 'Mexican'];
     const DEFAULT_NATIONALITY_SUGGESTIONS = ['Paraguayan', 'Brazilian', 'American', 'German', 'Spanish', 'French', 'British'];
+    const ADDITIONAL_NATIONALITIES = ['United States', 'Canada', 'Brazil', 'Argentina', 'Mexico'];
 
     const AVAILABLE_COUNTRIES = RAW_COUNTRIES.map(country => ({
         ...country,
@@ -359,7 +360,7 @@
 
         const normalizedOptions = options.map(label => ({
             label,
-            normalized: normalizeText(label)
+            normalized: label.toLowerCase()
         }));
 
         const preferredDefaults = [];
@@ -460,7 +461,7 @@
         }
 
         function buildSuggestions(query) {
-            const normalizedQuery = normalizeText(query.trim());
+            const normalizedQuery = query.trim().toLowerCase();
 
             if (!normalizedQuery) {
                 return defaultSuggestions.slice();
@@ -486,18 +487,12 @@
             }
 
             input.value = value;
-            if (input.dataset.autofilledFromCountry === 'true') {
-                delete input.dataset.autofilledFromCountry;
-            }
             input.dispatchEvent(new Event('input', { bubbles: true }));
             input.dispatchEvent(new Event('change', { bubbles: true }));
             closeSuggestions();
         }
 
         input.addEventListener('input', function() {
-            if (input.dataset.autofilledFromCountry === 'true') {
-                delete input.dataset.autofilledFromCountry;
-            }
             const suggestions = buildSuggestions(input.value);
             if (suggestions.length) {
                 openSuggestions(suggestions);
@@ -655,38 +650,14 @@
         handleCityChange(citySelect, customCityGroup, customCityInput);
     }
 
-    function prefillNationalityFromCountry(countryCode, nationalityInput) {
-        if (!nationalityInput) {
-            return;
-        }
-
-        const shouldOverride = !nationalityInput.value || nationalityInput.dataset.autofilledFromCountry === 'true';
-        if (!shouldOverride) {
-            return;
-        }
-
-        const demonym = COUNTRY_NATIONALITIES[countryCode];
-        if (demonym) {
-            nationalityInput.value = demonym;
-            nationalityInput.dataset.autofilledFromCountry = 'true';
-            nationalityInput.dispatchEvent(new Event('input', { bubbles: true }));
-            nationalityInput.dispatchEvent(new Event('change', { bubbles: true }));
-        }
-    }
-
-    function handleCountryChange(countrySelect, stateSelect, citySelect, customCityGroup, customCityInput, phoneCodeSelect, nationalityInput) {
+    function handleCountryChange(countrySelect, stateSelect, citySelect, customCityGroup, customCityInput, phoneCodeSelect) {
+    function handleCountryChange(countrySelect, stateSelect, citySelect, customCityGroup, customCityInput) {
         const selectedCountry = countrySelect.value;
 
         if (!selectedCountry) {
             resetStateCity(stateSelect, citySelect, customCityGroup, customCityInput);
             if (phoneCodeSelect && PHONE_CODE_FALLBACKS.length) {
                 phoneCodeSelect.value = PHONE_CODE_FALLBACKS[0].dialCode;
-            }
-            if (nationalityInput && nationalityInput.dataset.autofilledFromCountry === 'true') {
-                nationalityInput.value = '';
-                delete nationalityInput.dataset.autofilledFromCountry;
-                nationalityInput.dispatchEvent(new Event('input', { bubbles: true }));
-                nationalityInput.dispatchEvent(new Event('change', { bubbles: true }));
             }
             return;
         }
@@ -697,17 +668,13 @@
             if (phoneCodeSelect) {
                 phoneCodeSelect.value = '';
             }
-            if (nationalityInput && nationalityInput.dataset.autofilledFromCountry === 'true') {
-                nationalityInput.value = '';
-                delete nationalityInput.dataset.autofilledFromCountry;
-                nationalityInput.dispatchEvent(new Event('input', { bubbles: true }));
-                nationalityInput.dispatchEvent(new Event('change', { bubbles: true }));
-            }
             return;
         }
 
         syncPhoneDialCode(selectedCountry, phoneCodeSelect);
-        prefillNationalityFromCountry(selectedCountry, nationalityInput);
+            return;
+        }
+
         populateStates(stateSelect, citySelect, selectedCountry, undefined, undefined, customCityGroup, customCityInput);
     }
 
@@ -724,6 +691,17 @@
             if (customCityInput) {
                 customCityInput.required = false;
             }
+            return;
+        }
+
+        populateCities(citySelect, countryCode, stateValue, undefined, customCityGroup, customCityInput);
+    }
+
+    function handleCityChange(citySelect, customCityGroup, customCityInput) {
+        if (!customCityGroup) {
+            return;
+        }
+
             return;
         }
 
@@ -787,7 +765,11 @@
         resetStateCity(stateSelect, citySelect, customCityGroup, customCityInput);
 
         countrySelect.addEventListener('change', function() {
-            handleCountryChange(countrySelect, stateSelect, citySelect, customCityGroup, customCityInput, phoneCodeSelect, nationalityInput);
+            handleCountryChange(countrySelect, stateSelect, citySelect, customCityGroup, customCityInput, phoneCodeSelect);
+        resetStateCity(stateSelect, citySelect, customCityGroup, customCityInput);
+
+        countrySelect.addEventListener('change', function() {
+            handleCountryChange(countrySelect, stateSelect, citySelect, customCityGroup, customCityInput);
         });
 
         stateSelect.addEventListener('change', function() {
@@ -801,7 +783,6 @@
         if (persisted.country && persisted.country !== 'OTHER') {
             populateStates(stateSelect, citySelect, persisted.country, persisted.state, persisted.city, customCityGroup, customCityInput);
             syncPhoneDialCode(persisted.country, phoneCodeSelect);
-            prefillNationalityFromCountry(persisted.country, nationalityInput);
         } else if (persisted.country === 'OTHER' && phoneCodeSelect) {
             phoneCodeSelect.value = '';
         }
