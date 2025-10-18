@@ -1,4 +1,15 @@
 // Fixed Form Functionality - All Issues Resolved
+const NATIONALITY_SUGGESTIONS = [
+    'Paraguayan', 'Albanian', 'Andorran', 'Austrian', 'Belarusian', 'Belgian',
+    'Bosnian and Herzegovinian', 'Bulgarian', 'Croatian', 'Czech', 'Danish',
+    'Estonian', 'Finnish', 'French', 'German', 'Greek', 'Vatican Citizen',
+    'Hungarian', 'Icelandic', 'Irish', 'Italian', 'Latvian', 'Liechtensteiner',
+    'Lithuanian', 'Luxembourgish', 'Maltese', 'Moldovan', 'Monégasque',
+    'Montenegrin', 'Dutch', 'North Macedonian', 'Norwegian', 'Polish',
+    'Portuguese', 'Romanian', 'Russian', 'Sammarinese', 'Serbian', 'Slovak',
+    'Slovenian', 'Spanish', 'Swedish', 'Swiss', 'Ukrainian', 'British',
+    'Dual Nationality', "My nationality isn't listed"
+];
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Fixed forms script loaded');
     
@@ -10,6 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeDatePicker();
     initializeOccupationField();
     initializeLanguagesField();
+    initializeNationalityField();
     initializeAllFormFields();
 });
 
@@ -75,7 +87,60 @@ function fixFormStyling() {
             font-size: 14px !important;
             margin-top: 4px !important;
         }
-        
+
+        /* Nationality suggestions */
+        .nationality-suggestion-container {
+            display: none;
+            margin-top: 10px;
+            padding: 10px 12px;
+            background: #f9fafb;
+            border-radius: 12px;
+            border: 1px solid #e1e8ed;
+            gap: 12px;
+            overflow-x: auto;
+            scroll-snap-type: x proximity;
+        }
+
+        .nationality-suggestion-container.active {
+            display: flex;
+            align-items: center;
+        }
+
+        .nationality-suggestion-container::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .nationality-suggestion-container::-webkit-scrollbar-thumb {
+            background: rgba(212, 175, 55, 0.6);
+            border-radius: 999px;
+        }
+
+        .nationality-pill {
+            flex: 0 0 auto;
+            scroll-snap-align: start;
+            background: linear-gradient(135deg, #f3ead1, #e7c87a);
+            border: none;
+            border-radius: 999px;
+            padding: 6px 16px;
+            color: #2c3e50;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .nationality-pill:hover,
+        .nationality-pill:focus {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(212, 175, 55, 0.25);
+            outline: none;
+        }
+
+        .nationality-suggestion-empty {
+            color: #6c757d;
+            font-style: italic;
+        }
+
         /* Date picker container */
         .date-picker-container {
             display: grid;
@@ -112,13 +177,18 @@ function fixFormStyling() {
                 grid-template-columns: 1fr;
                 gap: 16px;
             }
-            
+
             .phone-input-container {
                 flex-direction: column;
             }
-            
+
             .country-code-select {
                 flex: 1;
+            }
+
+            .nationality-suggestion-container.active {
+                flex-wrap: wrap;
+                justify-content: flex-start;
             }
         }
     `;
@@ -416,7 +486,7 @@ function initializeOccupationField() {
 
 function initializeLanguagesField() {
     console.log('Initializing languages field');
-    
+
     const languagesInput = document.getElementById('languages');
     if (!languagesInput) {
         console.error('Languages field not found');
@@ -450,9 +520,115 @@ function initializeLanguagesField() {
     languagesInput.setAttribute('list', 'languages-suggestions');
 }
 
+function initializeNationalityField() {
+    console.log('Initializing nationality field');
+
+    const nationalityInput = document.getElementById('nationality');
+    const suggestionsContainer = document.getElementById('nationality-suggestions');
+
+    if (!nationalityInput || !suggestionsContainer) {
+        console.error('Nationality field not found');
+        return;
+    }
+
+    nationalityInput.setAttribute('autocomplete', 'off');
+
+    let hideTimeout = null;
+    let ignoreNextFocus = false;
+
+    function clearHideTimeout() {
+        if (hideTimeout) {
+            clearTimeout(hideTimeout);
+            hideTimeout = null;
+        }
+    }
+
+    function scheduleHide() {
+        clearHideTimeout();
+        hideTimeout = window.setTimeout(() => {
+            suggestionsContainer.classList.remove('active');
+            suggestionsContainer.innerHTML = '';
+        }, 120);
+    }
+
+    function renderSuggestions(filterValue) {
+        suggestionsContainer.innerHTML = '';
+
+        const normalized = (filterValue || '').trim().toLowerCase();
+        let matches = NATIONALITY_SUGGESTIONS.filter(nationality =>
+            nationality.toLowerCase().includes(normalized)
+        );
+
+        if (!matches.length) {
+            const emptyMessage = document.createElement('div');
+            emptyMessage.className = 'nationality-suggestion-empty';
+            emptyMessage.textContent = 'No suggestions found. Please continue typing your nationality.';
+            suggestionsContainer.appendChild(emptyMessage);
+            return;
+        }
+
+        matches = matches.slice(0, normalized ? 12 : 10);
+
+        matches.forEach(nationality => {
+            const pill = document.createElement('button');
+            pill.type = 'button';
+            pill.className = 'nationality-pill';
+            pill.setAttribute('role', 'option');
+            pill.dataset.value = nationality;
+            pill.textContent = nationality;
+
+            pill.addEventListener('click', () => {
+                nationalityInput.value = nationality;
+                ignoreNextFocus = true;
+                scheduleHide();
+                nationalityInput.focus({ preventScroll: true });
+                nationalityInput.dispatchEvent(new Event('change', { bubbles: true }));
+            });
+
+            suggestionsContainer.appendChild(pill);
+        });
+    }
+
+    function showSuggestions() {
+        suggestionsContainer.classList.add('active');
+        renderSuggestions(nationalityInput.value);
+    }
+
+    nationalityInput.addEventListener('focus', () => {
+        if (ignoreNextFocus) {
+            ignoreNextFocus = false;
+            return;
+        }
+        clearHideTimeout();
+        showSuggestions();
+    });
+
+    nationalityInput.addEventListener('input', () => {
+        clearHideTimeout();
+        showSuggestions();
+    });
+
+    nationalityInput.addEventListener('blur', () => {
+        scheduleHide();
+    });
+
+    suggestionsContainer.addEventListener('mousedown', event => {
+        event.preventDefault();
+        clearHideTimeout();
+    });
+
+    suggestionsContainer.addEventListener('mouseup', () => {
+        scheduleHide();
+    });
+
+    if (nationalityInput.value) {
+        renderSuggestions(nationalityInput.value);
+    }
+}
+
 function initializeAllFormFields() {
     console.log('Initializing all form fields');
-    
+
     // Apply styling to all form inputs
     const allInputs = document.querySelectorAll('input, select, textarea');
     allInputs.forEach(input => {
