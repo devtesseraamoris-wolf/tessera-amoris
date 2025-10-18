@@ -271,11 +271,6 @@
     width: 100%;
 }
 
-.select-group label {
-    transform: translateY(-1.5rem) scale(0.85);
-    color: var(--warm-gray);
-}
-
 .select-group select {
     cursor: pointer;
 }

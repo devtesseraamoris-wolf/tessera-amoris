@@ -46,31 +46,19 @@
                 <div class="journey-steps">
                     <div class="journey-step">
                         <div class="journey-step-icon">✓</div>
-                        <div class="journey-step-content">
-                            <div class="journey-step-label">Personal Info</div>
-                            <div class="journey-step-description">Your profile and background</div>
-                        </div>
+                        <div class="journey-step-label">Personal Info</div>
                     </div>
                     <div class="journey-step">
                         <div class="journey-step-icon">✓</div>
-                        <div class="journey-step-content">
-                            <div class="journey-step-label">Faith & Values</div>
-                            <div class="journey-step-description">Your spiritual foundation and core beliefs</div>
-                        </div>
+                        <div class="journey-step-label">Faith & Values</div>
                     </div>
                     <div class="journey-step">
                         <div class="journey-step-icon">✓</div>
-                        <div class="journey-step-content">
-                            <div class="journey-step-label">Preferences</div>
-                            <div class="journey-step-description">Your relationship vision and partner qualities</div>
-                        </div>
+                        <div class="journey-step-label">Preferences</div>
                     </div>
                     <div class="journey-step active">
                         <div class="journey-step-icon">👁</div>
-                        <div class="journey-step-content">
-                            <div class="journey-step-label">Review</div>
-                            <div class="journey-step-description">Final verification before submission</div>
-                        </div>
+                        <div class="journey-step-label">Review</div>
                     </div>
                 </div>
             </div>

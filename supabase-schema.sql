@@ -4,7 +4,7 @@
 -- Run this script in the Supabase SQL Editor to
 -- provision all tables, views, functions, RLS
 -- policies, and storage configuration that the
--- application expects..
+-- application expects.
 -- ============================================
 
 -- Enable required extensions

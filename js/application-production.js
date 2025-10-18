@@ -30,14 +30,6 @@ document.addEventListener('DOMContentLoaded', function() {
             // Collect all form data
             const formData = collectFormData();
             
-            // Add quiz data if available
-            if (window.TesseraQuiz && typeof window.TesseraQuiz.getQuizData === 'function') {
-                const quizData = window.TesseraQuiz.getQuizData();
-                if (quizData) {
-                    formData.quizData = quizData;
-                }
-            }
-            
             // Upload photo first if exists
             let photoUrl = null;
             const photoInput = document.getElementById('verification-photo');
@@ -63,24 +55,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 throw new Error(result.message || 'Submission failed');
             }
             
+            // Show success message
+            const formContent = document.querySelector('.form-content');
+            const successMessage = document.querySelector('.success-message');
+            
+            if (formContent && successMessage) {
+                formContent.style.display = 'none';
+                successMessage.classList.add('active');
+                
+                // Scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+            
             // Clear form data from localStorage
             localStorage.removeItem('tesseraAmorisFormData');
-            
-            // Clear quiz data
-            if (window.TesseraQuiz && typeof window.TesseraQuiz.clearQuizData === 'function') {
-                window.TesseraQuiz.clearQuizData();
-            }
-            
-            // Store position and email for waitlist page
-            if (result.position) {
-                localStorage.setItem('tesseraWaitlistPosition', result.position);
-            }
-            if (result.email) {
-                localStorage.setItem('tesseraUserEmail', result.email);
-            }
-            
-            // Redirect to waitlist confirmation page
-            window.location.href = `waitlist-confirmation.html?position=${result.position}&email=${encodeURIComponent(result.email)}`;
             
         } catch (error) {
             console.error('Submission error:', error);

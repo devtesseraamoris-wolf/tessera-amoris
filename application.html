@@ -21,9 +21,6 @@
     <link rel="stylesheet" href="css/clean-references.css">
     <link rel="stylesheet" href="css/fix-review-title.css">
     <link rel="stylesheet" href="css/strategic-review.css">
-    <link rel="stylesheet" href="css/pre-screening-quiz.css">
-    <link rel="stylesheet" href="css/review-section-refined.css">
-    <link rel="stylesheet" href="css/force-gold-title.css">
     <link rel="stylesheet" href="css/expansion-modal.css">
     <link rel="stylesheet" href="css/form-responsive-enhanced.css">
 </head>
@@ -53,35 +50,8 @@
         </div>
     </header>
 
-    <!-- Pre-Screening Quiz Modal -->
-    <div id="quiz-modal-overlay" class="quiz-modal-overlay">
-        <div id="quiz-container" class="quiz-container">
-            <div class="quiz-header">
-                <h2 class="quiz-title">Are You Ready for a Meaningful Legacy?</h2>
-                <p class="quiz-subtitle">Before applying, help us understand your values and intentions with a few thoughtful questions.</p>
-                <div class="quiz-progress-container">
-                    <span id="quiz-progress-text" class="quiz-progress-text">Question 1 of 5</span>
-                    <div class="quiz-progress-bar">
-                        <div id="quiz-progress-fill" class="quiz-progress-fill" style="width: 20%"></div>
-                    </div>
-                </div>
-            </div>
-            <div id="quiz-content" class="quiz-content">
-                <!-- Quiz questions will be rendered here by JavaScript -->
-            </div>
-            <div class="quiz-footer">
-                <button id="quiz-prev-btn" class="quiz-btn quiz-btn-secondary" style="display: none;">
-                    ← Previous
-                </button>
-                <button id="quiz-next-btn" class="quiz-btn quiz-btn-primary">
-                    Next →
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Application Form (Initially Hidden) -->
-    <div id="application-form-container" class="application-container" style="display: none;">
+    <!-- Application Form -->
+    <div class="application-container">
         <div class="application-header">
             <h1 class="application-title">Begin Your Journey</h1>
             <p class="application-subtitle">Complete this application to take the first step toward finding a relationship with purpose and building a lasting legacy.</p>
@@ -215,9 +185,8 @@
                 
                 <div class="sophisticated-field">
                     <label for="nationality" class="sophisticated-label">Nationality</label>
-                    <input type="text" id="nationality" class="form-input" list="nationality-options" placeholder="Start typing your nationality..." autocomplete="on" required>
-                    <datalist id="nationality-options"></datalist>
-                    <div class="field-description">Choose your nationality from the suggestions or enter it manually</div>
+                    <input type="text" id="nationality" class="form-input" placeholder="e.g., American, Brazilian, German" required>
+                    <div class="field-description">Your nationality or citizenship</div>
                 </div>
                 
                 <div class="sophisticated-field-group">
@@ -793,14 +762,7 @@
         </div>
     </footer>
 
-    <!-- Country Selector: Paraguay + Europe + Expansion Modal -->
-    <script src="js/paraguay-europe-data.js"></script>
-    <script src="js/paraguay-europe-selector.js"></script>
-    
-    <script src="js/main.js"></script>
-    <!-- Disabled: conflicts with paraguay-europe-selector
-    <script src="js/comprehensive-city-database.js"></script>
-    -->
+    <script src="js/main.js"></script>    <script src="js/comprehensive-city-database.js"></script>
     <script src="js/creative-occupation-selector.js"></script>
     <script src="js/elegant-languages-selector.js"></script>
     <script src="js/values-preferences-components.js"></script>
@@ -810,12 +772,9 @@
     <script src="js/form-data-persistence.js"></script>
     <script src="js/fix-references-layout.js"></script>
     <script src="js/strategic-review.js"></script>
-    <!-- Pre-Screening Quiz -->
-    <script src="js/pre-screening-quiz.js"></script>
-    <!-- Review Refined (Vertical Layout) -->
-    <script src="js/review-refined.js"></script>
-    <!-- Test Mode (Remove in production or set TEST_MODE = false) -->
-    <script src="js/test-mode.js"></script>
+    <!-- Paraguay-Europe Country Selector -->
+    <script src="js/paraguay-europe-data.js"></script>
+    <script src="js/paraguay-europe-selector.js"></script>
     <!-- Production API Integration -->
     <script src="js/application-production.js"></script>
 </body>

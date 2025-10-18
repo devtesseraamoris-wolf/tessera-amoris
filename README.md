@@ -28,14 +28,67 @@ Before deploying, you need:
 
 1. Go to [supabase.com](https://supabase.com) and create a free account
 2. Create a new project
-3. Go to **SQL Editor** and run the contents of [`supabase-schema.sql`](supabase-schema.sql). This single script will:
-   - Create the `applications` table with every column referenced by the application and quiz flows
-   - Create the `expansion_interests` table used by the expansion waitlist form
-   - Provision helper views/functions for analytics (`quiz_analytics`, `waitlist_positions`, `get_application_position`, `expansion_interest_analytics`, `get_expansion_priorities`)
-   - Enable Row Level Security (RLS) with policies that allow the anonymous API key to insert records while preserving admin-only access for updates
-   - Create the public `verification-photos` storage bucket and matching policies so `/api/upload-photo` can store verification images
+3. Go to **SQL Editor** and run this query:
 
-> **Tip:** you can upload the file directly via Supabase → **SQL Editor** → **New query** → **Upload file**, or copy/paste the script contents from your local clone.
+```sql
+-- Create applications table
+CREATE TABLE applications (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  created_at TIMESTAMP DEFAULT NOW(),
+  
+  -- Personal Information
+  full_name TEXT NOT NULL,
+  date_of_birth DATE,
+  gender TEXT,
+  email TEXT NOT NULL,
+  phone TEXT,
+  country TEXT,
+  city TEXT,
+  nationality TEXT,
+  
+  -- Faith & Values
+  faith_tradition TEXT,
+  faith_importance TEXT,
+  church_involvement TEXT,
+  core_values JSONB,
+  
+  -- Relationship Goals
+  marital_status TEXT,
+  has_children BOOLEAN,
+  children_count INTEGER,
+  wants_children BOOLEAN,
+  family_vision TEXT,
+  partner_qualities TEXT,
+  
+  -- Verification
+  occupation TEXT,
+  languages JSONB,
+  photo_url TEXT,
+  reference_1_name TEXT,
+  reference_1_relationship TEXT,
+  reference_1_email TEXT,
+  reference_1_phone TEXT,
+  reference_2_name TEXT,
+  reference_2_relationship TEXT,
+  reference_2_email TEXT,
+  reference_2_phone TEXT,
+  
+  -- Status
+  status TEXT DEFAULT 'pending',
+  admin_notes TEXT,
+  
+  -- Metadata
+  ip_address TEXT,
+  user_agent TEXT
+);
+
+-- Create storage bucket for photos
+INSERT INTO storage.buckets (id, name, public) VALUES ('verification-photos', 'verification-photos', true);
+
+-- Set storage policy (allow public uploads)
+CREATE POLICY "Allow public uploads" ON storage.objects FOR INSERT WITH CHECK (bucket_id = 'verification-photos');
+CREATE POLICY "Allow public access" ON storage.objects FOR SELECT USING (bucket_id = 'verification-photos');
+```
 
 4. Go to **Settings** → **API** and copy:
    - Project URL (SUPABASE_URL)
@@ -189,4 +242,3 @@ For questions or issues, contact: admin@tesseraamoris.com
 
 **Built with ❤️ for connecting hearts across continents**
 
- 

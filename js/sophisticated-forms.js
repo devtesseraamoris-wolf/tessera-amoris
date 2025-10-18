@@ -11,23 +11,13 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function initializeLocationSelectors() {
-    if (window.tesseraLocationSelectorActive) {
-        console.log('Custom location selector active, skipping legacy LocationDatabase initializer.');
-        return;
-    }
-
     const countrySelect = document.getElementById('country');
     const stateSelect = document.getElementById('state');
     const citySelect = document.getElementById('city');
     const customCityGroup = document.getElementById('custom-city-group');
-
+    
     if (!countrySelect || !stateSelect || !citySelect) return;
-
-    if (typeof LocationDatabase === 'undefined') {
-        console.warn('LocationDatabase is not available; legacy selector disabled.');
-        return;
-    }
-
+    
     // Populate countries
     const countries = LocationDatabase.getCountries();
     countries.forEach(country => {

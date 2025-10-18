@@ -121,13 +121,9 @@ document.addEventListener('DOMContentLoaded', function() {
     function initCountryCodeSelector() {
         const countrySelect = document.getElementById('country');
         const countryCodeSelect = document.getElementById('country-code');
-
+        
         if (!countryCodeSelect) {
             console.log('Country code selector not found');
-            return;
-        }
-
-        if (window.tesseraLocationSelectorActive === 'paraguay-europe-v2') {
             return;
         }
         

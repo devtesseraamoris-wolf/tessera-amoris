@@ -34,26 +34,102 @@
 6. Click "Create new project"
 7. Wait 2-3 minutes for setup
 
-#### 1.2 Run Tessera Amoris Schema Script
+#### 1.2 Create Database Table
 1. In your Supabase project, go to **SQL Editor** (left sidebar)
 2. Click "New query"
-3. Upload or paste the contents of [`supabase-schema.sql`](supabase-schema.sql)
-4. Click "Run" (or press Cmd/Ctrl + Enter) and wait for the "Success" message
+3. Copy and paste this SQL:
 
-The script provisions everything the code expects:
-- `applications` table (with quiz + reference columns)
-- `expansion_interests` table for the global waitlist form
-- Helpful analytics views and helper functions
-- Row Level Security policies so the anonymous key can insert through the serverless APIs
-- `verification-photos` storage bucket with upload/read/delete policies
+```sql
+-- Create applications table
+CREATE TABLE applications (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  created_at TIMESTAMP DEFAULT NOW(),
+  
+  -- Personal Information
+  full_name TEXT NOT NULL,
+  date_of_birth DATE,
+  gender TEXT,
+  email TEXT NOT NULL,
+  phone TEXT,
+  country TEXT,
+  city TEXT,
+  nationality TEXT,
+  
+  -- Faith & Values
+  faith_tradition TEXT,
+  faith_importance TEXT,
+  church_involvement TEXT,
+  core_values JSONB,
+  
+  -- Relationship Goals
+  marital_status TEXT,
+  has_children BOOLEAN,
+  children_count INTEGER,
+  wants_children BOOLEAN,
+  family_vision TEXT,
+  partner_qualities TEXT,
+  
+  -- Verification
+  occupation TEXT,
+  languages JSONB,
+  photo_url TEXT,
+  reference_1_name TEXT,
+  reference_1_relationship TEXT,
+  reference_1_email TEXT,
+  reference_1_phone TEXT,
+  reference_2_name TEXT,
+  reference_2_relationship TEXT,
+  reference_2_email TEXT,
+  reference_2_phone TEXT,
+  
+  -- Status
+  status TEXT DEFAULT 'pending',
+  admin_notes TEXT,
+  
+  -- Metadata
+  ip_address TEXT,
+  user_agent TEXT
+);
 
-#### 1.3 (Optional) Verify Resources
-If you want to double-check the results:
-- **Tables:** SQL Editor → run `SELECT * FROM applications LIMIT 1;`
-- **Views:** SQL Editor → run `SELECT * FROM quiz_analytics;`
-- **Storage:** Storage → confirm `verification-photos` bucket exists and is marked Public
+-- Create index for faster queries
+CREATE INDEX idx_applications_status ON applications(status);
+CREATE INDEX idx_applications_email ON applications(email);
+CREATE INDEX idx_applications_created_at ON applications(created_at DESC);
+```
 
-#### 1.4 Get API Credentials
+4. Click "Run" (or press Cmd/Ctrl + Enter)
+5. You should see "Success. No rows returned"
+
+#### 1.3 Create Storage Bucket
+1. Go to **Storage** (left sidebar)
+2. Click "Create a new bucket"
+3. Fill in:
+   - **Name:** verification-photos
+   - **Public bucket:** Toggle ON
+4. Click "Create bucket"
+
+#### 1.4 Set Storage Policies
+1. Click on "verification-photos" bucket
+2. Click "Policies" tab
+3. Click "New policy"
+4. Click "For full customization"
+5. Add this policy for INSERT (uploads):
+
+```sql
+CREATE POLICY "Allow public uploads"
+ON storage.objects FOR INSERT
+WITH CHECK (bucket_id = 'verification-photos');
+```
+
+6. Add this policy for SELECT (viewing):
+
+```sql
+CREATE POLICY "Allow public access"
+ON storage.objects FOR SELECT
+USING (bucket_id = 'verification-photos');
+```
+
+#### 1.5 Get API Credentials
 1. Go to **Settings** → **API** (left sidebar)
 2. Copy these values (you'll need them for Vercel):
    - **Project URL** (looks like: `https://xxxxx.supabase.co`)
