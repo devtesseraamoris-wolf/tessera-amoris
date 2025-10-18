@@ -127,21 +127,31 @@ function fixFormStyling() {
 
 function initializeLocationSelectors() {
     console.log('Initializing location selectors');
-    
+
+    if (window.tesseraLocationSelectorActive) {
+        console.log('Custom location selector detected, skipping legacy initializer.');
+        return;
+    }
+
     const countrySelect = document.getElementById('country');
     const stateSelect = document.getElementById('state');
     const citySelect = document.getElementById('city');
     const customCityGroup = document.getElementById('custom-city-group');
-    
+
     if (!countrySelect || !stateSelect || !citySelect) {
         console.error('Location selectors not found');
         return;
     }
-    
+
     // Use comprehensive city database
     const locationData = window.comprehensiveCityDatabase || {};
     const citySearcher = window.createDynamicCitySearch ? window.createDynamicCitySearch() : null;
-    
+
+    if (!locationData || Object.keys(locationData).length === 0) {
+        console.log('No comprehensive city database available; legacy selector disabled.');
+        return;
+    }
+
     // Populate countries
     Object.keys(locationData).forEach(countryKey => {
         const option = document.createElement('option');
