@@ -229,7 +229,7 @@ function initializeLocationSelectors() {
 
     function toggleCustomCity(shouldShow) {
         if (!customCityGroup) return;
-        customCityGroup.hidden = !shouldShow;
+        customCityGroup.style.display = shouldShow ? 'block' : 'none';
         if (customCityInput) {
             customCityInput.required = shouldShow;
             if (!shouldShow) {
@@ -324,8 +324,6 @@ function initializeLocationSelectors() {
             toggleCustomCity(true);
         }
     }
-
-    toggleCustomCity(false);
 
     countrySelect.addEventListener('change', handleCountryChange);
     stateSelect.addEventListener('change', handleStateChange);
@@ -532,19 +530,6 @@ function initializeNationalityField() {
         console.error('Nationality field not found');
         return;
     }
-
-    const legacyDatalistId = nationalityInput.getAttribute('list');
-    if (legacyDatalistId) {
-        nationalityInput.removeAttribute('list');
-        const legacyDatalist = document.getElementById(legacyDatalistId);
-        if (legacyDatalist) {
-            legacyDatalist.remove();
-        }
-    }
-
-    document.querySelectorAll('datalist[id^="nationality"]').forEach(list => {
-        list.remove();
-    });
 
     nationalityInput.setAttribute('autocomplete', 'off');
 
