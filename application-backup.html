@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="css/occupation-others-fix.css">
     <link rel="stylesheet" href="css/elegant-languages-selector.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/expansion-modal.css">
 </head>
 <body>
     <!-- Header -->
@@ -169,19 +170,20 @@
                     </div>
                 </div>
                 
-                <div class="form-group" id="custom-city-group" style="display: none;">
+                <div class="form-group" id="custom-city-group" hidden>
                     <div class="sophisticated-field">
-                        <label for="custom-city" class="sophisticated-label">Custom City</label>
+                        <label for="custom-city" class="sophisticated-label">City</label>
                         <input type="text" id="custom-city" class="form-input" placeholder="Enter your city name">
                         <div class="field-description">Please specify your city if not listed above</div>
                     </div>
                 </div>
                 
-                <div class="sophisticated-field">
-                    <label for="nationality" class="sophisticated-label">Nationality</label>
-                    <input type="text" id="nationality" class="form-input" placeholder="e.g., American, Brazilian, German" required>
-                    <div class="field-description">Your nationality or citizenship</div>
-                </div>
+                    <div class="sophisticated-field">
+                        <label for="nationality" class="sophisticated-label">Nationality</label>
+                        <input type="text" id="nationality" class="form-input" placeholder="Start typing your nationality" autocomplete="off" required>
+                        <div class="field-description">Your nationality or citizenship</div>
+                        <div class="nationality-suggestion-container" id="nationality-suggestions" role="listbox" aria-label="Nationality suggestions"></div>
+                    </div>
                 
                 <div class="sophisticated-field-group">
                     <div class="sophisticated-field">
@@ -756,6 +758,7 @@
         </div>
     </footer>
 
+    <script src="js/smart-country-selector.js"></script>
     <script src="js/comprehensive-city-database.js"></script>
     <script src="js/creative-occupation-selector.js"></script>
     <script src="js/elegant-languages-selector.js"></script>

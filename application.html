@@ -204,9 +204,9 @@
                     </div>
                 </div>
                 
-                <div class="form-group" id="custom-city-group" style="display: none;">
+                <div class="form-group" id="custom-city-group" hidden>
                     <div class="sophisticated-field">
-                        <label for="custom-city" class="sophisticated-label">Custom City</label>
+                        <label for="custom-city" class="sophisticated-label">City</label>
                         <input type="text" id="custom-city" class="form-input" placeholder="Enter your city name">
                         <div class="field-description">Please specify your city if not listed above</div>
                     </div>
@@ -214,8 +214,9 @@
                 
                 <div class="sophisticated-field">
                     <label for="nationality" class="sophisticated-label">Nationality</label>
-                    <input type="text" id="nationality" class="form-input" placeholder="e.g., American, Brazilian, German" required>
+                    <input type="text" id="nationality" class="form-input" placeholder="Start typing your nationality" autocomplete="off" required>
                     <div class="field-description">Your nationality or citizenship</div>
+                    <div class="nationality-suggestion-container" id="nationality-suggestions" role="listbox" aria-label="Nationality suggestions"></div>
                 </div>
                 
                 <div class="sophisticated-field-group">
