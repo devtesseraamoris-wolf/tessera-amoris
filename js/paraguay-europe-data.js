@@ -481,3 +481,13 @@ window.tesseraParaguayEuropeData = {
         ]
     }
 };
+
+try {
+    window.dispatchEvent(
+        new CustomEvent('tesseraParaguayEuropeDataReady', {
+            detail: window.tesseraParaguayEuropeData
+        })
+    );
+} catch (error) {
+    console.warn('Unable to dispatch Paraguay-Europe data ready event:', error);
+}
