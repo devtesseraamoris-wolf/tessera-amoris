@@ -1,277 +1,862 @@
 /**
  * Paraguay-Europe Country Selector
- * Replaces strategic-location-database.js
- * Complete working implementation
+ * Provides full country → state/region → city hierarchy
+ * while keeping the existing expansion modal experience.
  */
 
-// Paraguay + ALL 44 European Countries (UN Official List)
-const AVAILABLE_COUNTRIES = [
-    { code: 'PY', name: 'Paraguay', flag: '🇵🇾', hasStates: true },
-    // Europe - All 44 countries
-    { code: 'AL', name: 'Albania', flag: '🇦🇱', hasStates: false },
-    { code: 'AD', name: 'Andorra', flag: '🇦🇩', hasStates: false },
-    { code: 'AT', name: 'Austria', flag: '🇦🇹', hasStates: false },
-    { code: 'BY', name: 'Belarus', flag: '🇧🇾', hasStates: false },
-    { code: 'BE', name: 'Belgium', flag: '🇧🇪', hasStates: false },
-    { code: 'BA', name: 'Bosnia and Herzegovina', flag: '🇧🇦', hasStates: false },
-    { code: 'BG', name: 'Bulgaria', flag: '🇧🇬', hasStates: false },
-    { code: 'HR', name: 'Croatia', flag: '🇭🇷', hasStates: false },
-    { code: 'CZ', name: 'Czech Republic', flag: '🇨🇿', hasStates: false },
-    { code: 'DK', name: 'Denmark', flag: '🇩🇰', hasStates: false },
-    { code: 'EE', name: 'Estonia', flag: '🇪🇪', hasStates: false },
-    { code: 'FI', name: 'Finland', flag: '🇫🇮', hasStates: false },
-    { code: 'FR', name: 'France', flag: '🇫🇷', hasStates: false },
-    { code: 'DE', name: 'Germany', flag: '🇩🇪', hasStates: false },
-    { code: 'GR', name: 'Greece', flag: '🇬🇷', hasStates: false },
-    { code: 'VA', name: 'Holy See (Vatican City)', flag: '🇻🇦', hasStates: false },
-    { code: 'HU', name: 'Hungary', flag: '🇭🇺', hasStates: false },
-    { code: 'IS', name: 'Iceland', flag: '🇮🇸', hasStates: false },
-    { code: 'IE', name: 'Ireland', flag: '🇮🇪', hasStates: false },
-    { code: 'IT', name: 'Italy', flag: '🇮🇹', hasStates: false },
-    { code: 'LV', name: 'Latvia', flag: '🇱🇻', hasStates: false },
-    { code: 'LI', name: 'Liechtenstein', flag: '🇱🇮', hasStates: false },
-    { code: 'LT', name: 'Lithuania', flag: '🇱🇹', hasStates: false },
-    { code: 'LU', name: 'Luxembourg', flag: '🇱🇺', hasStates: false },
-    { code: 'MT', name: 'Malta', flag: '🇲🇹', hasStates: false },
-    { code: 'MD', name: 'Moldova', flag: '🇲🇩', hasStates: false },
-    { code: 'MC', name: 'Monaco', flag: '🇲🇨', hasStates: false },
-    { code: 'ME', name: 'Montenegro', flag: '🇲🇪', hasStates: false },
-    { code: 'NL', name: 'Netherlands', flag: '🇳🇱', hasStates: false },
-    { code: 'MK', name: 'North Macedonia', flag: '🇲🇰', hasStates: false },
-    { code: 'NO', name: 'Norway', flag: '🇳🇴', hasStates: false },
-    { code: 'PL', name: 'Poland', flag: '🇵🇱', hasStates: false },
-    { code: 'PT', name: 'Portugal', flag: '🇵🇹', hasStates: false },
-    { code: 'RO', name: 'Romania', flag: '🇷🇴', hasStates: false },
-    { code: 'RU', name: 'Russia', flag: '🇷🇺', hasStates: false },
-    { code: 'SM', name: 'San Marino', flag: '🇸🇲', hasStates: false },
-    { code: 'RS', name: 'Serbia', flag: '🇷🇸', hasStates: false },
-    { code: 'SK', name: 'Slovakia', flag: '🇸🇰', hasStates: false },
-    { code: 'SI', name: 'Slovenia', flag: '🇸🇮', hasStates: false },
-    { code: 'ES', name: 'Spain', flag: '🇪🇸', hasStates: false },
-    { code: 'SE', name: 'Sweden', flag: '🇸🇪', hasStates: false },
-    { code: 'CH', name: 'Switzerland', flag: '🇨🇭', hasStates: false },
-    { code: 'UA', name: 'Ukraine', flag: '🇺🇦', hasStates: false },
-    { code: 'GB', name: 'United Kingdom', flag: '🇬🇧', hasStates: false }
-];
+(function() {
+    'use strict';
 
-// Paraguay departments (states)
-const PARAGUAY_DEPARTMENTS = {
-    'PY': {
-        name: 'Paraguay',
-        states: {
-            'asuncion': { name: 'Asunción', cities: ['Asunción'] },
-            'concepcion': { name: 'Concepción', cities: ['Concepción', 'Horqueta', 'Belén'] },
-            'san-pedro': { name: 'San Pedro', cities: ['San Pedro', 'Lima', 'General Elizardo Aquino'] },
-            'cordillera': { name: 'Cordillera', cities: ['Caacupé', 'Eusebio Ayala', 'Tobatí'] },
-            'guaira': { name: 'Guairá', cities: ['Villarrica', 'Coronel Martínez', 'Borja'] },
-            'caaguazu': { name: 'Caaguazú', cities: ['Coronel Oviedo', 'Caaguazú', 'Repatriación'] },
-            'caazapa': { name: 'Caazapá', cities: ['Caazapá', 'San Juan Nepomuceno', 'Yuty'] },
-            'itapua': { name: 'Itapúa', cities: ['Encarnación', 'Hohenau', 'Obligado', 'Bella Vista'] },
-            'misiones': { name: 'Misiones', cities: ['San Juan Bautista', 'San Ignacio', 'Santa Rosa'] },
-            'paraguari': { name: 'Paraguarí', cities: ['Paraguarí', 'Pirayú', 'Carapeguá'] },
-            'alto-parana': { name: 'Alto Paraná', cities: ['Ciudad del Este', 'Presidente Franco', 'Hernandarias', 'Minga Guazú'] },
-            'central': { name: 'Central', cities: ['Lambaré', 'San Lorenzo', 'Fernando de la Mora', 'Luque', 'Capiatá', 'Ñemby'] },
-            'neembucu': { name: 'Ñeembucú', cities: ['Pilar', 'Humaitá', 'Desmochados'] },
-            'amambay': { name: 'Amambay', cities: ['Pedro Juan Caballero', 'Bella Vista', 'Capitán Bado'] },
-            'canindeyu': { name: 'Canindeyú', cities: ['Salto del Guairá', 'Katueté', 'Curuguaty'] },
-            'presidente-hayes': { name: 'Presidente Hayes', cities: ['Villa Hayes', 'Benjamín Aceval', 'Nanawa'] },
-            'alto-paraguay': { name: 'Alto Paraguay', cities: ['Fuerte Olimpo', 'Puerto Casado', 'Bahía Negra'] },
-            'boqueron': { name: 'Boquerón', cities: ['Filadelfia', 'Loma Plata', 'Mariscal Estigarribia'] }
-        }
-    }
-};
-
-// Expansion regions
-const EXPANSION_REGIONS = [
-    { value: 'americas', label: 'Americas', icon: '🌎', examples: 'USA, Canada, Brazil, Argentina, Chile, Mexico...' },
-    { value: 'asia', label: 'Asia', icon: '🌏', examples: 'Japan, Singapore, South Korea, India, China...' },
-    { value: 'middle_east', label: 'Middle East', icon: '🕌', examples: 'UAE, Israel, Saudi Arabia, Qatar, Turkey...' },
-    { value: 'oceania', label: 'Oceania', icon: '🦘', examples: 'Australia, New Zealand, Fiji, Papua New Guinea...' },
-    { value: 'africa', label: 'Africa', icon: '🦁', examples: 'South Africa, Kenya, Egypt, Morocco, Nigeria...' }
-];
-
-// Initialize the selector
-function initializeParaguayEuropeSelector() {
-    const countrySelect = document.getElementById('country');
-    const stateSelect = document.getElementById('state');
-    const citySelect = document.getElementById('city');
-    
-    if (!countrySelect) {
-        console.error('Country select not found');
+    if (window.tesseraParaguayEuropeSelectorInitialized) {
         return;
     }
-    
-    // Clear and populate countries
-    countrySelect.innerHTML = '<option value="">Select your country</option>';
-    
-    // Add Paraguay
-    const pyOption = document.createElement('option');
-    pyOption.value = 'PY';
-    pyOption.textContent = '🇵🇾 Paraguay';
-    countrySelect.appendChild(pyOption);
-    
-    // Add Europe divider
-    const europeDivider = document.createElement('option');
-    europeDivider.disabled = true;
-    europeDivider.textContent = '─────────────── Europe ───────────────';
-    europeDivider.style.fontWeight = '600';
-    europeDivider.style.color = '#D4AF37';
-    europeDivider.style.textAlign = 'center';
-    europeDivider.style.backgroundColor = '#f7fafc';
-    countrySelect.appendChild(europeDivider);
-    
-    // Add all European countries
-    AVAILABLE_COUNTRIES.filter(c => c.code !== 'PY').forEach(country => {
+    window.tesseraParaguayEuropeSelectorInitialized = true;
+
+    // Expose a flag so other scripts know a custom location selector is active
+    window.tesseraLocationSelectorActive = 'paraguay-europe-v2';
+
+    const LOCATION_DATA = window.tesseraParaguayEuropeData || {};
+
+    const RAW_COUNTRIES = [
+        { code: 'PY', name: 'Paraguay', flag: '🇵🇾', dialCode: '+595' },
+        { code: 'AL', name: 'Albania', flag: '🇦🇱', dialCode: '+355' },
+        { code: 'AD', name: 'Andorra', flag: '🇦🇩', dialCode: '+376' },
+        { code: 'AT', name: 'Austria', flag: '🇦🇹', dialCode: '+43' },
+        { code: 'BY', name: 'Belarus', flag: '🇧🇾', dialCode: '+375' },
+        { code: 'BE', name: 'Belgium', flag: '🇧🇪', dialCode: '+32' },
+        { code: 'BA', name: 'Bosnia and Herzegovina', flag: '🇧🇦', dialCode: '+387' },
+        { code: 'BG', name: 'Bulgaria', flag: '🇧🇬', dialCode: '+359' },
+        { code: 'HR', name: 'Croatia', flag: '🇭🇷', dialCode: '+385' },
+        { code: 'CZ', name: 'Czech Republic', flag: '🇨🇿', dialCode: '+420' },
+        { code: 'DK', name: 'Denmark', flag: '🇩🇰', dialCode: '+45' },
+        { code: 'EE', name: 'Estonia', flag: '🇪🇪', dialCode: '+372' },
+        { code: 'FI', name: 'Finland', flag: '🇫🇮', dialCode: '+358' },
+        { code: 'FR', name: 'France', flag: '🇫🇷', dialCode: '+33' },
+        { code: 'DE', name: 'Germany', flag: '🇩🇪', dialCode: '+49' },
+        { code: 'GR', name: 'Greece', flag: '🇬🇷', dialCode: '+30' },
+        { code: 'VA', name: 'Holy See (Vatican City)', flag: '🇻🇦', dialCode: '+379' },
+        { code: 'HU', name: 'Hungary', flag: '🇭🇺', dialCode: '+36' },
+        { code: 'IS', name: 'Iceland', flag: '🇮🇸', dialCode: '+354' },
+        { code: 'IE', name: 'Ireland', flag: '🇮🇪', dialCode: '+353' },
+        { code: 'IT', name: 'Italy', flag: '🇮🇹', dialCode: '+39' },
+        { code: 'LV', name: 'Latvia', flag: '🇱🇻', dialCode: '+371' },
+        { code: 'LI', name: 'Liechtenstein', flag: '🇱🇮', dialCode: '+423' },
+        { code: 'LT', name: 'Lithuania', flag: '🇱🇹', dialCode: '+370' },
+        { code: 'LU', name: 'Luxembourg', flag: '🇱🇺', dialCode: '+352' },
+        { code: 'MT', name: 'Malta', flag: '🇲🇹', dialCode: '+356' },
+        { code: 'MD', name: 'Moldova', flag: '🇲🇩', dialCode: '+373' },
+        { code: 'MC', name: 'Monaco', flag: '🇲🇨', dialCode: '+377' },
+        { code: 'ME', name: 'Montenegro', flag: '🇲🇪', dialCode: '+382' },
+        { code: 'NL', name: 'Netherlands', flag: '🇳🇱', dialCode: '+31' },
+        { code: 'MK', name: 'North Macedonia', flag: '🇲🇰', dialCode: '+389' },
+        { code: 'NO', name: 'Norway', flag: '🇳🇴', dialCode: '+47' },
+        { code: 'PL', name: 'Poland', flag: '🇵🇱', dialCode: '+48' },
+        { code: 'PT', name: 'Portugal', flag: '🇵🇹', dialCode: '+351' },
+        { code: 'RO', name: 'Romania', flag: '🇷🇴', dialCode: '+40' },
+        { code: 'RU', name: 'Russia', flag: '🇷🇺', dialCode: '+7' },
+        { code: 'SM', name: 'San Marino', flag: '🇸🇲', dialCode: '+378' },
+        { code: 'RS', name: 'Serbia', flag: '🇷🇸', dialCode: '+381' },
+        { code: 'SK', name: 'Slovakia', flag: '🇸🇰', dialCode: '+421' },
+        { code: 'SI', name: 'Slovenia', flag: '🇸🇮', dialCode: '+386' },
+        { code: 'ES', name: 'Spain', flag: '🇪🇸', dialCode: '+34' },
+        { code: 'SE', name: 'Sweden', flag: '🇸🇪', dialCode: '+46' },
+        { code: 'CH', name: 'Switzerland', flag: '🇨🇭', dialCode: '+41' },
+        { code: 'UA', name: 'Ukraine', flag: '🇺🇦', dialCode: '+380' },
+        { code: 'GB', name: 'United Kingdom', flag: '🇬🇧', dialCode: '+44' }
+    ];
+
+    const COUNTRY_NATIONALITIES = {
+        PY: 'Paraguayan',
+        AL: 'Albanian',
+        AD: 'Andorran',
+        AT: 'Austrian',
+        BY: 'Belarusian',
+        BE: 'Belgian',
+        BA: 'Bosnian',
+        BG: 'Bulgarian',
+        HR: 'Croatian',
+        CZ: 'Czech',
+        DK: 'Danish',
+        EE: 'Estonian',
+        FI: 'Finnish',
+        FR: 'French',
+        DE: 'German',
+        GR: 'Greek',
+        VA: 'Vatican Citizen',
+        HU: 'Hungarian',
+        IS: 'Icelandic',
+        IE: 'Irish',
+        IT: 'Italian',
+        LV: 'Latvian',
+        LI: 'Liechtensteiner',
+        LT: 'Lithuanian',
+        LU: 'Luxembourgish',
+        MT: 'Maltese',
+        MD: 'Moldovan',
+        MC: 'Monegasque',
+        ME: 'Montenegrin',
+        NL: 'Dutch',
+        MK: 'North Macedonian',
+        NO: 'Norwegian',
+        PL: 'Polish',
+        PT: 'Portuguese',
+        RO: 'Romanian',
+        RU: 'Russian',
+        SM: 'Sammarinese',
+        RS: 'Serbian',
+        SK: 'Slovak',
+        SI: 'Slovenian',
+        ES: 'Spanish',
+        SE: 'Swedish',
+        CH: 'Swiss',
+        UA: 'Ukrainian',
+        GB: 'British'
+    };
+
+    const PHONE_CODE_FALLBACKS = [
+        { dialCode: '+1', label: 'United States / Canada' },
+        { dialCode: '+55', label: 'Brazil' }
+    ];
+
+    const ADDITIONAL_NATIONALITIES = ['American', 'Canadian', 'Brazilian', 'Argentine', 'Mexican'];
+    const DEFAULT_NATIONALITY_SUGGESTIONS = ['Paraguayan', 'Brazilian', 'American', 'German', 'Spanish', 'French', 'British'];
+    const ADDITIONAL_NATIONALITIES = ['United States', 'Canada', 'Brazil', 'Argentina', 'Mexico'];
+
+    const AVAILABLE_COUNTRIES = RAW_COUNTRIES.map(country => ({
+        ...country,
+        hasStates: Boolean(LOCATION_DATA[country.code]?.regions?.length)
+    }));
+
+    const EXPANSION_REGIONS = [
+        { value: 'americas', label: 'Americas', icon: '🌎', examples: 'USA, Canada, Brazil, Argentina, Chile, Mexico...' },
+        { value: 'asia', label: 'Asia', icon: '🌏', examples: 'Japan, Singapore, South Korea, India, China...' },
+        { value: 'middle_east', label: 'Middle East', icon: '🕌', examples: 'UAE, Israel, Saudi Arabia, Qatar, Turkey...' },
+        { value: 'oceania', label: 'Oceania', icon: '🦘', examples: 'Australia, New Zealand, Fiji, Papua New Guinea...' },
+        { value: 'africa', label: 'Africa', icon: '🦁', examples: 'South Africa, Kenya, Egypt, Morocco, Nigeria...' }
+    ];
+
+    function slugify(value) {
+        return value
+            .toString()
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/^-+|-+$/g, '');
+    }
+
+    function normalizeText(value) {
+        return value
+            .toString()
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .toLowerCase();
+    }
+
+    function getPersistedLocation() {
+        try {
+            const stored = localStorage.getItem('tessera_form_data');
+            if (stored) {
+                const parsed = JSON.parse(stored);
+                return {
+                    country: parsed.country || '',
+                    state: parsed.state || '',
+                    city: parsed.city || '',
+                    nationality: parsed.nationality || ''
+                };
+            }
+        } catch (error) {
+            console.warn('Unable to read persisted location data:', error);
+        }
+        return { country: '', state: '', city: '', nationality: '' };
+    }
+
+    function populateCountries(countrySelect, selectedCountry) {
+        const availableCountries = getAvailableCountries();
+        countrySelect.innerHTML = '<option value="">Select your country</option>';
+
+        const paraguay = availableCountries.find(country => country.code === 'PY');
+        if (paraguay) {
+            countrySelect.appendChild(createCountryOption(paraguay));
+        }
+
+        const europeDivider = document.createElement('option');
+        europeDivider.disabled = true;
+        europeDivider.textContent = '─────────────── Europe ───────────────';
+        europeDivider.style.fontWeight = '600';
+        europeDivider.style.color = '#D4AF37';
+        europeDivider.style.textAlign = 'center';
+        europeDivider.style.backgroundColor = '#f7fafc';
+        countrySelect.appendChild(europeDivider);
+
+        availableCountries.filter(country => country.code !== 'PY').forEach(country => {
+            countrySelect.appendChild(createCountryOption(country));
+        });
+
+        const bottomDivider = document.createElement('option');
+        bottomDivider.disabled = true;
+        bottomDivider.textContent = '───────────────────────────────────';
+        bottomDivider.style.fontWeight = '600';
+        bottomDivider.style.color = '#D4AF37';
+        bottomDivider.style.textAlign = 'center';
+        countrySelect.appendChild(bottomDivider);
+
+        const otherOption = document.createElement('option');
+        otherOption.value = 'OTHER';
+        otherOption.textContent = '🌍 My country isn\'t listed yet';
+        otherOption.style.fontWeight = '500';
+        otherOption.style.color = '#4299e1';
+        otherOption.style.fontStyle = 'italic';
+        countrySelect.appendChild(otherOption);
+
+        if (selectedCountry && countrySelect.querySelector(`option[value="${selectedCountry}"]`)) {
+            countrySelect.value = selectedCountry;
+        } else {
+            countrySelect.value = '';
+        }
+    }
+
+    function createCountryOption(country) {
         const option = document.createElement('option');
         option.value = country.code;
         option.textContent = `${country.flag} ${country.name}`;
-        countrySelect.appendChild(option);
-    });
-    
-    // Add bottom divider
-    const bottomDivider = document.createElement('option');
-    bottomDivider.disabled = true;
-    bottomDivider.textContent = '───────────────────────────────────';
-    bottomDivider.style.fontWeight = '600';
-    bottomDivider.style.color = '#D4AF37';
-    bottomDivider.style.textAlign = 'center';
-    countrySelect.appendChild(bottomDivider);
-    
-    // Add "My country isn't listed yet"
-    const otherOption = document.createElement('option');
-    otherOption.value = 'OTHER';
-    otherOption.textContent = '🌍 My country isn\'t listed yet';
-    otherOption.style.fontWeight = '500';
-    otherOption.style.color = '#4299e1';
-    otherOption.style.fontStyle = 'italic';
-    countrySelect.appendChild(otherOption);
-    
-    // Handle country selection
-    countrySelect.addEventListener('change', function() {
-        const selectedCountry = this.value;
-        
-        if (selectedCountry === 'OTHER') {
-            showExpansionModal();
+        return option;
+    }
+
+    function populatePhoneCodes(phoneCodeSelect) {
+        if (!phoneCodeSelect) {
             return;
         }
-        
-        if (selectedCountry === 'PY') {
-            // Paraguay - show departments
-            if (stateSelect) {
-                stateSelect.disabled = false;
-                stateSelect.innerHTML = '<option value="">Select your department</option>';
-                
-                const departments = PARAGUAY_DEPARTMENTS['PY'].states;
-                Object.keys(departments).forEach(deptKey => {
-                    const dept = departments[deptKey];
-                    const option = document.createElement('option');
-                    option.value = deptKey;
-                    option.textContent = dept.name;
-                    stateSelect.appendChild(option);
-                });
+
+        const seen = new Set();
+        const entries = [];
+
+        RAW_COUNTRIES.forEach(country => {
+            if (!country.dialCode) {
+                return;
             }
-            
-            if (citySelect) {
-                citySelect.disabled = true;
-                citySelect.innerHTML = '<option value="">Select your city</option>';
+
+            if (seen.has(country.dialCode)) {
+                return;
             }
-        } else {
-            // European countries - ask for city directly
-            if (stateSelect) {
-                stateSelect.disabled = true;
-                stateSelect.innerHTML = '<option value="">Not applicable</option>';
+
+            seen.add(country.dialCode);
+            entries.push({
+                dialCode: country.dialCode,
+                label: `${country.dialCode} ${country.flag} ${country.name}`
+            });
+        });
+
+        PHONE_CODE_FALLBACKS.forEach(fallback => {
+            if (!fallback.dialCode || seen.has(fallback.dialCode)) {
+                return;
             }
-            
-            if (citySelect) {
-                citySelect.disabled = false;
-                citySelect.innerHTML = '<option value="">Enter your city</option><option value="other">Other (specify)</option>';
+
+            seen.add(fallback.dialCode);
+            entries.push({ dialCode: fallback.dialCode, label: `${fallback.dialCode} (${fallback.label})` });
+        });
+
+        entries.sort((a, b) => {
+            const codeA = parseInt(a.dialCode.replace('+', ''), 10);
+            const codeB = parseInt(b.dialCode.replace('+', ''), 10);
+            return codeA - codeB;
+        });
+
+        const currentValue = phoneCodeSelect.value;
+        phoneCodeSelect.innerHTML = '';
+
+        entries.forEach(entry => {
+            const option = document.createElement('option');
+            option.value = entry.dialCode;
+            option.textContent = entry.label;
+            phoneCodeSelect.appendChild(option);
+        });
+
+        if (currentValue) {
+            phoneCodeSelect.value = currentValue;
+        } else if (PHONE_CODE_FALLBACKS.length) {
+            const preferred = PHONE_CODE_FALLBACKS[0].dialCode;
+            if (preferred && seen.has(preferred)) {
+                phoneCodeSelect.value = preferred;
             }
         }
-    });
-    
-    // Handle state/department selection for Paraguay
-    if (stateSelect) {
-        stateSelect.addEventListener('change', function() {
-            const selectedCountry = countrySelect.value;
-            const selectedState = this.value;
-            
-            if (selectedCountry === 'PY' && selectedState && citySelect) {
-                citySelect.disabled = false;
-                citySelect.innerHTML = '<option value="">Select your city</option>';
-                
-                const cities = PARAGUAY_DEPARTMENTS['PY'].states[selectedState].cities;
-                cities.forEach(city => {
-                    const option = document.createElement('option');
-                    option.value = city.toLowerCase().replace(/\s+/g, '-');
-                    option.textContent = city;
-                    citySelect.appendChild(option);
-                });
-                
-                // Add "Other" option
-                const otherOption = document.createElement('option');
-                otherOption.value = 'other';
-                otherOption.textContent = 'Other (specify)';
-                citySelect.appendChild(otherOption);
+    }
+
+    function getDialCodeForCountry(countryCode) {
+        const entry = RAW_COUNTRIES.find(country => country.code === countryCode);
+        return entry?.dialCode || '';
+    }
+
+    function syncPhoneDialCode(countryCode, phoneCodeSelect) {
+        if (!phoneCodeSelect) {
+            return;
+        }
+
+        const dialCode = getDialCodeForCountry(countryCode);
+        if (!dialCode) {
+            return;
+        }
+
+        if (!Array.from(phoneCodeSelect.options).some(option => option.value === dialCode)) {
+            const option = document.createElement('option');
+            option.value = dialCode;
+            option.textContent = dialCode;
+            phoneCodeSelect.appendChild(option);
+        }
+
+        phoneCodeSelect.value = dialCode;
+    }
+
+    function populateNationalityOptions(datalist) {
+        const seen = new Set();
+        const options = [];
+
+        RAW_COUNTRIES.forEach(country => {
+            const candidates = [COUNTRY_NATIONALITIES[country.code], country.name].filter(Boolean);
+            candidates.forEach(label => {
+                if (label && !seen.has(label)) {
+                    seen.add(label);
+                    options.push(label);
+                }
+            });
+        });
+
+        ADDITIONAL_NATIONALITIES.forEach(label => {
+            if (!seen.has(label)) {
+                seen.add(label);
+                options.push(label);
+            }
+        });
+
+        options.sort((a, b) => a.localeCompare(b));
+        if (datalist) {
+            datalist.innerHTML = '';
+
+            options.forEach(label => {
+                const option = document.createElement('option');
+                option.value = label;
+                datalist.appendChild(option);
+            });
+        }
+
+        return options;
+    }
+
+    function setupNationalityAutocomplete(input, options) {
+        if (!input || !Array.isArray(options) || options.length === 0) {
+            return;
+        }
+
+        if (input.dataset.autocompleteBound === 'true') {
+            return;
+        }
+
+        const wrapper = input.closest('.form-group') || input.parentElement;
+        if (!wrapper) {
+            return;
+        }
+
+        input.dataset.autocompleteBound = 'true';
+        wrapper.classList.add('has-nationality-autocomplete');
+
+        const normalizedOptions = options.map(label => ({
+            label,
+            normalized: label.toLowerCase()
+        }));
+
+        const preferredDefaults = [];
+        DEFAULT_NATIONALITY_SUGGESTIONS.forEach(label => {
+            const match = normalizedOptions.find(option => option.label === label);
+            if (match && !preferredDefaults.includes(match.label)) {
+                preferredDefaults.push(match.label);
+            }
+        });
+
+        const fallbackDefaults = options.slice(0, 7);
+        const defaultSuggestions = preferredDefaults.length
+            ? [
+                ...preferredDefaults,
+                ...options.filter(label => !preferredDefaults.includes(label)).slice(0, Math.max(0, 7 - preferredDefaults.length))
+            ]
+            : fallbackDefaults;
+
+        const datalistId = input.getAttribute('list');
+        const datalistElement = datalistId ? document.getElementById(datalistId) : null;
+        const suggestionList = document.createElement('div');
+        suggestionList.className = 'nationality-suggestion-list';
+
+        const listId = input.id ? `${input.id}-suggestions` : 'nationality-suggestions';
+        suggestionList.id = listId;
+        suggestionList.setAttribute('role', 'listbox');
+
+        if (datalistElement && datalistElement.parentNode) {
+            datalistElement.parentNode.insertBefore(suggestionList, datalistElement);
+        } else {
+            input.insertAdjacentElement('afterend', suggestionList);
+        }
+
+        if (datalistId) {
+            input.setAttribute('data-original-list', datalistId);
+            input.removeAttribute('list');
+        }
+
+        input.setAttribute('autocomplete', 'off');
+        input.setAttribute('role', 'combobox');
+        input.setAttribute('aria-haspopup', 'listbox');
+        input.setAttribute('aria-controls', listId);
+        input.setAttribute('aria-expanded', 'false');
+        input.setAttribute('aria-autocomplete', 'list');
+
+        let currentSuggestions = [];
+        let activeIndex = -1;
+
+        function closeSuggestions() {
+            suggestionList.innerHTML = '';
+            suggestionList.classList.remove('is-visible');
+            input.setAttribute('aria-expanded', 'false');
+            input.removeAttribute('aria-activedescendant');
+            currentSuggestions = [];
+            activeIndex = -1;
+        }
+
+        function highlightSuggestion(index) {
+            const items = suggestionList.querySelectorAll('.nationality-suggestion-item');
+            items.forEach((item, itemIndex) => {
+                if (itemIndex === index) {
+                    item.classList.add('is-active');
+                    input.setAttribute('aria-activedescendant', item.id);
+                    item.scrollIntoView({ block: 'nearest' });
+                } else {
+                    item.classList.remove('is-active');
+                }
+            });
+            activeIndex = index;
+            if (index < 0) {
+                input.removeAttribute('aria-activedescendant');
+            }
+        }
+
+        function openSuggestions(list) {
+            suggestionList.innerHTML = '';
+
+            if (!list.length) {
+                closeSuggestions();
+                return;
+            }
+
+            list.forEach((label, index) => {
+                const item = document.createElement('div');
+                item.className = 'nationality-suggestion-item';
+                const itemId = `${listId}-item-${index}`;
+                item.id = itemId;
+                item.setAttribute('role', 'option');
+                item.textContent = label;
+                item.dataset.value = label;
+                suggestionList.appendChild(item);
+            });
+
+            suggestionList.classList.add('is-visible');
+            input.setAttribute('aria-expanded', 'true');
+            currentSuggestions = list;
+            highlightSuggestion(-1);
+        }
+
+        function buildSuggestions(query) {
+            const normalizedQuery = query.trim().toLowerCase();
+
+            if (!normalizedQuery) {
+                return defaultSuggestions.slice();
+            }
+
+            const startsWithMatches = [];
+            const containsMatches = [];
+
+            normalizedOptions.forEach(option => {
+                if (option.normalized.startsWith(normalizedQuery)) {
+                    startsWithMatches.push(option.label);
+                } else if (option.normalized.includes(normalizedQuery)) {
+                    containsMatches.push(option.label);
+                }
+            });
+
+            return [...startsWithMatches, ...containsMatches].slice(0, 10);
+        }
+
+        function selectSuggestion(value) {
+            if (!value) {
+                return;
+            }
+
+            input.value = value;
+            input.dispatchEvent(new Event('input', { bubbles: true }));
+            input.dispatchEvent(new Event('change', { bubbles: true }));
+            closeSuggestions();
+        }
+
+        input.addEventListener('input', function() {
+            const suggestions = buildSuggestions(input.value);
+            if (suggestions.length) {
+                openSuggestions(suggestions);
+            } else {
+                closeSuggestions();
+            }
+        });
+
+        input.addEventListener('focus', function() {
+            const suggestions = buildSuggestions(input.value);
+            if (suggestions.length) {
+                openSuggestions(suggestions);
+            }
+        });
+
+        input.addEventListener('blur', function() {
+            setTimeout(closeSuggestions, 120);
+        });
+
+        input.addEventListener('keydown', function(event) {
+            if (!suggestionList.classList.contains('is-visible')) {
+                if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+                    const suggestions = buildSuggestions(input.value);
+                    if (suggestions.length) {
+                        event.preventDefault();
+                        openSuggestions(suggestions);
+                    }
+                }
+                return;
+            }
+
+            if (event.key === 'ArrowDown') {
+                event.preventDefault();
+                if (currentSuggestions.length) {
+                    const nextIndex = activeIndex + 1 >= currentSuggestions.length ? 0 : activeIndex + 1;
+                    highlightSuggestion(nextIndex);
+                }
+            } else if (event.key === 'ArrowUp') {
+                event.preventDefault();
+                if (currentSuggestions.length) {
+                    const prevIndex = activeIndex - 1 < 0 ? currentSuggestions.length - 1 : activeIndex - 1;
+                    highlightSuggestion(prevIndex);
+                }
+            } else if (event.key === 'Enter') {
+                if (activeIndex >= 0 && currentSuggestions[activeIndex]) {
+                    event.preventDefault();
+                    selectSuggestion(currentSuggestions[activeIndex]);
+                }
+            } else if (event.key === 'Escape') {
+                closeSuggestions();
+            }
+        });
+
+        suggestionList.addEventListener('pointerdown', function(event) {
+            event.preventDefault();
+            const item = event.target.closest('.nationality-suggestion-item');
+            if (item) {
+                selectSuggestion(item.dataset.value);
+            }
+        });
+
+        suggestionList.addEventListener('mousemove', function(event) {
+            const item = event.target.closest('.nationality-suggestion-item');
+            if (!item) {
+                return;
+            }
+
+            const items = Array.from(suggestionList.querySelectorAll('.nationality-suggestion-item'));
+            const index = items.indexOf(item);
+            if (index >= 0 && index !== activeIndex) {
+                highlightSuggestion(index);
             }
         });
     }
-    
-    // Create expansion modal
-    createExpansionModal();
-}
 
-function showExpansionModal() {
-    const modal = document.getElementById('expansionModal');
-    if (modal) {
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
+    function resetStateCity(stateSelect, citySelect, customCityGroup, customCityInput) {
+        stateSelect.innerHTML = '<option value="">Select your state/province</option>';
+        stateSelect.disabled = true;
+        citySelect.innerHTML = '<option value="">Select your city</option>';
+        citySelect.disabled = true;
+        if (customCityGroup) {
+            customCityGroup.style.display = 'none';
+        }
+        if (customCityInput) {
+            customCityInput.required = false;
+        }
     }
-}
 
-function closeExpansionModal() {
-    const modal = document.getElementById('expansionModal');
-    if (modal) {
-        modal.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-    
-    // Reset country select
-    const countrySelect = document.getElementById('country');
-    if (countrySelect) {
-        countrySelect.value = '';
-    }
-    
-    // Reset form
-    const form = document.getElementById('expansionForm');
-    if (form) {
-        form.style.display = 'block';
-    }
-    
-    const footer = document.getElementById('expansionFooter');
-    if (footer) {
-        footer.style.display = 'flex';
-    }
-    
-    const success = document.getElementById('expansionSuccess');
-    if (success) {
-        success.classList.remove('active');
-    }
-    
-    // Reset inputs
-    document.querySelectorAll('input[name="expansion-region"]').forEach(input => input.checked = false);
-    const countryInput = document.getElementById('expansionCountry');
-    if (countryInput) countryInput.value = '';
-    const emailInput = document.getElementById('expansionEmail');
-    if (emailInput) emailInput.value = '';
-}
+    function populateStates(stateSelect, citySelect, countryCode, preservedState, preservedCity, customCityGroup, customCityInput) {
+        const countryData = LOCATION_DATA[countryCode];
+        if (!countryData || !countryData.regions || countryData.regions.length === 0) {
+            resetStateCity(stateSelect, citySelect, customCityGroup, customCityInput);
+            return;
+        }
 
-function createExpansionModal() {
-    // Check if modal already exists
-    if (document.getElementById('expansionModal')) {
-        return;
+        stateSelect.disabled = false;
+        stateSelect.innerHTML = '<option value="">Select your state/province</option>';
+
+        countryData.regions.forEach(region => {
+            const option = document.createElement('option');
+            option.value = region.value;
+            option.textContent = region.label;
+            stateSelect.appendChild(option);
+        });
+
+        if (preservedState && stateSelect.querySelector(`option[value="${preservedState}"]`)) {
+            stateSelect.value = preservedState;
+            populateCities(citySelect, countryCode, preservedState, preservedCity, customCityGroup, customCityInput);
+        } else {
+            citySelect.innerHTML = '<option value="">Select your city</option>';
+            citySelect.disabled = true;
+            if (customCityGroup) {
+                customCityGroup.style.display = 'none';
+            }
+            if (customCityInput) {
+                customCityInput.required = false;
+            }
+        }
     }
-    
-    const modalHTML = `
+
+    function populateCities(citySelect, countryCode, stateValue, preservedCity, customCityGroup, customCityInput) {
+        const countryData = LOCATION_DATA[countryCode];
+        const region = countryData?.regions?.find(entry => entry.value === stateValue);
+        citySelect.innerHTML = '<option value="">Select your city</option>';
+
+        if (!region) {
+            citySelect.disabled = true;
+            if (customCityGroup) {
+                customCityGroup.style.display = 'none';
+            }
+            if (customCityInput) {
+                customCityInput.required = false;
+            }
+            return;
+        }
+
+        citySelect.disabled = false;
+        region.cities.forEach(city => {
+            const option = document.createElement('option');
+            const value = slugify(city);
+            option.value = value;
+            option.textContent = city;
+            citySelect.appendChild(option);
+        });
+
+        const otherOption = document.createElement('option');
+        otherOption.value = 'other';
+        otherOption.textContent = 'Other (specify)';
+        citySelect.appendChild(otherOption);
+
+        if (preservedCity && citySelect.querySelector(`option[value="${preservedCity}"]`)) {
+            citySelect.value = preservedCity;
+        }
+
+        handleCityChange(citySelect, customCityGroup, customCityInput);
+    }
+
+    function handleCountryChange(countrySelect, stateSelect, citySelect, customCityGroup, customCityInput, phoneCodeSelect) {
+    function handleCountryChange(countrySelect, stateSelect, citySelect, customCityGroup, customCityInput) {
+        const selectedCountry = countrySelect.value;
+
+        if (!selectedCountry) {
+            resetStateCity(stateSelect, citySelect, customCityGroup, customCityInput);
+            if (phoneCodeSelect && PHONE_CODE_FALLBACKS.length) {
+                phoneCodeSelect.value = PHONE_CODE_FALLBACKS[0].dialCode;
+            }
+            return;
+        }
+
+        if (selectedCountry === 'OTHER') {
+            showExpansionModal();
+            resetStateCity(stateSelect, citySelect, customCityGroup, customCityInput);
+            if (phoneCodeSelect) {
+                phoneCodeSelect.value = '';
+            }
+            return;
+        }
+
+        syncPhoneDialCode(selectedCountry, phoneCodeSelect);
+            return;
+        }
+
+        populateStates(stateSelect, citySelect, selectedCountry, undefined, undefined, customCityGroup, customCityInput);
+    }
+
+    function handleStateChange(countrySelect, stateSelect, citySelect, customCityGroup, customCityInput) {
+        const countryCode = countrySelect.value;
+        const stateValue = stateSelect.value;
+
+        if (!countryCode || !stateValue) {
+            citySelect.innerHTML = '<option value="">Select your city</option>';
+            citySelect.disabled = true;
+            if (customCityGroup) {
+                customCityGroup.style.display = 'none';
+            }
+            if (customCityInput) {
+                customCityInput.required = false;
+            }
+            return;
+        }
+
+        populateCities(citySelect, countryCode, stateValue, undefined, customCityGroup, customCityInput);
+    }
+
+    function handleCityChange(citySelect, customCityGroup, customCityInput) {
+        if (!customCityGroup) {
+            return;
+        }
+
+            return;
+        }
+
+        populateCities(citySelect, countryCode, stateValue, undefined, customCityGroup, customCityInput);
+    }
+
+    function handleCityChange(citySelect, customCityGroup, customCityInput) {
+        if (!customCityGroup) {
+            return;
+        }
+
+        if (citySelect.value === 'other') {
+            customCityGroup.style.display = 'block';
+            if (customCityInput) {
+                customCityInput.required = true;
+            }
+        } else {
+            customCityGroup.style.display = 'none';
+            if (customCityInput) {
+                customCityInput.required = false;
+            }
+        }
+    }
+
+    function initializeParaguayEuropeSelector() {
+        if (window.tesseraParaguayEuropeSelectorInitialized) {
+            return;
+        }
+
+        if (!hasLocationData()) {
+            if (!waitingForLocationData) {
+                waitingForLocationData = true;
+                window.addEventListener('tesseraParaguayEuropeDataReady', handleLocationDataReady, { once: true });
+            }
+            return;
+        }
+
+        const countrySelect = document.getElementById('country');
+        const stateSelect = document.getElementById('state');
+        const citySelect = document.getElementById('city');
+        const customCityGroup = document.getElementById('custom-city-group');
+        const customCityInput = document.getElementById('custom-city');
+        const phoneCodeSelect = document.getElementById('country-code');
+        const nationalityInput = document.getElementById('nationality');
+        const nationalityDatalist = document.getElementById('nationality-options');
+
+        if (!countrySelect || !stateSelect || !citySelect) {
+            console.warn('Location selectors not found on the page.');
+            window.tesseraParaguayEuropeSelectorInitialized = false;
+            return;
+        }
+
+        const persisted = getPersistedLocation();
+
+        if (nationalityInput) {
+            if (persisted.nationality) {
+                nationalityInput.value = persisted.nationality;
+                const demonym = COUNTRY_NATIONALITIES[persisted.country];
+                if (demonym && normalizeText(demonym) === normalizeText(persisted.nationality)) {
+                    nationalityInput.dataset.autofilledFromCountry = 'true';
+                } else if (nationalityInput.dataset.autofilledFromCountry) {
+                    delete nationalityInput.dataset.autofilledFromCountry;
+                }
+            } else if (nationalityInput.dataset.autofilledFromCountry) {
+                delete nationalityInput.dataset.autofilledFromCountry;
+            }
+        }
+
+        populateCountries(countrySelect, persisted.country);
+        populatePhoneCodes(phoneCodeSelect);
+        const nationalityOptions = populateNationalityOptions(nationalityDatalist);
+        setupNationalityAutocomplete(nationalityInput, nationalityOptions);
+        resetStateCity(stateSelect, citySelect, customCityGroup, customCityInput);
+
+        countrySelect.addEventListener('change', function() {
+            handleCountryChange(countrySelect, stateSelect, citySelect, customCityGroup, customCityInput, phoneCodeSelect);
+        resetStateCity(stateSelect, citySelect, customCityGroup, customCityInput);
+
+        countrySelect.addEventListener('change', function() {
+            handleCountryChange(countrySelect, stateSelect, citySelect, customCityGroup, customCityInput);
+        });
+
+        stateSelect.addEventListener('change', function() {
+            handleStateChange(countrySelect, stateSelect, citySelect, customCityGroup, customCityInput);
+        });
+
+        citySelect.addEventListener('change', function() {
+            handleCityChange(citySelect, customCityGroup, customCityInput);
+        });
+
+        if (persisted.country && persisted.country !== 'OTHER') {
+            populateStates(stateSelect, citySelect, persisted.country, persisted.state, persisted.city, customCityGroup, customCityInput);
+            syncPhoneDialCode(persisted.country, phoneCodeSelect);
+        } else if (persisted.country === 'OTHER' && phoneCodeSelect) {
+            phoneCodeSelect.value = '';
+        }
+
+        if (persisted.city === 'other') {
+            handleCityChange(citySelect, customCityGroup, customCityInput);
+        }
+
+        createExpansionModal();
+
+        window.tesseraParaguayEuropeSelectorInitialized = true;
+    }
+
+    function showExpansionModal() {
+        const modal = document.getElementById('expansionModal');
+        if (modal) {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+    }
+
+    function closeExpansionModal() {
+        const modal = document.getElementById('expansionModal');
+        if (modal) {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        const countrySelect = document.getElementById('country');
+        if (countrySelect) {
+            countrySelect.value = '';
+        }
+
+        const form = document.getElementById('expansionForm');
+        if (form) {
+            form.style.display = 'block';
+        }
+
+        const footer = document.getElementById('expansionFooter');
+        if (footer) {
+            footer.style.display = 'flex';
+        }
+
+        const success = document.getElementById('expansionSuccess');
+        if (success) {
+            success.classList.remove('active');
+        }
+
+        document.querySelectorAll('input[name="expansion-region"]').forEach(input => input.checked = false);
+        const countryInput = document.getElementById('expansionCountry');
+        if (countryInput) countryInput.value = '';
+        const emailInput = document.getElementById('expansionEmail');
+        if (emailInput) emailInput.value = '';
+    }
+
+    function createExpansionModal() {
+        if (document.getElementById('expansionModal')) {
+            return;
+        }
+
+        const modalHTML = `
         <div id="expansionModal" class="expansion-modal-overlay">
             <div class="expansion-modal">
                 <div class="expansion-modal-header">
@@ -279,13 +864,13 @@ function createExpansionModal() {
                     <h2 class="expansion-modal-title">We're Growing Globally</h2>
                     <p class="expansion-modal-subtitle">Help shape our expansion roadmap</p>
                 </div>
-                
+
                 <div class="expansion-modal-body" id="expansionForm">
                     <div class="expansion-intro">
                         <p>We're thrilled by your interest in Tessera Amoris! Currently, we're focused on creating exceptional matches between <strong>Paraguay and Europe</strong> as we refine our process and build our community.</p>
                         <p style="margin-top: 16px;"><strong>Your input matters:</strong> By sharing where you're from, you help us prioritize which regions to launch next. We'll keep you informed as we expand and would love to welcome you when we reach your area.</p>
                     </div>
-                    
+
                     <div class="expansion-form-group">
                         <label class="expansion-form-label">Which region are you from?</label>
                         <div class="expansion-region-options">
@@ -303,12 +888,12 @@ function createExpansionModal() {
                             `).join('')}
                         </div>
                     </div>
-                    
+
                     <div class="expansion-form-group">
                         <label for="expansionCountry" class="expansion-form-label">Your specific country</label>
                         <input type="text" id="expansionCountry" class="expansion-input" placeholder="e.g., United States, Brazil, Australia...">
                     </div>
-                    
+
                     <div class="expansion-form-group">
                         <label for="expansionEmail" class="expansion-form-label">Stay in touch (optional)</label>
                         <input type="email" id="expansionEmail" class="expansion-input" placeholder="your@email.com">
@@ -317,12 +902,12 @@ function createExpansionModal() {
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="expansion-success-message" id="expansionSuccess">
                     <div class="expansion-success-icon">✨</div>
                     <h3 class="expansion-success-title">Thank You for Your Interest!</h3>
                     <p class="expansion-success-text">We've recorded your interest and will prioritize regions based on demand. You're helping us build something truly special.</p>
-                    
+
                     <div class="expansion-next-steps">
                         <div class="expansion-step-item">
                             <div class="expansion-step-icon">📊</div>
@@ -346,14 +931,14 @@ function createExpansionModal() {
                             </div>
                         </div>
                     </div>
-                    
+
                     <p class="expansion-timeline-note">
                         <i class="fas fa-info-circle"></i> We're currently focused on Paraguay-Europe connections. We'll reach out when we're ready to expand to your region—typically within 6-12 months based on demand.
                     </p>
-                    
+
                     <button class="expansion-btn expansion-btn-primary" onclick="closeExpansionModal()">Got It, Thanks!</button>
                 </div>
-                
+
                 <div class="expansion-modal-footer" id="expansionFooter">
                     <button class="expansion-btn expansion-btn-secondary" onclick="closeExpansionModal()">Maybe Later</button>
                     <button class="expansion-btn expansion-btn-primary" onclick="submitExpansionInterest()">Share My Interest</button>
@@ -361,60 +946,58 @@ function createExpansionModal() {
             </div>
         </div>
     `;
-    
-    document.body.insertAdjacentHTML('beforeend', modalHTML);
-    
-    // Close on overlay click
-    document.getElementById('expansionModal').addEventListener('click', function(e) {
-        if (e.target.id === 'expansionModal') {
-            closeExpansionModal();
-        }
-    });
-}
 
-async function submitExpansionInterest() {
-    const region = document.querySelector('input[name="expansion-region"]:checked')?.value;
-    const country = document.getElementById('expansionCountry')?.value.trim();
-    const email = document.getElementById('expansionEmail')?.value.trim();
-    
-    if (!region || !country) {
-        alert('Please select a region and specify your country.');
-        return;
-    }
-    
-    const data = { region, country, email, timestamp: new Date().toISOString() };
-    
-    // Save to localStorage
-    try {
-        const existing = JSON.parse(localStorage.getItem('expansionInterests') || '[]');
-        existing.push(data);
-        localStorage.setItem('expansionInterests', JSON.stringify(existing));
-        console.log('Expansion interest saved:', data);
-    } catch (error) {
-        console.error('Error saving to localStorage:', error);
-    }
-    
-    // Try to save to API
-    try {
-        await fetch('/api/submit-expansion-interest', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
+        document.body.insertAdjacentHTML('beforeend', modalHTML);
+
+        document.getElementById('expansionModal').addEventListener('click', function(e) {
+            if (e.target.id === 'expansionModal') {
+                closeExpansionModal();
+            }
         });
-    } catch (error) {
-        console.log('API not available, saved to localStorage only');
     }
-    
-    // Show success
-    document.getElementById('expansionForm').style.display = 'none';
-    document.getElementById('expansionFooter').style.display = 'none';
-    document.getElementById('expansionSuccess').classList.add('active');
-}
 
-// Initialize when DOM is ready
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initializeParaguayEuropeSelector);
-} else {
-    initializeParaguayEuropeSelector();
-}
+    async function submitExpansionInterest() {
+        const region = document.querySelector('input[name="expansion-region"]:checked')?.value;
+        const country = document.getElementById('expansionCountry')?.value.trim();
+        const email = document.getElementById('expansionEmail')?.value.trim();
 
+        if (!region || !country) {
+            alert('Please select a region and specify your country.');
+            return;
+        }
+
+        const data = { region, country, email, timestamp: new Date().toISOString() };
+
+        try {
+            const existing = JSON.parse(localStorage.getItem('expansionInterests') || '[]');
+            existing.push(data);
+            localStorage.setItem('expansionInterests', JSON.stringify(existing));
+            console.log('Expansion interest saved:', data);
+        } catch (error) {
+            console.error('Error saving to localStorage:', error);
+        }
+
+        try {
+            await fetch('/api/submit-expansion-interest', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+        } catch (error) {
+            console.log('API not available, saved to localStorage only');
+        }
+
+        document.getElementById('expansionForm').style.display = 'none';
+        document.getElementById('expansionFooter').style.display = 'none';
+        document.getElementById('expansionSuccess').classList.add('active');
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initializeParaguayEuropeSelector);
+    } else {
+        initializeParaguayEuropeSelector();
+    }
+
+    window.closeExpansionModal = closeExpansionModal;
+    window.submitExpansionInterest = submitExpansionInterest;
+})();

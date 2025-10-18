@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="css/review-section-refined.css">
     <link rel="stylesheet" href="css/force-gold-title.css">
     <link rel="stylesheet" href="css/expansion-modal.css">
+    <link rel="stylesheet" href="css/form-responsive-enhanced.css">
 </head>
 <body>
     <!-- Header -->
@@ -214,8 +215,9 @@
                 
                 <div class="sophisticated-field">
                     <label for="nationality" class="sophisticated-label">Nationality</label>
-                    <input type="text" id="nationality" class="form-input" placeholder="e.g., American, Brazilian, German" required>
-                    <div class="field-description">Your nationality or citizenship</div>
+                    <input type="text" id="nationality" class="form-input" list="nationality-options" placeholder="Start typing your nationality..." autocomplete="on" required>
+                    <datalist id="nationality-options"></datalist>
+                    <div class="field-description">Choose your nationality from the suggestions or enter it manually</div>
                 </div>
                 
                 <div class="sophisticated-field-group">
@@ -792,6 +794,7 @@
     </footer>
 
     <!-- Country Selector: Paraguay + Europe + Expansion Modal -->
+    <script src="js/paraguay-europe-data.js"></script>
     <script src="js/paraguay-europe-selector.js"></script>
     
     <script src="js/main.js"></script>
