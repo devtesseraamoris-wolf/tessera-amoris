@@ -173,6 +173,11 @@
         return { country: '', state: '', city: '', nationality: '' };
     }
 
+    function getAvailableCountries() {
+        // Return ONLY Paraguay + European countries (46 total)
+        return AVAILABLE_COUNTRIES;
+    }
+
     function populateCountries(countrySelect, selectedCountry) {
         const availableCountries = getAvailableCountries();
         countrySelect.innerHTML = '<option value="">Select your country</option>';

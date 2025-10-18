@@ -1,0 +1,399 @@
+/**
+ * Mobile Responsive Fix for Tessera Amoris Application Form
+ * Ensures perfect display on smartphones and small devices
+ */
+
+/* ============================================
+   MOBILE: 320px - 767px
+   ============================================ */
+
+@media (max-width: 767px) {
+    /* Application Container */
+    .application-container {
+        margin: 80px 0 40px !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+    
+    /* Application Header */
+    .application-header {
+        padding: 1.5rem 1rem !important;
+    }
+    
+    .application-title {
+        font-size: 1.75rem !important;
+    }
+    
+    .application-subtitle {
+        font-size: 0.9375rem !important;
+        padding: 0 0.5rem;
+    }
+    
+    /* Progress Bar */
+    .progress-bar {
+        padding: 1rem 0.5rem !important;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .progress-bar::before {
+        left: 1rem !important;
+        right: 1rem !important;
+    }
+    
+    .progress-step {
+        width: 50px !important;
+        min-width: 50px;
+    }
+    
+    .step-number {
+        width: 36px !important;
+        height: 36px !important;
+        font-size: 0.875rem !important;
+    }
+    
+    .step-title {
+        font-size: 0.6875rem !important;
+        white-space: nowrap;
+    }
+    
+    /* Form Sections */
+    .form-section {
+        padding: 1.5rem 1rem !important;
+    }
+    
+    /* Form Groups */
+    .form-group {
+        margin-bottom: 1.25rem !important;
+    }
+    
+    /* Location Selector */
+    .location-selector-container {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .location-row {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .location-field {
+        width: 100% !important;
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+    }
+    
+    /* Sophisticated Fields */
+    .sophisticated-field {
+        width: 100% !important;
+        margin-bottom: 1.25rem !important;
+    }
+    
+    .sophisticated-field-group {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    /* Form Inputs and Selects */
+    .form-input,
+    .form-select,
+    .location-select,
+    #country,
+    #state,
+    #city {
+        font-size: 16px !important; /* Prevent iOS zoom */
+        padding: 0.875rem 1rem !important;
+        min-height: 48px !important; /* Touch-friendly */
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    .form-select,
+    .location-select,
+    #country,
+    #state,
+    #city {
+        padding-right: 2.5rem !important;
+        background-position: right 0.875rem center !important;
+    }
+    
+    /* Labels */
+    .form-label,
+    .sophisticated-label {
+        font-size: 0.9375rem !important;
+        margin-bottom: 0.5rem !important;
+    }
+    
+    /* Field Descriptions */
+    .field-description {
+        font-size: 0.8125rem !important;
+        margin-top: 0.375rem !important;
+    }
+    
+    /* Buttons */
+    .btn,
+    .btn-next,
+    .btn-prev,
+    .btn-submit {
+        width: 100% !important;
+        padding: 0.875rem 1.5rem !important;
+        font-size: 1rem !important;
+        min-height: 48px !important;
+    }
+    
+    .form-navigation {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        padding: 1.5rem 1rem !important;
+    }
+    
+    .form-navigation .btn-prev {
+        order: 2;
+    }
+    
+    .form-navigation .btn-next,
+    .form-navigation .btn-submit {
+        order: 1;
+    }
+    
+    /* Nationality Autocomplete */
+    .nationality-autocomplete-wrapper {
+        position: relative;
+        width: 100%;
+    }
+    
+    .nationality-suggestions {
+        max-height: 200px !important;
+        font-size: 16px !important; /* Prevent iOS zoom */
+    }
+    
+    .nationality-suggestion-item {
+        padding: 0.875rem 1rem !important;
+        min-height: 48px !important;
+        font-size: 16px !important;
+    }
+    
+    /* Expansion Modal */
+    .expansion-modal {
+        max-width: calc(100% - 1rem) !important;
+        margin: 0.5rem !important;
+        max-height: calc(100vh - 1rem) !important;
+        border-radius: 12px !important;
+    }
+    
+    .expansion-modal-header {
+        padding: 1.25rem 1rem !important;
+    }
+    
+    .expansion-modal-title {
+        font-size: 1.5rem !important;
+    }
+    
+    .expansion-modal-body {
+        padding: 1rem !important;
+        max-height: calc(100vh - 250px) !important;
+        overflow-y: auto;
+    }
+    
+    .expansion-modal-footer {
+        padding: 1rem !important;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .expansion-btn {
+        width: 100% !important;
+        min-height: 48px !important;
+    }
+    
+    /* Region Cards */
+    .region-card {
+        padding: 1rem !important;
+        min-height: auto !important;
+    }
+    
+    .region-card-icon {
+        font-size: 2rem !important;
+    }
+    
+    .region-card-label {
+        font-size: 1rem !important;
+    }
+    
+    .region-card-examples {
+        font-size: 0.8125rem !important;
+    }
+    
+    /* Review Section */
+    .review-section {
+        padding: 1.5rem 1rem !important;
+    }
+    
+    .review-item {
+        flex-direction: column;
+        align-items: flex-start !important;
+        padding: 0.75rem 0 !important;
+    }
+    
+    .review-label {
+        flex: 0 0 100% !important;
+        margin-bottom: 0.375rem !important;
+        font-size: 0.875rem !important;
+    }
+    
+    .review-value {
+        flex: 0 0 100% !important;
+        font-size: 1rem !important;
+    }
+    
+    /* Footer */
+    footer {
+        padding: 2rem 1rem !important;
+    }
+    
+    .footer-content {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    
+    /* Header Navigation */
+    header .container {
+        padding: 0 1rem !important;
+    }
+    
+    .nav-menu {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    /* Quiz Modal */
+    .quiz-container {
+        max-width: calc(100% - 1rem) !important;
+        margin: 0.5rem !important;
+        padding: 1.5rem 1rem !important;
+    }
+    
+    .quiz-title {
+        font-size: 1.5rem !important;
+    }
+    
+    .quiz-subtitle {
+        font-size: 0.9375rem !important;
+    }
+    
+    /* Ensure no horizontal scroll */
+    body {
+        overflow-x: hidden !important;
+    }
+    
+    .application-container,
+    .form-section,
+    .form-group,
+    .sophisticated-field {
+        overflow-x: hidden !important;
+    }
+}
+
+/* ============================================
+   SMALL MOBILE: 320px - 480px
+   ============================================ */
+
+@media (max-width: 480px) {
+    .application-title {
+        font-size: 1.5rem !important;
+    }
+    
+    .application-subtitle {
+        font-size: 0.875rem !important;
+    }
+    
+    .progress-step {
+        width: 45px !important;
+        min-width: 45px;
+    }
+    
+    .step-number {
+        width: 32px !important;
+        height: 32px !important;
+        font-size: 0.75rem !important;
+    }
+    
+    .step-title {
+        font-size: 0.625rem !important;
+    }
+    
+    .form-section {
+        padding: 1rem 0.75rem !important;
+    }
+    
+    .expansion-modal-title {
+        font-size: 1.25rem !important;
+    }
+    
+    .region-card {
+        padding: 0.875rem !important;
+    }
+}
+
+/* ============================================
+   LANDSCAPE MODE FIX
+   ============================================ */
+
+@media (max-height: 500px) and (orientation: landscape) {
+    .application-header {
+        padding: 1rem !important;
+    }
+    
+    .application-title {
+        font-size: 1.5rem !important;
+        margin-bottom: 0.5rem !important;
+    }
+    
+    .progress-bar {
+        padding: 0.75rem 0.5rem !important;
+    }
+    
+    .form-section {
+        padding: 1rem 0.75rem !important;
+    }
+    
+    .expansion-modal {
+        max-height: calc(100vh - 2rem) !important;
+    }
+    
+    .expansion-modal-body {
+        max-height: calc(100vh - 180px) !important;
+    }
+}
+
+/* ============================================
+   iOS SPECIFIC FIXES
+   ============================================ */
+
+/* Prevent zoom on input focus */
+@supports (-webkit-touch-callout: none) {
+    input,
+    select,
+    textarea {
+        font-size: 16px !important;
+    }
+}
+
+/* Fix iOS Safari bottom bar overlap */
+@supports (padding: max(0px)) {
+    .form-navigation {
+        padding-bottom: max(1.5rem, env(safe-area-inset-bottom)) !important;
+    }
+    
+    footer {
+        padding-bottom: max(2rem, env(safe-area-inset-bottom)) !important;
+    }
+}
+
