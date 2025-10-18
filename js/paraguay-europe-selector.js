@@ -172,9 +172,10 @@
     }
 
     function populateCountries(countrySelect, selectedCountry) {
+        const availableCountries = getAvailableCountries();
         countrySelect.innerHTML = '<option value="">Select your country</option>';
 
-        const paraguay = AVAILABLE_COUNTRIES.find(country => country.code === 'PY');
+        const paraguay = availableCountries.find(country => country.code === 'PY');
         if (paraguay) {
             countrySelect.appendChild(createCountryOption(paraguay));
         }
@@ -188,7 +189,7 @@
         europeDivider.style.backgroundColor = '#f7fafc';
         countrySelect.appendChild(europeDivider);
 
-        AVAILABLE_COUNTRIES.filter(country => country.code !== 'PY').forEach(country => {
+        availableCountries.filter(country => country.code !== 'PY').forEach(country => {
             countrySelect.appendChild(createCountryOption(country));
         });
 
@@ -727,6 +728,18 @@
     }
 
     function initializeParaguayEuropeSelector() {
+        if (window.tesseraParaguayEuropeSelectorInitialized) {
+            return;
+        }
+
+        if (!hasLocationData()) {
+            if (!waitingForLocationData) {
+                waitingForLocationData = true;
+                window.addEventListener('tesseraParaguayEuropeDataReady', handleLocationDataReady, { once: true });
+            }
+            return;
+        }
+
         const countrySelect = document.getElementById('country');
         const stateSelect = document.getElementById('state');
         const citySelect = document.getElementById('city');
@@ -792,6 +805,8 @@
         }
 
         createExpansionModal();
+
+        window.tesseraParaguayEuropeSelectorInitialized = true;
     }
 
     function showExpansionModal() {
