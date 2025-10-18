@@ -1,93 +1,85 @@
 /**
  * API Endpoint: Submit Expansion Interest
- * Handles submissions when users select "My country isn't listed yet"
+ * Saves interest from users in countries outside Paraguay-Europe
  */
 
 import { createClient } from '@supabase/supabase-js';
 
 export default async function handler(req, res) {
-    // Only allow POST requests
+    // Only allow POST
     if (req.method !== 'POST') {
         return res.status(405).json({ error: 'Method not allowed' });
     }
 
-    // CORS headers
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-
-    if (req.method === 'OPTIONS') {
-        return res.status(200).end();
-    }
-
     try {
-        const { region, country, email, timestamp } = req.body;
+        const { region, country, email } = req.body;
 
-        // Validate required fields
+        // Validation
         if (!region || !country) {
             return res.status(400).json({ 
-                error: 'Missing required fields',
-                message: 'Region and country are required' 
+                error: 'Missing required fields: region and country are required' 
+            });
+        }
+
+        // Validate region
+        const validRegions = ['americas', 'asia', 'middle_east', 'oceania', 'africa'];
+        if (!validRegions.includes(region)) {
+            return res.status(400).json({ 
+                error: 'Invalid region. Must be one of: ' + validRegions.join(', ') 
             });
         }
 
         // Initialize Supabase client
-        const supabaseUrl = process.env.SUPABASE_URL;
-        const supabaseKey = process.env.SUPABASE_SERVICE_KEY;
+        const supabase = createClient(
+            process.env.SUPABASE_URL,
+            process.env.SUPABASE_ANON_KEY
+        );
 
-        if (!supabaseUrl || !supabaseKey) {
-            console.error('Supabase credentials not configured');
-            // Still return success to user, data is saved in localStorage
-            return res.status(200).json({ 
-                success: true,
-                message: 'Interest recorded (localStorage only)',
-                saved_locally: true
-            });
-        }
+        // Get metadata
+        const userAgent = req.headers['user-agent'] || null;
+        const ipAddress = req.headers['x-forwarded-for'] || 
+                         req.headers['x-real-ip'] || 
+                         req.connection.remoteAddress || 
+                         null;
 
-        const supabase = createClient(supabaseUrl, supabaseKey);
-
-        // Insert into expansion_interests table
+        // Insert expansion interest
         const { data, error } = await supabase
             .from('expansion_interests')
             .insert([
                 {
-                    region: region,
-                    country: country,
-                    email: email || null,
-                    submitted_at: timestamp || new Date().toISOString(),
-                    user_agent: req.headers['user-agent'] || null,
-                    ip_address: req.headers['x-forwarded-for'] || req.connection.remoteAddress || null
+                    region,
+                    country: country.trim(),
+                    email: email ? email.trim() : null,
+                    user_agent: userAgent,
+                    ip_address: ipAddress
                 }
             ])
             .select();
 
         if (error) {
-            console.error('Supabase insertion error:', error);
-            // Still return success to user
-            return res.status(200).json({ 
-                success: true,
-                message: 'Interest recorded',
-                saved_locally: true,
-                database_error: error.message
+            console.error('Supabase error:', error);
+            return res.status(500).json({ 
+                error: 'Failed to save expansion interest',
+                details: error.message 
             });
         }
 
-        return res.status(200).json({ 
+        // Success response
+        return res.status(200).json({
             success: true,
-            message: 'Expansion interest submitted successfully',
-            data: data
+            message: 'Thank you for your interest! We\'ll notify you when we expand to your region.',
+            data: {
+                id: data[0].id,
+                region,
+                country
+            }
         });
 
     } catch (error) {
-        console.error('Error processing expansion interest:', error);
-        
-        // Return success anyway - data is in localStorage
-        return res.status(200).json({ 
-            success: true,
-            message: 'Interest recorded',
-            saved_locally: true,
-            error: error.message
+        console.error('Error in submit-expansion-interest:', error);
+        return res.status(500).json({ 
+            error: 'Internal server error',
+            message: error.message 
         });
     }
 }

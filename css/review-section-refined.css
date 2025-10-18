@@ -1,0 +1,598 @@
+/**
+ * REFINED REVIEW SECTION - Tessera Amoris
+ * Vertical layout, harmonious, genial, and strategically excellent
+ */
+
+/* ========================================
+   REVIEW HEADER - Centered & Elegant
+======================================== */
+
+.review-section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding: 2.5rem 2rem;
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.05) 0%, rgba(12, 27, 51, 0.03) 100%);
+    border-radius: 16px;
+    border: 1px solid rgba(212, 175, 55, 0.15);
+}
+
+.review-section-header h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.8rem;
+    color: #0c1b33;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.review-section-header .review-subtitle {
+    font-size: 1.15rem;
+    color: #76777A;
+    line-height: 1.9;
+    max-width: 750px;
+    margin: 0 auto;
+}
+
+.review-section-header .review-subtitle strong {
+    color: #D4AF37;
+    font-weight: 600;
+}
+
+/* ========================================
+   JOURNEY QUOTE & PROGRESS - VERTICAL
+======================================== */
+
+.journey-container {
+    max-width: 900px;
+    margin: 0 auto 3rem;
+    background: white;
+    border-radius: 20px;
+    padding: 3rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    border-left: 5px solid #D4AF37;
+}
+
+.journey-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem;
+    color: #0c1b33;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-weight: 600;
+}
+
+.journey-quote {
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, rgba(12, 27, 51, 0.04) 100%);
+    border-left: 4px solid #D4AF37;
+    padding: 2rem 2.5rem;
+    margin-bottom: 2.5rem;
+    border-radius: 12px;
+    font-style: italic;
+    color: #0c1b33;
+    line-height: 1.9;
+    font-size: 1.05rem;
+}
+
+.journey-quote-author {
+    margin-top: 1rem;
+    font-size: 0.95rem;
+    color: #76777A;
+    font-style: normal;
+    font-weight: 500;
+}
+
+.journey-progress-vertical {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.journey-step-vertical {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.25rem 0;
+    position: relative;
+}
+
+.journey-step-vertical::after {
+    content: '';
+    position: absolute;
+    left: 25px;
+    top: 100%;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(76, 175, 80, 0.3) 0%, rgba(76, 175, 80, 0.1) 100%);
+}
+
+.journey-step-vertical:last-child::after {
+    display: none;
+}
+
+.journey-step-vertical.current::after {
+    background: linear-gradient(180deg, rgba(212, 175, 55, 0.4) 0%, rgba(212, 175, 55, 0.1) 100%);
+}
+
+.journey-step-icon-vertical {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+}
+
+.journey-step-vertical.completed .journey-step-icon-vertical {
+    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+    color: white;
+}
+
+.journey-step-vertical.current .journey-step-icon-vertical {
+    background: linear-gradient(135deg, #D4AF37 0%, #B8941F 100%);
+    color: white;
+    animation: gentlePulse 3s infinite;
+}
+
+.journey-step-content-vertical {
+    flex: 1;
+}
+
+.journey-step-label-vertical {
+    font-size: 1.1rem;
+    color: #0c1b33;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.journey-step-vertical.completed .journey-step-label-vertical {
+    color: #4CAF50;
+}
+
+.journey-step-vertical.current .journey-step-label-vertical {
+    color: #D4AF37;
+}
+
+.journey-step-description {
+    font-size: 0.9rem;
+    color: #76777A;
+    line-height: 1.6;
+}
+
+@keyframes gentlePulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 3px 12px rgba(212, 175, 55, 0.3);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 5px 20px rgba(212, 175, 55, 0.5);
+    }
+}
+
+/* ========================================
+   REVIEW CARDS - SINGLE COLUMN VERTICAL
+======================================== */
+
+.review-cards-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    max-width: 900px;
+    margin: 0 auto 3rem;
+}
+
+.review-card {
+    background: white;
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border-left: 5px solid #D4AF37;
+    transition: all 0.3s ease;
+}
+
+.review-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.review-card-header {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 2px solid rgba(212, 175, 55, 0.2);
+}
+
+.review-card-icon {
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, #D4AF37 0%, #B8941F 100%);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.6rem;
+    box-shadow: 0 4px 16px rgba(212, 175, 55, 0.3);
+}
+
+.review-card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    color: #0c1b33;
+    margin: 0;
+    font-weight: 600;
+}
+
+.review-card-item {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 1.25rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(118, 119, 122, 0.1);
+    align-items: start;
+}
+
+.review-card-item:last-child {
+    border-bottom: none;
+}
+
+.review-card-label {
+    font-weight: 600;
+    color: #76777A;
+    font-size: 0.95rem;
+    padding-top: 0.25rem;
+}
+
+.review-card-value {
+    color: #0c1b33;
+    font-size: 1rem;
+    line-height: 1.7;
+}
+
+.review-card-value.highlight {
+    color: #D4AF37;
+    font-weight: 600;
+}
+
+/* ========================================
+   VALUES TAGS
+======================================== */
+
+.review-values-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+}
+
+.review-value-tag {
+    background: linear-gradient(135deg, #D4AF37 0%, #B8941F 100%);
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    box-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
+    transition: all 0.2s ease;
+}
+
+.review-value-tag:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+}
+
+/* ========================================
+   WHAT HAPPENS NEXT - REFINED
+======================================== */
+
+.what-happens-next {
+    background: linear-gradient(135deg, #0c1b33 0%, #1a2f4f 100%);
+    border-radius: 24px;
+    padding: 3.5rem 3rem;
+    margin: 3rem auto;
+    max-width: 900px;
+    color: white;
+    box-shadow: 0 8px 40px rgba(12, 27, 51, 0.4);
+}
+
+.what-happens-next h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 3rem;
+    color: #D4AF37;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+}
+
+.next-steps-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+}
+
+.timeline-step {
+    display: flex;
+    gap: 2rem;
+    position: relative;
+}
+
+.timeline-step::before {
+    content: '';
+    position: absolute;
+    left: 28px;
+    top: 70px;
+    width: 2px;
+    height: calc(100% + 2.5rem);
+    background: linear-gradient(180deg, rgba(212, 175, 55, 0.3) 0%, rgba(212, 175, 55, 0.08) 100%);
+}
+
+.timeline-step:last-child::before {
+    display: none;
+}
+
+.timeline-number {
+    width: 56px;
+    height: 56px;
+    background: rgba(255, 255, 240, 0.12);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: #D4AF37;
+    flex-shrink: 0;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15), inset 0 0 0 2px rgba(212, 175, 55, 0.4);
+    z-index: 1;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.timeline-number:hover {
+    background: rgba(212, 175, 55, 0.2);
+    box-shadow: 0 6px 24px rgba(212, 175, 55, 0.3), inset 0 0 0 2px rgba(212, 175, 55, 0.6);
+    transform: scale(1.05);
+}
+
+.timeline-content {
+    flex: 1;
+    padding-top: 0.5rem;
+}
+
+.timeline-content h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    margin-bottom: 0.75rem;
+    color: #FFFFF0;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.timeline-content p {
+    color: rgba(255, 255, 240, 0.9);
+    line-height: 1.8;
+    margin: 0;
+    font-size: 1.05rem;
+}
+
+.timeline-content strong {
+    color: #D4AF37;
+    font-weight: 600;
+}
+
+/* ========================================
+   FINAL CTA SECTION
+======================================== */
+
+.final-cta-section {
+    background: white;
+    border-radius: 24px;
+    padding: 3.5rem 3rem;
+    text-align: center;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+    margin: 3rem auto;
+    max-width: 900px;
+    border: 1px solid rgba(212, 175, 55, 0.15);
+}
+
+.final-cta-icon {
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+    animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-12px);
+    }
+}
+
+.final-cta-section h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    color: #0c1b33;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.final-cta-section .cta-message {
+    font-size: 1.15rem;
+    color: #76777A;
+    line-height: 1.9;
+    max-width: 750px;
+    margin: 0 auto 2.5rem;
+}
+
+.final-cta-section .cta-message strong {
+    color: #D4AF37;
+    font-weight: 600;
+}
+
+.final-cta-section .cta-highlight {
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(12, 27, 51, 0.05) 100%);
+    padding: 2rem 2.5rem;
+    border-radius: 16px;
+    border-left: 5px solid #D4AF37;
+    margin: 2.5rem 0;
+    font-style: italic;
+    color: #0c1b33;
+    font-size: 1.05rem;
+    line-height: 1.8;
+}
+
+/* ========================================
+   SUBMIT BUTTONS
+======================================== */
+
+.submit-actions {
+    display: flex;
+    gap: 1.25rem;
+    justify-content: center;
+    margin-top: 2.5rem;
+    flex-wrap: wrap;
+}
+
+.btn-submit-final {
+    background: linear-gradient(135deg, #D4AF37 0%, #B8941F 100%);
+    color: white;
+    padding: 1.2rem 3.5rem;
+    font-size: 1.15rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(212, 175, 55, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.btn-submit-final:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 30px rgba(212, 175, 55, 0.6);
+    background: linear-gradient(135deg, #B8941F 0%, #D4AF37 100%);
+}
+
+.btn-submit-final:active {
+    transform: translateY(-1px);
+}
+
+.btn-review-edit {
+    background: white;
+    color: #0c1b33;
+    padding: 1.2rem 2.5rem;
+    font-size: 1.05rem;
+    font-weight: 600;
+    border: 2px solid #0c1b33;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.btn-review-edit:hover {
+    background: #0c1b33;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(12, 27, 51, 0.3);
+}
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+
+@media (max-width: 768px) {
+    .journey-container {
+        padding: 2rem 1.5rem;
+    }
+    
+    .review-card {
+        padding: 2rem 1.5rem;
+    }
+    
+    .review-card-item {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
+    
+    .what-happens-next {
+        padding: 2.5rem 2rem;
+    }
+    
+    .timeline-step {
+        gap: 1.5rem;
+    }
+    
+    .timeline-number {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+    }
+    
+    .timeline-step::before {
+        left: 25px;
+    }
+    
+    .final-cta-section {
+        padding: 2.5rem 2rem;
+    }
+    
+    .submit-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .btn-submit-final,
+    .btn-review-edit {
+        width: 100%;
+    }
+    
+    .review-section-header h2 {
+        font-size: 2.2rem;
+    }
+    
+    .journey-title {
+        font-size: 1.8rem;
+    }
+    
+    .what-happens-next h3 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .journey-step-icon-vertical {
+        width: 45px;
+        height: 45px;
+        font-size: 1.1rem;
+    }
+    
+    .journey-step-label-vertical {
+        font-size: 1rem;
+    }
+    
+    .review-card-header {
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+    }
+    
+    .review-card-title {
+        font-size: 1.5rem;
+    }
+}
+

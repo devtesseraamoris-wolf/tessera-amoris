@@ -4,28 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Application | Tessera Amoris</title>
-    <link rel="stylesheet" href="css/styles.css?v=2.0">
-    <link rel="stylesheet" href="css/application.css?v=2.0">
-    <link rel="stylesheet" href="css/enhanced-logo.css?v=2.0">
-    <link rel="stylesheet" href="css/sophisticated-forms.css?v=2.0">
-    <link rel="stylesheet" href="css/occupation-language-styles.css?v=2.0">
-    <link rel="stylesheet" href="css/values-preferences-styles.css?v=2.0">
-    <link rel="stylesheet" href="css/references-verification-styles.css?v=2.0">
-    <link rel="stylesheet" href="css/enhanced-form-elements.css?v=2.0">
-    <link rel="stylesheet" href="css/contact-fields-harmony.css?v=2.0">
-    <link rel="stylesheet" href="css/creative-occupation-selector.css?v=2.0">
-    <link rel="stylesheet" href="css/occupation-others-fix.css?v=2.0">
-    <link rel="stylesheet" href="css/elegant-languages-selector.css?v=2.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/application.css">
+    <link rel="stylesheet" href="css/enhanced-logo.css">
+    <link rel="stylesheet" href="css/sophisticated-forms.css">
+    <link rel="stylesheet" href="css/occupation-language-styles.css">
+    <link rel="stylesheet" href="css/values-preferences-styles.css">
+    <link rel="stylesheet" href="css/references-verification-styles.css">
+    <link rel="stylesheet" href="css/enhanced-form-elements.css">
+    <link rel="stylesheet" href="css/contact-fields-harmony.css">
+    <link rel="stylesheet" href="css/creative-occupation-selector.css">
+    <link rel="stylesheet" href="css/occupation-others-fix.css">
+    <link rel="stylesheet" href="css/elegant-languages-selector.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="css/fixed-references-layout.css?v=2.0">
-    <link rel="stylesheet" href="css/clean-references.css?v=2.0">
-    <link rel="stylesheet" href="css/fix-review-title.css?v=2.0">
-    <link rel="stylesheet" href="css/strategic-review.css?v=2.0">
-    <link rel="stylesheet" href="css/expansion-modal.css?v=2.0">
-    <link rel="stylesheet" href="css/enhanced-country-dropdown.css?v=2.0">
-    <link rel="stylesheet" href="css/form-responsive-enhanced.css?v=2.0">
-    <link rel="stylesheet" href="css/mobile-responsive-fix.css?v=2.0">
-    <link rel="stylesheet" href="css/mobile-responsive-enhanced-v2.css?v=2.0">
+    <link rel="stylesheet" href="css/fixed-references-layout.css">
+    <link rel="stylesheet" href="css/clean-references.css">
+    <link rel="stylesheet" href="css/fix-review-title.css">
+    <link rel="stylesheet" href="css/strategic-review.css">
+    <link rel="stylesheet" href="css/pre-screening-quiz.css">
+    <link rel="stylesheet" href="css/review-section-refined.css">
+    <link rel="stylesheet" href="css/force-gold-title.css">
+    <link rel="stylesheet" href="css/expansion-modal.css">
 </head>
 <body>
     <!-- Header -->
@@ -53,8 +52,35 @@
         </div>
     </header>
 
-    <!-- Application Form -->
-    <div class="application-container">
+    <!-- Pre-Screening Quiz Modal -->
+    <div id="quiz-modal-overlay" class="quiz-modal-overlay">
+        <div id="quiz-container" class="quiz-container">
+            <div class="quiz-header">
+                <h2 class="quiz-title">Are You Ready for a Meaningful Legacy?</h2>
+                <p class="quiz-subtitle">Before applying, help us understand your values and intentions with a few thoughtful questions.</p>
+                <div class="quiz-progress-container">
+                    <span id="quiz-progress-text" class="quiz-progress-text">Question 1 of 5</span>
+                    <div class="quiz-progress-bar">
+                        <div id="quiz-progress-fill" class="quiz-progress-fill" style="width: 20%"></div>
+                    </div>
+                </div>
+            </div>
+            <div id="quiz-content" class="quiz-content">
+                <!-- Quiz questions will be rendered here by JavaScript -->
+            </div>
+            <div class="quiz-footer">
+                <button id="quiz-prev-btn" class="quiz-btn quiz-btn-secondary" style="display: none;">
+                    ← Previous
+                </button>
+                <button id="quiz-next-btn" class="quiz-btn quiz-btn-primary">
+                    Next →
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Form (Initially Hidden) -->
+    <div id="application-form-container" class="application-container" style="display: none;">
         <div class="application-header">
             <h1 class="application-title">Begin Your Journey</h1>
             <p class="application-subtitle">Complete this application to take the first step toward finding a relationship with purpose and building a lasting legacy.</p>
@@ -188,11 +214,8 @@
                 
                 <div class="sophisticated-field">
                     <label for="nationality" class="sophisticated-label">Nationality</label>
-                    <div class="nationality-autocomplete-wrapper">
-                        <input type="text" id="nationality" class="form-input" placeholder="Start typing your nationality..." required>
-                        <div class="nationality-suggestions" id="nationality-suggestions" role="listbox" aria-label="Nationality suggestions"></div>
-                    </div>
-                    <div class="field-description">Your nationality or citizenship (e.g., Paraguayan, American, German)</div>
+                    <input type="text" id="nationality" class="form-input" placeholder="e.g., American, Brazilian, German" required>
+                    <div class="field-description">Your nationality or citizenship</div>
                 </div>
                 
                 <div class="sophisticated-field-group">
@@ -768,154 +791,25 @@
         </div>
     </footer>
 
-    <!-- Expansion Interest Modal -->
-    <div class="expansion-modal-overlay" id="expansionModal">
-        <div class="expansion-modal">
-            <div class="expansion-modal-header">
-                <div class="expansion-modal-icon">🌍</div>
-                <h2 class="expansion-modal-title">We're Expanding!</h2>
-                <p class="expansion-modal-subtitle">Help us bring Tessera Amoris to your region</p>
-            </div>
-            
-            <div class="expansion-modal-body" id="expansionFormContainer">
-                <div class="expansion-intro">
-                    <p>We're currently focused on connecting <strong>Paraguay and Europe</strong>, but we're planning to expand globally. Let us know where you're from, and we'll notify you when we launch in your region!</p>
-                </div>
-                
-                <form id="expansionInterestForm">
-                    <div class="expansion-form-group">
-                        <label class="expansion-form-label">Which region are you from?</label>
-                        <div class="expansion-region-options">
-                            <div class="expansion-region-option">
-                                <input type="radio" id="region-americas" name="region" value="americas" required>
-                                <label for="region-americas" class="expansion-region-label">
-                                    <span class="expansion-region-icon">🌎</span>
-                                    <div class="expansion-region-text">
-                                        <span class="expansion-region-name">Americas</span>
-                                        <span class="expansion-region-examples">USA, Canada, Brazil, Argentina, Chile, Mexico...</span>
-                                    </div>
-                                </label>
-                            </div>
-                            <div class="expansion-region-option">
-                                <input type="radio" id="region-asia" name="region" value="asia">
-                                <label for="region-asia" class="expansion-region-label">
-                                    <span class="expansion-region-icon">🌏</span>
-                                    <div class="expansion-region-text">
-                                        <span class="expansion-region-name">Asia</span>
-                                        <span class="expansion-region-examples">Japan, Singapore, South Korea, India, China...</span>
-                                    </div>
-                                </label>
-                            </div>
-                            <div class="expansion-region-option">
-                                <input type="radio" id="region-middle-east" name="region" value="middle_east">
-                                <label for="region-middle-east" class="expansion-region-label">
-                                    <span class="expansion-region-icon">🕌</span>
-                                    <div class="expansion-region-text">
-                                        <span class="expansion-region-name">Middle East</span>
-                                        <span class="expansion-region-examples">UAE, Israel, Saudi Arabia, Qatar, Turkey...</span>
-                                    </div>
-                                </label>
-                            </div>
-                            <div class="expansion-region-option">
-                                <input type="radio" id="region-oceania" name="region" value="oceania">
-                                <label for="region-oceania" class="expansion-region-label">
-                                    <span class="expansion-region-icon">🦘</span>
-                                    <div class="expansion-region-text">
-                                        <span class="expansion-region-name">Oceania</span>
-                                        <span class="expansion-region-examples">Australia, New Zealand, Fiji, Papua New Guinea...</span>
-                                    </div>
-                                </label>
-                            </div>
-                            <div class="expansion-region-option">
-                                <input type="radio" id="region-africa" name="region" value="africa">
-                                <label for="region-africa" class="expansion-region-label">
-                                    <span class="expansion-region-icon">🦁</span>
-                                    <div class="expansion-region-text">
-                                        <span class="expansion-region-name">Africa</span>
-                                        <span class="expansion-region-examples">South Africa, Kenya, Egypt, Morocco, Nigeria...</span>
-                                    </div>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="expansion-form-group">
-                        <label for="expansion-country" class="expansion-form-label">Your Country</label>
-                        <input type="text" id="expansion-country" class="expansion-input" placeholder="e.g., United States, Japan, Australia" required>
-                        <div class="expansion-input-hint">
-                            <i class="fas fa-info-circle"></i>
-                            <span>This helps us prioritize expansion regions</span>
-                        </div>
-                    </div>
-                    
-                    <div class="expansion-form-group">
-                        <label for="expansion-email" class="expansion-form-label">Email Address (Optional)</label>
-                        <input type="email" id="expansion-email" class="expansion-input" placeholder="your.email@example.com">
-                        <div class="expansion-input-hint">
-                            <i class="fas fa-bell"></i>
-                            <span>We'll notify you when we launch in your region</span>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            
-            <div class="expansion-success-message" id="expansionSuccessMessage">
-                <div class="expansion-success-icon">✓</div>
-                <h3 class="expansion-success-title">Thank You!</h3>
-                <p class="expansion-success-text">We've recorded your interest. We'll reach out when Tessera Amoris expands to your region.</p>
-                
-                <div class="expansion-next-steps">
-                    <div class="expansion-step-item">
-                        <div class="expansion-step-icon">📊</div>
-                        <div class="expansion-step-text">
-                            <strong>We're Analyzing Demand</strong>
-                            <span>Your input helps us understand where to expand next</span>
-                        </div>
-                    </div>
-                    <div class="expansion-step-item">
-                        <div class="expansion-step-icon">🌐</div>
-                        <div class="expansion-step-text">
-                            <strong>Building Local Partnerships</strong>
-                            <span>We work with faith communities to ensure cultural sensitivity</span>
-                        </div>
-                    </div>
-                    <div class="expansion-step-item">
-                        <div class="expansion-step-icon">📧</div>
-                        <div class="expansion-step-text">
-                            <strong>You'll Be the First to Know</strong>
-                            <span>We'll email you when we launch in your region</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="expansion-timeline-note">
-                    <i class="fas fa-clock"></i>
-                    <strong>Timeline:</strong> We typically expand to new regions within 6-12 months based on demand and local partnerships.
-                </div>
-            </div>
-            
-            <div class="expansion-modal-footer">
-                <button type="button" class="expansion-btn expansion-btn-secondary" id="expansionCancelBtn">Cancel</button>
-                <button type="submit" form="expansionInterestForm" class="expansion-btn expansion-btn-primary" id="expansionSubmitBtn">Submit Interest</button>
-            </div>
-        </div>
-    </div>
-
-    <script src="js/main.js?v=2.0"></script>
-    <script src="js/creative-occupation-selector.js?v=2.0"></script>
-    <script src="js/elegant-languages-selector.js?v=2.0"></script>
-    <script src="js/values-preferences-components.js?v=2.0"></script>
-    <script src="js/references-verification-components.js?v=2.0"></script>
-    <script src="js/fixed-forms.js?v=2.0"></script>
-    <script src="js/application-final-fixed.js?v=2.0"></script>
-    <script src="js/form-data-persistence.js?v=2.0"></script>
-    <script src="js/fix-references-layout.js?v=2.0"></script>
-    <script src="js/strategic-review.js?v=2.0"></script>
-    <!-- Paraguay-Europe Country Selector -->
-    <script src="js/paraguay-europe-data.js?v=2.0"></script>
-    <script src="js/paraguay-europe-selector.js?v=2.0"></script>
-    <script src="js/expansion-modal-handler.js?v=2.0"></script>
+    <script src="js/smart-country-selector.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/comprehensive-city-database.js"></script>
+    <script src="js/creative-occupation-selector.js"></script>
+    <script src="js/elegant-languages-selector.js"></script>
+    <script src="js/values-preferences-components.js"></script>
+    <script src="js/references-verification-components.js"></script>
+    <script src="js/fixed-forms.js"></script>
+    <script src="js/application-final-fixed.js"></script>
+    <script src="js/form-data-persistence.js"></script>
+    <script src="js/fix-references-layout.js"></script>
+    <script src="js/strategic-review.js"></script>
+    <!-- Pre-Screening Quiz -->
+    <script src="js/pre-screening-quiz.js"></script>
+    <!-- Review Refined (Vertical Layout) -->
+    <script src="js/review-refined.js"></script>
+    <!-- Test Mode (Remove in production or set TEST_MODE = false) -->
+    <script src="js/test-mode.js"></script>
     <!-- Production API Integration -->
-    <script src="js/application-production.js?v=2.0"></script>
+    <script src="js/application-production.js"></script>
 </body>
 </html>

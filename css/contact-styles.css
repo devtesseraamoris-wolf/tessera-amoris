@@ -275,16 +275,6 @@
     cursor: pointer;
 }
 
-.select-group label {
-    transform: translateY(-1.5rem) scale(0.85);
-    color: var(--warm-gray);
-}
-
-.select-group select:focus + label,
-.select-group select:valid + label {
-    color: var(--gold);
-}
-
 .textarea-group textarea {
     resize: vertical;
     min-height: 100px;
