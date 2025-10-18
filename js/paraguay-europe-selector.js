@@ -7,422 +7,119 @@
 (function() {
     'use strict';
 
+    if (window.tesseraParaguayEuropeSelectorInitialized) {
+        return;
+    }
+    window.tesseraParaguayEuropeSelectorInitialized = true;
+
     // Expose a flag so other scripts know a custom location selector is active
     window.tesseraLocationSelectorActive = 'paraguay-europe-v2';
 
-    const LOCATION_DATA = {
-        PY: {
-            label: 'Paraguay',
-            regions: [
-                { value: 'asuncion', label: 'Asunción Capital District', cities: ['Asunción', 'Villa Morra', 'Recoleta'] },
-                { value: 'central', label: 'Central', cities: ['San Lorenzo', 'Fernando de la Mora', 'Luque', 'Lambaré'] },
-                { value: 'alto-parana', label: 'Alto Paraná', cities: ['Ciudad del Este', 'Presidente Franco', 'Hernandarias', 'Minga Guazú'] },
-                { value: 'itapua', label: 'Itapúa', cities: ['Encarnación', 'Hohenau', 'Obligado', 'Bella Vista'] },
-                { value: 'caaguazu', label: 'Caaguazú', cities: ['Coronel Oviedo', 'Caaguazú', 'Repatriación'] },
-                { value: 'misiones', label: 'Misiones', cities: ['San Juan Bautista', 'San Ignacio', 'Santa Rosa'] },
-                { value: 'presidente-hayes', label: 'Presidente Hayes', cities: ['Villa Hayes', 'Benjamín Aceval', 'Nanawa'] },
-                { value: 'amambay', label: 'Amambay', cities: ['Pedro Juan Caballero', 'Bella Vista Norte', 'Capitán Bado'] }
-            ]
-        },
-        AL: {
-            label: 'Albania',
-            regions: [
-                { value: 'tirana', label: 'Tirana County', cities: ['Tirana', 'Durrës', 'Kavajë'] },
-                { value: 'shkoder', label: 'Shkodër County', cities: ['Shkodër', 'Lezhë', 'Pukë'] },
-                { value: 'vlore', label: 'Vlorë County', cities: ['Vlorë', 'Fier', 'Sarandë'] }
-            ]
-        },
-        AD: {
-            label: 'Andorra',
-            regions: [
-                { value: 'andorra-la-vella', label: 'Andorra la Vella Parish', cities: ['Andorra la Vella', 'Santa Coloma', 'La Margineda'] },
-                { value: 'escaldes-engordany', label: 'Escaldes-Engordany Parish', cities: ['Escaldes-Engordany', 'Engolasters', 'Les Escaldes'] },
-                { value: 'encamp', label: 'Encamp Parish', cities: ['Encamp', 'Pas de la Casa', 'Vila'] }
-            ]
-        },
-        AT: {
-            label: 'Austria',
-            regions: [
-                { value: 'vienna', label: 'Vienna', cities: ['Vienna', 'Döbling', 'Favoriten'] },
-                { value: 'upper-austria', label: 'Upper Austria', cities: ['Linz', 'Wels', 'Steyr'] },
-                { value: 'tyrol', label: 'Tyrol', cities: ['Innsbruck', 'Kufstein', 'Lienz'] }
-            ]
-        },
-        BY: {
-            label: 'Belarus',
-            regions: [
-                { value: 'minsk-region', label: 'Minsk Region', cities: ['Minsk', 'Barysaw', 'Maladzyechna'] },
-                { value: 'brest', label: 'Brest Region', cities: ['Brest', 'Baranavichy', 'Pinsk'] },
-                { value: 'vitebsk', label: 'Vitebsk Region', cities: ['Vitebsk', 'Orsha', 'Polotsk'] }
-            ]
-        },
-        BE: {
-            label: 'Belgium',
-            regions: [
-                { value: 'flanders', label: 'Flanders', cities: ['Antwerp', 'Ghent', 'Bruges'] },
-                { value: 'wallonia', label: 'Wallonia', cities: ['Liège', 'Namur', 'Mons'] },
-                { value: 'brussels', label: 'Brussels-Capital', cities: ['Brussels', 'Schaerbeek', 'Ixelles'] }
-            ]
-        },
-        BA: {
-            label: 'Bosnia and Herzegovina',
-            regions: [
-                { value: 'federation', label: 'Federation of Bosnia and Herzegovina', cities: ['Sarajevo', 'Mostar', 'Tuzla'] },
-                { value: 'republika-srpska', label: 'Republika Srpska', cities: ['Banja Luka', 'Bijeljina', 'Prijedor'] },
-                { value: 'brcko', label: 'Brčko District', cities: ['Brčko'] }
-            ]
-        },
-        BG: {
-            label: 'Bulgaria',
-            regions: [
-                { value: 'sofia', label: 'Sofia City Province', cities: ['Sofia', 'Bankya', 'Novi Iskar'] },
-                { value: 'plovdiv', label: 'Plovdiv Province', cities: ['Plovdiv', 'Asenovgrad', 'Karlovo'] },
-                { value: 'varna', label: 'Varna Province', cities: ['Varna', 'Devnya', 'Provadiya'] }
-            ]
-        },
-        HR: {
-            label: 'Croatia',
-            regions: [
-                { value: 'zagreb', label: 'Zagreb Region', cities: ['Zagreb', 'Samobor', 'Velika Gorica'] },
-                { value: 'split-dalmatia', label: 'Split-Dalmatia', cities: ['Split', 'Makarska', 'Trogir'] },
-                { value: 'istria', label: 'Istria', cities: ['Pula', 'Rovinj', 'Poreč'] }
-            ]
-        },
-        CZ: {
-            label: 'Czech Republic',
-            regions: [
-                { value: 'prague', label: 'Prague Region', cities: ['Prague', 'Prague 4', 'Prague 6'] },
-                { value: 'south-moravian', label: 'South Moravian', cities: ['Brno', 'Znojmo', 'Břeclav'] },
-                { value: 'moravian-silesian', label: 'Moravian-Silesian', cities: ['Ostrava', 'Opava', 'Karviná'] }
-            ]
-        },
-        DK: {
-            label: 'Denmark',
-            regions: [
-                { value: 'capital-region', label: 'Capital Region', cities: ['Copenhagen', 'Frederiksberg', 'Hillerød'] },
-                { value: 'central-denmark', label: 'Central Denmark', cities: ['Aarhus', 'Randers', 'Viborg'] },
-                { value: 'southern-denmark', label: 'Southern Denmark', cities: ['Odense', 'Esbjerg', 'Kolding'] }
-            ]
-        },
-        EE: {
-            label: 'Estonia',
-            regions: [
-                { value: 'harju', label: 'Harju County', cities: ['Tallinn', 'Maardu', 'Keila'] },
-                { value: 'tartu', label: 'Tartu County', cities: ['Tartu', 'Elva', 'Võru'] },
-                { value: 'ida-viru', label: 'Ida-Viru County', cities: ['Narva', 'Kohtla-Järve', 'Jõhvi'] }
-            ]
-        },
-        FI: {
-            label: 'Finland',
-            regions: [
-                { value: 'uusimaa', label: 'Uusimaa', cities: ['Helsinki', 'Espoo', 'Vantaa'] },
-                { value: 'pirkanmaa', label: 'Pirkanmaa', cities: ['Tampere', 'Nokia', 'Ylöjärvi'] },
-                { value: 'southwest-finland', label: 'Southwest Finland', cities: ['Turku', 'Salo', 'Raisio'] }
-            ]
-        },
-        FR: {
-            label: 'France',
-            regions: [
-                { value: 'ile-de-france', label: 'Île-de-France', cities: ['Paris', 'Versailles', 'Boulogne-Billancourt'] },
-                { value: 'auvergne-rhone-alpes', label: 'Auvergne-Rhône-Alpes', cities: ['Lyon', 'Grenoble', 'Saint-Étienne'] },
-                { value: 'provence-alpes-cote-dazur', label: 'Provence-Alpes-Côte d\'Azur', cities: ['Marseille', 'Nice', 'Toulon'] }
-            ]
-        },
-        DE: {
-            label: 'Germany',
-            regions: [
-                { value: 'bavaria', label: 'Bavaria', cities: ['Munich', 'Nuremberg', 'Augsburg'] },
-                { value: 'north-rhine-westphalia', label: 'North Rhine-Westphalia', cities: ['Cologne', 'Düsseldorf', 'Dortmund'] },
-                { value: 'berlin', label: 'Berlin', cities: ['Berlin', 'Charlottenburg', 'Spandau'] }
-            ]
-        },
-        GR: {
-            label: 'Greece',
-            regions: [
-                { value: 'attica', label: 'Attica', cities: ['Athens', 'Piraeus', 'Marousi'] },
-                { value: 'central-macedonia', label: 'Central Macedonia', cities: ['Thessaloniki', 'Katerini', 'Serres'] },
-                { value: 'crete', label: 'Crete', cities: ['Heraklion', 'Chania', 'Rethymno'] }
-            ]
-        },
-        VA: {
-            label: 'Vatican City',
-            regions: [
-                { value: 'vatican-city', label: 'Vatican City', cities: ['Vatican City'] }
-            ]
-        },
-        HU: {
-            label: 'Hungary',
-            regions: [
-                { value: 'central-hungary', label: 'Central Hungary', cities: ['Budapest', 'Érd', 'Szentendre'] },
-                { value: 'central-transdanubia', label: 'Central Transdanubia', cities: ['Székesfehérvár', 'Tatabánya', 'Dunaújváros'] },
-                { value: 'northern-great-plain', label: 'Northern Great Plain', cities: ['Debrecen', 'Nyíregyháza', 'Szolnok'] }
-            ]
-        },
-        IS: {
-            label: 'Iceland',
-            regions: [
-                { value: 'capital-region', label: 'Capital Region', cities: ['Reykjavík', 'Kópavogur', 'Hafnarfjörður'] },
-                { value: 'southern-region', label: 'Southern Region', cities: ['Selfoss', 'Hveragerði', 'Vestmannaeyjar'] },
-                { value: 'northern-region', label: 'Northern Region', cities: ['Akureyri', 'Húsavík', 'Sauðárkrókur'] }
-            ]
-        },
-        IE: {
-            label: 'Ireland',
-            regions: [
-                { value: 'dublin', label: 'Dublin Region', cities: ['Dublin', 'Dún Laoghaire', 'Swords'] },
-                { value: 'munster', label: 'Munster', cities: ['Cork', 'Limerick', 'Waterford'] },
-                { value: 'connacht', label: 'Connacht', cities: ['Galway', 'Sligo', 'Castlebar'] }
-            ]
-        },
-        IT: {
-            label: 'Italy',
-            regions: [
-                { value: 'lazio', label: 'Lazio', cities: ['Rome', 'Frosinone', 'Viterbo'] },
-                { value: 'lombardy', label: 'Lombardy', cities: ['Milan', 'Bergamo', 'Brescia'] },
-                { value: 'sicily', label: 'Sicily', cities: ['Palermo', 'Catania', 'Messina'] }
-            ]
-        },
-        LV: {
-            label: 'Latvia',
-            regions: [
-                { value: 'riga', label: 'Riga Region', cities: ['Riga', 'Jūrmala', 'Sigulda'] },
-                { value: 'vidzeme', label: 'Vidzeme', cities: ['Valmiera', 'Cēsis', 'Madona'] },
-                { value: 'latgale', label: 'Latgale', cities: ['Daugavpils', 'Rēzekne', 'Ludza'] }
-            ]
-        },
-        LI: {
-            label: 'Liechtenstein',
-            regions: [
-                { value: 'oberland', label: 'Oberland', cities: ['Vaduz', 'Triesen', 'Balzers'] },
-                { value: 'unterland', label: 'Unterland', cities: ['Eschen', 'Mauren', 'Schellenberg'] }
-            ]
-        },
-        LT: {
-            label: 'Lithuania',
-            regions: [
-                { value: 'vilnius', label: 'Vilnius County', cities: ['Vilnius', 'Trakai', 'Elektrėnai'] },
-                { value: 'kaunas', label: 'Kaunas County', cities: ['Kaunas', 'Kėdainiai', 'Jonava'] },
-                { value: 'klaipeda', label: 'Klaipėda County', cities: ['Klaipėda', 'Palanga', 'Šilutė'] }
-            ]
-        },
-        LU: {
-            label: 'Luxembourg',
-            regions: [
-                { value: 'luxembourg-district', label: 'Luxembourg District', cities: ['Luxembourg City', 'Esch-sur-Alzette', 'Differdange'] },
-                { value: 'grevenmacher', label: 'Grevenmacher District', cities: ['Grevenmacher', 'Echternach', 'Remich'] },
-                { value: 'diekirch', label: 'Diekirch District', cities: ['Diekirch', 'Ettelbruck', 'Wiltz'] }
-            ]
-        },
-        MT: {
-            label: 'Malta',
-            regions: [
-                { value: 'northern-harbour', label: 'Northern Harbour', cities: ['Birkirkara', 'Mosta', 'Sliema'] },
-                { value: 'southern-harbour', label: 'Southern Harbour', cities: ['Valletta', 'Birgu', 'Żabbar'] },
-                { value: 'gozo', label: 'Gozo', cities: ['Victoria', 'Xewkija', 'Nadur'] }
-            ]
-        },
-        MD: {
-            label: 'Moldova',
-            regions: [
-                { value: 'chisinau', label: 'Chișinău Municipality', cities: ['Chișinău', 'Codru', 'Durlești'] },
-                { value: 'balti', label: 'Bălți Municipality', cities: ['Bălți', 'Fălești', 'Râșcani'] },
-                { value: 'gagauzia', label: 'Gagauzia', cities: ['Comrat', 'Ceadîr-Lunga', 'Vulcănești'] }
-            ]
-        },
-        MC: {
-            label: 'Monaco',
-            regions: [
-                { value: 'monte-carlo', label: 'Monte Carlo', cities: ['Monte Carlo', 'Larvotto', 'Saint Roman'] },
-                { value: 'la-condamine', label: 'La Condamine', cities: ['La Condamine', 'Port Hercules', 'Moneghetti'] },
-                { value: 'fontvieille', label: 'Fontvieille', cities: ['Fontvieille', 'Jardin Exotique', 'Les Révoires'] }
-            ]
-        },
-        ME: {
-            label: 'Montenegro',
-            regions: [
-                { value: 'podgorica', label: 'Podgorica Region', cities: ['Podgorica', 'Tuzi', 'Danilovgrad'] },
-                { value: 'budva', label: 'Budva Riviera', cities: ['Budva', 'Kotor', 'Tivat'] },
-                { value: 'niksic', label: 'Nikšić Region', cities: ['Nikšić', 'Plužine', 'Šavnik'] }
-            ]
-        },
-        NL: {
-            label: 'Netherlands',
-            regions: [
-                { value: 'north-holland', label: 'North Holland', cities: ['Amsterdam', 'Haarlem', 'Alkmaar'] },
-                { value: 'south-holland', label: 'South Holland', cities: ['Rotterdam', 'The Hague', 'Leiden'] },
-                { value: 'north-brabant', label: 'North Brabant', cities: ['Eindhoven', 'Breda', 'Tilburg'] }
-            ]
-        },
-        MK: {
-            label: 'North Macedonia',
-            regions: [
-                { value: 'skopje', label: 'Skopje Region', cities: ['Skopje', 'Tetovo', 'Kumanovo'] },
-                { value: 'polog', label: 'Polog', cities: ['Gostivar', 'Debar', 'Mavrovo'] },
-                { value: 'pelagonia', label: 'Pelagonia', cities: ['Bitola', 'Prilep', 'Kruševo'] }
-            ]
-        },
-        NO: {
-            label: 'Norway',
-            regions: [
-                { value: 'eastern-norway', label: 'Eastern Norway', cities: ['Oslo', 'Drammen', 'Fredrikstad'] },
-                { value: 'western-norway', label: 'Western Norway', cities: ['Bergen', 'Stavanger', 'Haugesund'] },
-                { value: 'northern-norway', label: 'Northern Norway', cities: ['Tromsø', 'Bodø', 'Narvik'] }
-            ]
-        },
-        PL: {
-            label: 'Poland',
-            regions: [
-                { value: 'masovian', label: 'Masovian Voivodeship', cities: ['Warsaw', 'Radom', 'Płock'] },
-                { value: 'lesser-poland', label: 'Lesser Poland Voivodeship', cities: ['Kraków', 'Tarnów', 'Nowy Sącz'] },
-                { value: 'silesian', label: 'Silesian Voivodeship', cities: ['Katowice', 'Częstochowa', 'Gliwice'] }
-            ]
-        },
-        PT: {
-            label: 'Portugal',
-            regions: [
-                { value: 'lisbon', label: 'Lisbon Metropolitan Area', cities: ['Lisbon', 'Sintra', 'Cascais'] },
-                { value: 'porto', label: 'Porto Metropolitan Area', cities: ['Porto', 'Vila Nova de Gaia', 'Braga'] },
-                { value: 'algarve', label: 'Algarve', cities: ['Faro', 'Albufeira', 'Lagos'] }
-            ]
-        },
-        RO: {
-            label: 'Romania',
-            regions: [
-                { value: 'bucharest-ilfov', label: 'Bucharest-Ilfov', cities: ['Bucharest', 'Otopeni', 'Voluntari'] },
-                { value: 'cluj', label: 'Cluj County', cities: ['Cluj-Napoca', 'Turda', 'Dej'] },
-                { value: 'timis', label: 'Timiș County', cities: ['Timișoara', 'Lugoj', 'Sânnicolau Mare'] }
-            ]
-        },
-        RU: {
-            label: 'Russia',
-            regions: [
-                { value: 'moscow', label: 'Moscow', cities: ['Moscow', 'Zelenograd', 'Khimki'] },
-                { value: 'saint-petersburg', label: 'Saint Petersburg', cities: ['Saint Petersburg', 'Pushkin', 'Kronstadt'] },
-                { value: 'novosibirsk', label: 'Novosibirsk Oblast', cities: ['Novosibirsk', 'Berdsk', 'Iskitim'] }
-            ]
-        },
-        SM: {
-            label: 'San Marino',
-            regions: [
-                { value: 'san-marino', label: 'San Marino City', cities: ['San Marino', 'Fiorentino', 'Acquaviva'] },
-                { value: 'serravalle', label: 'Serravalle', cities: ['Serravalle', 'Dogana', 'Falciano'] },
-                { value: 'borgo-maggiore', label: 'Borgo Maggiore', cities: ['Borgo Maggiore', 'Cailungo', 'Valdragone'] }
-            ]
-        },
-        RS: {
-            label: 'Serbia',
-            regions: [
-                { value: 'belgrade', label: 'Belgrade Region', cities: ['Belgrade', 'Zemun', 'Pančevo'] },
-                { value: 'vojvodina', label: 'Vojvodina', cities: ['Novi Sad', 'Subotica', 'Sombor'] },
-                { value: 'sumadija', label: 'Šumadija and Western Serbia', cities: ['Kragujevac', 'Čačak', 'Užice'] }
-            ]
-        },
-        SK: {
-            label: 'Slovakia',
-            regions: [
-                { value: 'bratislava', label: 'Bratislava Region', cities: ['Bratislava', 'Pezinok', 'Malacky'] },
-                { value: 'kosice', label: 'Košice Region', cities: ['Košice', 'Michalovce', 'Trebišov'] },
-                { value: 'zilina', label: 'Žilina Region', cities: ['Žilina', 'Martin', 'Ružomberok'] }
-            ]
-        },
-        SI: {
-            label: 'Slovenia',
-            regions: [
-                { value: 'central-slovenia', label: 'Central Slovenia', cities: ['Ljubljana', 'Domžale', 'Kamnik'] },
-                { value: 'drava', label: 'Drava Region', cities: ['Maribor', 'Ptuj', 'Slovenska Bistrica'] },
-                { value: 'coastal-karst', label: 'Coastal–Karst', cities: ['Koper', 'Izola', 'Piran'] }
-            ]
-        },
-        ES: {
-            label: 'Spain',
-            regions: [
-                { value: 'madrid', label: 'Community of Madrid', cities: ['Madrid', 'Alcalá de Henares', 'Getafe'] },
-                { value: 'catalonia', label: 'Catalonia', cities: ['Barcelona', 'Girona', 'Tarragona'] },
-                { value: 'andalusia', label: 'Andalusia', cities: ['Seville', 'Málaga', 'Granada'] }
-            ]
-        },
-        SE: {
-            label: 'Sweden',
-            regions: [
-                { value: 'stockholm', label: 'Stockholm County', cities: ['Stockholm', 'Solna', 'Södertälje'] },
-                { value: 'vastra-gotaland', label: 'Västra Götaland County', cities: ['Gothenburg', 'Borås', 'Trollhättan'] },
-                { value: 'skane', label: 'Skåne County', cities: ['Malmö', 'Lund', 'Helsingborg'] }
-            ]
-        },
-        CH: {
-            label: 'Switzerland',
-            regions: [
-                { value: 'zurich', label: 'Canton of Zurich', cities: ['Zurich', 'Winterthur', 'Uster'] },
-                { value: 'geneva', label: 'Canton of Geneva', cities: ['Geneva', 'Carouge', 'Lancy'] },
-                { value: 'bern', label: 'Canton of Bern', cities: ['Bern', 'Thun', 'Biel/Bienne'] }
-            ]
-        },
-        UA: {
-            label: 'Ukraine',
-            regions: [
-                { value: 'kyiv', label: 'Kyiv City & Region', cities: ['Kyiv', 'Brovary', 'Boryspil'] },
-                { value: 'lviv', label: 'Lviv Oblast', cities: ['Lviv', 'Drohobych', 'Truskavets'] },
-                { value: 'odessa', label: 'Odessa Oblast', cities: ['Odessa', 'Chornomorsk', 'Izmail'] }
-            ]
-        },
-        GB: {
-            label: 'United Kingdom',
-            regions: [
-                { value: 'england', label: 'England', cities: ['London', 'Manchester', 'Birmingham'] },
-                { value: 'scotland', label: 'Scotland', cities: ['Edinburgh', 'Glasgow', 'Aberdeen'] },
-                { value: 'wales', label: 'Wales', cities: ['Cardiff', 'Swansea', 'Newport'] },
-                { value: 'northern-ireland', label: 'Northern Ireland', cities: ['Belfast', 'Londonderry', 'Lisburn'] }
-            ]
-        }
-    };
+    const LOCATION_DATA = window.tesseraParaguayEuropeData || {};
 
     const RAW_COUNTRIES = [
-        { code: 'PY', name: 'Paraguay', flag: '🇵🇾' },
-        { code: 'AL', name: 'Albania', flag: '🇦🇱' },
-        { code: 'AD', name: 'Andorra', flag: '🇦🇩' },
-        { code: 'AT', name: 'Austria', flag: '🇦🇹' },
-        { code: 'BY', name: 'Belarus', flag: '🇧🇾' },
-        { code: 'BE', name: 'Belgium', flag: '🇧🇪' },
-        { code: 'BA', name: 'Bosnia and Herzegovina', flag: '🇧🇦' },
-        { code: 'BG', name: 'Bulgaria', flag: '🇧🇬' },
-        { code: 'HR', name: 'Croatia', flag: '🇭🇷' },
-        { code: 'CZ', name: 'Czech Republic', flag: '🇨🇿' },
-        { code: 'DK', name: 'Denmark', flag: '🇩🇰' },
-        { code: 'EE', name: 'Estonia', flag: '🇪🇪' },
-        { code: 'FI', name: 'Finland', flag: '🇫🇮' },
-        { code: 'FR', name: 'France', flag: '🇫🇷' },
-        { code: 'DE', name: 'Germany', flag: '🇩🇪' },
-        { code: 'GR', name: 'Greece', flag: '🇬🇷' },
-        { code: 'VA', name: 'Holy See (Vatican City)', flag: '🇻🇦' },
-        { code: 'HU', name: 'Hungary', flag: '🇭🇺' },
-        { code: 'IS', name: 'Iceland', flag: '🇮🇸' },
-        { code: 'IE', name: 'Ireland', flag: '🇮🇪' },
-        { code: 'IT', name: 'Italy', flag: '🇮🇹' },
-        { code: 'LV', name: 'Latvia', flag: '🇱🇻' },
-        { code: 'LI', name: 'Liechtenstein', flag: '🇱🇮' },
-        { code: 'LT', name: 'Lithuania', flag: '🇱🇹' },
-        { code: 'LU', name: 'Luxembourg', flag: '🇱🇺' },
-        { code: 'MT', name: 'Malta', flag: '🇲🇹' },
-        { code: 'MD', name: 'Moldova', flag: '🇲🇩' },
-        { code: 'MC', name: 'Monaco', flag: '🇲🇨' },
-        { code: 'ME', name: 'Montenegro', flag: '🇲🇪' },
-        { code: 'NL', name: 'Netherlands', flag: '🇳🇱' },
-        { code: 'MK', name: 'North Macedonia', flag: '🇲🇰' },
-        { code: 'NO', name: 'Norway', flag: '🇳🇴' },
-        { code: 'PL', name: 'Poland', flag: '🇵🇱' },
-        { code: 'PT', name: 'Portugal', flag: '🇵🇹' },
-        { code: 'RO', name: 'Romania', flag: '🇷🇴' },
-        { code: 'RU', name: 'Russia', flag: '🇷🇺' },
-        { code: 'SM', name: 'San Marino', flag: '🇸🇲' },
-        { code: 'RS', name: 'Serbia', flag: '🇷🇸' },
-        { code: 'SK', name: 'Slovakia', flag: '🇸🇰' },
-        { code: 'SI', name: 'Slovenia', flag: '🇸🇮' },
-        { code: 'ES', name: 'Spain', flag: '🇪🇸' },
-        { code: 'SE', name: 'Sweden', flag: '🇸🇪' },
-        { code: 'CH', name: 'Switzerland', flag: '🇨🇭' },
-        { code: 'UA', name: 'Ukraine', flag: '🇺🇦' },
-        { code: 'GB', name: 'United Kingdom', flag: '🇬🇧' }
+        { code: 'PY', name: 'Paraguay', flag: '🇵🇾', dialCode: '+595' },
+        { code: 'AL', name: 'Albania', flag: '🇦🇱', dialCode: '+355' },
+        { code: 'AD', name: 'Andorra', flag: '🇦🇩', dialCode: '+376' },
+        { code: 'AT', name: 'Austria', flag: '🇦🇹', dialCode: '+43' },
+        { code: 'BY', name: 'Belarus', flag: '🇧🇾', dialCode: '+375' },
+        { code: 'BE', name: 'Belgium', flag: '🇧🇪', dialCode: '+32' },
+        { code: 'BA', name: 'Bosnia and Herzegovina', flag: '🇧🇦', dialCode: '+387' },
+        { code: 'BG', name: 'Bulgaria', flag: '🇧🇬', dialCode: '+359' },
+        { code: 'HR', name: 'Croatia', flag: '🇭🇷', dialCode: '+385' },
+        { code: 'CZ', name: 'Czech Republic', flag: '🇨🇿', dialCode: '+420' },
+        { code: 'DK', name: 'Denmark', flag: '🇩🇰', dialCode: '+45' },
+        { code: 'EE', name: 'Estonia', flag: '🇪🇪', dialCode: '+372' },
+        { code: 'FI', name: 'Finland', flag: '🇫🇮', dialCode: '+358' },
+        { code: 'FR', name: 'France', flag: '🇫🇷', dialCode: '+33' },
+        { code: 'DE', name: 'Germany', flag: '🇩🇪', dialCode: '+49' },
+        { code: 'GR', name: 'Greece', flag: '🇬🇷', dialCode: '+30' },
+        { code: 'VA', name: 'Holy See (Vatican City)', flag: '🇻🇦', dialCode: '+379' },
+        { code: 'HU', name: 'Hungary', flag: '🇭🇺', dialCode: '+36' },
+        { code: 'IS', name: 'Iceland', flag: '🇮🇸', dialCode: '+354' },
+        { code: 'IE', name: 'Ireland', flag: '🇮🇪', dialCode: '+353' },
+        { code: 'IT', name: 'Italy', flag: '🇮🇹', dialCode: '+39' },
+        { code: 'LV', name: 'Latvia', flag: '🇱🇻', dialCode: '+371' },
+        { code: 'LI', name: 'Liechtenstein', flag: '🇱🇮', dialCode: '+423' },
+        { code: 'LT', name: 'Lithuania', flag: '🇱🇹', dialCode: '+370' },
+        { code: 'LU', name: 'Luxembourg', flag: '🇱🇺', dialCode: '+352' },
+        { code: 'MT', name: 'Malta', flag: '🇲🇹', dialCode: '+356' },
+        { code: 'MD', name: 'Moldova', flag: '🇲🇩', dialCode: '+373' },
+        { code: 'MC', name: 'Monaco', flag: '🇲🇨', dialCode: '+377' },
+        { code: 'ME', name: 'Montenegro', flag: '🇲🇪', dialCode: '+382' },
+        { code: 'NL', name: 'Netherlands', flag: '🇳🇱', dialCode: '+31' },
+        { code: 'MK', name: 'North Macedonia', flag: '🇲🇰', dialCode: '+389' },
+        { code: 'NO', name: 'Norway', flag: '🇳🇴', dialCode: '+47' },
+        { code: 'PL', name: 'Poland', flag: '🇵🇱', dialCode: '+48' },
+        { code: 'PT', name: 'Portugal', flag: '🇵🇹', dialCode: '+351' },
+        { code: 'RO', name: 'Romania', flag: '🇷🇴', dialCode: '+40' },
+        { code: 'RU', name: 'Russia', flag: '🇷🇺', dialCode: '+7' },
+        { code: 'SM', name: 'San Marino', flag: '🇸🇲', dialCode: '+378' },
+        { code: 'RS', name: 'Serbia', flag: '🇷🇸', dialCode: '+381' },
+        { code: 'SK', name: 'Slovakia', flag: '🇸🇰', dialCode: '+421' },
+        { code: 'SI', name: 'Slovenia', flag: '🇸🇮', dialCode: '+386' },
+        { code: 'ES', name: 'Spain', flag: '🇪🇸', dialCode: '+34' },
+        { code: 'SE', name: 'Sweden', flag: '🇸🇪', dialCode: '+46' },
+        { code: 'CH', name: 'Switzerland', flag: '🇨🇭', dialCode: '+41' },
+        { code: 'UA', name: 'Ukraine', flag: '🇺🇦', dialCode: '+380' },
+        { code: 'GB', name: 'United Kingdom', flag: '🇬🇧', dialCode: '+44' }
     ];
+
+    const COUNTRY_NATIONALITIES = {
+        PY: 'Paraguayan',
+        AL: 'Albanian',
+        AD: 'Andorran',
+        AT: 'Austrian',
+        BY: 'Belarusian',
+        BE: 'Belgian',
+        BA: 'Bosnian',
+        BG: 'Bulgarian',
+        HR: 'Croatian',
+        CZ: 'Czech',
+        DK: 'Danish',
+        EE: 'Estonian',
+        FI: 'Finnish',
+        FR: 'French',
+        DE: 'German',
+        GR: 'Greek',
+        VA: 'Vatican Citizen',
+        HU: 'Hungarian',
+        IS: 'Icelandic',
+        IE: 'Irish',
+        IT: 'Italian',
+        LV: 'Latvian',
+        LI: 'Liechtensteiner',
+        LT: 'Lithuanian',
+        LU: 'Luxembourgish',
+        MT: 'Maltese',
+        MD: 'Moldovan',
+        MC: 'Monegasque',
+        ME: 'Montenegrin',
+        NL: 'Dutch',
+        MK: 'North Macedonian',
+        NO: 'Norwegian',
+        PL: 'Polish',
+        PT: 'Portuguese',
+        RO: 'Romanian',
+        RU: 'Russian',
+        SM: 'Sammarinese',
+        RS: 'Serbian',
+        SK: 'Slovak',
+        SI: 'Slovenian',
+        ES: 'Spanish',
+        SE: 'Swedish',
+        CH: 'Swiss',
+        UA: 'Ukrainian',
+        GB: 'British'
+    };
+
+    const PHONE_CODE_FALLBACKS = [
+        { dialCode: '+1', label: 'United States / Canada' },
+        { dialCode: '+55', label: 'Brazil' }
+    ];
+
+    const ADDITIONAL_NATIONALITIES = ['American', 'Canadian', 'Brazilian', 'Argentine', 'Mexican'];
+    const DEFAULT_NATIONALITY_SUGGESTIONS = ['Paraguayan', 'Brazilian', 'American', 'German', 'Spanish', 'French', 'British'];
 
     const AVAILABLE_COUNTRIES = RAW_COUNTRIES.map(country => ({
         ...country,
@@ -447,6 +144,14 @@
             .replace(/^-+|-+$/g, '');
     }
 
+    function normalizeText(value) {
+        return value
+            .toString()
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .toLowerCase();
+    }
+
     function getPersistedLocation() {
         try {
             const stored = localStorage.getItem('tessera_form_data');
@@ -455,13 +160,14 @@
                 return {
                     country: parsed.country || '',
                     state: parsed.state || '',
-                    city: parsed.city || ''
+                    city: parsed.city || '',
+                    nationality: parsed.nationality || ''
                 };
             }
         } catch (error) {
             console.warn('Unable to read persisted location data:', error);
         }
-        return { country: '', state: '', city: '' };
+        return { country: '', state: '', city: '', nationality: '' };
     }
 
     function populateCountries(countrySelect, selectedCountry) {
@@ -515,17 +221,375 @@
         return option;
     }
 
-    function resetStateCity(stateSelect, citySelect) {
+    function populatePhoneCodes(phoneCodeSelect) {
+        if (!phoneCodeSelect) {
+            return;
+        }
+
+        const seen = new Set();
+        const entries = [];
+
+        RAW_COUNTRIES.forEach(country => {
+            if (!country.dialCode) {
+                return;
+            }
+
+            if (seen.has(country.dialCode)) {
+                return;
+            }
+
+            seen.add(country.dialCode);
+            entries.push({
+                dialCode: country.dialCode,
+                label: `${country.dialCode} ${country.flag} ${country.name}`
+            });
+        });
+
+        PHONE_CODE_FALLBACKS.forEach(fallback => {
+            if (!fallback.dialCode || seen.has(fallback.dialCode)) {
+                return;
+            }
+
+            seen.add(fallback.dialCode);
+            entries.push({ dialCode: fallback.dialCode, label: `${fallback.dialCode} (${fallback.label})` });
+        });
+
+        entries.sort((a, b) => {
+            const codeA = parseInt(a.dialCode.replace('+', ''), 10);
+            const codeB = parseInt(b.dialCode.replace('+', ''), 10);
+            return codeA - codeB;
+        });
+
+        const currentValue = phoneCodeSelect.value;
+        phoneCodeSelect.innerHTML = '';
+
+        entries.forEach(entry => {
+            const option = document.createElement('option');
+            option.value = entry.dialCode;
+            option.textContent = entry.label;
+            phoneCodeSelect.appendChild(option);
+        });
+
+        if (currentValue) {
+            phoneCodeSelect.value = currentValue;
+        } else if (PHONE_CODE_FALLBACKS.length) {
+            const preferred = PHONE_CODE_FALLBACKS[0].dialCode;
+            if (preferred && seen.has(preferred)) {
+                phoneCodeSelect.value = preferred;
+            }
+        }
+    }
+
+    function getDialCodeForCountry(countryCode) {
+        const entry = RAW_COUNTRIES.find(country => country.code === countryCode);
+        return entry?.dialCode || '';
+    }
+
+    function syncPhoneDialCode(countryCode, phoneCodeSelect) {
+        if (!phoneCodeSelect) {
+            return;
+        }
+
+        const dialCode = getDialCodeForCountry(countryCode);
+        if (!dialCode) {
+            return;
+        }
+
+        if (!Array.from(phoneCodeSelect.options).some(option => option.value === dialCode)) {
+            const option = document.createElement('option');
+            option.value = dialCode;
+            option.textContent = dialCode;
+            phoneCodeSelect.appendChild(option);
+        }
+
+        phoneCodeSelect.value = dialCode;
+    }
+
+    function populateNationalityOptions(datalist) {
+        const seen = new Set();
+        const options = [];
+
+        RAW_COUNTRIES.forEach(country => {
+            const candidates = [COUNTRY_NATIONALITIES[country.code], country.name].filter(Boolean);
+            candidates.forEach(label => {
+                if (label && !seen.has(label)) {
+                    seen.add(label);
+                    options.push(label);
+                }
+            });
+        });
+
+        ADDITIONAL_NATIONALITIES.forEach(label => {
+            if (!seen.has(label)) {
+                seen.add(label);
+                options.push(label);
+            }
+        });
+
+        options.sort((a, b) => a.localeCompare(b));
+        if (datalist) {
+            datalist.innerHTML = '';
+
+            options.forEach(label => {
+                const option = document.createElement('option');
+                option.value = label;
+                datalist.appendChild(option);
+            });
+        }
+
+        return options;
+    }
+
+    function setupNationalityAutocomplete(input, options) {
+        if (!input || !Array.isArray(options) || options.length === 0) {
+            return;
+        }
+
+        if (input.dataset.autocompleteBound === 'true') {
+            return;
+        }
+
+        const wrapper = input.closest('.form-group') || input.parentElement;
+        if (!wrapper) {
+            return;
+        }
+
+        input.dataset.autocompleteBound = 'true';
+        wrapper.classList.add('has-nationality-autocomplete');
+
+        const normalizedOptions = options.map(label => ({
+            label,
+            normalized: normalizeText(label)
+        }));
+
+        const preferredDefaults = [];
+        DEFAULT_NATIONALITY_SUGGESTIONS.forEach(label => {
+            const match = normalizedOptions.find(option => option.label === label);
+            if (match && !preferredDefaults.includes(match.label)) {
+                preferredDefaults.push(match.label);
+            }
+        });
+
+        const fallbackDefaults = options.slice(0, 7);
+        const defaultSuggestions = preferredDefaults.length
+            ? [
+                ...preferredDefaults,
+                ...options.filter(label => !preferredDefaults.includes(label)).slice(0, Math.max(0, 7 - preferredDefaults.length))
+            ]
+            : fallbackDefaults;
+
+        const datalistId = input.getAttribute('list');
+        const datalistElement = datalistId ? document.getElementById(datalistId) : null;
+        const suggestionList = document.createElement('div');
+        suggestionList.className = 'nationality-suggestion-list';
+
+        const listId = input.id ? `${input.id}-suggestions` : 'nationality-suggestions';
+        suggestionList.id = listId;
+        suggestionList.setAttribute('role', 'listbox');
+
+        if (datalistElement && datalistElement.parentNode) {
+            datalistElement.parentNode.insertBefore(suggestionList, datalistElement);
+        } else {
+            input.insertAdjacentElement('afterend', suggestionList);
+        }
+
+        if (datalistId) {
+            input.setAttribute('data-original-list', datalistId);
+            input.removeAttribute('list');
+        }
+
+        input.setAttribute('autocomplete', 'off');
+        input.setAttribute('role', 'combobox');
+        input.setAttribute('aria-haspopup', 'listbox');
+        input.setAttribute('aria-controls', listId);
+        input.setAttribute('aria-expanded', 'false');
+        input.setAttribute('aria-autocomplete', 'list');
+
+        let currentSuggestions = [];
+        let activeIndex = -1;
+
+        function closeSuggestions() {
+            suggestionList.innerHTML = '';
+            suggestionList.classList.remove('is-visible');
+            input.setAttribute('aria-expanded', 'false');
+            input.removeAttribute('aria-activedescendant');
+            currentSuggestions = [];
+            activeIndex = -1;
+        }
+
+        function highlightSuggestion(index) {
+            const items = suggestionList.querySelectorAll('.nationality-suggestion-item');
+            items.forEach((item, itemIndex) => {
+                if (itemIndex === index) {
+                    item.classList.add('is-active');
+                    input.setAttribute('aria-activedescendant', item.id);
+                    item.scrollIntoView({ block: 'nearest' });
+                } else {
+                    item.classList.remove('is-active');
+                }
+            });
+            activeIndex = index;
+            if (index < 0) {
+                input.removeAttribute('aria-activedescendant');
+            }
+        }
+
+        function openSuggestions(list) {
+            suggestionList.innerHTML = '';
+
+            if (!list.length) {
+                closeSuggestions();
+                return;
+            }
+
+            list.forEach((label, index) => {
+                const item = document.createElement('div');
+                item.className = 'nationality-suggestion-item';
+                const itemId = `${listId}-item-${index}`;
+                item.id = itemId;
+                item.setAttribute('role', 'option');
+                item.textContent = label;
+                item.dataset.value = label;
+                suggestionList.appendChild(item);
+            });
+
+            suggestionList.classList.add('is-visible');
+            input.setAttribute('aria-expanded', 'true');
+            currentSuggestions = list;
+            highlightSuggestion(-1);
+        }
+
+        function buildSuggestions(query) {
+            const normalizedQuery = normalizeText(query.trim());
+
+            if (!normalizedQuery) {
+                return defaultSuggestions.slice();
+            }
+
+            const startsWithMatches = [];
+            const containsMatches = [];
+
+            normalizedOptions.forEach(option => {
+                if (option.normalized.startsWith(normalizedQuery)) {
+                    startsWithMatches.push(option.label);
+                } else if (option.normalized.includes(normalizedQuery)) {
+                    containsMatches.push(option.label);
+                }
+            });
+
+            return [...startsWithMatches, ...containsMatches].slice(0, 10);
+        }
+
+        function selectSuggestion(value) {
+            if (!value) {
+                return;
+            }
+
+            input.value = value;
+            if (input.dataset.autofilledFromCountry === 'true') {
+                delete input.dataset.autofilledFromCountry;
+            }
+            input.dispatchEvent(new Event('input', { bubbles: true }));
+            input.dispatchEvent(new Event('change', { bubbles: true }));
+            closeSuggestions();
+        }
+
+        input.addEventListener('input', function() {
+            if (input.dataset.autofilledFromCountry === 'true') {
+                delete input.dataset.autofilledFromCountry;
+            }
+            const suggestions = buildSuggestions(input.value);
+            if (suggestions.length) {
+                openSuggestions(suggestions);
+            } else {
+                closeSuggestions();
+            }
+        });
+
+        input.addEventListener('focus', function() {
+            const suggestions = buildSuggestions(input.value);
+            if (suggestions.length) {
+                openSuggestions(suggestions);
+            }
+        });
+
+        input.addEventListener('blur', function() {
+            setTimeout(closeSuggestions, 120);
+        });
+
+        input.addEventListener('keydown', function(event) {
+            if (!suggestionList.classList.contains('is-visible')) {
+                if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+                    const suggestions = buildSuggestions(input.value);
+                    if (suggestions.length) {
+                        event.preventDefault();
+                        openSuggestions(suggestions);
+                    }
+                }
+                return;
+            }
+
+            if (event.key === 'ArrowDown') {
+                event.preventDefault();
+                if (currentSuggestions.length) {
+                    const nextIndex = activeIndex + 1 >= currentSuggestions.length ? 0 : activeIndex + 1;
+                    highlightSuggestion(nextIndex);
+                }
+            } else if (event.key === 'ArrowUp') {
+                event.preventDefault();
+                if (currentSuggestions.length) {
+                    const prevIndex = activeIndex - 1 < 0 ? currentSuggestions.length - 1 : activeIndex - 1;
+                    highlightSuggestion(prevIndex);
+                }
+            } else if (event.key === 'Enter') {
+                if (activeIndex >= 0 && currentSuggestions[activeIndex]) {
+                    event.preventDefault();
+                    selectSuggestion(currentSuggestions[activeIndex]);
+                }
+            } else if (event.key === 'Escape') {
+                closeSuggestions();
+            }
+        });
+
+        suggestionList.addEventListener('pointerdown', function(event) {
+            event.preventDefault();
+            const item = event.target.closest('.nationality-suggestion-item');
+            if (item) {
+                selectSuggestion(item.dataset.value);
+            }
+        });
+
+        suggestionList.addEventListener('mousemove', function(event) {
+            const item = event.target.closest('.nationality-suggestion-item');
+            if (!item) {
+                return;
+            }
+
+            const items = Array.from(suggestionList.querySelectorAll('.nationality-suggestion-item'));
+            const index = items.indexOf(item);
+            if (index >= 0 && index !== activeIndex) {
+                highlightSuggestion(index);
+            }
+        });
+    }
+
+    function resetStateCity(stateSelect, citySelect, customCityGroup, customCityInput) {
         stateSelect.innerHTML = '<option value="">Select your state/province</option>';
         stateSelect.disabled = true;
         citySelect.innerHTML = '<option value="">Select your city</option>';
         citySelect.disabled = true;
+        if (customCityGroup) {
+            customCityGroup.style.display = 'none';
+        }
+        if (customCityInput) {
+            customCityInput.required = false;
+        }
     }
 
-    function populateStates(stateSelect, citySelect, countryCode, preservedState, preservedCity) {
+    function populateStates(stateSelect, citySelect, countryCode, preservedState, preservedCity, customCityGroup, customCityInput) {
         const countryData = LOCATION_DATA[countryCode];
         if (!countryData || !countryData.regions || countryData.regions.length === 0) {
-            resetStateCity(stateSelect, citySelect);
+            resetStateCity(stateSelect, citySelect, customCityGroup, customCityInput);
             return;
         }
 
@@ -541,20 +605,32 @@
 
         if (preservedState && stateSelect.querySelector(`option[value="${preservedState}"]`)) {
             stateSelect.value = preservedState;
-            populateCities(citySelect, countryCode, preservedState, preservedCity);
+            populateCities(citySelect, countryCode, preservedState, preservedCity, customCityGroup, customCityInput);
         } else {
             citySelect.innerHTML = '<option value="">Select your city</option>';
             citySelect.disabled = true;
+            if (customCityGroup) {
+                customCityGroup.style.display = 'none';
+            }
+            if (customCityInput) {
+                customCityInput.required = false;
+            }
         }
     }
 
-    function populateCities(citySelect, countryCode, stateValue, preservedCity) {
+    function populateCities(citySelect, countryCode, stateValue, preservedCity, customCityGroup, customCityInput) {
         const countryData = LOCATION_DATA[countryCode];
         const region = countryData?.regions?.find(entry => entry.value === stateValue);
         citySelect.innerHTML = '<option value="">Select your city</option>';
 
         if (!region) {
             citySelect.disabled = true;
+            if (customCityGroup) {
+                customCityGroup.style.display = 'none';
+            }
+            if (customCityInput) {
+                customCityInput.required = false;
+            }
             return;
         }
 
@@ -575,63 +651,163 @@
         if (preservedCity && citySelect.querySelector(`option[value="${preservedCity}"]`)) {
             citySelect.value = preservedCity;
         }
+
+        handleCityChange(citySelect, customCityGroup, customCityInput);
     }
 
-    function handleCountryChange(countrySelect, stateSelect, citySelect) {
+    function prefillNationalityFromCountry(countryCode, nationalityInput) {
+        if (!nationalityInput) {
+            return;
+        }
+
+        const shouldOverride = !nationalityInput.value || nationalityInput.dataset.autofilledFromCountry === 'true';
+        if (!shouldOverride) {
+            return;
+        }
+
+        const demonym = COUNTRY_NATIONALITIES[countryCode];
+        if (demonym) {
+            nationalityInput.value = demonym;
+            nationalityInput.dataset.autofilledFromCountry = 'true';
+            nationalityInput.dispatchEvent(new Event('input', { bubbles: true }));
+            nationalityInput.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+    }
+
+    function handleCountryChange(countrySelect, stateSelect, citySelect, customCityGroup, customCityInput, phoneCodeSelect, nationalityInput) {
         const selectedCountry = countrySelect.value;
 
         if (!selectedCountry) {
-            resetStateCity(stateSelect, citySelect);
+            resetStateCity(stateSelect, citySelect, customCityGroup, customCityInput);
+            if (phoneCodeSelect && PHONE_CODE_FALLBACKS.length) {
+                phoneCodeSelect.value = PHONE_CODE_FALLBACKS[0].dialCode;
+            }
+            if (nationalityInput && nationalityInput.dataset.autofilledFromCountry === 'true') {
+                nationalityInput.value = '';
+                delete nationalityInput.dataset.autofilledFromCountry;
+                nationalityInput.dispatchEvent(new Event('input', { bubbles: true }));
+                nationalityInput.dispatchEvent(new Event('change', { bubbles: true }));
+            }
             return;
         }
 
         if (selectedCountry === 'OTHER') {
             showExpansionModal();
-            resetStateCity(stateSelect, citySelect);
+            resetStateCity(stateSelect, citySelect, customCityGroup, customCityInput);
+            if (phoneCodeSelect) {
+                phoneCodeSelect.value = '';
+            }
+            if (nationalityInput && nationalityInput.dataset.autofilledFromCountry === 'true') {
+                nationalityInput.value = '';
+                delete nationalityInput.dataset.autofilledFromCountry;
+                nationalityInput.dispatchEvent(new Event('input', { bubbles: true }));
+                nationalityInput.dispatchEvent(new Event('change', { bubbles: true }));
+            }
             return;
         }
 
-        populateStates(stateSelect, citySelect, selectedCountry);
+        syncPhoneDialCode(selectedCountry, phoneCodeSelect);
+        prefillNationalityFromCountry(selectedCountry, nationalityInput);
+        populateStates(stateSelect, citySelect, selectedCountry, undefined, undefined, customCityGroup, customCityInput);
     }
 
-    function handleStateChange(countrySelect, stateSelect, citySelect) {
+    function handleStateChange(countrySelect, stateSelect, citySelect, customCityGroup, customCityInput) {
         const countryCode = countrySelect.value;
         const stateValue = stateSelect.value;
 
         if (!countryCode || !stateValue) {
             citySelect.innerHTML = '<option value="">Select your city</option>';
             citySelect.disabled = true;
+            if (customCityGroup) {
+                customCityGroup.style.display = 'none';
+            }
+            if (customCityInput) {
+                customCityInput.required = false;
+            }
             return;
         }
 
-        populateCities(citySelect, countryCode, stateValue);
+        populateCities(citySelect, countryCode, stateValue, undefined, customCityGroup, customCityInput);
+    }
+
+    function handleCityChange(citySelect, customCityGroup, customCityInput) {
+        if (!customCityGroup) {
+            return;
+        }
+
+        if (citySelect.value === 'other') {
+            customCityGroup.style.display = 'block';
+            if (customCityInput) {
+                customCityInput.required = true;
+            }
+        } else {
+            customCityGroup.style.display = 'none';
+            if (customCityInput) {
+                customCityInput.required = false;
+            }
+        }
     }
 
     function initializeParaguayEuropeSelector() {
         const countrySelect = document.getElementById('country');
         const stateSelect = document.getElementById('state');
         const citySelect = document.getElementById('city');
+        const customCityGroup = document.getElementById('custom-city-group');
+        const customCityInput = document.getElementById('custom-city');
+        const phoneCodeSelect = document.getElementById('country-code');
+        const nationalityInput = document.getElementById('nationality');
+        const nationalityDatalist = document.getElementById('nationality-options');
 
         if (!countrySelect || !stateSelect || !citySelect) {
             console.warn('Location selectors not found on the page.');
+            window.tesseraParaguayEuropeSelectorInitialized = false;
             return;
         }
 
         const persisted = getPersistedLocation();
 
+        if (nationalityInput) {
+            if (persisted.nationality) {
+                nationalityInput.value = persisted.nationality;
+                const demonym = COUNTRY_NATIONALITIES[persisted.country];
+                if (demonym && normalizeText(demonym) === normalizeText(persisted.nationality)) {
+                    nationalityInput.dataset.autofilledFromCountry = 'true';
+                } else if (nationalityInput.dataset.autofilledFromCountry) {
+                    delete nationalityInput.dataset.autofilledFromCountry;
+                }
+            } else if (nationalityInput.dataset.autofilledFromCountry) {
+                delete nationalityInput.dataset.autofilledFromCountry;
+            }
+        }
+
         populateCountries(countrySelect, persisted.country);
-        resetStateCity(stateSelect, citySelect);
+        populatePhoneCodes(phoneCodeSelect);
+        const nationalityOptions = populateNationalityOptions(nationalityDatalist);
+        setupNationalityAutocomplete(nationalityInput, nationalityOptions);
+        resetStateCity(stateSelect, citySelect, customCityGroup, customCityInput);
 
         countrySelect.addEventListener('change', function() {
-            handleCountryChange(countrySelect, stateSelect, citySelect);
+            handleCountryChange(countrySelect, stateSelect, citySelect, customCityGroup, customCityInput, phoneCodeSelect, nationalityInput);
         });
 
         stateSelect.addEventListener('change', function() {
-            handleStateChange(countrySelect, stateSelect, citySelect);
+            handleStateChange(countrySelect, stateSelect, citySelect, customCityGroup, customCityInput);
+        });
+
+        citySelect.addEventListener('change', function() {
+            handleCityChange(citySelect, customCityGroup, customCityInput);
         });
 
         if (persisted.country && persisted.country !== 'OTHER') {
-            populateStates(stateSelect, citySelect, persisted.country, persisted.state, persisted.city);
+            populateStates(stateSelect, citySelect, persisted.country, persisted.state, persisted.city, customCityGroup, customCityInput);
+            syncPhoneDialCode(persisted.country, phoneCodeSelect);
+            prefillNationalityFromCountry(persisted.country, nationalityInput);
+        } else if (persisted.country === 'OTHER' && phoneCodeSelect) {
+            phoneCodeSelect.value = '';
+        }
+
+        if (persisted.city === 'other') {
+            handleCityChange(citySelect, customCityGroup, customCityInput);
         }
 
         createExpansionModal();
