@@ -227,6 +227,16 @@ function initializeLocationSelectors() {
         citySelect.disabled = true;
     }
 
+    function appendOtherOption(selectEl, placeholderText = 'Select your city') {
+        if (!selectEl) return;
+        selectEl.innerHTML = `<option value="">${placeholderText}</option>`;
+        const otherOpt = document.createElement('option');
+        otherOpt.value = 'other';
+        otherOpt.textContent = 'Other (specify below)';
+        selectEl.appendChild(otherOpt);
+        selectEl.disabled = false;
+    }
+
     function toggleCustomCity(shouldShow) {
         if (!customCityGroup) return;
         if (shouldShow) {
@@ -255,7 +265,10 @@ function initializeLocationSelectors() {
         }
 
         if (!allowedCountries.has(selectedCountry)) {
-            toggleCustomCity(true);
+            // Country not in curated list — allow user to explicitly choose 'Other' for city input
+            resetStateSelect('No regions available');
+            // populate city select with Other option so user must choose it
+                appendOtherOption(citySelect, 'Select your city');
             return;
         }
 
@@ -276,12 +289,23 @@ function initializeLocationSelectors() {
                 stateSelect.disabled = false;
             } else {
                 stateSelect.innerHTML = '<option value="">No regions available</option>';
-                toggleCustomCity(true);
+                // Provide an explicit 'Other' choice in the city select so the user can enter a city if needed
+                citySelect.innerHTML = '<option value="">Select your city</option>';
+                const otherOpt = document.createElement('option');
+                otherOpt.value = 'other';
+                otherOpt.textContent = 'Other (specify below)';
+                citySelect.appendChild(otherOpt);
+                citySelect.disabled = false;
             }
         } catch (error) {
             console.error('Unable to populate states', error);
             resetStateSelect('Unable to load states');
-            toggleCustomCity(true);
+            citySelect.innerHTML = '<option value="">Select your city</option>';
+            const otherOpt = document.createElement('option');
+            otherOpt.value = 'other';
+            otherOpt.textContent = 'Other (specify below)';
+            citySelect.appendChild(otherOpt);
+            citySelect.disabled = false;
         }
     }
 
@@ -320,12 +344,12 @@ function initializeLocationSelectors() {
                 citySelect.disabled = false;
             } else {
                 citySelect.innerHTML = '<option value="">No cities available</option>';
-                toggleCustomCity(true);
+                    appendOtherOption(citySelect);
             }
         } catch (error) {
             console.error('Unable to populate cities', error);
             resetCitySelect('Unable to load cities');
-            toggleCustomCity(true);
+                appendOtherOption(citySelect, 'Select your city');
         }
     }
 

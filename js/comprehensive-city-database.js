@@ -83,7 +83,11 @@
             const name = (state.name || '').trim();
             if (!name) return null;
             const code = sanitizeCode(state.code || name);
-            const cities = cleanList(state.cities || []);
+            let cities = cleanList(state.cities || []);
+            // Ensure there is at least one city for every state (use state name as fallback)
+            if (!cities.length) {
+                cities = [name];
+            }
             fallbackCityMap[`${countryCode}::${code}`] = cities;
             return { code, name };
         }).filter(Boolean);
