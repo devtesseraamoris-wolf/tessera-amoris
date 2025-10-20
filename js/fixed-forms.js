@@ -217,18 +217,6 @@ function initializeLocationSelectors() {
 
     const allowedCountries = new Set(Object.keys(locationService.countries));
 
-    // Mapping from country code (select value) to phone prefix. Keep minimal and extend as needed.
-    const COUNTRY_PHONE_PREFIX = {
-        'PY': '+595',
-        'US': '+1',
-        'GB': '+44',
-        'DE': '+49',
-        'FR': '+33',
-        'ES': '+34',
-        'IT': '+39',
-        'BR': '+55'
-    };
-
     function resetStateSelect(placeholderText) {
         stateSelect.innerHTML = `<option value="">${placeholderText}</option>`;
         stateSelect.disabled = true;
@@ -260,29 +248,6 @@ function initializeLocationSelectors() {
 
         if (!selectedCountry) {
             return;
-        }
-
-        // If we have a known phone prefix for the selected country, preselect the country-code select
-        try {
-            const countryCodeSelect = document.getElementById('country-code');
-            if (countryCodeSelect) {
-                const prefix = COUNTRY_PHONE_PREFIX[selectedCountry];
-                if (prefix) {
-                    // If an option with this value exists, select it. Otherwise, try to add it.
-                    const existing = Array.from(countryCodeSelect.options).find(o => o.value === prefix);
-                    if (existing) {
-                        countryCodeSelect.value = prefix;
-                    } else {
-                        const opt = document.createElement('option');
-                        opt.value = prefix;
-                        opt.textContent = prefix;
-                        countryCodeSelect.appendChild(opt);
-                        countryCodeSelect.value = prefix;
-                    }
-                }
-            }
-        } catch (e) {
-            console.warn('Unable to preselect country code', e);
         }
 
         if (!allowedCountries.has(selectedCountry)) {
