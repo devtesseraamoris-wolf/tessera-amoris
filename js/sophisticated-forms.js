@@ -36,7 +36,7 @@ function initializeLocationSelectors() {
         citySelect.innerHTML = '<option value="">Select your city</option>';
         stateSelect.disabled = !selectedCountry;
         citySelect.disabled = true;
-        if (customCityGroup) customCityGroup.style.display = 'none';
+    if (customCityGroup) customCityGroup.setAttribute('hidden', '');
         
         if (selectedCountry) {
             // Populate states for selected country
@@ -58,7 +58,7 @@ function initializeLocationSelectors() {
         // Reset city selector
         citySelect.innerHTML = '<option value="">Select your city</option>';
         citySelect.disabled = !selectedState;
-        if (customCityGroup) customCityGroup.style.display = 'none';
+    if (customCityGroup) customCityGroup.setAttribute('hidden', '');
         
         if (selectedCountry && selectedState) {
             // Populate cities for selected state
@@ -81,14 +81,16 @@ function initializeLocationSelectors() {
     // City change handler
     citySelect.addEventListener('change', function() {
         if (customCityGroup) {
+            const customCityInput = document.getElementById('custom-city');
             if (this.value === 'other') {
-                customCityGroup.style.display = 'block';
-                const customCityInput = document.getElementById('custom-city');
+                customCityGroup.removeAttribute('hidden');
                 if (customCityInput) customCityInput.required = true;
             } else {
-                customCityGroup.style.display = 'none';
-                const customCityInput = document.getElementById('custom-city');
-                if (customCityInput) customCityInput.required = false;
+                customCityGroup.setAttribute('hidden', '');
+                if (customCityInput) {
+                    customCityInput.required = false;
+                    customCityInput.value = '';
+                }
             }
         }
     });

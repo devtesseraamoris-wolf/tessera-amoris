@@ -229,7 +229,11 @@ function initializeLocationSelectors() {
 
     function toggleCustomCity(shouldShow) {
         if (!customCityGroup) return;
-        customCityGroup.style.display = shouldShow ? 'block' : 'none';
+        if (shouldShow) {
+            customCityGroup.removeAttribute('hidden');
+        } else {
+            customCityGroup.setAttribute('hidden', '');
+        }
         if (customCityInput) {
             customCityInput.required = shouldShow;
             if (!shouldShow) {
@@ -329,7 +333,7 @@ function initializeLocationSelectors() {
     stateSelect.addEventListener('change', handleStateChange);
 
     citySelect.addEventListener('change', function() {
-        if (!customCityGroup) return;
+        // Show the manual city input only when user selects 'other'
         if (this.value === 'other') {
             toggleCustomCity(true);
         } else {
