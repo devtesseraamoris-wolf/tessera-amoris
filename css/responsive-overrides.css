@@ -22,9 +22,18 @@ p, label, .form-label{font-size:0.95rem}
 .col{flex:1;min-width:0}
 
 /* Navigation and header tweaks */
-.header-container .nav-menu{display:flex;gap:12px;flex-wrap:wrap}
-.mobile-menu-btn{display:inline-flex}
+.header-container{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.header-container .logo{flex:0 0 auto}
+.header-container nav{flex:1;margin:0 24px}
+.header-container .nav-menu{display:flex;gap:20px;justify-content:center;align-items:center}
+.apply-btn{flex:0 0 auto}
+.mobile-menu-btn{display:inline-flex;background:transparent;border:0;padding:8px;font-size:1.15rem}
 @media(min-width:900px){.mobile-menu-btn{display:none}}
+
+/* Mobile collapsed nav */
+.nav-menu.mobile-collapsed{display:none}
+.nav-menu.mobile-open{display:flex;flex-direction:column;gap:12px;padding:12px 0}
+@media(min-width:900px){.nav-menu.mobile-open{display:flex;flex-direction:row;padding:0}}
 
 /* Forms - make inputs full width and touch friendly */
 .form-input, .location-select, select, input[type="email"], input[type="tel"], textarea{width:100%;padding:12px;border-radius:8px;font-size:1rem}
