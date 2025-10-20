@@ -15,6 +15,26 @@ function initializeLocationSelectors() {
     const stateSelect = document.getElementById('state');
     const citySelect = document.getElementById('city');
     const customCityGroup = document.getElementById('custom-city-group');
+    const customCityInput = document.getElementById('custom-city');
+
+    const hideCustomCity = () => {
+        if (!customCityGroup) return;
+        customCityGroup.hidden = true;
+        if (customCityInput) {
+            customCityInput.required = false;
+            customCityInput.value = '';
+        }
+    };
+
+    const showCustomCity = () => {
+        if (!customCityGroup) return;
+        customCityGroup.hidden = false;
+        if (customCityInput) {
+            customCityInput.required = true;
+        }
+    };
+
+    hideCustomCity();
     
     function appendOtherOption(selectEl, placeholderText = 'Select your city') {
         if (!selectEl) return;
@@ -44,9 +64,9 @@ function initializeLocationSelectors() {
         // Reset and disable state and city selectors
         stateSelect.innerHTML = '<option value="">Select your state/province</option>';
         citySelect.innerHTML = '<option value="">Select your city</option>';
-        stateSelect.disabled = !selectedCountry;
-        citySelect.disabled = true;
-    if (customCityGroup) customCityGroup.setAttribute('hidden', '');
+    stateSelect.disabled = !selectedCountry;
+    citySelect.disabled = true;
+    hideCustomCity();
         
         if (selectedCountry) {
             // Populate states for selected country
@@ -67,38 +87,37 @@ function initializeLocationSelectors() {
         
         // Reset city selector
         citySelect.innerHTML = '<option value="">Select your city</option>';
-        citySelect.disabled = !selectedState;
-    if (customCityGroup) customCityGroup.setAttribute('hidden', '');
+    citySelect.disabled = !selectedState;
+    hideCustomCity();
         
         if (selectedCountry && selectedState) {
             // Populate cities for selected state
             const cities = LocationDatabase.getCities(selectedCountry, selectedState);
-            cities.forEach(city => {
-                const option = document.createElement('option');
-                option.value = city.value;
-                option.textContent = city.label;
-                citySelect.appendChild(option);
-            });
-            
-            // Add "Other" option
-            appendOtherOption(citySelect, 'Select your city');
+            if (cities.length) {
+                cities.forEach(city => {
+                    const option = document.createElement('option');
+                    option.value = city.value;
+                    option.textContent = city.label;
+                    citySelect.appendChild(option);
+                });
+                const otherOption = document.createElement('option');
+                otherOption.value = 'other';
+                otherOption.textContent = 'Other (specify below)';
+                citySelect.appendChild(otherOption);
+                citySelect.disabled = false;
+            } else {
+                appendOtherOption(citySelect, 'Select your city');
+            }
         }
     });
-    
+
     // City change handler
     citySelect.addEventListener('change', function() {
-        if (customCityGroup) {
-            const customCityInput = document.getElementById('custom-city');
-            if (this.value === 'other') {
-                customCityGroup.removeAttribute('hidden');
-                if (customCityInput) customCityInput.required = true;
-            } else {
-                customCityGroup.setAttribute('hidden', '');
-                if (customCityInput) {
-                    customCityInput.required = false;
-                    customCityInput.value = '';
-                }
-            }
+        if (this.value === 'other') {
+            showCustomCity();
+            if (customCityInput) customCityInput.focus();
+        } else {
+            hideCustomCity();
         }
     });
 }

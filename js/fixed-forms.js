@@ -307,11 +307,8 @@ async function initializeLocationSelectors() {
 
     function toggleCustomCity(shouldShow) {
         if (!customCityGroup) return;
-        if (shouldShow) {
-            customCityGroup.removeAttribute('hidden');
-        } else {
-            customCityGroup.setAttribute('hidden', '');
-        }
+        // Use the boolean hidden property for clarity
+        customCityGroup.hidden = !shouldShow;
         if (customCityInput) {
             customCityInput.required = shouldShow;
             if (!shouldShow) {
@@ -331,12 +328,10 @@ async function initializeLocationSelectors() {
         if (!selectedCountry) {
             return;
         }
-
         if (!allowedCountries.has(selectedCountry)) {
-            // Country not in curated list — allow user to explicitly choose 'Other' for city input
+            // Country not in curated list — user must explicitly choose 'Other' for manual city
             resetStateSelect('No regions available');
-            // populate city select with Other option so user must choose it
-                appendOtherOption(citySelect, 'Select your city');
+            appendOtherOption(citySelect, 'Select your city');
             return;
         }
 
@@ -357,23 +352,12 @@ async function initializeLocationSelectors() {
                 stateSelect.disabled = false;
             } else {
                 stateSelect.innerHTML = '<option value="">No regions available</option>';
-                // Provide an explicit 'Other' choice in the city select so the user can enter a city if needed
-                citySelect.innerHTML = '<option value="">Select your city</option>';
-                const otherOpt = document.createElement('option');
-                otherOpt.value = 'other';
-                otherOpt.textContent = 'Other (specify below)';
-                citySelect.appendChild(otherOpt);
-                citySelect.disabled = false;
+                appendOtherOption(citySelect, 'Select your city');
             }
         } catch (error) {
             console.error('Unable to populate states', error);
             resetStateSelect('Unable to load states');
-            citySelect.innerHTML = '<option value="">Select your city</option>';
-            const otherOpt = document.createElement('option');
-            otherOpt.value = 'other';
-            otherOpt.textContent = 'Other (specify below)';
-            citySelect.appendChild(otherOpt);
-            citySelect.disabled = false;
+            appendOtherOption(citySelect, 'Select your city');
         }
     }
 
@@ -391,33 +375,30 @@ async function initializeLocationSelectors() {
 
         citySelect.innerHTML = '<option value="">Loading cities...</option>';
         citySelect.disabled = true;
-
         try {
             const cities = await locationService.getCities(selectedCountry, selectedState);
             resetCitySelect('Select your city');
 
-            if (cities.length) {
+            if (cities && cities.length) {
                 cities.forEach(city => {
                     const option = document.createElement('option');
                     option.value = city.toLowerCase().replace(/\s+/g, '-');
                     option.textContent = city;
                     citySelect.appendChild(option);
                 });
-
                 const otherOption = document.createElement('option');
                 otherOption.value = 'other';
                 otherOption.textContent = 'Other (specify below)';
                 citySelect.appendChild(otherOption);
-
                 citySelect.disabled = false;
             } else {
-                citySelect.innerHTML = '<option value="">No cities available</option>';
-                    appendOtherOption(citySelect);
+                // No cities available — require explicit 'Other' selection to reveal manual input
+                appendOtherOption(citySelect, 'Select your city');
             }
         } catch (error) {
             console.error('Unable to populate cities', error);
             resetCitySelect('Unable to load cities');
-                appendOtherOption(citySelect, 'Select your city');
+            appendOtherOption(citySelect, 'Select your city');
         }
     }
 
