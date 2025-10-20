@@ -15,6 +15,26 @@ function initializeLocationSelectors() {
     const stateSelect = document.getElementById('state');
     const citySelect = document.getElementById('city');
     const customCityGroup = document.getElementById('custom-city-group');
+    const customCityInput = document.getElementById('custom-city');
+
+    const hideCustomCity = () => {
+        if (!customCityGroup) return;
+        customCityGroup.hidden = true;
+        if (customCityInput) {
+            customCityInput.required = false;
+            customCityInput.value = '';
+        }
+    };
+
+    const showCustomCity = () => {
+        if (!customCityGroup) return;
+        customCityGroup.hidden = false;
+        if (customCityInput) {
+            customCityInput.required = true;
+        }
+    };
+
+    hideCustomCity();
     
     if (!countrySelect || !stateSelect || !citySelect) return;
     
@@ -36,7 +56,7 @@ function initializeLocationSelectors() {
         citySelect.innerHTML = '<option value="">Select your city</option>';
         stateSelect.disabled = !selectedCountry;
         citySelect.disabled = true;
-        if (customCityGroup) customCityGroup.style.display = 'none';
+        hideCustomCity();
         
         if (selectedCountry) {
             // Populate states for selected country
@@ -58,38 +78,38 @@ function initializeLocationSelectors() {
         // Reset city selector
         citySelect.innerHTML = '<option value="">Select your city</option>';
         citySelect.disabled = !selectedState;
-        if (customCityGroup) customCityGroup.style.display = 'none';
+        hideCustomCity();
         
         if (selectedCountry && selectedState) {
             // Populate cities for selected state
             const cities = LocationDatabase.getCities(selectedCountry, selectedState);
-            cities.forEach(city => {
-                const option = document.createElement('option');
-                option.value = city.value;
-                option.textContent = city.label;
-                citySelect.appendChild(option);
-            });
-            
-            // Add "Other" option
+            if (cities.length) {
+                cities.forEach(city => {
+                    const option = document.createElement('option');
+                    option.value = city.value;
+                    option.textContent = city.label;
+                    citySelect.appendChild(option);
+                });
+            }
+
             const otherOption = document.createElement('option');
             otherOption.value = 'other';
             otherOption.textContent = 'Other (specify below)';
             citySelect.appendChild(otherOption);
+
+            citySelect.disabled = false;
         }
     });
-    
+
     // City change handler
     citySelect.addEventListener('change', function() {
-        if (customCityGroup) {
-            if (this.value === 'other') {
-                customCityGroup.style.display = 'block';
-                const customCityInput = document.getElementById('custom-city');
-                if (customCityInput) customCityInput.required = true;
-            } else {
-                customCityGroup.style.display = 'none';
-                const customCityInput = document.getElementById('custom-city');
-                if (customCityInput) customCityInput.required = false;
+        if (this.value === 'other') {
+            showCustomCity();
+            if (customCityInput) {
+                customCityInput.focus();
             }
+        } else {
+            hideCustomCity();
         }
     });
 }
