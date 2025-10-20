@@ -1,84 +1,588 @@
-/* Responsive overrides - mobile-first utility rules */
-:root{
+/* Global responsive overrides - extends legacy theme with a modern, device-friendly foundation */
+:root {
   --base-font: 16px;
   --scale-ratio: 1.125;
-  --max-width: 1100px;
+  --max-width: min(1120px, 100% - 3rem);
   --brand-gold: #d4af37;
   --muted: #6c757d;
-}
-html{font-size:100%;box-sizing:border-box}
-*,*::before,*::after{box-sizing:inherit}
-body{font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;line-height:1.45;color:#222;margin:0;padding:0}
-.container{max-width:var(--max-width);margin:0 auto;padding:0 16px}
-
-/* Typography scale */
-h1{font-size:1.75rem;margin:0 0 .5rem}
-h2{font-size:1.375rem;margin:0 0 .5rem}
-h3{font-size:1.125rem;margin:0 0 .5rem}
-p, label, .form-label{font-size:0.95rem}
-
-/* Layout helpers */
-.row{display:flex;flex-wrap:wrap;gap:12px}
-.col{flex:1;min-width:0}
-
-/* Navigation and header tweaks */
-.header-container{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.header-container .logo{flex:0 0 auto}
-.header-container nav{flex:1;margin:0 24px}
-.header-container .nav-menu{display:flex;gap:20px;justify-content:center;align-items:center}
-.apply-btn{flex:0 0 auto}
-.mobile-menu-btn{display:inline-flex;background:transparent;border:0;padding:8px;font-size:1.15rem}
-@media(min-width:900px){.mobile-menu-btn{display:none}}
-
-/* Mobile collapsed nav */
-.nav-menu.mobile-collapsed{display:none}
-.nav-menu.mobile-open{display:flex;flex-direction:column;gap:12px;padding:12px 0}
-@media(min-width:900px){.nav-menu.mobile-open{display:flex;flex-direction:row;padding:0}}
-
-/* Forms - make inputs full width and touch friendly */
-.form-input, .location-select, select, input[type="email"], input[type="tel"], textarea{width:100%;padding:12px;border-radius:8px;font-size:1rem}
-.phone-input-harmonized{display:flex;gap:8px;align-items:stretch}
-.country-code-harmonized{flex:0 0 92px}
-.phone-number-harmonized{flex:1}
-
-/* Make form fields stack on small screens */
-@media(max-width:768px){
-  .location-row{display:grid;grid-template-columns:1fr;gap:12px}
-  .contact-fields-row{display:grid;grid-template-columns:1fr;gap:12px}
-  .occupation-categories{display:flex;overflow:auto;gap:8px}
+  --header-height-mobile: 4.5rem;
+  --header-height-desktop: 5.75rem;
 }
 
-/* Tablets and up */
-@media(min-width:769px){
-  .date-picker-container{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-  .location-row{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-  .contact-fields-row{display:flex;gap:18px}
+html {
+  font-size: 100%;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
-/* Utility */
-.text-center{text-align:center}
-.hidden{display:none !important}
+*, *::before, *::after {
+  box-sizing: inherit;
+}
 
-/* Responsive images */
-img{max-width:100%;height:auto;display:block}
+body {
+  font-size: clamp(0.95rem, 0.92rem + 0.35vw, 1.1rem);
+  line-height: 1.6;
+  margin: 0;
+  padding-top: var(--header-height-mobile);
+  color: #222;
+  font-family: 'Montserrat', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
 
-/* Nationality chip container force comfortable sizing */
-.nationality-suggestion-container{padding:8px;gap:10px}
-.nationality-pill{padding:8px 14px;font-size:0.95rem}
+body.nav-open {
+  overflow: hidden;
+}
 
-/* Accessibility focus states */
-:focus{outline:3px solid rgba(212,175,55,0.18);outline-offset:2px}
+@media (min-width: 900px) {
+  body {
+    padding-top: var(--header-height-desktop);
+  }
+}
 
-/* Footer grid responsiveness */
-.footer-grid{display:grid;grid-template-columns:1fr;gap:18px}
-@media(min-width:900px){.footer-grid{grid-template-columns:repeat(3,1fr)}}
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
 
-/* Small tweaks for inputs inside review section */
-.review-value{word-break:break-word}
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 4vw, 2.5rem);
+}
 
-/* Minor adjustments for hero and branding */
-.logo-main-text{font-size:1.1rem}
+section, .section {
+  padding-block: clamp(3rem, 6vw, 5rem);
+}
 
-/* Ensure modals are full screen on small devices */
-.quiz-modal-overlay{padding:12px}
-.quiz-container{max-height:90vh;overflow:auto}
+h1 {
+  font-size: clamp(2.5rem, 4vw + 1.25rem, 4rem);
+  line-height: 1.1;
+}
+
+h2 {
+  font-size: clamp(2rem, 2.6vw + 1.25rem, 3rem);
+}
+
+h3 {
+  font-size: clamp(1.5rem, 1.7vw + 1rem, 2.25rem);
+}
+
+h4 {
+  font-size: clamp(1.25rem, 1.2vw + 0.95rem, 1.8rem);
+}
+
+p, label, .form-label, li {
+  font-size: clamp(0.95rem, 0.92rem + 0.2vw, 1.05rem);
+}
+
+ul,
+ol {
+  padding-left: 1.25rem;
+}
+
+/* Header & navigation */
+header {
+  padding-block: clamp(0.75rem, 2.5vw, 1.25rem);
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.header-container nav {
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.nav-menu {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2vw, 1.75rem);
+  margin: 0;
+  padding: 0;
+  transition: transform 0.35s ease, opacity 0.35s ease;
+}
+
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.35rem 0.25rem;
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+}
+
+.mobile-menu-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: inherit;
+  padding: 0.4rem 0.55rem;
+  border-radius: 0.5rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+
+.mobile-menu-btn:hover,
+.mobile-menu-btn:focus {
+  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.mobile-menu-btn[aria-expanded="true"] {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 899px) {
+  .header-container {
+    flex-wrap: nowrap;
+  }
+
+  .header-container nav {
+    position: absolute;
+    inset: calc(100% + 0.5rem) 0 auto;
+    z-index: 1000;
+    padding-inline: clamp(1rem, 4vw, 1.5rem);
+  }
+
+  .nav-menu {
+    background: rgba(12, 27, 51, 0.96);
+    backdrop-filter: blur(12px);
+    border-radius: 0.75rem;
+    box-shadow: 0 18px 45px rgba(12, 27, 51, 0.28);
+    flex-direction: column;
+    align-items: flex-start;
+    padding-block: 0.75rem;
+    padding-inline: 0;
+    width: min(22rem, 100%);
+    transform-origin: top center;
+  }
+
+  .nav-menu > li {
+    width: 100%;
+  }
+
+  .nav-menu .nav-link {
+    width: 100%;
+    padding: 0.85rem clamp(1.25rem, 5vw, 1.75rem);
+    font-size: 1rem;
+  }
+
+  .nav-menu.collapsed {
+    display: none;
+  }
+
+  .nav-menu.expanded {
+    display: flex;
+  }
+
+  .apply-btn {
+    order: 3;
+    font-size: 0.85rem;
+    padding: 0.55rem 1.4rem;
+  }
+}
+
+@media (min-width: 900px) {
+  .mobile-menu-btn {
+    display: none;
+  }
+
+  .apply-btn {
+    flex: 0 0 auto;
+  }
+}
+
+/* Hero adjustments */
+.hero {
+  position: relative;
+  padding-block: clamp(5.5rem, 12vw, 9rem);
+  min-height: clamp(22rem, 55vh, 32rem);
+  display: grid;
+  align-items: center;
+}
+
+.hero-content {
+  display: grid;
+  gap: clamp(1rem, 2vw, 1.8rem);
+  text-align: center;
+  padding-inline: clamp(1rem, 6vw, 2.5rem);
+}
+
+.hero-title {
+  font-size: clamp(2.1rem, 4vw + 1rem, 3.4rem);
+}
+
+.hero-subtitle {
+  max-width: 48ch;
+  margin-inline: auto;
+  font-size: clamp(1.05rem, 0.95rem + 0.6vw, 1.35rem);
+}
+
+.hero-btn {
+  justify-self: center;
+}
+
+@media (min-width: 900px) {
+  .hero {
+    grid-template-columns: repeat(12, 1fr);
+  }
+
+  .hero-content {
+    grid-column: 2 / span 6;
+    text-align: left;
+    align-content: start;
+    padding-inline: 0;
+  }
+
+  .hero-btn {
+    justify-self: start;
+  }
+}
+
+/* Section specific layouts */
+.purpose .container,
+.framework .container,
+.process .container,
+.who-we-serve .container,
+.contact-section .container,
+.cta .container,
+footer .container {
+  display: grid;
+  gap: clamp(1.75rem, 3vw, 2.75rem);
+}
+
+.purpose-content,
+.genesis-content,
+.cta {
+  text-align: center;
+  margin-inline: auto;
+  max-width: 70ch;
+}
+
+.purpose-quote {
+  margin-inline: auto;
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+.framework-grid,
+.serve-grid,
+.process-steps,
+.contact-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.process-steps {
+  counter-reset: steps;
+}
+
+.process-step {
+  min-height: 100%;
+}
+
+.process-step-number {
+  font-size: clamp(1.25rem, 0.8rem + 1.25vw, 1.75rem);
+}
+
+.serve-item,
+.framework-item,
+.process-step,
+.contact-card {
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  border-radius: 1rem;
+}
+
+.contact-main-grid {
+  display: grid;
+  gap: clamp(2rem, 5vw, 3rem);
+}
+
+@media (min-width: 1024px) {
+  .contact-main-grid {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+}
+
+.form-grid {
+  display: grid;
+  gap: clamp(1rem, 2.5vw, 1.5rem);
+  grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+}
+
+.input-group,
+.select-group,
+.textarea-group {
+  position: relative;
+}
+
+.input-group input,
+.input-group select,
+.input-group textarea,
+.form-input,
+.location-select,
+select,
+input[type="email"],
+input[type="tel"],
+textarea {
+  width: 100%;
+  padding: 0.95rem 1.05rem;
+  font-size: 1rem;
+  border-radius: 0.75rem;
+}
+
+.phone-input-harmonized {
+  display: grid;
+  gap: 0.75rem;
+}
+
+@media (min-width: 640px) {
+  .phone-input-harmonized {
+    grid-template-columns: 120px 1fr;
+    align-items: center;
+  }
+}
+
+.location-row,
+.contact-fields-row,
+.nationality-suggestion-container,
+.review-columns,
+.reference-grid,
+.quiz-progress-container {
+  display: grid;
+  gap: clamp(1rem, 2.5vw, 1.5rem);
+}
+
+@media (min-width: 768px) {
+  .location-row {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .contact-fields-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .review-columns {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 992px) {
+  .reference-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Utility helpers */
+.text-center {
+  text-align: center;
+}
+
+.hidden {
+  display: none !important;
+}
+
+:focus-visible {
+  outline: 3px solid rgba(212, 175, 55, 0.28);
+  outline-offset: 2px;
+}
+
+footer {
+  padding-bottom: clamp(2rem, 5vw, 3.5rem);
+}
+
+.footer-grid {
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.footer-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+/* Tables and overflow */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table th,
+table td {
+  padding: 0.75rem 1rem;
+  font-size: clamp(0.9rem, 0.85rem + 0.2vw, 1rem);
+}
+
+.table-scroll,
+.responsive-table {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Modal adjustments */
+.quiz-modal-overlay {
+  padding: clamp(1rem, 4vw, 2rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quiz-container {
+  width: min(700px, 100%);
+  max-height: 90vh;
+  overflow: auto;
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  border-radius: 1.25rem;
+}
+
+/* Card decks */
+.card-deck,
+.value-pair-grid,
+.preference-grid,
+.testimonial-grid,
+.highlight-grid,
+.verification-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+/* Chips and pill controls */
+.nationality-suggestion-container,
+.language-chip-container,
+.preference-chip-container {
+  grid-auto-flow: row;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+}
+
+@media (max-width: 640px) {
+  .nationality-suggestion-container,
+  .language-chip-container,
+  .preference-chip-container {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  }
+}
+
+.nationality-pill,
+.language-chip,
+.preference-chip {
+  padding: 0.6rem 1rem;
+  font-size: clamp(0.9rem, 0.85rem + 0.2vw, 1rem);
+}
+
+/* Accordion / collapsible */
+.accordion,
+.faq-list,
+.collapsible-group {
+  display: grid;
+  gap: clamp(1rem, 2.5vw, 1.5rem);
+}
+
+/* Ensure hero overlays and brand marks scale */
+.hero-brand-overlay,
+.genesis-bg {
+  inset: 0;
+}
+
+.brand-watermark {
+  font-size: clamp(3.5rem, 18vw, 9rem);
+}
+
+/* Review & testimonial sections */
+.review-section,
+.testimonial-section,
+.success-stories {
+  display: grid;
+  gap: clamp(2rem, 5vw, 3rem);
+}
+
+.review-grid,
+.testimonial-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+.review-value,
+.testimonial-text {
+  word-break: break-word;
+}
+
+/* Buttons */
+.btn,
+button,
+.submit-button,
+.quiz-btn {
+  font-size: clamp(0.9rem, 0.85rem + 0.2vw, 1rem);
+  padding: clamp(0.6rem, 0.55rem + 0.3vw, 0.85rem) clamp(1.25rem, 1rem + 1vw, 1.85rem);
+  border-radius: 999px;
+}
+
+.btn.hero-btn,
+.submit-button {
+  justify-content: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Icon sizing */
+.fas,
+.far,
+.fa {
+  font-size: clamp(1.05rem, 0.95rem + 0.4vw, 1.4rem);
+}
+
+/* Apply section adjustments across additional pages */
+.form-section,
+.quiz-section,
+.review-section,
+.references-section,
+.verification-section,
+.waitlist-section,
+.process-section,
+.resources-section,
+.vision-section {
+  display: grid;
+  gap: clamp(2rem, 4vw, 3rem);
+}
+
+/* Generic responsive embed */
+.responsive-embed {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+  height: 0;
+}
+
+.responsive-embed iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
