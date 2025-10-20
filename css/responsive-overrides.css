@@ -101,6 +101,10 @@ header {
   flex: 0 0 auto;
 }
 
+  flex-wrap: wrap;
+  position: relative;
+}
+
 .header-container nav {
   flex: 1 1 auto;
   display: flex;
@@ -262,6 +266,14 @@ header {
 
   .hero-btn {
     justify-self: center;
+    grid-column: 2 / span 6;
+    text-align: left;
+    align-content: start;
+    padding-inline: 0;
+  }
+
+  .hero-btn {
+    justify-self: start;
   }
 }
 
