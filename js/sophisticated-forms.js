@@ -64,6 +64,9 @@ function initializeLocationSelectors() {
         // Reset and disable state and city selectors
         stateSelect.innerHTML = '<option value="">Select your state/province</option>';
         citySelect.innerHTML = '<option value="">Select your city</option>';
+        stateSelect.disabled = !selectedCountry;
+        citySelect.disabled = true;
+        hideCustomCity();
     stateSelect.disabled = !selectedCountry;
     citySelect.disabled = true;
     hideCustomCity();
@@ -87,6 +90,8 @@ function initializeLocationSelectors() {
         
         // Reset city selector
         citySelect.innerHTML = '<option value="">Select your city</option>';
+        citySelect.disabled = !selectedState;
+        hideCustomCity();
     citySelect.disabled = !selectedState;
     hideCustomCity();
         
@@ -100,6 +105,14 @@ function initializeLocationSelectors() {
                     option.textContent = city.label;
                     citySelect.appendChild(option);
                 });
+            }
+
+            const otherOption = document.createElement('option');
+            otherOption.value = 'other';
+            otherOption.textContent = 'Other (specify below)';
+            citySelect.appendChild(otherOption);
+
+            citySelect.disabled = false;
                 const otherOption = document.createElement('option');
                 otherOption.value = 'other';
                 otherOption.textContent = 'Other (specify below)';
@@ -115,6 +128,9 @@ function initializeLocationSelectors() {
     citySelect.addEventListener('change', function() {
         if (this.value === 'other') {
             showCustomCity();
+            if (customCityInput) {
+                customCityInput.focus();
+            }
             if (customCityInput) customCityInput.focus();
         } else {
             hideCustomCity();
