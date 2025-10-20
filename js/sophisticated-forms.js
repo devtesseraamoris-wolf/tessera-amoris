@@ -36,6 +36,16 @@ function initializeLocationSelectors() {
 
     hideCustomCity();
     
+    function appendOtherOption(selectEl, placeholderText = 'Select your city') {
+        if (!selectEl) return;
+        selectEl.innerHTML = `<option value="">${placeholderText}</option>`;
+        const otherOption = document.createElement('option');
+        otherOption.value = 'other';
+        otherOption.textContent = 'Other (specify below)';
+        selectEl.appendChild(otherOption);
+        selectEl.disabled = false;
+    }
+    
     if (!countrySelect || !stateSelect || !citySelect) return;
     
     // Populate countries
@@ -57,6 +67,9 @@ function initializeLocationSelectors() {
         stateSelect.disabled = !selectedCountry;
         citySelect.disabled = true;
         hideCustomCity();
+    stateSelect.disabled = !selectedCountry;
+    citySelect.disabled = true;
+    hideCustomCity();
         
         if (selectedCountry) {
             // Populate states for selected country
@@ -79,6 +92,8 @@ function initializeLocationSelectors() {
         citySelect.innerHTML = '<option value="">Select your city</option>';
         citySelect.disabled = !selectedState;
         hideCustomCity();
+    citySelect.disabled = !selectedState;
+    hideCustomCity();
         
         if (selectedCountry && selectedState) {
             // Populate cities for selected state
@@ -98,6 +113,14 @@ function initializeLocationSelectors() {
             citySelect.appendChild(otherOption);
 
             citySelect.disabled = false;
+                const otherOption = document.createElement('option');
+                otherOption.value = 'other';
+                otherOption.textContent = 'Other (specify below)';
+                citySelect.appendChild(otherOption);
+                citySelect.disabled = false;
+            } else {
+                appendOtherOption(citySelect, 'Select your city');
+            }
         }
     });
 
@@ -108,6 +131,7 @@ function initializeLocationSelectors() {
             if (customCityInput) {
                 customCityInput.focus();
             }
+            if (customCityInput) customCityInput.focus();
         } else {
             hideCustomCity();
         }

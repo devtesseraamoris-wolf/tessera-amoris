@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
     fixFormStyling();
     
     // Initialize all form components
+    // Initialize location selectors (wait briefly for locationDataService if needed)
     initializeLocationSelectors();
     initializeDatePicker();
     initializeOccupationField();
@@ -195,7 +196,7 @@ function fixFormStyling() {
     document.head.appendChild(style);
 }
 
-function initializeLocationSelectors() {
+async function initializeLocationSelectors() {
     console.log('Initializing location selectors');
 
     const countrySelect = document.getElementById('country');
@@ -203,31 +204,86 @@ function initializeLocationSelectors() {
     const citySelect = document.getElementById('city');
     const customCityGroup = document.getElementById('custom-city-group');
     const customCityInput = document.getElementById('custom-city');
-    const locationService = window.locationDataService;
 
     if (!countrySelect || !stateSelect || !citySelect) {
         console.error('Location selectors not found');
         return;
     }
 
+    // Ensure manual city is hidden and not required at initialization
+    if (customCityGroup) customCityGroup.setAttribute('hidden', '');
+    if (customCityInput) customCityInput.required = false;
+
+    // Wait for the locationDataService to be available (race guard)
+    let locationService = window.locationDataService;
     if (!locationService) {
-        console.error('Location data service is unavailable');
+        const maxWait = 2000; // ms
+        const intervalMs = 100;
+        let waited = 0;
+        await new Promise(resolve => {
+            const interval = setInterval(() => {
+                if (window.locationDataService) {
+                    clearInterval(interval);
+                    resolve();
+                    return;
+                }
+                waited += intervalMs;
+                if (waited >= maxWait) {
+                    clearInterval(interval);
+                    resolve();
+                }
+            }, intervalMs);
+        });
+        locationService = window.locationDataService;
+    }
+
+    if (!locationService) {
+        console.error('Location data service is unavailable after wait');
         return;
     }
 
-    const allowedCountries = new Set(Object.keys(locationService.countries));
+    const allowedCountries = new Set(Object.keys(locationService.countries || {}));
 
-    // Mapping from country code (select value) to phone prefix. Keep minimal and extend as needed.
-    const COUNTRY_PHONE_PREFIX = {
-        'PY': '+595',
-        'US': '+1',
-        'GB': '+44',
-        'DE': '+49',
-        'FR': '+33',
-        'ES': '+34',
-        'IT': '+39',
-        'BR': '+55'
-    };
+    // Populate country select from the location service
+    (function populateCountries() {
+        try {
+            const countriesObj = locationService.countries || {};
+            const entries = Object.keys(countriesObj).map(code => ({ code, label: countriesObj[code].label || code }));
+            entries.sort((a, b) => a.label.localeCompare(b.label));
+
+            countrySelect.innerHTML = '<option value="">Select your country</option>';
+            entries.forEach(entry => {
+                const option = document.createElement('option');
+                option.value = entry.code;
+                option.textContent = entry.label;
+                countrySelect.appendChild(option);
+            });
+            countrySelect.disabled = false;
+        } catch (err) {
+            console.error('Failed to populate countries', err);
+        }
+    })();
+
+    // Populate country select from the location service
+    (function populateCountries() {
+        try {
+            const countriesObj = locationService.countries || {};
+            const entries = Object.keys(countriesObj).map(code => ({ code, label: countriesObj[code].label || code }));
+            // Sort by label
+            entries.sort((a, b) => a.label.localeCompare(b.label));
+
+            countrySelect.innerHTML = '<option value="">Select your country</option>';
+            entries.forEach(entry => {
+                const option = document.createElement('option');
+                option.value = entry.code;
+                option.textContent = entry.label;
+                countrySelect.appendChild(option);
+            });
+            countrySelect.disabled = false;
+        } catch (err) {
+            console.error('Failed to populate countries', err);
+        }
+    })();
 
     function resetStateSelect(placeholderText) {
         stateSelect.innerHTML = `<option value="">${placeholderText}</option>`;
@@ -239,8 +295,19 @@ function initializeLocationSelectors() {
         citySelect.disabled = true;
     }
 
+    function appendOtherOption(selectEl, placeholderText = 'Select your city') {
+        if (!selectEl) return;
+        selectEl.innerHTML = `<option value="">${placeholderText}</option>`;
+        const otherOpt = document.createElement('option');
+        otherOpt.value = 'other';
+        otherOpt.textContent = 'Other (specify below)';
+        selectEl.appendChild(otherOpt);
+        selectEl.disabled = false;
+    }
+
     function toggleCustomCity(shouldShow) {
         if (!customCityGroup) return;
+        // Use the boolean hidden property for clarity
         customCityGroup.hidden = !shouldShow;
         if (customCityInput) {
             customCityInput.required = shouldShow;
@@ -261,30 +328,6 @@ function initializeLocationSelectors() {
         if (!selectedCountry) {
             return;
         }
-
-        // If we have a known phone prefix for the selected country, preselect the country-code select
-        try {
-            const countryCodeSelect = document.getElementById('country-code');
-            if (countryCodeSelect) {
-                const prefix = COUNTRY_PHONE_PREFIX[selectedCountry];
-                if (prefix) {
-                    // If an option with this value exists, select it. Otherwise, try to add it.
-                    const existing = Array.from(countryCodeSelect.options).find(o => o.value === prefix);
-                    if (existing) {
-                        countryCodeSelect.value = prefix;
-                    } else {
-                        const opt = document.createElement('option');
-                        opt.value = prefix;
-                        opt.textContent = prefix;
-                        countryCodeSelect.appendChild(opt);
-                        countryCodeSelect.value = prefix;
-                    }
-                }
-            }
-        } catch (e) {
-            console.warn('Unable to preselect country code', e);
-        }
-
         if (!allowedCountries.has(selectedCountry)) {
             resetStateSelect('State/province not required');
             resetCitySelect('Select your city');
@@ -295,6 +338,9 @@ function initializeLocationSelectors() {
             citySelect.appendChild(otherOption);
 
             citySelect.disabled = false;
+            // Country not in curated list — user must explicitly choose 'Other' for manual city
+            resetStateSelect('No regions available');
+            appendOtherOption(citySelect, 'Select your city');
             return;
         }
 
@@ -320,6 +366,7 @@ function initializeLocationSelectors() {
                 otherOption.textContent = 'Other (specify below)';
                 citySelect.appendChild(otherOption);
                 citySelect.disabled = false;
+                appendOtherOption(citySelect, 'Select your city');
             }
         } catch (error) {
             console.error('Unable to populate states', error);
@@ -330,6 +377,7 @@ function initializeLocationSelectors() {
             otherOption.textContent = 'Other (specify below)';
             citySelect.appendChild(otherOption);
             citySelect.disabled = false;
+            appendOtherOption(citySelect, 'Select your city');
         }
     }
 
@@ -347,12 +395,11 @@ function initializeLocationSelectors() {
 
         citySelect.innerHTML = '<option value="">Loading cities...</option>';
         citySelect.disabled = true;
-
         try {
             const cities = await locationService.getCities(selectedCountry, selectedState);
             resetCitySelect('Select your city');
 
-            if (cities.length) {
+            if (cities && cities.length) {
                 cities.forEach(city => {
                     const option = document.createElement('option');
                     option.value = city.toLowerCase().replace(/\s+/g, '-');
@@ -375,6 +422,19 @@ function initializeLocationSelectors() {
             otherOption.textContent = 'Other (specify below)';
             citySelect.appendChild(otherOption);
             citySelect.disabled = false;
+                const otherOption = document.createElement('option');
+                otherOption.value = 'other';
+                otherOption.textContent = 'Other (specify below)';
+                citySelect.appendChild(otherOption);
+                citySelect.disabled = false;
+            } else {
+                // No cities available — require explicit 'Other' selection to reveal manual input
+                appendOtherOption(citySelect, 'Select your city');
+            }
+        } catch (error) {
+            console.error('Unable to populate cities', error);
+            resetCitySelect('Unable to load cities');
+            appendOtherOption(citySelect, 'Select your city');
         }
     }
 
@@ -382,7 +442,7 @@ function initializeLocationSelectors() {
     stateSelect.addEventListener('change', handleStateChange);
 
     citySelect.addEventListener('change', function() {
-        if (!customCityGroup) return;
+        // Show the manual city input only when user selects 'other'
         if (this.value === 'other') {
             toggleCustomCity(true);
         } else {
