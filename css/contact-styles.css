@@ -235,6 +235,11 @@
     transform-origin: left;
 }
 
+.select-group label {
+    top: -0.25rem;
+    transform: translateY(-1.5rem) scale(0.85);
+}
+
 .input-group input:focus + label,
 .input-group input:valid + label,
 .input-group select:focus + label,
@@ -243,6 +248,10 @@
 .input-group textarea:valid + label {
     transform: translateY(-1.5rem) scale(0.85);
     color: var(--gold);
+}
+
+.select-group select:not(:focus):not(:valid) + label {
+    color: var(--warm-gray);
 }
 
 .input-border {
