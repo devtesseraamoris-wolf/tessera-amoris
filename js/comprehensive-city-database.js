@@ -188,6 +188,7 @@
         if (!country) return [];
 
         try {
+            console.log(`Fetching states for ${countryCode} from API`);
             const response = await fetch(LOCATION_API_ENDPOINTS.states, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -229,6 +230,7 @@
         if (!country || !stateName) return [];
 
         try {
+            console.log(`Fetching cities for ${countryCode}::${stateCode} from API (state: ${stateName})`);
             const response = await fetch(LOCATION_API_ENDPOINTS.cities, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },

@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
     fixFormStyling();
     
     // Initialize all form components
+    // Initialize location selectors (wait briefly for locationDataService if needed)
     initializeLocationSelectors();
     initializeDatePicker();
     initializeOccupationField();
@@ -195,7 +196,7 @@ function fixFormStyling() {
     document.head.appendChild(style);
 }
 
-function initializeLocationSelectors() {
+async function initializeLocationSelectors() {
     console.log('Initializing location selectors');
 
     const countrySelect = document.getElementById('country');
@@ -203,19 +204,65 @@ function initializeLocationSelectors() {
     const citySelect = document.getElementById('city');
     const customCityGroup = document.getElementById('custom-city-group');
     const customCityInput = document.getElementById('custom-city');
-    const locationService = window.locationDataService;
 
     if (!countrySelect || !stateSelect || !citySelect) {
         console.error('Location selectors not found');
         return;
     }
 
+    // Ensure manual city is hidden and not required at initialization
+    if (customCityGroup) customCityGroup.setAttribute('hidden', '');
+    if (customCityInput) customCityInput.required = false;
+
+    // Wait for the locationDataService to be available (race guard)
+    let locationService = window.locationDataService;
     if (!locationService) {
-        console.error('Location data service is unavailable');
+        const maxWait = 2000; // ms
+        const intervalMs = 100;
+        let waited = 0;
+        await new Promise(resolve => {
+            const interval = setInterval(() => {
+                if (window.locationDataService) {
+                    clearInterval(interval);
+                    resolve();
+                    return;
+                }
+                waited += intervalMs;
+                if (waited >= maxWait) {
+                    clearInterval(interval);
+                    resolve();
+                }
+            }, intervalMs);
+        });
+        locationService = window.locationDataService;
+    }
+
+    if (!locationService) {
+        console.error('Location data service is unavailable after wait');
         return;
     }
 
-    const allowedCountries = new Set(Object.keys(locationService.countries));
+    const allowedCountries = new Set(Object.keys(locationService.countries || {}));
+
+    // Populate country select from the location service
+    (function populateCountries() {
+        try {
+            const countriesObj = locationService.countries || {};
+            const entries = Object.keys(countriesObj).map(code => ({ code, label: countriesObj[code].label || code }));
+            entries.sort((a, b) => a.label.localeCompare(b.label));
+
+            countrySelect.innerHTML = '<option value="">Select your country</option>';
+            entries.forEach(entry => {
+                const option = document.createElement('option');
+                option.value = entry.code;
+                option.textContent = entry.label;
+                countrySelect.appendChild(option);
+            });
+            countrySelect.disabled = false;
+        } catch (err) {
+            console.error('Failed to populate countries', err);
+        }
+    })();
 
     // Populate country select from the location service
     (function populateCountries() {

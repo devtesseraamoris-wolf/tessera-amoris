@@ -16,6 +16,16 @@ function initializeLocationSelectors() {
     const citySelect = document.getElementById('city');
     const customCityGroup = document.getElementById('custom-city-group');
     
+    function appendOtherOption(selectEl, placeholderText = 'Select your city') {
+        if (!selectEl) return;
+        selectEl.innerHTML = `<option value="">${placeholderText}</option>`;
+        const otherOption = document.createElement('option');
+        otherOption.value = 'other';
+        otherOption.textContent = 'Other (specify below)';
+        selectEl.appendChild(otherOption);
+        selectEl.disabled = false;
+    }
+    
     if (!countrySelect || !stateSelect || !citySelect) return;
     
     // Populate countries
@@ -71,10 +81,7 @@ function initializeLocationSelectors() {
             });
             
             // Add "Other" option
-            const otherOption = document.createElement('option');
-            otherOption.value = 'other';
-            otherOption.textContent = 'Other (specify below)';
-            citySelect.appendChild(otherOption);
+            appendOtherOption(citySelect, 'Select your city');
         }
     });
     
