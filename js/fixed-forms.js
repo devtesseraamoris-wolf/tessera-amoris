@@ -241,7 +241,7 @@ function initializeLocationSelectors() {
 
     function toggleCustomCity(shouldShow) {
         if (!customCityGroup) return;
-        customCityGroup.style.display = shouldShow ? 'block' : 'none';
+        customCityGroup.hidden = !shouldShow;
         if (customCityInput) {
             customCityInput.required = shouldShow;
             if (!shouldShow) {
@@ -286,7 +286,15 @@ function initializeLocationSelectors() {
         }
 
         if (!allowedCountries.has(selectedCountry)) {
-            toggleCustomCity(true);
+            resetStateSelect('State/province not required');
+            resetCitySelect('Select your city');
+
+            const otherOption = document.createElement('option');
+            otherOption.value = 'other';
+            otherOption.textContent = 'Other (specify below)';
+            citySelect.appendChild(otherOption);
+
+            citySelect.disabled = false;
             return;
         }
 
@@ -307,12 +315,21 @@ function initializeLocationSelectors() {
                 stateSelect.disabled = false;
             } else {
                 stateSelect.innerHTML = '<option value="">No regions available</option>';
-                toggleCustomCity(true);
+                const otherOption = document.createElement('option');
+                otherOption.value = 'other';
+                otherOption.textContent = 'Other (specify below)';
+                citySelect.appendChild(otherOption);
+                citySelect.disabled = false;
             }
         } catch (error) {
             console.error('Unable to populate states', error);
             resetStateSelect('Unable to load states');
-            toggleCustomCity(true);
+            resetCitySelect('Select your city');
+            const otherOption = document.createElement('option');
+            otherOption.value = 'other';
+            otherOption.textContent = 'Other (specify below)';
+            citySelect.appendChild(otherOption);
+            citySelect.disabled = false;
         }
     }
 
@@ -342,21 +359,22 @@ function initializeLocationSelectors() {
                     option.textContent = city;
                     citySelect.appendChild(option);
                 });
-
-                const otherOption = document.createElement('option');
-                otherOption.value = 'other';
-                otherOption.textContent = 'Other (specify below)';
-                citySelect.appendChild(otherOption);
-
-                citySelect.disabled = false;
-            } else {
-                citySelect.innerHTML = '<option value="">No cities available</option>';
-                toggleCustomCity(true);
             }
+
+            const otherOption = document.createElement('option');
+            otherOption.value = 'other';
+            otherOption.textContent = 'Other (specify below)';
+            citySelect.appendChild(otherOption);
+
+            citySelect.disabled = false;
         } catch (error) {
             console.error('Unable to populate cities', error);
             resetCitySelect('Unable to load cities');
-            toggleCustomCity(true);
+            const otherOption = document.createElement('option');
+            otherOption.value = 'other';
+            otherOption.textContent = 'Other (specify below)';
+            citySelect.appendChild(otherOption);
+            citySelect.disabled = false;
         }
     }
 
