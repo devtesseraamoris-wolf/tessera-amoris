@@ -16,6 +16,7 @@ const COUNTRIES = [
     { value: 'BA', label: '🇧🇦 Bosnia and Herzegovina', region: 'europe' },
     { value: 'BG', label: '🇧🇬 Bulgaria', region: 'europe' },
     { value: 'HR', label: '🇭🇷 Croatia', region: 'europe' },
+    { value: 'CY', label: '🇨🇾 Cyprus', region: 'europe' },
     { value: 'CZ', label: '🇨🇿 Czech Republic', region: 'europe' },
     { value: 'DK', label: '🇩🇰 Denmark', region: 'europe' },
     { value: 'EE', label: '🇪🇪 Estonia', region: 'europe' },
@@ -53,7 +54,7 @@ const COUNTRIES = [
     { value: 'UA', label: '🇺🇦 Ukraine', region: 'europe' },
     { value: 'GB', label: '🇬🇧 United Kingdom', region: 'europe' },
     { value: 'divider2', label: '───────────────────────────────────', disabled: true, style: 'divider' },
-    { value: 'OTHER', label: 'My country is not listed', region: 'other', style: 'special' }
+    { value: 'OTHER', label: "My country isn't listed", region: 'other', style: 'special' }
 ];
 
 // Expansion regions (NO PARAGUAY - only for countries NOT in the list)
@@ -111,6 +112,8 @@ class SmartCountrySelector {
             
             this.countrySelect.appendChild(option);
         });
+
+        this.countrySelect.dataset.smartPopulated = 'true';
     }
     
     createExpansionModal() {
