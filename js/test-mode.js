@@ -167,7 +167,7 @@ if (typeof collectFormData === 'undefined') {
             gender: document.querySelector('input[name="gender"]:checked')?.value || 'Male',
             email: document.getElementById('email')?.value || 'test@example.com',
             phone: document.getElementById('phone')?.value || '+1234567890',
-            country: document.getElementById('country')?.value || 'Paraguay',
+            country: document.getElementById('country')?.value || 'PY',
             city: document.getElementById('city')?.value || 'Asunción',
             nationality: document.getElementById('nationality')?.value || 'Paraguayan',
             
