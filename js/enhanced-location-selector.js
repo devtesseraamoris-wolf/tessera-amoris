@@ -813,6 +813,11 @@ class EnhancedLocationSelector {
       return;
     }
 
+    if (countrySelect.dataset.smartCountrySelector === 'true') {
+      console.log('Smart Country Selector managing country options; skipping manual population.');
+      return;
+    }
+
     // Clear existing options (keep the placeholder)
     countrySelect.innerHTML = '<option value="">Select a Country</option>';
 
@@ -943,10 +948,11 @@ class EnhancedLocationSelector {
     if (countrySelect) {
       countrySelect.addEventListener("change", (e) => {
         const selectedCountryValue = e.target.value;
+        const isOtherSelection = selectedCountryValue === "Other" || selectedCountryValue === "OTHER";
         const customCountryGroup = document.getElementById("country-custom-group");
         const customCountryInput = document.getElementById("country-custom");
 
-        if (selectedCountryValue === "Other") {
+        if (isOtherSelection) {
           if (customCountryGroup) customCountryGroup.style.display = "block";
           if (customCountryInput) customCountryInput.required = true;
           this.populateStates(null); // Clear states and cities
