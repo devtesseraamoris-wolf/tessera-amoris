@@ -17,13 +17,13 @@
     const fallbackCityMap = {};
 
     function sanitizeCode(value) {
-        if (!value) return '';
+        if (!value) return "";
         return value
             .toString()
             .toLowerCase()
             .trim()
-            .replace(/[^a-z0-9]+/g, '-')
-            .replace(/^-+|-+$/g, '');
+            .replace(/[^a-z0-9]+/g, "-")
+            .replace(/^-+|-+$/g, "");
     }
 
     function cleanList(items) {
@@ -38,7 +38,7 @@
         if (!states || !states.length) return;
 
         const preparedStates = states.map(state => {
-            const name = (state.name || '').trim();
+            const name = (state.name || "").trim();
             if (!name) return null;
 
             const code = sanitizeCode(state.code || name);
@@ -63,7 +63,7 @@
         registerFallbackDataset(countryCode, country.states || []);
     });
 
-    const supportsFetch = typeof fetch === 'function';
+    const supportsFetch = typeof fetch === "function";
 
     async function fetchStatesFromApi(countryCode) {
         if (!supportsFetch) return [];
@@ -74,8 +74,8 @@
 
         try {
             const response = await fetch(LOCATION_API_ENDPOINTS.states, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ country: country.apiName })
             });
 
@@ -103,7 +103,7 @@
 
             return uniqueStates.sort((a, b) => a.name.localeCompare(b.name));
         } catch (error) {
-            console.error('Failed to load states for', countryCode, error);
+            console.error("Failed to load states for", countryCode, error);
             return [];
         }
     }
@@ -118,8 +118,8 @@
 
         try {
             const response = await fetch(LOCATION_API_ENDPOINTS.cities, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ country: country.apiName, state: stateName })
             });
 
@@ -131,7 +131,7 @@
             cities.sort((a, b) => a.localeCompare(b));
             return cities;
         } catch (error) {
-            console.error('Failed to load cities for', countryCode, stateCode, error);
+            console.error("Failed to load cities for", countryCode, stateCode, error);
             return [];
         }
     }
@@ -177,12 +177,12 @@
     }
 
     function getCountryLabel(countryCode) {
-        return allowedCountries[countryCode] ? allowedCountries[countryCode].label : '';
+        return allowedCountries[countryCode] ? allowedCountries[countryCode].label : "";
     }
 
     function getStateLabel(countryCode, stateCode) {
-        if (!stateLookup[countryCode]) return '';
-        return stateLookup[countryCode][stateCode] || '';
+        if (!stateLookup[countryCode]) return "";
+        return stateLookup[countryCode][stateCode] || "";
     }
 
     const service = {
@@ -193,11 +193,11 @@
         getStateLabel
     };
 
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
         window.locationDataService = service;
     }
 
-    if (typeof module !== 'undefined' && module.exports) {
+    if (typeof module !== "undefined" && module.exports) {
         module.exports = service;
     }
 })();

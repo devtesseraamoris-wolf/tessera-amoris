@@ -59,7 +59,7 @@ const COUNTRIES = [
     { value: 'UA', label: '🇺🇦 Ukraine', region: 'europe' },
     { value: 'GB', label: '🇬🇧 United Kingdom', region: 'europe' },
     { value: 'divider2', label: '───────────────────────────────────', disabled: true, style: 'divider' },
-    { value: 'OTHER', label: 'My country is not listed', region: 'other', style: 'special' }
+    { value: 'OTHER', label: "My country isn't listed", region: 'other', style: 'special' }
 ];
 
 // Expansion regions (NO PARAGUAY - only for countries NOT in the list)
@@ -121,6 +121,8 @@ class SmartCountrySelector {
             
             this.countrySelect.appendChild(option);
         });
+
+        this.countrySelect.dataset.smartPopulated = 'true';
     }
     
     createExpansionModal() {
