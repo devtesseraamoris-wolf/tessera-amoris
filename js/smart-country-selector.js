@@ -73,7 +73,8 @@ class SmartCountrySelector {
             country: null,
             email: null
         };
-        
+        this.suppressNextModal = false;
+
         this.init();
     }
     
@@ -111,6 +112,10 @@ class SmartCountrySelector {
             
             this.countrySelect.appendChild(option);
         });
+
+        if (this.countrySelect) {
+            this.countrySelect.dataset.smartCountrySelector = 'true';
+        }
     }
     
     createExpansionModal() {
@@ -245,6 +250,10 @@ class SmartCountrySelector {
         // Country select change
         this.countrySelect.addEventListener('change', (e) => {
             if (e.target.value === 'OTHER') {
+                if (this.suppressNextModal) {
+                    this.suppressNextModal = false;
+                    return;
+                }
                 this.showExpansionModal();
             }
         });
@@ -252,24 +261,20 @@ class SmartCountrySelector {
         // Modal buttons
         document.getElementById('cancelModal').addEventListener('click', () => {
             this.closeModal();
-            // Reset to empty selection
-            this.countrySelect.value = '';
         });
-        
+
         document.getElementById('submitInterest').addEventListener('click', () => {
             this.submitExpansionInterest();
         });
         
         document.getElementById('successClose').addEventListener('click', () => {
             this.closeModal();
-            this.countrySelect.value = '';
         });
-        
+
         // Close on overlay click
         document.getElementById('expansionModal').addEventListener('click', (e) => {
             if (e.target.id === 'expansionModal') {
                 this.closeModal();
-                this.countrySelect.value = '';
             }
         });
     }
@@ -292,6 +297,12 @@ class SmartCountrySelector {
         document.querySelectorAll('input[name="expansion-region"]').forEach(input => input.checked = false);
         document.getElementById('expansionCountry').value = '';
         document.getElementById('expansionEmail').value = '';
+
+        if (this.countrySelect) {
+            this.suppressNextModal = true;
+            this.countrySelect.value = 'OTHER';
+            this.countrySelect.dispatchEvent(new Event('change', { bubbles: true }));
+        }
     }
     
     async submitExpansionInterest() {

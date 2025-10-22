@@ -240,8 +240,20 @@ class SophisticatedReferencesManager {
 }
 
 class SophisticatedVerificationProcess {
-    constructor(containerSelector) {
-        this.container = document.querySelector(containerSelector);
+    constructor(containerOrSelector) {
+        if (typeof containerOrSelector === 'string') {
+            this.container = document.querySelector(containerOrSelector);
+        } else if (containerOrSelector instanceof Element) {
+            this.container = containerOrSelector;
+        } else {
+            this.container = null;
+        }
+
+        if (!this.container) {
+            console.error('SophisticatedVerificationProcess container not found');
+            return;
+        }
+
         this.createVerificationProcess();
     }
 
