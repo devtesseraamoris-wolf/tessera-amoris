@@ -65,10 +65,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Validate current section (SIMPLIFIED FOR PROGRESSION)
+    // Validate current section
     function validateSection(index) {
-        // Always return true to allow progression for testing
-        console.log(`Section ${index} validation: allowing progression`);
+        if (window.formValidation) {
+            const isValid = window.formValidation.validateSection(index);
+            console.log(`Section ${index} validation: ${isValid ? 'passed' : 'failed'}`);
+            return isValid;
+        }
         return true;
     }
     
