@@ -1,0 +1,437 @@
+/**
+ * Advanced Form Design for Tessera Amoris
+ * Modern, elegant, and sophisticated UX/UI patterns
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --primary-gold: #D4AF37;
+  --primary-dark: #0c1b33;
+  --primary-light: #FFFFF0;
+  --accent-warm: #8b7355;
+  --text-primary: #1a1a1a;
+  --text-secondary: #666;
+  --border-light: #e8e8e8;
+  --bg-light: #fafafa;
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Form Section Styling */
+.form-section {
+  padding: 3rem 2rem;
+  border-bottom: 1px solid var(--border-light);
+  transition: var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+.form-section:last-child {
+  border-bottom: none;
+}
+
+.form-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(to right, var(--primary-gold), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.form-section.active::before {
+  opacity: 1;
+}
+
+/* Section Title */
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--primary-dark);
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.section-title::before {
+  content: '';
+  display: inline-block;
+  width: 4px;
+  height: 28px;
+  background: linear-gradient(to bottom, var(--primary-gold), var(--accent-warm));
+  border-radius: 2px;
+}
+
+.section-subtitle {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  font-weight: 300;
+  letter-spacing: 0.3px;
+}
+
+/* Field Group */
+.field-group {
+  margin-bottom: 2rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+.field-group.two-columns {
+  grid-template-columns: 1fr 1fr;
+}
+
+.field-group.three-columns {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+@media (max-width: 768px) {
+  .field-group.two-columns,
+  .field-group.three-columns {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Label Styling */
+.form-label {
+  display: block;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  position: relative;
+  padding-left: 12px;
+}
+
+.form-label::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 3px;
+  background: var(--primary-gold);
+  border-radius: 50%;
+}
+
+.form-label.required::after {
+  content: '*';
+  color: #d9534f;
+  margin-left: 4px;
+  font-weight: 700;
+}
+
+/* Input Fields */
+.form-input,
+.form-select,
+.form-textarea {
+  width: 100%;
+  padding: 14px 16px;
+  border: 2px solid var(--border-light);
+  border-radius: 10px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
+  color: var(--text-primary);
+  background: linear-gradient(135deg, #fafafa 0%, #ffffff 100%);
+  transition: var(--transition-smooth);
+  letter-spacing: 0.2px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: var(--accent-warm);
+  box-shadow: 0 0 0 4px rgba(139, 115, 85, 0.08), 0 6px 16px rgba(0, 0, 0, 0.08);
+  background: #ffffff;
+  transform: translateY(-2px);
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: #a0a0a0;
+  font-weight: 300;
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 120px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Select Dropdown */
+.form-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238b7355' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  padding-right: 40px;
+  cursor: pointer;
+}
+
+.form-select:hover {
+  border-color: var(--primary-gold);
+}
+
+/* Radio and Checkbox */
+.form-radio,
+.form-checkbox {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--border-light);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  background: #ffffff;
+  position: relative;
+}
+
+.form-radio:checked,
+.form-checkbox:checked {
+  border-color: var(--primary-gold);
+  background: var(--primary-gold);
+}
+
+.form-radio:checked::after,
+.form-checkbox:checked::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--primary-dark);
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.form-radio {
+  border-radius: 50%;
+}
+
+/* Field Wrapper */
+.form-field {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.form-field.error .form-input,
+.form-field.error .form-select,
+.form-field.error .form-textarea {
+  border-color: #d9534f;
+  box-shadow: 0 0 0 4px rgba(217, 83, 79, 0.08);
+}
+
+.form-field.success .form-input,
+.form-field.success .form-select,
+.form-field.success .form-textarea {
+  border-color: #5cb85c;
+}
+
+.form-error-message {
+  color: #d9534f;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.form-error-message::before {
+  content: '⚠';
+  font-size: 0.9rem;
+}
+
+.form-success-message {
+  color: #5cb85c;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.form-success-message::before {
+  content: '✓';
+  font-size: 0.9rem;
+}
+
+/* Help Text */
+.form-help-text {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-top: 0.5rem;
+  font-weight: 300;
+  letter-spacing: 0.2px;
+}
+
+/* Button Styling */
+.form-button {
+  padding: 14px 32px;
+  border: none;
+  border-radius: 10px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
+}
+
+.form-button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.form-button:active::before {
+  width: 300px;
+  height: 300px;
+}
+
+.form-button-primary {
+  background: linear-gradient(135deg, var(--primary-gold), #c9a961);
+  color: var(--primary-dark);
+  box-shadow: 0 4px 12px rgba(212, 175, 138, 0.3);
+}
+
+.form-button-primary:hover {
+  box-shadow: 0 6px 20px rgba(212, 175, 138, 0.4);
+  transform: translateY(-2px);
+}
+
+.form-button-secondary {
+  background: transparent;
+  color: var(--accent-warm);
+  border: 2px solid var(--accent-warm);
+}
+
+.form-button-secondary:hover {
+  background: var(--accent-warm);
+  color: #ffffff;
+}
+
+/* Progress Indicator */
+.form-progress {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 2rem;
+  justify-content: center;
+}
+
+.form-progress-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--border-light);
+  transition: var(--transition-smooth);
+  cursor: pointer;
+}
+
+.form-progress-dot.active {
+  background: var(--primary-gold);
+  width: 24px;
+  border-radius: 4px;
+}
+
+/* Tooltip */
+.form-tooltip {
+  position: relative;
+  display: inline-block;
+  cursor: help;
+  margin-left: 6px;
+  width: 18px;
+  height: 18px;
+  line-height: 18px;
+  text-align: center;
+  border-radius: 50%;
+  background: var(--border-light);
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.form-tooltip:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--primary-dark);
+  color: var(--primary-light);
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 1001;
+  font-weight: 400;
+}
+
+/* Animation */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.form-section {
+  animation: slideInUp 0.5s ease-out;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .form-section {
+    padding: 2rem 1.5rem;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+  }
+
+  .form-label {
+    font-size: 0.9rem;
+  }
+
+  .form-input,
+  .form-select,
+  .form-textarea {
+    padding: 12px 14px;
+    font-size: 16px;
+  }
+
+  .form-button {
+    padding: 12px 24px;
+    font-size: 14px;
+  }
+}
+

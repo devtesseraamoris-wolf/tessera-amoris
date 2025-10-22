@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="css/force-gold-title.css">
     <link rel="stylesheet" href="css/expansion-modal.css">
     <link rel="stylesheet" href="css/enhanced-selectors-styles.css">
+    <link rel="stylesheet" href="css/advanced-form-design.css">
 </head>
 <body>
     <!-- Header -->
@@ -221,22 +222,16 @@
                 </div>
                 
                 <div class="nationality-field">
-                    <label for="nationality" class="sophisticated-label">Your Nationality</label>
-                    <div class="premium-nationality-input">
+                    <label for="nationality" class="form-label required">Your Nationality</label>
+                    <div class="advanced-nationality-input-wrapper">
                         <input
                             type="text"
                             id="nationality"
-                            class="nationality-input"
-                            placeholder="Select or type your nationality..."
+                            class="form-input"
+                            placeholder="Start typing (e.g., 'Parag...' or 'Itali...')"
                             autocomplete="off"
                             required
                         >
-                        <div
-                            class="nationality-suggestion-container"
-                            id="nationality-suggestions"
-                            role="listbox"
-                            aria-label="Nationality suggestions"
-                        ></div>
                     </div>
                 </div>
 
@@ -655,8 +650,12 @@
                             <div class="review-value" id="review-country">United States</div>
                         </div>
                         <div class="review-item">
+                            <div class="review-label">State:</div>
+                            <div class="review-value" id="review-state"></div>
+                        </div>
+                        <div class="review-item">
                             <div class="review-label">City:</div>
-                            <div class="review-value" id="review-city">New York</div>
+                            <div class="review-value" id="review-city"></div>
                         </div>
                         <div class="review-item">
                             <div class="review-label">Nationality:</div>
@@ -838,12 +837,24 @@
 
     <script src="js/smart-country-selector.js"></script>
     <script src="js/enhanced-location-selector.js"></script>
-    <script src="js/premium-nationality-selector.js"></script>
+    <script src="js/advanced-nationality-autocomplete.js"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Initialize Location Selector
             const locationSelector = new EnhancedLocationSelector();
+
+            // Initialize Advanced Nationality Autocomplete
+            const nationalityAutocomplete = new AdvancedNationalityAutocomplete(
+                '#nationality',
+                {
+                    minChars: 1,
+                    maxSuggestions: 10,
+                    debounceDelay: 150,
+                    highlightMatches: true,
+                    showFlags: true
+                }
+            );
 
             // Optional: Handle form submission
             const applicationForm = document.getElementById('applicationForm');
@@ -852,15 +863,19 @@
                     // This part should be handled by your existing form submission logic in form-logic.js or application-production.js
                     // Ensure that your existing form submission logic correctly retrieves values from the new selectors.
                     // For example, to get the city value:
+                    const countrySelect = document.getElementById('country');
+                    const customCountryInput = document.getElementById('country-custom');
+                    const finalCountry = countrySelect.value === 'Other' ? customCountryInput.value : countrySelect.value;
+                    
                     const citySelect = document.getElementById('city');
                     const customCityInput = document.getElementById('city-custom');
                     const finalCity = citySelect.value === 'Other' ? customCityInput.value : citySelect.value;
                     
-                    console.log('Selected Country:', document.getElementById('country').value);
-                    console.log('Selected State:', document.getElementById('state').value);
-                    console.log('Selected City:', finalCity);
-                    const nationalityInput = document.getElementById('nationality');
-                    console.log('Selected Nationality:', nationalityInput ? nationalityInput.value : '');
+                    // Update review section
+                    document.getElementById("review-country").textContent = finalCountry;
+                    document.getElementById("review-state").textContent = document.getElementById("state").value;
+                    document.getElementById("review-city").textContent = finalCity;
+                    document.getElementById("review-nationality").textContent = nationalityAutocomplete.getSelectedName();
                 });
             }
         });
