@@ -12,56 +12,12 @@ class SmartNationalityAutocomplete {
       minChars: 1,
       maxSuggestions: 10,
       debounceDelay: 200,
+      nationalities: null,
       ...options
     };
 
-    this.nationalities = [
-      "Paraguayan",
-      "Spanish",
-      "French",
-      "German",
-      "Italian",
-      "Portuguese",
-      "Polish",
-      "Romanian",
-      "Dutch",
-      "Belgian",
-      "Austrian",
-      "Swiss",
-      "Swedish",
-      "Norwegian",
-      "Danish",
-      "Finnish",
-      "Czech",
-      "Slovak",
-      "Hungarian",
-      "Croatian",
-      "Serbian",
-      "Bulgarian",
-      "Greek",
-      "Slovenian",
-      "Lithuanian",
-      "Latvian",
-      "Estonian",
-      "Icelandic",
-      "Irish",
-      "British",
-      "Russian",
-      "Ukrainian",
-      "Belarusian",
-      "Moldovan",
-      "Albanian",
-      "Bosnian",
-      "Montenegrin",
-      "Macedonian",
-      "Luxembourgish",
-      "Maltese",
-      "Cypriot",
-      "Monégasque",
-      "San Marinese",
-      "Andorran",
-      "Liechtensteiner"
-    ];
+    this.defaultNationalities = this.getDefaultNationalities();
+    this.nationalities = this.prepareNationalities(this.options.nationalities);
 
     this.selectedNationality = null;
     this.debounceTimer = null;
@@ -74,9 +30,78 @@ class SmartNationalityAutocomplete {
   }
 
   /**
+   * Default curated list of nationalities
+   */
+  getDefaultNationalities() {
+    return [
+      'Paraguayan',
+      'Spanish',
+      'French',
+      'German',
+      'Italian',
+      'Portuguese',
+      'Polish',
+      'Romanian',
+      'Dutch',
+      'Belgian',
+      'Austrian',
+      'Swiss',
+      'Swedish',
+      'Norwegian',
+      'Danish',
+      'Finnish',
+      'Czech',
+      'Slovak',
+      'Hungarian',
+      'Croatian',
+      'Serbian',
+      'Bulgarian',
+      'Greek',
+      'Slovenian',
+      'Lithuanian',
+      'Latvian',
+      'Estonian',
+      'Icelandic',
+      'Irish',
+      'British',
+      'Russian',
+      'Ukrainian',
+      'Belarusian',
+      'Moldovan',
+      'Albanian',
+      'Bosnian',
+      'Montenegrin',
+      'Macedonian',
+      'Luxembourgish',
+      'Maltese',
+      'Cypriot',
+      'Monégasque',
+      'San Marinese',
+      'Andorran',
+      'Liechtensteiner'
+    ];
+  }
+
+  /**
+   * Prepare a sanitized, unique nationality list
+   */
+  prepareNationalities(nationalities) {
+    const source = Array.isArray(nationalities) && nationalities.length
+      ? nationalities
+      : this.defaultNationalities;
+
+    const cleaned = source
+      .map((value) => typeof value === 'string' ? value.trim() : '')
+      .filter(Boolean);
+
+    return Array.from(new Set(cleaned));
+  }
+
+  /**
    * Initialize the autocomplete functionality
    */
   init() {
+    this.input.setAttribute('autocomplete', 'off');
     this.createSuggestionsContainer();
     this.attachEventListeners();
   }
@@ -291,8 +316,7 @@ class SmartNationalityAutocomplete {
    */
   selectItem(item) {
     const nationality = item.textContent.trim();
-    this.input.value = nationality;
-    this.selectedNationality = nationality;
+    this.setNationality(nationality, { silent: true });
     this.closeSuggestions();
 
     // Dispatch custom event
@@ -332,10 +356,25 @@ class SmartNationalityAutocomplete {
   /**
    * Set nationality programmatically
    */
-  setNationality(nationality) {
-    if (this.nationalities.includes(nationality)) {
-      this.input.value = nationality;
-      this.selectedNationality = nationality;
+  setNationality(nationality, options = {}) {
+    const normalized = typeof nationality === 'string' ? nationality.trim() : '';
+    if (!normalized) {
+      return;
+    }
+
+    if (!this.nationalities.includes(normalized) && options.allowCustom) {
+      this.addCustomNationality(normalized);
+    }
+
+    if (this.nationalities.includes(normalized)) {
+      this.input.value = normalized;
+      this.selectedNationality = normalized;
+
+      if (!options.silent) {
+        this.input.dispatchEvent(new CustomEvent('nationalitySelected', {
+          detail: { nationality: normalized }
+        }));
+      }
     }
   }
 
@@ -352,9 +391,23 @@ class SmartNationalityAutocomplete {
    * Add custom nationality to the list
    */
   addCustomNationality(nationality) {
-    if (!this.nationalities.includes(nationality)) {
-      this.nationalities.push(nationality);
-      this.nationalities.sort();
+    const normalized = typeof nationality === 'string' ? nationality.trim() : '';
+    if (!normalized) {
+      return;
+    }
+
+    if (!this.nationalities.includes(normalized)) {
+      this.nationalities = this.prepareNationalities([...this.nationalities, normalized]);
+    }
+  }
+
+  /**
+   * Public helper to open suggestions programmatically
+   */
+  open(query = '') {
+    const value = typeof query === 'string' ? query : this.input.value;
+    if (value.length >= this.options.minChars) {
+      this.showSuggestions(value);
     }
   }
 }
