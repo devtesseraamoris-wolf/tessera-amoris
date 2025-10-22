@@ -637,106 +637,208 @@ function initializeNationalityField() {
     console.log('Initializing nationality field');
 
     const nationalityInput = document.getElementById('nationality');
-    const suggestionsContainer = document.getElementById('nationality-suggestions');
+    const premiumWrapper = nationalityInput ? nationalityInput.closest('.premium-nationality-input') : null;
+    const quickPickMount = premiumWrapper ? premiumWrapper.querySelector('#nationality-quick-picks') : null;
 
-    if (!nationalityInput || !suggestionsContainer) {
+    if (!nationalityInput || !premiumWrapper || !quickPickMount) {
         console.error('Nationality field not found');
         return;
     }
 
     nationalityInput.setAttribute('autocomplete', 'off');
 
-    let hideTimeout = null;
-    let ignoreNextFocus = false;
+    const curatedNationalities = NATIONALITY_SUGGESTIONS.filter(value => value && value !== "My nationality isn't listed");
+    let smartAutocomplete = null;
 
-    function clearHideTimeout() {
-        if (hideTimeout) {
-            clearTimeout(hideTimeout);
-            hideTimeout = null;
-        }
-    }
-
-    function scheduleHide() {
-        clearHideTimeout();
-        hideTimeout = window.setTimeout(() => {
-            suggestionsContainer.classList.remove('active');
-            suggestionsContainer.innerHTML = '';
-        }, 120);
-    }
-
-    function renderSuggestions(filterValue) {
-        suggestionsContainer.innerHTML = '';
-
-        const normalized = (filterValue || '').trim().toLowerCase();
-        let matches = NATIONALITY_SUGGESTIONS.filter(nationality =>
-            nationality.toLowerCase().includes(normalized)
-        );
-
-        if (!matches.length) {
-            const emptyMessage = document.createElement('div');
-            emptyMessage.className = 'nationality-suggestion-empty';
-            emptyMessage.textContent = 'No suggestions found. Please continue typing your nationality.';
-            suggestionsContainer.appendChild(emptyMessage);
-            return;
-        }
-
-        matches = matches.slice(0, normalized ? 12 : 10);
-
-        matches.forEach(nationality => {
-            const pill = document.createElement('button');
-            pill.type = 'button';
-            pill.className = 'nationality-pill';
-            pill.setAttribute('role', 'option');
-            pill.dataset.value = nationality;
-            pill.textContent = nationality;
-
-            pill.addEventListener('click', () => {
-                nationalityInput.value = nationality;
-                ignoreNextFocus = true;
-                scheduleHide();
-                nationalityInput.focus({ preventScroll: true });
-                nationalityInput.dispatchEvent(new Event('change', { bubbles: true }));
-            });
-
-            suggestionsContainer.appendChild(pill);
+    if (typeof SmartNationalityAutocomplete === 'function') {
+        smartAutocomplete = new SmartNationalityAutocomplete('#nationality', {
+            layout: 'horizontal',
+            minChars: 0,
+            maxSuggestions: 14,
+            debounceDelay: 120,
+            nationalities: curatedNationalities
         });
+    } else {
+        console.warn('SmartNationalityAutocomplete is not available. Applying datalist fallback.');
+        const fallbackId = 'nationality-suggestions-datalist';
+        let datalist = document.getElementById(fallbackId);
+        if (!datalist) {
+            datalist = document.createElement('datalist');
+            datalist.id = fallbackId;
+            curatedNationalities.forEach(nationality => {
+                const option = document.createElement('option');
+                option.value = nationality;
+                datalist.appendChild(option);
+            });
+            nationalityInput.parentElement.appendChild(datalist);
+        }
+        nationalityInput.setAttribute('list', fallbackId);
     }
 
-    function showSuggestions() {
-        suggestionsContainer.classList.add('active');
-        renderSuggestions(nationalityInput.value);
-    }
+    const quickPickShowcase = [
+        { name: 'Paraguayan', flag: '🇵🇾', caption: 'Homegrown pride' },
+        { name: 'Spanish', flag: '🇪🇸', caption: 'Vibrant Iberia' },
+        { name: 'Italian', flag: '🇮🇹', caption: 'Dolce vita' },
+        { name: 'German', flag: '🇩🇪', caption: 'Precision spirit' },
+        { name: 'French', flag: '🇫🇷', caption: 'Art de vivre' },
+        { name: 'Portuguese', flag: '🇵🇹', caption: 'Atlantic charm' },
+        { name: 'British', flag: '🇬🇧', caption: 'Across the Isles' },
+        { name: 'Dual Nationality', flag: '🪢', caption: 'Blended roots' },
+        { name: "My nationality isn't listed", flag: '🧭', caption: 'Share yours', custom: true }
+    ];
 
-    nationalityInput.addEventListener('focus', () => {
-        if (ignoreNextFocus) {
-            ignoreNextFocus = false;
+    quickPickMount.innerHTML = '';
+
+    const quickHeader = document.createElement('div');
+    quickHeader.className = 'nationality-quick-picks-header';
+
+    const eyebrow = document.createElement('span');
+    eyebrow.className = 'nationality-quick-eyebrow';
+    eyebrow.textContent = 'Quick picks';
+
+    const helper = document.createElement('span');
+    helper.className = 'nationality-quick-helper';
+    helper.textContent = 'Tap a favourite or keep typing to reveal every nationality we support.';
+
+    quickHeader.appendChild(eyebrow);
+    quickHeader.appendChild(helper);
+    quickPickMount.appendChild(quickHeader);
+
+    const pillsWrapper = document.createElement('div');
+    pillsWrapper.className = 'nationality-quick-pills-wrapper';
+
+    const quickPills = document.createElement('div');
+    quickPills.className = 'nationality-quick-pills';
+    quickPills.setAttribute('role', 'list');
+
+    const quickButtons = [];
+
+    const previousButton = document.createElement('button');
+    previousButton.type = 'button';
+    previousButton.className = 'nationality-quick-nav';
+    previousButton.setAttribute('aria-label', 'Scroll nationalities to the left');
+    previousButton.innerHTML = '<span aria-hidden="true">&#10094;</span>';
+
+    const nextButton = document.createElement('button');
+    nextButton.type = 'button';
+    nextButton.className = 'nationality-quick-nav';
+    nextButton.setAttribute('aria-label', 'Scroll nationalities to the right');
+    nextButton.innerHTML = '<span aria-hidden="true">&#10095;</span>';
+
+    const scrollByAmount = () => Math.min(quickPills.offsetWidth * 0.85, 240);
+
+    previousButton.addEventListener('click', () => {
+        quickPills.scrollBy({ left: scrollByAmount() * -1, behavior: 'smooth' });
+    });
+
+    nextButton.addEventListener('click', () => {
+        quickPills.scrollBy({ left: scrollByAmount(), behavior: 'smooth' });
+    });
+
+    const updateNavState = () => {
+        const maxScroll = quickPills.scrollWidth - quickPills.clientWidth;
+        const hasOverflow = maxScroll > 4;
+
+        previousButton.hidden = !hasOverflow;
+        nextButton.hidden = !hasOverflow;
+
+        if (!hasOverflow) {
             return;
         }
-        clearHideTimeout();
-        showSuggestions();
+
+        const currentScroll = quickPills.scrollLeft;
+        previousButton.disabled = currentScroll <= 4;
+        nextButton.disabled = currentScroll >= (maxScroll - 4);
+    };
+
+    quickPills.addEventListener('scroll', updateNavState);
+    window.addEventListener('resize', updateNavState);
+
+    const updateQuickPickSelection = (value) => {
+        const normalized = (value || '').trim().toLowerCase();
+        quickButtons.forEach(button => {
+            const isCustom = button.dataset.custom === 'true';
+            const isActive = isCustom ? normalized === '' : button.dataset.nationality === normalized;
+            button.classList.toggle('active', isActive);
+            button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+        });
+    };
+
+    quickPickShowcase.forEach(item => {
+        const quickButton = document.createElement('button');
+        quickButton.type = 'button';
+        quickButton.className = 'nationality-quick-pill';
+        quickButton.setAttribute('role', 'listitem');
+        quickButton.dataset.nationality = (item.name || '').toLowerCase();
+        quickButton.setAttribute('aria-pressed', 'false');
+
+        if (item.custom) {
+            quickButton.dataset.custom = 'true';
+        }
+
+        quickButton.innerHTML = `
+            <span class="flag" aria-hidden="true">${item.flag}</span>
+            <span class="name">${item.name}</span>
+            ${item.caption ? `<span class="caption">${item.caption}</span>` : ''}
+        `;
+
+        quickButton.addEventListener('click', () => {
+            if (item.custom) {
+                if (smartAutocomplete) {
+                    smartAutocomplete.clear();
+                    smartAutocomplete.closeSuggestions();
+                }
+                nationalityInput.value = '';
+                nationalityInput.focus({ preventScroll: true });
+                nationalityInput.dispatchEvent(new Event('input', { bubbles: true }));
+                nationalityInput.dispatchEvent(new CustomEvent('nationalitySelected', { detail: { nationality: '' } }));
+                updateQuickPickSelection('');
+                return;
+            }
+
+            if (smartAutocomplete) {
+                smartAutocomplete.setNationality(item.name);
+                smartAutocomplete.closeSuggestions();
+            } else {
+                nationalityInput.value = item.name;
+                nationalityInput.dispatchEvent(new CustomEvent('nationalitySelected', { detail: { nationality: item.name } }));
+            }
+
+            nationalityInput.dispatchEvent(new Event('input', { bubbles: true }));
+            nationalityInput.dispatchEvent(new Event('change', { bubbles: true }));
+            nationalityInput.focus({ preventScroll: true });
+            updateQuickPickSelection(item.name);
+        });
+
+        quickButtons.push(quickButton);
+        quickPills.appendChild(quickButton);
     });
+
+    pillsWrapper.appendChild(previousButton);
+    pillsWrapper.appendChild(quickPills);
+    pillsWrapper.appendChild(nextButton);
+    quickPickMount.appendChild(pillsWrapper);
+
+    const footnote = document.createElement('div');
+    footnote.className = 'nationality-quick-footnote';
+    footnote.innerHTML = '<i class="fas fa-compass"></i><span>We warmly welcome every background—type to search or select from the showcase.</span>';
+    quickPickMount.appendChild(footnote);
 
     nationalityInput.addEventListener('input', () => {
-        clearHideTimeout();
-        showSuggestions();
+        updateQuickPickSelection(nationalityInput.value);
     });
 
-    nationalityInput.addEventListener('blur', () => {
-        scheduleHide();
+    nationalityInput.addEventListener('nationalitySelected', event => {
+        if (event && event.detail && typeof event.detail.nationality === 'string') {
+            updateQuickPickSelection(event.detail.nationality);
+        }
     });
 
-    suggestionsContainer.addEventListener('mousedown', event => {
-        event.preventDefault();
-        clearHideTimeout();
-    });
+    updateQuickPickSelection(nationalityInput.value);
 
-    suggestionsContainer.addEventListener('mouseup', () => {
-        scheduleHide();
+    window.requestAnimationFrame(() => {
+        updateNavState();
     });
-
-    if (nationalityInput.value) {
-        renderSuggestions(nationalityInput.value);
-    }
 }
 
 function initializeAllFormFields() {
