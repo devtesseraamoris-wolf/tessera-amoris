@@ -818,11 +818,17 @@ class EnhancedLocationSelector {
 
     // Add countries to the dropdown
     Object.entries(this.locationData).forEach(([code, country]) => {
-      const option = document.createElement('option');
+      const option = document.createElement("option");
       option.value = code;
       option.textContent = `${country.flag} ${country.name}`;
       countrySelect.appendChild(option);
     });
+
+    // Add "My country is not listed yet" option
+    const otherOption = document.createElement("option");
+    otherOption.value = "Other";
+    otherOption.textContent = "My country is not listed yet";
+    countrySelect.appendChild(otherOption);
 
     console.log('Countries populated successfully');
   }
@@ -935,8 +941,23 @@ class EnhancedLocationSelector {
     const citySelect = document.getElementById('city');
 
     if (countrySelect) {
-      countrySelect.addEventListener('change', (e) => {
-        this.populateStates(e.target.value);
+      countrySelect.addEventListener("change", (e) => {
+        const selectedCountryValue = e.target.value;
+        const customCountryGroup = document.getElementById("country-custom-group");
+        const customCountryInput = document.getElementById("country-custom");
+
+        if (selectedCountryValue === "Other") {
+          if (customCountryGroup) customCountryGroup.style.display = "block";
+          if (customCountryInput) customCountryInput.required = true;
+          this.populateStates(null); // Clear states and cities
+        } else {
+          if (customCountryGroup) customCountryGroup.style.display = "none";
+          if (customCountryInput) {
+            customCountryInput.required = false;
+            customCountryInput.value = "";
+          }
+          this.populateStates(selectedCountryValue);
+        }
       });
     }
 

@@ -186,6 +186,10 @@
                         <select id="country" class="country-select" required>
                             <option value="">Select a Country</option>
                         </select>
+                        <div id="country-custom-group" class="country-custom-input-wrapper" style="display: none;">
+                            <label for="country-custom">Enter Your Country</label>
+                            <input type="text" id="country-custom" class="form-input" placeholder="e.g., Brazil" autocomplete="off">
+                        </div>
                     </div>
 
                     <!-- State/Province Selection -->
@@ -216,16 +220,14 @@
                     </div>
                 </div>
                 
-
-                
                 <div class="nationality-field">
                     <label for="nationality" class="sophisticated-label">Your Nationality</label>
-                    <div class="nationality-input-wrapper">
+                    <div class="premium-nationality-input">
                         <input 
                             type="text" 
                             id="nationality" 
                             class="nationality-input"
-                            placeholder="Start typing your nationality..."
+                            placeholder="Select or type your nationality..."
                             autocomplete="off"
                             required
                         >
@@ -828,21 +830,22 @@
     <script src="js/application-final-fixed.js"></script>
 
     <script src="js/enhanced-location-selector.js"></script>
-    <script src="js/smart-nationality-autocomplete.js"></script>
+    <script src="js/premium-nationality-selector.js"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Initialize Location Selector
             const locationSelector = new EnhancedLocationSelector();
 
-            // Initialize Nationality Autocomplete (Horizontal Layout)
-            const nationalityAutocomplete = new SmartNationalityAutocomplete(
+            // Initialize Premium Nationality Selector
+            const nationalitySelector = new PremiumNationalitySelector(
                 '#nationality',
                 {
-                    layout: 'horizontal',
                     minChars: 1,
-                    maxSuggestions: 10,
-                    debounceDelay: 200
+                    maxSuggestions: 12,
+                    debounceDelay: 200,
+                    highlightMatches: true,
+                    showFlags: true
                 }
             );
 
@@ -860,7 +863,7 @@
                     console.log('Selected Country:', document.getElementById('country').value);
                     console.log('Selected State:', document.getElementById('state').value);
                     console.log('Selected City:', finalCity);
-                    console.log('Selected Nationality:', nationalityAutocomplete.getSelected());
+                    console.log('Selected Nationality:', nationalitySelector.getSelectedName());
                 });
             }
         });
