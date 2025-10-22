@@ -223,20 +223,19 @@
                 <div class="nationality-field">
                     <label for="nationality" class="sophisticated-label">Your Nationality</label>
                     <div class="premium-nationality-input">
-                        <div class="nationality-input-wrapper nationality-autocomplete-wrapper">
-                            <input
-                                type="text"
-                                id="nationality"
-                                class="nationality-input"
-                                placeholder="Select or type your nationality..."
-                                autocomplete="off"
-                                required
-                            >
-                        </div>
+                        <input
+                            type="text"
+                            id="nationality"
+                            class="nationality-input"
+                            placeholder="Select or type your nationality..."
+                            autocomplete="off"
+                            required
+                        >
                         <div
-                            class="nationality-quick-picks"
-                            id="nationality-quick-picks"
-                            aria-label="Quick nationality selections"
+                            class="nationality-suggestion-container"
+                            id="nationality-suggestions"
+                            role="listbox"
+                            aria-label="Nationality suggestions"
                         ></div>
                     </div>
                 </div>
