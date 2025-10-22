@@ -831,33 +831,38 @@
     <script src="js/smart-nationality-autocomplete.js"></script>
 
     <script>
-        // Initialize Location Selector
-        const locationSelector = new EnhancedLocationSelector();
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize Location Selector
+            const locationSelector = new EnhancedLocationSelector();
 
-        // Initialize Nationality Autocomplete (Horizontal Layout)
-        const nationalityAutocomplete = new SmartNationalityAutocomplete(
-            '#nationality',
-            {
-                layout: 'horizontal',
-                minChars: 1,
-                maxSuggestions: 10,
-                debounceDelay: 200
+            // Initialize Nationality Autocomplete (Horizontal Layout)
+            const nationalityAutocomplete = new SmartNationalityAutocomplete(
+                '#nationality',
+                {
+                    layout: 'horizontal',
+                    minChars: 1,
+                    maxSuggestions: 10,
+                    debounceDelay: 200
+                }
+            );
+
+            // Optional: Handle form submission
+            const applicationForm = document.getElementById('applicationForm');
+            if (applicationForm) {
+                applicationForm.addEventListener('submit', function(e) {
+                    // This part should be handled by your existing form submission logic in form-logic.js or application-production.js
+                    // Ensure that your existing form submission logic correctly retrieves values from the new selectors.
+                    // For example, to get the city value:
+                    const citySelect = document.getElementById('city');
+                    const customCityInput = document.getElementById('city-custom');
+                    const finalCity = citySelect.value === 'Other' ? customCityInput.value : citySelect.value;
+                    
+                    console.log('Selected Country:', document.getElementById('country').value);
+                    console.log('Selected State:', document.getElementById('state').value);
+                    console.log('Selected City:', finalCity);
+                    console.log('Selected Nationality:', nationalityAutocomplete.getSelected());
+                });
             }
-        );
-
-        // Optional: Handle form submission
-        document.getElementById('applicationForm').addEventListener('submit', function(e) {
-            // This part should be handled by your existing form submission logic in form-logic.js or application-production.js
-            // Ensure that your existing form submission logic correctly retrieves values from the new selectors.
-            // For example, to get the city value:
-            const citySelect = document.getElementById('city');
-            const customCityInput = document.getElementById('city-custom');
-            const finalCity = citySelect.value === 'Other' ? customCityInput.value : citySelect.value;
-            
-            console.log('Selected Country:', document.getElementById('country').value);
-            console.log('Selected State:', document.getElementById('state').value);
-            console.log('Selected City:', finalCity);
-            console.log('Selected Nationality:', nationalityAutocomplete.getSelected());
         });
     </script>
 </body>

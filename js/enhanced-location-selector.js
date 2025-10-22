@@ -278,12 +278,22 @@ class EnhancedLocationSelector {
         name: "Finland",
         flag: "🇫🇮",
         states: {
-          "01": { name: "Åland Islands", cities: ["Mariehamn", "Jomala", "Lemland"] },
-          "02": { name: "Southern Finland", cities: ["Helsinki", "Espoo", "Tampere", "Vantaa", "Turku", "Other"] },
-          "04": { name: "Eastern Finland", cities: ["Kuopio", "Joensuu", "Savonlinna", "Other"] },
-          "05": { name: "Lapland", cities: ["Rovaniemi", "Ivalo", "Kemi", "Other"] },
-          "06": { name: "Western Finland", cities: ["Turku", "Pori", "Rauma", "Uusikaupunki", "Other"] },
-          "07": { name: "Central Finland", cities: ["Jyväskylä", "Oulu", "Mikkeli", "Other"] }
+          "01": { name: "Uusimaa", cities: ["Helsinki", "Espoo", "Vantaa", "Kauniainen", "Other"] },
+          "02": { name: "Varsinais-Suomi", cities: ["Turku", "Salo", "Uusikaupunki", "Other"] },
+          "03": { name: "Satakunta", cities: ["Pori", "Rauma", "Huittinen", "Other"] },
+          "04": { name: "Kanta-Häme", cities: ["Hämeenlinna", "Riihimäki", "Janakkala", "Other"] },
+          "05": { name: "Pirkanmaa", cities: ["Tampere", "Nokia", "Ylöjärvi", "Other"] },
+          "06": { name: "Päijät-Häme", cities: ["Lahti", "Heinola", "Hollola", "Other"] },
+          "07": { name: "Kymenlaakso", cities: ["Kouvola", "Kotka", "Hamina", "Other"] },
+          "08": { name: "South Karelia", cities: ["Lappeenranta", "Imatra", "Parikkala", "Other"] },
+          "09": { name: "Etela-Savo", cities: ["Mikkeli", "Savonlinna", "Pieksämäki", "Other"] },
+          "10": { name: "Pohjois-Savo", cities: ["Kuopio", "Iisalmi", "Varkaus", "Other"] },
+          "11": { name: "Pohjois-Karjala", cities: ["Joensuu", "Lieksa", "Nurmes", "Other"] },
+          "12": { name: "Kainuu", cities: ["Kajaani", "Kuhmo", "Sotkamo", "Other"] },
+          "13": { name: "Lapland", cities: ["Rovaniemi", "Kemi", "Tornio", "Other"] },
+          "14": { name: "Ostrobothnia", cities: ["Vaasa", "Seinäjoki", "Kurikka", "Other"] },
+          "15": { name: "Central Ostrobothnia", cities: ["Jyväskylä", "Jämsä", "Keuruu", "Other"] },
+          "16": { name: "North Ostrobothnia", cities: ["Oulu", "Raahe", "Ylivieska", "Other"] }
         }
       },
       "PL": {
@@ -292,578 +302,297 @@ class EnhancedLocationSelector {
         states: {
           "02": { name: "Masovian", cities: ["Warsaw", "Radom", "Ostrołęka", "Other"] },
           "04": { name: "Łódź", cities: ["Łódź", "Piotrków Trybunalski", "Sieradz", "Other"] },
-          "06": { name: "Lesser Poland", cities: ["Kraków", "Tarnów", "Nowy Sącz", "Wieliczka", "Other"] },
-          "08": { name: "Silesian", cities: ["Katowice", "Gliwice", "Zabrze", "Bytom", "Ruda Śląska", "Other"] },
-          "10": { name: "Opole", cities: ["Opole", "Nysa", "Kędzierzyn-Koźle", "Other"] },
-          "12": { name: "Lower Silesian", cities: ["Wrocław", "Legnica", "Wałbrzych", "Jelenia Góra", "Other"] },
-          "14": { name: "Greater Poland", cities: ["Poznań", "Konin", "Kalisz", "Leszno", "Other"] },
-          "16": { name: "West Pomeranian", cities: ["Szczecin", "Zielona Góra", "Gorzów Wielkopolski", "Other"] },
-          "18": { name: "Pomeranian", cities: ["Gdańsk", "Gdynia", "Sopot", "Tczew", "Other"] },
-          "20": { name: "Warmian-Masurian", cities: ["Olsztyn", "Elbląg", "Grudziądz", "Other"] },
-          "22": { name: "Podlaskie", cities: ["Białystok", "Suwałki", "Łomża", "Other"] },
-          "24": { name: "Lublin", cities: ["Lublin", "Chełm", "Biała Podlaska", "Other"] },
-          "26": { name: "Subcarpathian", cities: ["Rzeszów", "Krosno", "Przemyśl", "Sanok", "Other"] }
+          "06": { name: "Silesian", cities: ["Katowice", "Kraków", "Wrocław", "Other"] },
+          "08": { name: "Lublin", cities: ["Lublin", "Chełm", "Biała Podlaska", "Other"] },
+          "10": { name: "Podlaskie", cities: ["Białystok", "Suwałki", "Łomża", "Other"] },
+          "12": { name: "Warmian-Masurian", cities: ["Olsztyn", "Elbląg", "Grudziądz", "Other"] },
+          "14": { name: "West Pomeranian", cities: ["Szczecin", "Zielona Góra", "Gorzów Wielkopolski", "Other"] },
+          "16": { name: "Pomeranian", cities: ["Gdańsk", "Gdynia", "Sopot", "Other"] },
+          "18": { name: "Kuyavian-Pomeranian", cities: ["Bydgoszcz", "Toruń", "Włocławek", "Other"] },
+          "20": { name: "Greater Poland", cities: ["Poznań", "Konin", "Kalisz", "Other"] },
+          "22": { name: "Lesser Poland", cities: ["Kraków", "Tarnów", "Nowy Sącz", "Other"] },
+          "24": { name: "Subcarpathian", cities: ["Rzeszów", "Krosno", "Przemyśl", "Other"] },
+          "26": { name: "Opole", cities: ["Opole", "Nysa", "Kluczbork", "Other"] },
+          "28": { name: "Lower Silesian", cities: ["Wrocław", "Wałbrzych", "Legnica", "Other"] }
         }
       },
       "CZ": {
         name: "Czech Republic",
         flag: "🇨🇿",
         states: {
-          "JC": { name: "Central Bohemia", cities: ["Prague", "Mladá Boleslav", "Kladno", "Other"] },
-          "JM": { name: "South Moravia", cities: ["Brno", "Blansko", "Vyškov", "Jihlava", "Other"] },
-          "KA": { name: "Carlsbad", cities: ["Cheb", "Sokolov", "Karlovy Vary", "Other"] },
-          "KR": { name: "Kralovehradecky", cities: ["Hradec Králové", "Trutnov", "Pardubice", "Other"] },
-          "LI": { name: "Liberec", cities: ["Liberec", "Jablonec nad Nisou", "Česká Lípa", "Other"] },
-          "MO": { name: "Moravian-Silesian", cities: ["Ostrava", "Frýdek-Místek", "Havířov", "Other"] },
-          "OL": { name: "Olomouc", cities: ["Olomouc", "Šumperk", "Přerov", "Other"] },
-          "PA": { name: "Pardubice", cities: ["Pardubice", "Chrudim", "Svitavy", "Other"] },
-          "PL": { name: "Plzen", cities: ["Plzeň", "Tachov", "Domažlice", "Other"] },
-          "PR": { name: "Prague", cities: ["Prague"] },
-          "ST": { name: "South Bohemia", cities: ["České Budějovice", "Český Krumlov", "Tábor", "Other"] },
-          "US": { name: "Usti", cities: ["Ústí nad Labem", "Litoměřice", "Chomutov", "Other"] },
-          "VY": { name: "Vysocina", cities: ["Jihlava", "Třebíč", "Žďár nad Sázavou", "Other"] },
-          "ZL": { name: "Zlin", cities: ["Zlín", "Otrokovice", "Valašské Meziříčí", "Other"] }
-        }
-      },
-      "HU": {
-        name: "Hungary",
-        flag: "🇭🇺",
-        states: {
-          "BA": { name: "Baranya", cities: ["Pécs", "Mohács", "Siklós", "Other"] },
-          "BE": { name: "Békés", cities: ["Békéscsaba", "Gyula", "Szeghalom", "Other"] },
-          "BK": { name: "Bács-Kiskun", cities: ["Kecskemét", "Baja", "Kiskunhalas", "Other"] },
-          "BZ": { name: "Borsod-Abaúj-Zemplén", cities: ["Miskolc", "Eger", "Kazincbarcika", "Other"] },
-          "BU": { name: "Budapest", cities: ["Budapest"] },
-          "CS": { name: "Csongrád", cities: ["Szeged", "Makó", "Hódmezővásárhely", "Other"] },
-          "FE": { name: "Fejér", cities: ["Székesfehérvár", "Dunaújváros", "Mór", "Other"] },
-          "GS": { name: "Győr-Moson-Sopron", cities: ["Győr", "Sopron", "Mosonmagyaróvár", "Other"] },
-          "HB": { name: "Hajdú-Bihar", cities: ["Debrecen", "Hajdúszoboszló", "Balmazújváros", "Other"] },
-          "HE": { name: "Heves", cities: ["Eger", "Hatvan", "Gyöngyös", "Other"] },
-          "JN": { name: "Jász-Nagykun-Szolnok", cities: ["Szolnok", "Jászberény", "Karcag", "Other"] },
-          "KE": { name: "Komárom-Esztergom", cities: ["Tatabánya", "Esztergom", "Dorog", "Other"] },
-          "NO": { name: "Nógrád", cities: ["Salgótarján", "Balassagyarmat", "Rétság", "Other"] },
-          "PE": { name: "Pest", cities: ["Gödöllő", "Ráckeve", "Nagykőzeg", "Other"] },
-          "SO": { name: "Somogy", cities: ["Kaposvár", "Siófok", "Nagyatád", "Other"] },
-          "SZ": { name: "Szabolcs-Szatmár-Bereg", cities: ["Nyíregyháza", "Kisvárda", "Mátészalka", "Other"] },
-          "TO": { name: "Tolna", cities: ["Szekszárd", "Bonyhád", "Dombóvár", "Other"] },
-          "VA": { name: "Vas", cities: ["Szombathely", "Sárvár", "Körmend", "Other"] },
-          "VE": { name: "Veszprém", cities: ["Veszprém", "Balatonfüred", "Tapolca", "Other"] },
-          "ZA": { name: "Zala", cities: ["Zalaegerszeg", "Keszthely", "Nagykanizsa", "Other"] }
-        }
-      },
-      "RO": {
-        name: "Romania",
-        flag: "🇷🇴",
-        states: {
-          "AB": { name: "Alba", cities: ["Alba Iulia", "Sebeș", "Aiud", "Other"] },
-          "AG": { name: "Arad", cities: ["Arad", "Lipova", "Ineu", "Other"] },
-          "AR": { name: "Argeș", cities: ["Pitești", "Câmpulung", "Mioveni", "Other"] },
-          "BC": { name: "Bacău", cities: ["Bacău", "Onești", "Moinești", "Other"] },
-          "BH": { name: "Bihor", cities: ["Oradea", "Salonta", "Marghita", "Other"] },
-          "BN": { name: "Bistrița-Năsăud", cities: ["Bistrița", "Năsăud", "Beclean", "Other"] },
-          "BR": { name: "Brăila", cities: ["Brăila", "Galați", "Măcin", "Other"] },
-          "BS": { name: "Botoșani", cities: ["Botoșani", "Dorohoi", "Săveni", "Other"] },
-          "BT": { name: "Brașov", cities: ["Brașov", "Săcele", "Codlea", "Other"] },
-          "BZ": { name: "Buzău", cities: ["Buzău", "Râmnicu Sărat", "Pogoanele", "Other"] },
-          "CJ": { name: "Cluj", cities: ["Cluj-Napoca", "Turda", "Dej", "Other"] },
-          "CL": { name: "Călărași", cities: ["Călărași", "Oltenița", "Lehliu", "Other"] },
-          "CM": { name: "Caraș-Severin", cities: ["Reșitza", "Oravița", "Anina", "Other"] },
-          "CS": { name: "Constanța", cities: ["Constanța", "Mangalia", "Medgidia", "Other"] },
-          "CT": { name: "Covasna", cities: ["Sfântu Gheorghe", "Odorheiu Secuiesc", "Baraolt", "Other"] },
-          "DB": { name: "Dâmbovița", cities: ["Târgoviște", "Moreni", "Pucioasa", "Other"] },
-          "DJ": { name: "Dolj", cities: ["Craiova", "Băilești", "Calafat", "Other"] },
-          "GL": { name: "Galați", cities: ["Galați", "Brăila", "Tecuci", "Other"] },
-          "GJ": { name: "Gorj", cities: ["Târgu Jiu", "Motru", "Bumbești-Jiu", "Other"] },
-          "GR": { name: "Giurgiu", cities: ["Giurgiu", "Bolintin Vale", "Bolintin-Vale", "Other"] },
-          "HD": { name: "Hunedoara", cities: ["Hunedoara", "Deva", "Petroșani", "Other"] },
-          "HR": { name: "Harghita", cities: ["Miercurea Ciuc", "Odorheiu Secuiesc", "Bălan", "Other"] },
-          "IS": { name: "Iași", cities: ["Iași", "Pașcani", "Târgu Frumos", "Other"] },
-          "IF": { name: "Ilfov", cities: ["Buftea", "Snagov", "Voluntari", "Other"] },
-          "IL": { name: "Ialomița", cities: ["Slobozia", "Fetești", "Urziceni", "Other"] },
-          "ME": { name: "Mehedinți", cities: ["Drobeta-Turnu Severin", "Orsova", "Orșova", "Other"] },
-          "MS": { name: "Moinești", cities: ["Moinești", "Piatra Neamț", "Roznov", "Other"] },
-          "NT": { name: "Neamț", cities: ["Piatra Neamț", "Roznov", "Bârlad", "Other"] },
-          "OL": { name: "Olt", cities: ["Slatina", "Caracal", "Băilești", "Other"] },
-          "PH": { name: "Prahova", cities: ["Ploiești", "Băicești", "Câmpina", "Other"] },
-          "SB": { name: "Sibiu", cities: ["Sibiu", "Mediaș", "Cisnădie", "Other"] },
-          "SC": { name: "Satu Mare", cities: ["Satu Mare", "Negrești-Oaș", "Carei", "Other"] },
-          "SJ": { name: "Sălaj", cities: ["Zalau", "Jibou", "Șimleu Silvaniei", "Other"] },
-          "SM": { name: "Suceava", cities: ["Suceava", "Fălticeni", "Rădăuți", "Other"] },
-          "SV": { name: "Sibiu", cities: ["Sibiu", "Mediaș", "Cisnădie", "Other"] },
-          "TL": { name: "Tulcea", cities: ["Tulcea", "Sulina", "Mangalia", "Other"] },
-          "TM": { name: "Timișoara", cities: ["Timișoara", "Lugoj", "Reșița", "Other"] },
-          "TR": { name: "Turnu Măgurele", cities: ["Turnu Măgurele", "Giurgiu", "Călărași", "Other"] },
-          "VL": { name: "Vaslui", cities: ["Vaslui", "Huși", "Bârlad", "Other"] },
-          "VN": { name: "Vatra Moldoviței", cities: ["Vatra Moldoviței", "Suceava", "Rădăuți", "Other"] },
-          "VR": { name: "Vrancioaia", cities: ["Focșani", "Adjud", "Mărășești", "Other"] },
-          "VS": { name: "Vâlcea", cities: ["Râmnicu Vâlcea", "Călimănești", "Băile Olănești", "Other"] }
-        }
-      },
-      "PT": {
-        name: "Portugal",
-        flag: "🇵🇹",
-        states: {
-          "01": { name: "Aveiro", cities: ["Aveiro", "Ovar", "Estarreja", "Other"] },
-          "02": { name: "Beja", cities: ["Beja", "Moura", "Serpa", "Other"] },
-          "03": { name: "Braga", cities: ["Braga", "Guarda", "Guarda", "Other"] },
-          "04": { name: "Bragança", cities: ["Bragança", "Mirandela", "Macedo de Cavaleiros", "Other"] },
-          "05": { name: "Castelo Branco", cities: ["Castelo Branco", "Covilhã", "Fundão", "Other"] },
-          "08": { name: "Évora", cities: ["Évora", "Estremoz", "Portalegre", "Other"] },
-          "09": { name: "Faro", cities: ["Faro", "Loulé", "Albufeira", "Other"] },
-          "10": { name: "Guarda", cities: ["Guarda", "Pinhel", "Sabugal", "Other"] },
-          "12": { name: "Leiria", cities: ["Leiria", "Pombal", "Batalha", "Other"] },
-          "13": { name: "Lisboa", cities: ["Lisbon", "Cascais", "Sintra", "Oeiras", "Other"] },
-          "14": { name: "Portalegre", cities: ["Portalegre", "Marvão", "Castelo de Vide", "Other"] },
-          "15": { name: "Porto", cities: ["Porto", "Vila do Conde", "Matosinhos", "Gaia", "Other"] },
-          "16": { name: "Santarém", cities: ["Santarém", "Tomar", "Abrantes", "Other"] },
-          "17": { name: "Setúbal", cities: ["Setúbal", "Sines", "Alcácer do Sal", "Other"] },
-          "18": { name: "Viana do Castelo", cities: ["Viana do Castelo", "Ponte de Lima", "Barcelos", "Other"] },
-          "19": { name: "Vila Real", cities: ["Vila Real", "Chaves", "Lamego", "Other"] },
-          "20": { name: "Viseu", cities: ["Viseu", "Lamego", "Guarda", "Other"] },
-          "21": { name: "Madeira", cities: ["Funchal", "Câmara de Lobos", "Machico", "Other"] },
-          "22": { name: "Azores", cities: ["Ponta Delgada", "Angra do Heroísmo", "Horta", "Other"] }
-        }
-      },
-      "GR": {
-        name: "Greece",
-        flag: "🇬🇷",
-        states: {
-          "A": { name: "Attica", cities: ["Athens", "Piraeus", "Glyfada", "Kallithea", "Other"] },
-          "B": { name: "Central Greece", cities: ["Lamia", "Volos", "Larissa", "Other"] },
-          "C": { name: "Central Macedonia", cities: ["Thessaloniki", "Serres", "Kilkis", "Other"] },
-          "D": { name: "Crete", cities: ["Heraklion", "Chania", "Rethymno", "Other"] },
-          "E": { name: "Eastern Macedonia and Thrace", cities: ["Komotini", "Xanthi", "Alexandroupoli", "Other"] },
-          "F": { name: "Ionian Islands", cities: ["Corfu", "Zakynthos", "Cephalonia", "Other"] },
-          "G": { name: "North Aegean", cities: ["Mytilene", "Chios", "Samos", "Other"] },
-          "H": { name: "Peloponnese", cities: ["Patras", "Corinth", "Argos", "Other"] },
-          "I": { name: "South Aegean", cities: ["Rhodes", "Mykonos", "Santorini", "Other"] },
-          "J": { name: "Thessaly", cities: ["Larissa", "Volos", "Trikala", "Other"] },
-          "K": { name: "West Greece", cities: ["Patras", "Agrinio", "Messolonghi", "Other"] },
-          "L": { name: "Western Macedonia", cities: ["Kozani", "Kastoria", "Florina", "Other"] }
-        }
-      },
-      "HR": {
-        name: "Croatia",
-        flag: "🇭🇷",
-        states: {
-          "01": { name: "Zagreb", cities: ["Zagreb"] },
-          "02": { name: "Krapina-Zagorje", cities: ["Krapina", "Zabok", "Pregrada", "Other"] },
-          "03": { name: "Sisak-Moslavina", cities: ["Sisak", "Moslavina", "Kostolac", "Other"] },
-          "04": { name: "Karlovac", cities: ["Karlovac", "Ogulin", "Duga Resa", "Other"] },
-          "05": { name: "Varaždin", cities: ["Varaždin", "Ivanec", "Ludbreg", "Other"] },
-          "06": { name: "Koprivnica-Križ", cities: ["Koprivnica", "Križ", "Virovitica", "Other"] },
-          "07": { name: "Bjelovar-Bilogora", cities: ["Bjelovar", "Garešnica", "Daruvar", "Other"] },
-          "08": { name: "Primorje-Gorski Kotar", cities: ["Rijeka", "Opatija", "Krk", "Cres", "Other"] },
-          "09": { name: "Lika-Senj", cities: ["Gospino Polje", "Senj", "Gospino Polje", "Other"] },
-          "10": { name: "Virovitica", cities: ["Virovitica", "Suhopolje", "Daruvar", "Other"] },
-          "11": { name: "Požega-Slavonia", cities: ["Požega", "Slavonski Kobaš", "Kutjevo", "Other"] },
-          "12": { name: "Brodina-Posavina", cities: ["Slavonski Brod", "Nova Gradiška", "Daruvar", "Other"] },
-          "13": { name: "Osijek-Baranja", cities: ["Osijek", "Baranja", "Vinkovci", "Other"] },
-          "14": { name: "Šibenik-Knin", cities: ["Šibenik", "Knin", "Drniš", "Other"] },
-          "15": { name: "Zadar", cities: ["Zadar", "Benkovac", "Starigrad", "Other"] },
-          "16": { name: "Istria", cities: ["Pazin", "Poreč", "Rovinj", "Motovun", "Other"] },
-          "17": { name: "Dalmatia", cities: ["Split", "Trogir", "Makarska", "Bol", "Other"] },
-          "18": { name: "Dubrovnik-Neretva", cities: ["Dubrovnik", "Metković", "Ston", "Other"] }
-        }
-      },
-      "BG": {
-        name: "Bulgaria",
-        flag: "🇧🇬",
-        states: {
-          "01": { name: "Blagoevgrad", cities: ["Blagoevgrad", "Petrich", "Sandanski", "Other"] },
-          "02": { name: "Burgas", cities: ["Burgas", "Pomorie", "Nesebar", "Other"] },
-          "03": { name: "Dobrich", cities: ["Dobrich", "Balchik", "Albena", "Other"] },
-          "04": { name: "Gabrovo", cities: ["Gabrovo", "Sevlievo", "Tryavna", "Other"] },
-          "05": { name: "Haskovo", cities: ["Haskovo", "Dimitrovgrad", "Svilengrad", "Other"] },
-          "06": { name: "Kardzhali", cities: ["Kardzhali", "Momchilgrad", "Ardino", "Other"] },
-          "07": { name: "Kyustendil", cities: ["Kyustendil", "Dupnitsa", "Bobov Dol", "Other"] },
-          "08": { name: "Lovech", cities: ["Lovech", "Troyan", "Letnitsa", "Other"] },
-          "09": { name: "Montana", cities: ["Montana", "Lom", "Georgievo", "Other"] },
-          "10": { name: "Pazardzhik", cities: ["Pazardzhik", "Peshtera", "Velingrad", "Other"] },
-          "11": { name: "Pernik", cities: ["Pernik", "Radomir", "Dragoman", "Other"] },
-          "12": { name: "Pleven", cities: ["Pleven", "Lovech", "Gorna Oryahovitsa", "Other"] },
-          "13": { name: "Plovdiv", cities: ["Plovdiv", "Pazardzhik", "Asenovgrad", "Other"] },
-          "14": { name: "Razgrad", cities: ["Razgrad", "Isperih", "Lozovo", "Other"] },
-          "15": { name: "Ruse", cities: ["Ruse", "Silistra", "Giurgiu", "Other"] },
-          "16": { name: "Shumen", cities: ["Shumen", "Karnobat", "Kaspichan", "Other"] },
-          "17": { name: "Silistra", cities: ["Silistra", "Tutrakan", "Sitovo", "Other"] },
-          "18": { name: "Sliven", cities: ["Sliven", "Kotel", "Nova Zagora", "Other"] },
-          "19": { name: "Smolyan", cities: ["Smolyan", "Chepelare", "Bansko", "Other"] },
-          "20": { name: "Sofia", cities: ["Sofia", "Botevgrad", "Samokov", "Other"] },
-          "21": { name: "Sofia City", cities: ["Sofia"] },
-          "22": { name: "Stara Zagora", cities: ["Stara Zagora", "Kazanlak", "Chirpan", "Other"] },
-          "23": { name: "Targovishte", cities: ["Targovishte", "Omurtag", "Popovo", "Other"] },
-          "24": { name: "Varna", cities: ["Varna", "Nesebar", "Obzor", "Other"] },
-          "25": { name: "Veliko Tarnovo", cities: ["Veliko Tarnovo", "Gorna Oryahovitsa", "Svishtov", "Other"] },
-          "26": { name: "Vidin", cities: ["Vidin", "Belogradchik", "Calafat", "Other"] },
-          "27": { name: "Yambol", cities: ["Yambol", "Tundzha", "Bolyarovo", "Other"] }
+          "10": { name: "Prague", cities: ["Prague"] },
+          "20": { name: "Central Bohemia", cities: ["Benešov", "Kladno", "Mělník", "Other"] },
+          "31": { name: "South Bohemia", cities: ["České Budějovice", "Český Krumlov", "Prachatice", "Other"] },
+          "42": { name: "Pilsen", cities: ["Plzeň", "Tachov", "Domažlice", "Other"] },
+          "51": { name: "Karlovy Vary", cities: ["Karlovy Vary", "Cheb", "Sokolov", "Other"] },
+          "64": { name: "Ústí nad Labem", cities: ["Ústí nad Labem", "Teplice", "Litvínov", "Other"] },
+          "71": { name: "Liberec", cities: ["Liberec", "Jablonec nad Nisou", "Česká Lípa", "Other"] },
+          "80": { name: "Hradec Králové", cities: ["Hradec Králové", "Pardubice", "Chrudim", "Other"] },
+          "52": { name: "Olomouc", cities: ["Olomouc", "Přerov", "Šumperk", "Other"] },
+          "72": { name: "Moravian-Silesian", cities: ["Ostrava", "Frýdek-Místek", "Karviná", "Other"] },
+          "63": { name: "South Moravia", cities: ["Brno", "Jihlava", "Znojmo", "Other"] },
+          "53": { name: "Zlín", cities: ["Zlín", "Otrokovice", "Uherské Hradiště", "Other"] }
         }
       },
       "SK": {
         name: "Slovakia",
         flag: "🇸🇰",
         states: {
-          "BC": { name: "Banská Bystrica", cities: ["Banská Bystrica", "Zvolen", "Banská Štiavnica", "Other"] },
-          "BL": { name: "Bratislava", cities: ["Bratislava"] },
-          "KE": { name: "Košice", cities: ["Košice", "Prešov", "Michalovce", "Other"] },
-          "NI": { name: "Nitra", cities: ["Nitra", "Komárno", "Levice", "Other"] },
-          "PO": { name: "Prešov", cities: ["Prešov", "Košice", "Bardejov", "Other"] },
-          "TA": { name: "Trnava", cities: ["Trnava", "Dunajská Streda", "Hlohovec", "Other"] },
+          "BL": { name: "Banská Bystrica", cities: ["Banská Bystrica", "Zvolen", "Detva", "Other"] },
+          "KI": { name: "Košice", cities: ["Košice", "Michalovce", "Trebišov", "Other"] },
+          "NI": { name: "Nitra", cities: ["Nitra", "Levice", "Komárno", "Other"] },
+          "PO": { name: "Prešov", cities: ["Prešov", "Bardejov", "Svidník", "Other"] },
           "TN": { name: "Trenčín", cities: ["Trenčín", "Púchov", "Nové Mesto nad Váhom", "Other"] },
-          "ZI": { name: "Žilina", cities: ["Žilina", "Čunovo", "Liptovský Mikuláš", "Other"] }
+          "TT": { name: "Trnava", cities: ["Trnava", "Dunajská Streda", "Hlohovec", "Other"] },
+          "ZA": { name: "Žilina", cities: ["Žilina", "Čunovo", "Tvrdošín", "Other"] },
+          "BA": { name: "Bratislava", cities: ["Bratislava", "Senec", "Malacky", "Other"] }
+        }
+      },
+      "HU": {
+        name: "Hungary",
+        flag: "🇭🇺",
+        states: {
+          "01": { name: "Budapest", cities: ["Budapest"] },
+          "02": { name: "Baranya", cities: ["Pécs", "Mohács", "Siklós", "Other"] },
+          "03": { name: "Bács-Kiskun", cities: ["Kecskemét", "Baja", "Kiskunfélegyháza", "Other"] },
+          "04": { name: "Békés", cities: ["Békéscsaba", "Gyula", "Szeghalom", "Other"] },
+          "05": { name: "Borsod-Abaúj-Zemplén", cities: ["Miskolc", "Eger", "Sátoraljaújhely", "Other"] },
+          "06": { name: "Csongrád", cities: ["Szeged", "Makó", "Hódmezővásárhely", "Other"] },
+          "07": { name: "Fejér", cities: ["Székesfehérvár", "Dunaújváros", "Mór", "Other"] },
+          "08": { name: "Győr-Moson-Sopron", cities: ["Győr", "Sopron", "Mosonmagyaróvár", "Other"] },
+          "09": { name: "Hajdú-Bihar", cities: ["Debrecen", "Hajdúszoboszló", "Balmazújváros", "Other"] },
+          "10": { name: "Heves", cities: ["Eger", "Gyöngyös", "Hatvan", "Other"] },
+          "11": { name: "Jász-Nagykun-Szolnok", cities: ["Szolnok", "Jászberény", "Karcag", "Other"] },
+          "12": { name: "Komárom-Esztergom", cities: ["Esztergom", "Tatabánya", "Komárom", "Other"] },
+          "13": { name: "Nógrád", cities: ["Salgótarján", "Balassagyarmat", "Pásztó", "Other"] },
+          "14": { name: "Pest", cities: ["Gödöllő", "Ráckeve", "Érd", "Other"] },
+          "15": { name: "Somogy", cities: ["Kaposvár", "Siófok", "Marcali", "Other"] },
+          "16": { name: "Szabolcs-Szatmár-Bereg", cities: ["Nyíregyháza", "Kisvárda", "Mátészalka", "Other"] },
+          "17": { name: "Tolna", cities: ["Szekszárd", "Bonyhád", "Dombóvár", "Other"] },
+          "18": { name: "Vas", cities: ["Szombathely", "Körmend", "Sárvár", "Other"] },
+          "19": { name: "Veszprém", cities: ["Veszprém", "Tapolca", "Ajka", "Other"] },
+          "20": { name: "Zala", cities: ["Zalaegerszeg", "Keszthely", "Nagykanizsa", "Other"] }
+        }
+      },
+      "RO": {
+        name: "Romania",
+        flag: "🇷🇴",
+        states: {
+          "AB": { name: "Alba", cities: ["Alba Iulia", "Aiud", "Sebeș", "Other"] },
+          "AR": { name: "Arad", cities: ["Arad", "Lipova", "Ineu", "Other"] },
+          "AG": { name: "Argeș", cities: ["Pitești", "Câmpulung", "Mioveni", "Other"] },
+          "BC": { name: "Bacău", cities: ["Bacău", "Onești", "Moinești", "Other"] },
+          "BH": { name: "Bihor", cities: ["Oradea", "Salonta", "Marghita", "Other"] },
+          "BN": { name: "Bistrița-Năsăud", cities: ["Bistrița", "Năsăud", "Beclean", "Other"] },
+          "BT": { name: "Botoșani", cities: ["Botoșani", "Dorohoi", "Săveni", "Other"] },
+          "BV": { name: "Brașov", cities: ["Brașov", "Făgăraș", "Săcele", "Other"] },
+          "BR": { name: "Brăila", cities: ["Brăila", "Galați", "Reni", "Other"] },
+          "B": { name: "Bucharest", cities: ["Bucharest"] },
+          "BZ": { name: "Buzău", cities: ["Buzău", "Râmnicu Sărat", "Pogoanele", "Other"] },
+          "CL": { name: "Călărași", cities: ["Călărași", "Oltenița", "Lehliu", "Other"] },
+          "CS": { name: "Caraș-Severin", cities: ["Reșița", "Oravița", "Anina", "Other"] },
+          "CJ": { name: "Cluj", cities: ["Cluj-Napoca", "Turda", "Dej", "Other"] },
+          "CT": { name: "Constanța", cities: ["Constanța", "Mangalia", "Medgidia", "Other"] },
+          "CV": { name: "Covasna", cities: ["Sfântu Gheorghe", "Odorheiu Secuiesc", "Baraolt", "Other"] },
+          "DB": { name: "Dâmbovița", cities: ["Târgoviște", "Moreni", "Găești", "Other"] },
+          "DJ": { name: "Dolj", cities: ["Craiova", "Băilești", "Calafat", "Other"] },
+          "GL": { name: "Galați", cities: ["Galați", "Tecuci", "Niculești", "Other"] },
+          "GJ": { name: "Gorj", cities: ["Târgu Jiu", "Motru", "Bumbești", "Other"] },
+          "GR": { name: "Grevă", cities: ["Târgoviște", "Ploiești", "Băicești", "Other"] },
+          "HS": { name: "Harghita", cities: ["Miercurea Ciuc", "Odorheiu Secuiesc", "Bălan", "Other"] },
+          "HD": { name: "Hunedoara", cities: ["Deva", "Hunedoara", "Lupeni", "Other"] },
+          "IL": { name: "Ialomița", cities: ["Slobozia", "Fetești", "Urziceni", "Other"] },
+          "IS": { name: "Iași", cities: ["Iași", "Piatra Neamț", "Târgu Neamț", "Other"] },
+          "IF": { name: "Ilfov", cities: ["Buftea", "Voluntari", "Otopeni", "Other"] },
+          "MM": { name: "Maramureș", cities: ["Baia Mare", "Satu Mare", "Negrești-Oaș", "Other"] },
+          "MH": { name: "Mehedinți", cities: ["Drobeta-Turnu Severin", "Orsova", "Orșova", "Other"] },
+          "MS": { name: "Mureș", cities: ["Târgu Mureș", "Sighișoara", "Luduș", "Other"] },
+          "NT": { name: "Neamț", cities: ["Piatra Neamț", "Târgu Neamț", "Roman", "Other"] },
+          "OT": { name: "Olt", cities: ["Slatina", "Caracal", "Băilești", "Other"] },
+          "PH": { name: "Prahova", cities: ["Ploiești", "Băicești", "Sinaia", "Other"] },
+          "SB": { name: "Sibiu", cities: ["Sibiu", "Mediaș", "Cisnădie", "Other"] },
+          "SJ": { name: "Sălaj", cities: ["Zalau", "Jibou", "Cehu Silvaniei", "Other"] },
+          "SM": { name: "Satu Mare", cities: ["Satu Mare", "Negrești-Oaș", "Carei", "Other"] },
+          "SV": { name: "Suceava", cities: ["Suceava", "Rădăuți", "Fălticeni", "Other"] },
+          "TL": { name: "Tulcea", cities: ["Tulcea", "Babadag", "Măcin", "Other"] },
+          "TM": { name: "Timiș", cities: ["Timișoara", "Lugoj", "Deta", "Other"] },
+          "TR": { name: "Teleorman", cities: ["Alexandria", "Turnu Măgurele", "Videle", "Other"] },
+          "VL": { name: "Vâlcea", cities: ["Râmnicu Vâlcea", "Călimănești", "Băile Olănești", "Other"] },
+          "VN": { name: "Vrancea", cities: ["Focșani", "Adjud", "Nărăești", "Other"] }
+        }
+      },
+      "BG": {
+        name: "Bulgaria",
+        flag: "🇧🇬",
+        states: {
+          "01": { name: "Sofia", cities: ["Sofia", "Pernik", "Botevgrad", "Other"] },
+          "02": { name: "Blagoevgrad", cities: ["Blagoevgrad", "Petrich", "Sandanski", "Other"] },
+          "03": { name: "Burgas", cities: ["Burgas", "Pomorie", "Nesebar", "Other"] },
+          "04": { name: "Varna", cities: ["Varna", "Dobrich", "Balchik", "Other"] },
+          "05": { name: "Veliko Tarnovo", cities: ["Veliko Tarnovo", "Gabrovo", "Tryavna", "Other"] },
+          "06": { name: "Vidin", cities: ["Vidin", "Belogradchik", "Calafat", "Other"] },
+          "07": { name: "Vratsa", cities: ["Vratsa", "Mezdra", "Kozloduy", "Other"] },
+          "08": { name: "Gabrovo", cities: ["Gabrovo", "Tryavna", "Sevlievo", "Other"] },
+          "09": { name: "Haskovo", cities: ["Haskovo", "Ivaylovgrad", "Dimitrovgrad", "Other"] },
+          "10": { name: "Kardzhali", cities: ["Kardzhali", "Arda", "Ardino", "Other"] },
+          "11": { name: "Kyustendil", cities: ["Kyustendil", "Dupnitsa", "Sapareva Banya", "Other"] },
+          "12": { name: "Lovech", cities: ["Lovech", "Troyan", "Ugarchin", "Other"] },
+          "13": { name: "Montana", cities: ["Montana", "Lom", "Georgievo", "Other"] },
+          "14": { name: "Pazardzhik", cities: ["Pazardzhik", "Velingrad", "Peshtera", "Other"] },
+          "15": { name: "Pernik", cities: ["Pernik", "Radomir", "Tran", "Other"] },
+          "16": { name: "Pleven", cities: ["Pleven", "Levski", "Cherven Bryag", "Other"] },
+          "17": { name: "Plovdiv", cities: ["Plovdiv", "Asenovgrad", "Peshtera", "Other"] },
+          "18": { name: "Razgrad", cities: ["Razgrad", "Isperih", "Loznitsa", "Other"] },
+          "19": { name: "Ruse", cities: ["Ruse", "Silistra", "Tutrakan", "Other"] },
+          "20": { name: "Silistra", cities: ["Silistra", "Tutrakan", "Alfatar", "Other"] },
+          "21": { name: "Sliven", cities: ["Sliven", "Kotel", "Nova Zagora", "Other"] },
+          "22": { name: "Smolyan", cities: ["Smolyan", "Devin", "Chepelare", "Other"] },
+          "23": { name: "Sofia (Province)", cities: ["Sofia", "Bankya", "Dragalevtsi", "Other"] },
+          "24": { name: "Stara Zagora", cities: ["Stara Zagora", "Nova Zagora", "Kazanlak", "Other"] },
+          "25": { name: "Targovishte", cities: ["Targovishte", "Omurtag", "Popovo", "Other"] },
+          "26": { name: "Yambol", cities: ["Yambol", "Bolyarovo", "Tundzha", "Other"] }
+        }
+      },
+      "HR": {
+        name: "Croatia",
+        flag: "🇭🇷",
+        states: {
+          "01": { name: "Zagreb", cities: ["Zagreb", "Zaprešić", "Samobor", "Other"] },
+          "02": { name: "Krapina-Zagorje", cities: ["Krapina", "Zabok", "Oroslávlja", "Other"] },
+          "03": { name: "Sisak-Moslavina", cities: ["Sisak", "Petrinja", "Kostolac", "Other"] },
+          "04": { name: "Karlovac", cities: ["Karlovac", "Ogulin", "Duga Resa", "Other"] },
+          "05": { name: "Varaždin", cities: ["Varaždin", "Ivanec", "Ludbreg", "Other"] },
+          "06": { name: "Koprivnica-Križevci", cities: ["Koprivnica", "Križevci", "Virovitica", "Other"] },
+          "07": { name: "Bjelovar-Bilogora", cities: ["Bjelovar", "Garešnica", "Daruvar", "Other"] },
+          "08": { name: "Primorje-Gorski Kotar", cities: ["Rijeka", "Opatija", "Krk", "Other"] },
+          "09": { name: "Lika-Senj", cities: ["Gospino Polje", "Senj", "Otočac", "Other"] },
+          "10": { name: "Virovitica", cities: ["Virovitica", "Suhopolje", "Orahovica", "Other"] },
+          "11": { name: "Požega-Slavonia", cities: ["Požega", "Slavonski Kobaš", "Kutjevo", "Other"] },
+          "12": { name: "Brodska-Posavina", cities: ["Slavonski Brod", "Nova Gradiška", "Daruvar", "Other"] },
+          "13": { name: "Osijek-Baranja", cities: ["Osijek", "Baranja", "Vukovar", "Other"] },
+          "14": { name: "Šibenik-Knin", cities: ["Šibenik", "Knin", "Drniš", "Other"] },
+          "15": { name: "Zadar", cities: ["Zadar", "Benkovac", "Obala", "Other"] },
+          "16": { name: "Istria", cities: ["Pazin", "Poreč", "Rovinj", "Other"] },
+          "17": { name: "Dubrovnik-Neretva", cities: ["Dubrovnik", "Metković", "Ploče", "Other"] },
+          "18": { name: "Split-Dalmatia", cities: ["Split", "Trogir", "Kaštela", "Other"] }
         }
       },
       "SI": {
         name: "Slovenia",
         flag: "🇸🇮",
         states: {
-          "01": { name: "Upper Carniola", cities: ["Kranj", "Jesenice", "Radovljica", "Other"] },
-          "02": { name: "Gorizia", cities: ["Nova Gorica", "Tolmin", "Kobarid", "Other"] },
-          "03": { name: "Carniola", cities: ["Ljubljana"] },
-          "04": { name: "Lower Carniola", cities: ["Novo Mesto", "Metlika", "Trebnje", "Other"] },
-          "05": { name: "White Carniola", cities: ["Čatež ob Savi", "Trebnje", "Sevnica", "Other"] },
-          "06": { name: "Styria", cities: ["Maribor", "Ptuj", "Ormož", "Other"] },
-          "07": { name: "Prekmurje", cities: ["Murska Sobota", "Lendava", "Ljutomer", "Other"] },
-          "08": { name: "Littoral", cities: ["Koper", "Izola", "Piran", "Other"] }
+          "01": { name: "Gorenjska", cities: ["Kranj", "Jesenice", "Radovljica", "Other"] },
+          "02": { name: "Goriška", cities: ["Nova Gorica", "Tolmin", "Bovec", "Other"] },
+          "03": { name: "Primorska", cities: ["Koper", "Izola", "Piran", "Other"] },
+          "04": { name: "Notranjska", cities: ["Postojna", "Ilirska Bistrica", "Loški Potok", "Other"] },
+          "05": { name: "Dolenjska", cities: ["Novo Mesto", "Trebnje", "Mirna Peč", "Other"] },
+          "06": { name: "Savinjska", cities: ["Celje", "Laško", "Mozirje", "Other"] },
+          "07": { name: "Styria", cities: ["Maribor", "Ptuj", "Ormož", "Other"] },
+          "08": { name: "Mura", cities: ["Murska Sobota", "Lendava", "Prosenjakovci", "Other"] },
+          "09": { name: "Carinthia", cities: ["Kranjska Gora", "Bled", "Bohinj", "Other"] },
+          "10": { name: "Ljubljana", cities: ["Ljubljana"] }
         }
       },
-      "BA": {
-        name: "Bosnia and Herzegovina",
-        flag: "🇧🇦",
+      "GR": {
+        name: "Greece",
+        flag: "🇬🇷",
         states: {
-          "FBH": { name: "Federation of Bosnia and Herzegovina", cities: ["Sarajevo", "Zenica", "Tuzla", "Mostar", "Other"] },
-          "RS": { name: "Republika Srpska", cities: ["Banja Luka", "Prijedor", "Doboj", "Other"] },
-          "BD": { name: "Brčko District", cities: ["Brčko"] }
-        }
-      },
-      "ME": {
-        name: "Montenegro",
-        flag: "🇲🇪",
-        states: {
-          "01": { name: "Andrijevica", cities: ["Andrijevica", "Berane", "Rožaje", "Other"] },
-          "02": { name: "Bar", cities: ["Bar", "Ulcinj", "Ada Bojana", "Other"] },
-          "03": { name: "Berane", cities: ["Berane", "Rožaje", "Plav", "Other"] },
-          "04": { name: "Bijelo Polje", cities: ["Bijelo Polje", "Rožaje", "Pljevlja", "Other"] },
-          "05": { name: "Budva", cities: ["Budva", "Kotor", "Perast", "Other"] },
-          "06": { name: "Cetinje", cities: ["Cetinje", "Nikšić", "Rijeka Crnojevića", "Other"] },
-          "07": { name: "Danilovgrad", cities: ["Danilovgrad", "Podgorica", "Cetinje", "Other"] },
-          "08": { name: "Gusinje", cities: ["Gusinje", "Rožaje", "Plav", "Other"] },
-          "09": { name: "Herceg Novi", cities: ["Herceg Novi", "Kotor", "Perast", "Other"] },
-          "10": { name: "Kolašin", cities: ["Kolašin", "Podgorica", "Mojkovac", "Other"] },
-          "11": { name: "Kotor", cities: ["Kotor", "Perast", "Dobrota", "Other"] },
-          "12": { name: "Mojkovac", cities: ["Mojkovac", "Kolašin", "Bijelo Polje", "Other"] },
-          "13": { name: "Nikšić", cities: ["Nikšić", "Podgorica", "Šavnik", "Other"] },
-          "14": { name: "Plav", cities: ["Plav", "Rožaje", "Gusinje", "Other"] },
-          "15": { name: "Plužine", cities: ["Plužine", "Nikšić", "Šavnik", "Other"] },
-          "16": { name: "Podgorica", cities: ["Podgorica"] },
-          "17": { name: "Rožaje", cities: ["Rožaje", "Berane", "Plav", "Other"] },
-          "18": { name: "Šavnik", cities: ["Šavnik", "Kolašin", "Plužine", "Other"] },
-          "19": { name: "Tivat", cities: ["Tivat", "Kotor", "Perast", "Other"] },
-          "20": { name: "Ulcinj", cities: ["Ulcinj", "Bar", "Ada Bojana", "Other"] },
-          "21": { name: "Žabljak", cities: ["Žabljak", "Kolašin", "Mojkovac", "Other"] }
-        }
-      },
-      "MK": {
-        name: "North Macedonia",
-        flag: "🇲🇰",
-        states: {
-          "01": { name: "Skopje", cities: ["Skopje"] },
-          "02": { name: "Pelagonia", cities: ["Bitola", "Prilep", "Kruševo", "Other"] },
-          "03": { name: "Polog", cities: ["Tetovo", "Gostivar", "Kičevo", "Other"] },
-          "04": { name: "Vardar", cities: ["Veles", "Kavadarci", "Negotino", "Other"] },
-          "05": { name: "Aegean", cities: ["Strumica", "Radoviš", "Valandovo", "Other"] },
-          "06": { name: "Eastern", cities: ["Kočani", "Berovo", "Vinica", "Other"] },
-          "07": { name: "Northeastern", cities: ["Kumanovo", "Kriva Palanka", "Kratovo", "Other"] },
-          "08": { name: "Southwestern", cities: ["Ohrid", "Struga", "Debar", "Other"] }
-        }
-      },
-      "RS": {
-        name: "Serbia",
-        flag: "🇷🇸",
-        states: {
-          "00": { name: "Belgrade", cities: ["Belgrade", "Zemun", "Voždovac", "Other"] },
-          "01": { name: "Bor", cities: ["Bor", "Majdanpek", "Kladovo", "Other"] },
-          "02": { name: "Braničevo", cities: ["Požarevac", "Petrovac na Mlavi", "Žagubica", "Other"] },
-          "03": { name: "Bujanovac", cities: ["Bujanovac", "Vranje", "Leskovac", "Other"] },
-          "04": { name: "Čačak", cities: ["Čačak", "Gornji Milanovac", "Čajetina", "Other"] },
-          "05": { name: "Despotovac", cities: ["Despotovac", "Jagnjilo", "Svilajnac", "Other"] },
-          "06": { name: "Dimitrovgrad", cities: ["Dimitrovgrad", "Pirot", "Babušnica", "Other"] },
-          "07": { name: "Doljevac", cities: ["Doljevac", "Niš", "Aleksinac", "Other"] },
-          "08": { name: "Gornji Milanovac", cities: ["Gornji Milanovac", "Čačak", "Čajetina", "Other"] },
-          "09": { name: "Grocka", cities: ["Grocka", "Belgrade", "Voždovac", "Other"] },
-          "10": { name: "Jagodina", cities: ["Jagodina", "Svetozarevo", "Ćuprija", "Other"] },
-          "11": { name: "Knjaževac", cities: ["Knjaževac", "Bor", "Majdanpek", "Other"] },
-          "12": { name: "Kolubara", cities: ["Lazarevac", "Valjevo", "Ub", "Other"] },
-          "13": { name: "Kosovska Mitrovica", cities: ["Kosovska Mitrovica", "Mitrovica", "Zvečan", "Other"] },
-          "14": { name: "Kuršumlija", cities: ["Kuršumlija", "Prokuplje", "Blace", "Other"] },
-          "15": { name: "Lazarevac", cities: ["Lazarevac", "Valjevo", "Ub", "Other"] },
-          "16": { name: "Lebane", cities: ["Lebane", "Vranje", "Bujanovac", "Other"] },
-          "17": { name: "Leskovac", cities: ["Leskovac", "Vranje", "Lebane", "Other"] },
-          "18": { name: "Loznica", cities: ["Loznica", "Šabac", "Ljubovija", "Other"] },
-          "19": { name: "Lučani", cities: ["Lučani", "Čačak", "Gornji Milanovac", "Other"] },
-          "20": { name: "Majdanpek", cities: ["Majdanpek", "Bor", "Kladovo", "Other"] },
-          "21": { name: "Negotin", cities: ["Negotin", "Bor", "Kladovo", "Other"] },
-          "22": { name: "Niš", cities: ["Niš", "Aleksinac", "Doljevac", "Other"] },
-          "23": { name: "Novo Brdo", cities: ["Novo Brdo", "Prishtina", "Ferizaj", "Other"] },
-          "24": { name: "Obrenovac", cities: ["Obrenovac", "Belgrade", "Grocka", "Other"] },
-          "25": { name: "Odžaci", cities: ["Odžaci", "Sombor", "Apatin", "Other"] },
-          "26": { name: "Opovo", cities: ["Opovo", "Pančevo", "Kovin", "Other"] },
-          "27": { name: "Osečina", cities: ["Osečina", "Čačak", "Gornji Milanovac", "Other"] },
-          "28": { name: "Pančevo", cities: ["Pančevo", "Belgrade", "Kovin", "Other"] },
-          "29": { name: "Petrovac na Mlavi", cities: ["Petrovac na Mlavi", "Braničevo", "Žagubica", "Other"] },
-          "30": { name: "Pirot", cities: ["Pirot", "Dimitrovgrad", "Babušnica", "Other"] },
-          "31": { name: "Požarevac", cities: ["Požarevac", "Braničevo", "Petrovac na Mlavi", "Other"] },
-          "32": { name: "Požega", cities: ["Požega", "Čačak", "Gornji Milanovac", "Other"] },
-          "33": { name: "Prijepolje", cities: ["Prijepolje", "Čačak", "Čajetina", "Other"] },
-          "34": { name: "Prizren", cities: ["Prizren", "Dakovica", "Dragaš", "Other"] },
-          "35": { name: "Prokuplje", cities: ["Prokuplje", "Kuršumlija", "Blace", "Other"] },
-          "36": { name: "Ražanj", cities: ["Ražanj", "Čačak", "Gornji Milanovac", "Other"] },
-          "37": { name: "Ruma", cities: ["Ruma", "Sremski Karlovci", "Inđija", "Other"] },
-          "38": { name: "Šabac", cities: ["Šabac", "Loznica", "Ljubovija", "Other"] },
-          "39": { name: "Šid", cities: ["Šid", "Sremski Karlovci", "Inđija", "Other"] },
-          "40": { name: "Smederevo", cities: ["Smederevo", "Belgrade", "Pančevo", "Other"] },
-          "41": { name: "Sombor", cities: ["Sombor", "Odžaci", "Apatin", "Other"] },
-          "42": { name: "Sremski Karlovci", cities: ["Sremski Karlovci", "Ruma", "Inđija", "Other"] },
-          "43": { name: "Stara Pazova", cities: ["Stara Pazova", "Belgrade", "Grocka", "Other"] },
-          "44": { name: "Svetozarevo", cities: ["Svetozarevo", "Jagodina", "Ćuprija", "Other"] },
-          "45": { name: "Trstenik", cities: ["Trstenik", "Čačak", "Gornji Milanovac", "Other"] },
-          "46": { name: "Ub", cities: ["Ub", "Čačak", "Gornji Milanovac", "Other"] },
-          "47": { name: "Užice", cities: ["Užice", "Čačak", "Čajetina", "Other"] },
-          "48": { name: "Valjevo", cities: ["Valjevo", "Lazarevac", "Ub", "Other"] },
-          "49": { name: "Vranje", cities: ["Vranje", "Lebane", "Bujanovac", "Other"] },
-          "50": { name: "Vrnjačka Banja", cities: ["Vrnjačka Banja", "Trstenik", "Čačak", "Other"] },
-          "51": { name: "Zaječar", cities: ["Zaječar", "Knjaževac", "Bor", "Other"] },
-          "52": { name: "Zemun", cities: ["Zemun", "Belgrade", "Voždovac", "Other"] },
-          "53": { name: "Žagubica", cities: ["Žagubica", "Knjaževac", "Bor", "Other"] },
-          "54": { name: "Žabalj", cities: ["Žabalj", "Sombor", "Apatin", "Other"] }
-        }
-      },
-      "AL": {
-        name: "Albania",
-        flag: "🇦🇱",
-        states: {
-          "BER": { name: "Berat", cities: ["Berat", "Kuçovë", "Poliçan", "Other"] },
-          "DIB": { name: "Dibër", cities: ["Peshkopi", "Bulqizë", "Klos", "Other"] },
-          "DUR": { name: "Durrës", cities: ["Durrës", "Kavajë", "Rrogozhina", "Other"] },
-          "ELB": { name: "Elbasan", cities: ["Elbasan", "Librazhd", "Gramsh", "Other"] },
-          "GJI": { name: "Gjirokastër", cities: ["Gjirokastër", "Përmet", "Saranda", "Other"] },
-          "KOR": { name: "Korçë", cities: ["Korçë", "Pogradec", "Leskovik", "Other"] },
-          "KUK": { name: "Kukës", cities: ["Kukës", "Tropojë", "Bajram Curri", "Other"] },
-          "LEZ": { name: "Lezhë", cities: ["Lezhë", "Shkodër", "Durrës", "Other"] },
-          "TIR": { name: "Tiranë", cities: ["Tiranë", "Durrës", "Kavajë", "Other"] },
-          "VLO": { name: "Vlorë", cities: ["Vlorë", "Sarandë", "Himara", "Other"] }
-        }
-      },
-      "IE": {
-        name: "Ireland",
-        flag: "🇮🇪",
-        states: {
-          "C": { name: "Carlow", cities: ["Carlow", "Tullow", "Bagenalstown", "Other"] },
-          "CE": { name: "Clare", cities: ["Ennis", "Kilrush", "Ennistymon", "Other"] },
-          "CO": { name: "Cork", cities: ["Cork", "Cobh", "Youghal", "Other"] },
-          "D": { name: "Dublin", cities: ["Dublin", "Dún Laoghaire", "Swords", "Other"] },
-          "DL": { name: "Donegal", cities: ["Donegal", "Letterkenny", "Bundoran", "Other"] },
-          "G": { name: "Galway", cities: ["Galway", "Tuam", "Ballinasloe", "Other"] },
-          "KE": { name: "Kerry", cities: ["Tralee", "Killarney", "Dingle", "Other"] },
-          "KK": { name: "Kilkenny", cities: ["Kilkenny", "Thomastown", "Castlecomer", "Other"] },
-          "LD": { name: "Laois", cities: ["Portlaoise", "Mountmellick", "Abbeyleix", "Other"] },
-          "LH": { name: "Louth", cities: ["Dundalk", "Drogheda", "Ardee", "Other"] },
-          "LK": { name: "Limerick", cities: ["Limerick", "Newcastle West", "Rathkeale", "Other"] },
-          "LM": { name: "Longford", cities: ["Longford", "Edgeworthstown", "Granard", "Other"] },
-          "LS": { name: "Leitrim", cities: ["Carrick-on-Shannon", "Manorhamilton", "Ballinamore", "Other"] },
-          "MH": { name: "Meath", cities: ["Navan", "Drogheda", "Trim", "Other"] },
-          "MN": { name: "Monaghan", cities: ["Monaghan", "Castleblayney", "Clones", "Other"] },
-          "MO": { name: "Offaly", cities: ["Tullamore", "Birr", "Edenderry", "Other"] },
-          "RCM": { name: "Roscommon", cities: ["Roscommon", "Athlone", "Boyle", "Other"] },
-          "SO": { name: "Sligo", cities: ["Sligo", "Ballymote", "Tubbercurry", "Other"] },
-          "TY": { name: "Tipperary", cities: ["Clonmel", "Nenagh", "Roscrea", "Other"] },
-          "WD": { name: "Waterford", cities: ["Waterford", "Dungarvan", "Lismore", "Other"] },
-          "WH": { name: "Westmeath", cities: ["Athlone", "Mullingar", "Kinnegad", "Other"] },
-          "WX": { name: "Wexford", cities: ["Wexford", "Enniscorthy", "New Ross", "Other"] },
-          "WW": { name: "Wicklow", cities: ["Wicklow", "Bray", "Arklow", "Other"] }
-        }
-      },
-      "IS": {
-        name: "Iceland",
-        flag: "🇮🇸",
-        states: {
-          "1": { name: "Capital Region", cities: ["Reykjavik", "Kópavogur", "Hafnarfjörður", "Other"] },
-          "2": { name: "South", cities: ["Hveragerði", "Selfoss", "Vík", "Other"] },
-          "3": { name: "West", cities: ["Borgarnes", "Akranes", "Stykkishólmur", "Other"] },
-          "4": { name: "Northwest", cities: ["Ísafjörður", "Akureyri", "Húsavík", "Other"] },
-          "5": { name: "Northeast", cities: ["Akureyri", "Húsavík", "Egilsstaðir", "Other"] },
-          "6": { name: "East", cities: ["Egilsstaðir", "Reyðarfjörður", "Seyðisfjörður", "Other"] },
-          "7": { name: "Southeast", cities: ["Höfn", "Vik", "Skaftafell", "Other"] }
-        }
-      },
-      "EE": {
-        name: "Estonia",
-        flag: "🇪🇪",
-        states: {
-          "37": { name: "Harju", cities: ["Tallinn", "Maardu", "Keila", "Other"] },
-          "39": { name: "Hiiumaa", cities: ["Kärdla", "Emmaste", "Lehtma", "Other"] },
-          "45": { name: "Ida-Viru", cities: ["Narva", "Kohtla-Järve", "Sillamäe", "Other"] },
-          "51": { name: "Jõgeva", cities: ["Jõgeva", "Mustvee", "Kasepää", "Other"] },
-          "49": { name: "Järva", cities: ["Türi", "Paide", "Mustvee", "Other"] },
-          "57": { name: "Lääne", cities: ["Haapsalu", "Läänemaa", "Ridala", "Other"] },
-          "59": { name: "Lääne-Viru", cities: ["Rakvere", "Tapa", "Käru", "Other"] },
-          "67": { name: "Põlva", cities: ["Põlva", "Võru", "Otepää", "Other"] },
-          "65": { name: "Rapla", cities: ["Rapla", "Keila", "Läänemaa", "Other"] },
-          "63": { name: "Saare", cities: ["Kuressaare", "Läänemaa", "Petseri", "Other"] },
-          "71": { name: "Tartu", cities: ["Tartu", "Elva", "Otepää", "Other"] },
-          "74": { name: "Valga", cities: ["Valga", "Otepää", "Helme", "Other"] },
-          "78": { name: "Viljandi", cities: ["Viljandi", "Karksi", "Abja-Paluoja", "Other"] },
-          "79": { name: "Võru", cities: ["Võru", "Antsla", "Rõuge", "Other"] }
+          "01": { name: "Attica", cities: ["Athens", "Piraeus", "Acharnes", "Other"] },
+          "02": { name: "Central Greece", cities: ["Lamia", "Volos", "Larissa", "Other"] },
+          "03": { name: "Central Macedonia", cities: ["Thessaloniki", "Serres", "Kavala", "Other"] },
+          "04": { name: "Crete", cities: ["Heraklion", "Chania", "Rethymno", "Other"] },
+          "05": { name: "Eastern Macedonia and Thrace", cities: ["Komotini", "Xanthi", "Alexandroupoli", "Other"] },
+          "06": { name: "Ionian Islands", cities: ["Corfu", "Zakynthos", "Cephalonia", "Other"] },
+          "07": { name: "North Aegean", cities: ["Mytilene", "Chios", "Samos", "Other"] },
+          "08": { name: "Peloponnese", cities: ["Patras", "Kalamata", "Corinth", "Other"] },
+          "09": { name: "South Aegean", cities: ["Rhodes", "Syros", "Mykonos", "Other"] },
+          "10": { name: "Thessaly", cities: ["Larissa", "Volos", "Trikala", "Other"] },
+          "11": { name: "Western Greece", cities: ["Patras", "Agrinio", "Messolonghi", "Other"] },
+          "12": { name: "Western Macedonia", cities: ["Kozani", "Kastoria", "Florina", "Other"] }
         }
       },
       "LV": {
         name: "Latvia",
         flag: "🇱🇻",
         states: {
-          "AI": { name: "Aizkraukle", cities: ["Aizkraukle", "Koknese", "Pļaviņas", "Other"] },
-          "AL": { name: "Alūksne", cities: ["Alūksne", "Mazsalaca", "Apes", "Other"] },
-          "BA": { name: "Balvi", cities: ["Balvi", "Viļaka", "Baltinava", "Other"] },
-          "BU": { name: "Bauska", cities: ["Bauska", "Iecava", "Codes", "Other"] },
-          "CE": { name: "Cēsis", cities: ["Cēsis", "Saulkrasti", "Pārgauja", "Other"] },
-          "DA": { name: "Daugavpils", cities: ["Daugavpils", "Krāslava", "Preiļi", "Other"] },
-          "DO": { name: "Dobele", cities: ["Dobele", "Bauskas", "Auce", "Other"] },
-          "GU": { name: "Gulbene", cities: ["Gulbene", "Alūksne", "Balvi", "Other"] },
-          "JE": { name: "Jēkabpils", cities: ["Jēkabpils", "Koknese", "Sēlpils", "Other"] },
-          "JU": { name: "Jūrmala", cities: ["Jūrmala", "Ķemeri", "Sloka", "Other"] },
-          "KR": { name: "Krāslava", cities: ["Krāslava", "Daugavpils", "Preiļi", "Other"] },
-          "KU": { name: "Kuldīga", cities: ["Kuldīga", "Ventspils", "Saldus", "Other"] },
-          "LI": { name: "Limbaži", cities: ["Limbaži", "Saulkrasti", "Alojas", "Other"] },
-          "LU": { name: "Ludza", cities: ["Ludza", "Balvi", "Viļaka", "Other"] },
-          "MA": { name: "Madona", cities: ["Madona", "Gulbene", "Cesvaine", "Other"] },
-          "OG": { name: "Ogre", cities: ["Ogre", "Ķekava", "Ikšķile", "Other"] },
-          "PR": { name: "Preiļi", cities: ["Preiļi", "Jēkabpils", "Krāslava", "Other"] },
-          "RE": { name: "Rēzekne", cities: ["Rēzekne", "Ludza", "Balvi", "Other"] },
-          "RI": { name: "Riga", cities: ["Riga"] },
-          "SA": { name: "Saulkrasti", cities: ["Saulkrasti", "Limbaži", "Alojas", "Other"] },
-          "SI": { name: "Sigulda", cities: ["Sigulda", "Riga", "Pārgauja", "Other"] },
-          "TA": { name: "Talsi", cities: ["Talsi", "Kuldīga", "Saldus", "Other"] },
-          "TU": { name: "Tukums", cities: ["Tukums", "Engure", "Jūrmala", "Other"] },
-          "VA": { name: "Valka", cities: ["Valka", "Alūksne", "Smiltene", "Other"] },
-          "VE": { name: "Ventspils", cities: ["Ventspils", "Kuldīga", "Saldus", "Other"] }
+          "01": { name: "Riga", cities: ["Riga", "Daugavpils", "Liepāja", "Other"] },
+          "02": { name: "Pierīga", cities: ["Sigulda", "Jūrmala", "Ogre", "Other"] },
+          "03": { name: "Vidzeme", cities: ["Valmiera", "Cēsis", "Alūksne", "Other"] },
+          "04": { name: "Latgale", cities: ["Daugavpils", "Rēzekne", "Ludza", "Other"] },
+          "05": { name: "Zemgale", cities: ["Jelgava", "Bauska", "Dobele", "Other"] },
+          "06": { name: "Kurzeme", cities: ["Liepāja", "Ventspils", "Kuldīga", "Other"] }
         }
       },
       "LT": {
         name: "Lithuania",
         flag: "🇱🇹",
         states: {
-          "AL": { name: "Alytaus", cities: ["Alytus", "Kaunas", "Gargždai", "Other"] },
-          "KA": { name: "Kauno", cities: ["Kaunas", "Kėdainiai", "Raseiniai", "Other"] },
-          "KL": { name: "Klaipėdos", cities: ["Klaipėda", "Šilutė", "Gargždai", "Other"] },
-          "MA": { name: "Marijampolės", cities: ["Marijampolė", "Vilkaviškis", "Šalčininkai", "Other"] },
-          "PA": { name: "Panevėžio", cities: ["Panevėžys", "Kupiškis", "Sėdžius", "Other"] },
-          "SA": { name: "Šiaulių", cities: ["Šiauliai", "Kelmė", "Radviliškis", "Other"] },
-          "TA": { name: "Tauragės", cities: ["Tauragė", "Šilalė", "Jurbarkas", "Other"] },
-          "TE": { name: "Telšių", cities: ["Telšiai", "Jurbarkas", "Kelmė", "Other"] },
-          "UT": { name: "Utenos", cities: ["Utena", "Anykščiai", "Visaginas", "Other"] },
-          "VI": { name: "Vilniaus", cities: ["Vilnius", "Trakai", "Kernius", "Other"] }
+          "01": { name: "Vilnius", cities: ["Vilnius", "Trakai", "Medvėgalis", "Other"] },
+          "02": { name: "Kaunas", cities: ["Kaunas", "Kėdainiai", "Raseiniai", "Other"] },
+          "03": { name: "Klaipėda", cities: ["Klaipėda", "Šilutė", "Pagėgiai", "Other"] },
+          "04": { name: "Panevėžys", cities: ["Panevėžys", "Kupiškis", "Pasvalys", "Other"] },
+          "05": { name: "Šiauliai", cities: ["Šiauliai", "Tauragė", "Jurbarkas", "Other"] },
+          "06": { name: "Telšiai", cities: ["Telšiai", "Plungė", "Mažeikiai", "Other"] },
+          "07": { name: "Utena", cities: ["Utena", "Anykščiai", "Visaginas", "Other"] }
         }
       },
-      "MD": {
-        name: "Moldova",
-        flag: "🇲🇩",
+      "EE": {
+        name: "Estonia",
+        flag: "🇪🇪",
         states: {
-          "CH": { name: "Chișinău", cities: ["Chișinău"] },
-          "BA": { name: "Bălți", cities: ["Bălți", "Soroca", "Orhei", "Other"] },
-          "BD": { name: "Bender", cities: ["Bender", "Tighina", "Tiraspol", "Other"] },
-          "OR": { name: "Orhei", cities: ["Orhei", "Chișinău", "Căușeni", "Other"] },
-          "GA": { name: "Găgăuzia", cities: ["Comrat", "Ceadîr-Lunga", "Vulcănești", "Other"] },
-          "TR": { name: "Transnistria", cities: ["Tiraspol", "Bender", "Rîbnița", "Other"] }
+          "01": { name: "Harju", cities: ["Tallinn", "Maardu", "Keila", "Other"] },
+          "02": { name: "Hiiumaa", cities: ["Kärdla", "Emmaste", "Kõrgessaare", "Other"] },
+          "03": { name: "Ida-Viru", cities: ["Narva", "Sillamäe", "Kohtla-Järve", "Other"] },
+          "04": { name: "Järva", cities: ["Paide", "Mustvee", "Türi", "Other"] },
+          "05": { name: "Jõgeva", cities: ["Jõgeva", "Mustvee", "Kasepää", "Other"] },
+          "06": { name: "Lääne", cities: ["Haapsalu", "Läänelinnas", "Ridala", "Other"] },
+          "07": { name: "Lääne-Viru", cities: ["Rakvere", "Tapa", "Vinni", "Other"] },
+          "08": { name: "Põlva", cities: ["Põlva", "Võru", "Otepää", "Other"] },
+          "09": { name: "Rapla", cities: ["Rapla", "Läänelinnas", "Juuru", "Other"] },
+          "10": { name: "Saare", cities: ["Kuressaare", "Kärla", "Leisi", "Other"] },
+          "11": { name: "Tartu", cities: ["Tartu", "Otepää", "Elva", "Other"] },
+          "12": { name: "Valga", cities: ["Valga", "Otepää", "Helme", "Other"] },
+          "13": { name: "Võru", cities: ["Võru", "Antsla", "Rõuge", "Other"] }
         }
       },
-      "UA": {
-        name: "Ukraine",
-        flag: "🇺🇦",
+      "IS": {
+        name: "Iceland",
+        flag: "🇮🇸",
         states: {
-          "01": { name: "Cherkasy", cities: ["Cherkasy", "Smela", "Kaniv", "Other"] },
-          "02": { name: "Chernihiv", cities: ["Chernihiv", "Nizhyn", "Korop", "Other"] },
-          "03": { name: "Chernivtsi", cities: ["Chernivtsi", "Khotyn", "Storozhynets", "Other"] },
-          "04": { name: "Crimea", cities: ["Simferopol", "Sevastopol", "Yalta", "Other"] },
-          "05": { name: "Dnipropetrovsk", cities: ["Dnipro", "Kryvyi Rih", "Pavlohrad", "Other"] },
-          "06": { name: "Donetsk", cities: ["Donetsk", "Luhansk", "Mariupol", "Other"] },
-          "07": { name: "Ivano-Frankivsk", cities: ["Ivano-Frankivsk", "Kolomyia", "Kalush", "Other"] },
-          "08": { name: "Kharkiv", cities: ["Kharkiv", "Izyum", "Kupiansk", "Other"] },
-          "09": { name: "Kherson", cities: ["Kherson", "Nova Kakhovka", "Henichesk", "Other"] },
-          "10": { name: "Khmelnytsky", cities: ["Khmelnytsky", "Shepetivka", "Kamianets-Podilskyi", "Other"] },
-          "11": { name: "Kyiv", cities: ["Kyiv"] },
-          "12": { name: "Kyiv Oblast", cities: ["Kyiv", "Chornobyl", "Cherkasy", "Other"] },
-          "13": { name: "Kirovohrad", cities: ["Kirovohrad", "Oleksandriia", "Novoukrainka", "Other"] },
-          "14": { name: "Luhansk", cities: ["Luhansk", "Sievierodonetsk", "Lysychansk", "Other"] },
-          "15": { name: "Lviv", cities: ["Lviv", "Drohobych", "Sambir", "Other"] },
-          "16": { name: "Mykolaiv", cities: ["Mykolaiv", "Ochakiv", "Bashtanka", "Other"] },
-          "17": { name: "Odesa", cities: ["Odesa", "Bilhorod-Dnistrovsky", "Izmail", "Other"] },
-          "18": { name: "Poltava", cities: ["Poltava", "Kremenchuk", "Komsomolskyi", "Other"] },
-          "19": { name: "Rivne", cities: ["Rivne", "Sarny", "Dubno", "Other"] },
-          "20": { name: "Sumy", cities: ["Sumy", "Konotop", "Okhtyrka", "Other"] },
-          "21": { name: "Ternopil", cities: ["Ternopil", "Chortkiv", "Buchach", "Other"] },
-          "22": { name: "Vinnytsia", cities: ["Vinnytsia", "Khmelnytsky", "Koziatyn", "Other"] },
-          "23": { name: "Volyn", cities: ["Lutsk", "Kovel", "Novovolynsk", "Other"] },
-          "24": { name: "Zaporizhzhia", cities: ["Zaporizhzhia", "Melitopol", "Berdyansk", "Other"] },
-          "25": { name: "Zhytomyr", cities: ["Zhytomyr", "Korosten", "Novohrad-Volynskyi", "Other"] }
+          "01": { name: "Capital Region", cities: ["Reykjavik", "Kópavogur", "Hafnarfjörður", "Other"] },
+          "02": { name: "South", cities: ["Hveragerði", "Selfoss", "Hvolsvöllur", "Other"] },
+          "03": { name: "East", cities: ["Egilsstaðir", "Neskaupstaður", "Reyðarfjörður", "Other"] },
+          "04": { name: "North", cities: ["Akureyri", "Húsavík", "Westfjords", "Other"] },
+          "05": { name: "West", cities: ["Borgarnes", "Akranes", "Stykkishólmur", "Other"] }
         }
       },
-      "BY": {
-        name: "Belarus",
-        flag: "🇧🇾",
+      "IE": {
+        name: "Ireland",
+        flag: "🇮🇪",
         states: {
-          "BR": { name: "Brest", cities: ["Brest", "Baranovichi", "Kobrin", "Other"] },
-          "HM": { name: "Homel", cities: ["Homel", "Mozyr", "Zhlobin", "Other"] },
-          "HO": { name: "Hrodna", cities: ["Hrodna", "Lida", "Slonim", "Other"] },
-          "MG": { name: "Minsk", cities: ["Minsk"] },
-          "MO": { name: "Mogilev", cities: ["Mogilev", "Orsha", "Bobruisk", "Other"] },
-          "VI": { name: "Vitebsk", cities: ["Vitebsk", "Polotsk", "Novopolotsk", "Other"] }
-        }
-      },
-      "RU": {
-        name: "Russia",
-        flag: "🇷🇺",
-        region: "europe",
-        states: {
-          "MOS": { name: "Moscow", cities: ["Moscow"] },
-          "SPE": { name: "Saint Petersburg", cities: ["Saint Petersburg"] },
-          "LEN": { name: "Leningrad Oblast", cities: ["Gatchina", "Kronshtadt", "Pushkin", "Other"] },
-          "PSK": { name: "Pskov", cities: ["Pskov", "Velikiye Luki", "Ostrov", "Other"] },
-          "SMO": { name: "Smolensk", cities: ["Smolensk", "Vyazma", "Safonovo", "Other"] },
-          "TVE": { name: "Tver", cities: ["Tver", "Kimry", "Torzhok", "Other"] },
-          "YAR": { name: "Yaroslavl", cities: ["Yaroslavl", "Rybinsk", "Tutayev", "Other"] },
-          "KOS": { name: "Kostroma", cities: ["Kostroma", "Buya", "Nerekhta", "Other"] },
-          "IVA": { name: "Ivanovo", cities: ["Ivanovo", "Shuya", "Kineshma", "Other"] },
-          "VL": { name: "Vladimir", cities: ["Vladimir", "Kovrov", "Murom", "Other"] },
-          "RYA": { name: "Ryazan", cities: ["Ryazan", "Kasimov", "Skopin", "Other"] },
-          "TUL": { name: "Tula", cities: ["Tula", "Aleksin", "Uzlovaya", "Other"] },
-          "ORL": { name: "Oryol", cities: ["Oryol", "Livny", "Mtsensk", "Other"] },
-          "LI": { name: "Lipetsk", cities: ["Lipetsk", "Yelets", "Gryazi", "Other"] },
-          "VOR": { name: "Voronezh", cities: ["Voronezh", "Borisoglebsk", "Rossosh", "Other"] },
-          "TAM": { name: "Tambov", cities: ["Tambov", "Michurinsk", "Kirsanov", "Other"] },
-          "PE": { name: "Penza", cities: ["Penza", "Saransk", "Kuznetsk", "Other"] },
-          "SAR": { name: "Saratov", cities: ["Saratov", "Balakovo", "Penza", "Other"] },
-          "VLG": { name: "Volgograd", cities: ["Volgograd", "Volzhsky", "Kamyshin", "Other"] },
-          "AST": { name: "Astrakhan", cities: ["Astrakhan", "Kharabali", "Akhtubinsk", "Other"] },
-          "BEL": { name: "Belgorod", cities: ["Belgorod", "Stary Oskol", "Shebekino", "Other"] },
-          "BRY": { name: "Bryansk", cities: ["Bryansk", "Klintsy", "Novozybkov", "Other"] },
-          "KUR": { name: "Kursk", cities: ["Kursk", "Kurchatov", "Lgov", "Other"] },
-          "LIP": { name: "Lipetsk", cities: ["Lipetsk", "Yelets", "Gryazi", "Other"] }
-        }
-      },
-      "LU": {
-        name: "Luxembourg",
-        flag: "🇱🇺",
-        states: {
-          "CA": { name: "Capellen", cities: ["Capellen", "Leudelange", "Bertrange", "Other"] },
-          "CL": { name: "Clervaux", cities: ["Clervaux", "Parc Hosingen", "Troisvierges", "Other"] },
-          "DI": { name: "Diekirch", cities: ["Diekirch", "Ettelbruck", "Colmar-Berg", "Other"] },
-          "EC": { name: "Echternach", cities: ["Echternach", "Rosport", "Beaufort", "Other"] },
-          "ES": { name: "Esch-sur-Alzette", cities: ["Esch-sur-Alzette", "Rumelange", "Differdange", "Other"] },
-          "GR": { name: "Grevenmacher", cities: ["Grevenmacher", "Remich", "Wormeldange", "Other"] },
-          "LU": { name: "Luxembourg", cities: ["Luxembourg", "Esch-sur-Alzette", "Dudelange", "Other"] },
-          "ME": { name: "Mersch", cities: ["Mersch", "Bissen", "Feulen", "Other"] },
-          "RE": { name: "Redange", cities: ["Redange", "Wilwerwiltz", "Ell", "Other"] },
-          "VI": { name: "Vianden", cities: ["Vianden", "Diekirch", "Hosingen", "Other"] },
-          "WI": { name: "Wiltz", cities: ["Wiltz", "Clervaux", "Weiswampach", "Other"] }
+          "01": { name: "Dublin", cities: ["Dublin", "Dún Laoghaire", "Swords", "Other"] },
+          "02": { name: "Cork", cities: ["Cork", "Cobh", "Fermoy", "Other"] },
+          "03": { name: "Galway", cities: ["Galway", "Ballinasloe", "Athenry", "Other"] },
+          "04": { name: "Limerick", cities: ["Limerick", "Newcastle West", "Rathkeale", "Other"] },
+          "05": { name: "Waterford", cities: ["Waterford", "Dunmore East", "Lismore", "Other"] },
+          "06": { name: "Wexford", cities: ["Wexford", "New Ross", "Enniscorthy", "Other"] },
+          "07": { name: "Carlow", cities: ["Carlow", "Bagenalstown", "Tullow", "Other"] },
+          "08": { name: "Kilkenny", cities: ["Kilkenny", "Thomastown", "Castlecomer", "Other"] },
+          "09": { name: "Tipperary", cities: ["Tipperary", "Clonmel", "Nenagh", "Other"] },
+          "10": { name: "Laois", cities: ["Portlaoise", "Mountmellick", "Abbeyleix", "Other"] },
+          "11": { name: "Offaly", cities: ["Tullamore", "Birr", "Edenderry", "Other"] },
+          "12": { name: "Westmeath", cities: ["Athlone", "Mullingar", "Kilbeggan", "Other"] },
+          "13": { name: "Longford", cities: ["Longford", "Ballymahon", "Granard", "Other"] },
+          "14": { name: "Leitrim", cities: ["Carrick-on-Shannon", "Drumshanbo", "Manorhamilton", "Other"] },
+          "15": { name: "Sligo", cities: ["Sligo", "Ballymote", "Tubbercurry", "Other"] },
+          "16": { name: "Donegal", cities: ["Donegal", "Letterkenny", "Buncrana", "Other"] },
+          "17": { name: "Cavan", cities: ["Cavan", "Cootehill", "Ballyjamesduff", "Other"] },
+          "18": { name: "Monaghan", cities: ["Monaghan", "Castleblayney", "Clones", "Other"] },
+          "19": { name: "Louth", cities: ["Dundalk", "Drogheda", "Ardee", "Other"] },
+          "20": { name: "Meath", cities: ["Navan", "Drogheda", "Trim", "Other"] },
+          "21": { name: "Kildare", cities: ["Naas", "Maynooth", "Leixlip", "Other"] },
+          "22": { name: "Wicklow", cities: ["Wicklow", "Bray", "Arklow", "Other"] },
+          "23": { name: "Mayo", cities: ["Castlebar", "Ballina", "Westport", "Other"] }
         }
       },
       "MT": {
@@ -918,69 +647,328 @@ class EnhancedLocationSelector {
         flag: "🇱🇮",
         states: {
           "01": { name: "Schaan", cities: ["Schaan", "Vaduz", "Planken"] },
-          "02": { name: "Vaduz", cities: ["Vaduz"] },
-          "03": { name: "Triesen", cities: ["Triesen", "Vaduz", "Schaan"] },
-          "04": { name: "Balzers", cities: ["Balzers", "Triesen", "Mauren"] }
+          "02": { name: "Vaduz", cities: ["Vaduz", "Schaan", "Triesen"] },
+          "03": { name: "Triesen", cities: ["Triesen", "Balzers", "Triesenberg"] },
+          "04": { name: "Balzers", cities: ["Balzers", "Triesen", "Malbun"] },
+          "05": { name: "Triesenberg", cities: ["Triesenberg", "Triesen", "Steg"] },
+          "06": { name: "Schellenberg", cities: ["Schellenberg", "Mauren", "Gamprin"] },
+          "07": { name: "Mauren", cities: ["Mauren", "Schellenberg", "Gamprin"] },
+          "08": { name: "Gamprin", cities: ["Gamprin", "Mauren", "Ruggell"] },
+          "09": { name: "Ruggell", cities: ["Ruggell", "Gamprin", "Schaan"] },
+          "10": { name: "Eschen", cities: ["Eschen", "Nendeln", "Schaan"] },
+          "11": { name: "Nendeln", cities: ["Nendeln", "Eschen", "Schaan"] }
         }
       },
       "CY": {
         name: "Cyprus",
         flag: "🇨🇾",
         states: {
-          "01": { name: "Nicosia", cities: ["Nicosia", "Kyrenia", "Famagusta"] },
-          "02": { name: "Larnaca", cities: ["Larnaca", "Limassol", "Paphos"] },
-          "03": { name: "Paphos", cities: ["Paphos", "Limassol", "Polis"] },
-          "04": { name: "Limassol", cities: ["Limassol", "Larnaca", "Paphos"] }
+          "01": { name: "Nicosia", cities: ["Nicosia", "Kyrenia", "Famagusta", "Other"] },
+          "02": { name: "Larnaca", cities: ["Larnaca", "Limassol", "Paphos", "Other"] },
+          "03": { name: "Limassol", cities: ["Limassol", "Paphos", "Larnaca", "Other"] },
+          "04": { name: "Paphos", cities: ["Paphos", "Limassol", "Larnaca", "Other"] }
+        }
+      },
+      "RU": {
+        name: "Russia",
+        flag: "🇷🇺",
+        states: {
+          "01": { name: "Moscow", cities: ["Moscow", "Smolensk", "Tver", "Other"] },
+          "02": { name: "Saint Petersburg", cities: ["Saint Petersburg", "Kronshtadt", "Pushkin", "Other"] },
+          "03": { name: "Kaliningrad", cities: ["Kaliningrad", "Sovetsk", "Chernyakhovsk", "Other"] },
+          "04": { name: "Novgorod", cities: ["Novgorod", "Veliky Novgorod", "Staraya Russa", "Other"] },
+          "05": { name: "Pskov", cities: ["Pskov", "Ostrov", "Velikiye Luki", "Other"] },
+          "06": { name: "Tver", cities: ["Tver", "Torzhok", "Kimry", "Other"] },
+          "07": { name: "Yaroslavl", cities: ["Yaroslavl", "Rybinsk", "Tutayev", "Other"] },
+          "08": { name: "Vologda", cities: ["Vologda", "Cherepovets", "Sokol", "Other"] },
+          "09": { name: "Arkhangelsk", cities: ["Arkhangelsk", "Severodvinsk", "Mirny", "Other"] },
+          "10": { name: "Murmansk", cities: ["Murmansk", "Apatity", "Kirovsk", "Other"] }
+        }
+      },
+      "UA": {
+        name: "Ukraine",
+        flag: "🇺🇦",
+        states: {
+          "01": { name: "Kyiv", cities: ["Kyiv", "Irpin", "Bucha", "Other"] },
+          "02": { name: "Kharkiv", cities: ["Kharkiv", "Luhansk", "Donetsk", "Other"] },
+          "03": { name: "Odesa", cities: ["Odesa", "Mykolaiv", "Kherson", "Other"] },
+          "04": { name: "Lviv", cities: ["Lviv", "Ivano-Frankivsk", "Ternopil", "Other"] },
+          "05": { name: "Dnipro", cities: ["Dnipro", "Zaporizhzhia", "Kryvyi Rih", "Other"] },
+          "06": { name: "Poltava", cities: ["Poltava", "Sumy", "Chernihiv", "Other"] },
+          "07": { name: "Cherkasy", cities: ["Cherkasy", "Kirovograd", "Vinnytsia", "Other"] },
+          "08": { name: "Zhytomyr", cities: ["Zhytomyr", "Kovel", "Rivne", "Other"] },
+          "09": { name: "Volyn", cities: ["Lutsk", "Kovel", "Novovolynsk", "Other"] },
+          "10": { name: "Transcarpathia", cities: ["Uzhhorod", "Mukachevo", "Berehove", "Other"] }
+        }
+      },
+      "BY": {
+        name: "Belarus",
+        flag: "🇧🇾",
+        states: {
+          "01": { name: "Minsk", cities: ["Minsk", "Borisov", "Zhodino", "Other"] },
+          "02": { name: "Brest", cities: ["Brest", "Baranovichi", "Kobrin", "Other"] },
+          "03": { name: "Vitebsk", cities: ["Vitebsk", "Orsha", "Novopolotsk", "Other"] },
+          "04": { name: "Gomel", cities: ["Gomel", "Mozyr", "Rechitsa", "Other"] },
+          "05": { name: "Grodno", cities: ["Grodno", "Lida", "Slonim", "Other"] },
+          "06": { name: "Mogilev", cities: ["Mogilev", "Bobruysk", "Osipovichi", "Other"] }
+        }
+      },
+      "MD": {
+        name: "Moldova",
+        flag: "🇲🇩",
+        states: {
+          "01": { name: "Chișinău", cities: ["Chișinău", "Bălți", "Tiraspol", "Other"] },
+          "02": { name: "Bălți", cities: ["Bălți", "Soroca", "Orhei", "Other"] },
+          "03": { name: "Gagauzia", cities: ["Comrat", "Ceadîr-Lunga", "Vulcănești", "Other"] },
+          "04": { name: "Transnistria", cities: ["Tiraspol", "Bender", "Rybnitsa", "Other"] }
+        }
+      },
+      "AL": {
+        name: "Albania",
+        flag: "🇦🇱",
+        states: {
+          "01": { name: "Tirana", cities: ["Tirana", "Durrës", "Elbasan", "Other"] },
+          "02": { name: "Durrës", cities: ["Durrës", "Vlorë", "Sarandë", "Other"] },
+          "03": { name: "Vlorë", cities: ["Vlorë", "Sarandë", "Himarë", "Other"] },
+          "04": { name: "Berat", cities: ["Berat", "Përmet", "Tepelenë", "Other"] },
+          "05": { name: "Elbasan", cities: ["Elbasan", "Librazhd", "Gramsh", "Other"] },
+          "06": { name: "Shkodër", cities: ["Shkodër", "Koplik", "Malësi e Madhe", "Other"] },
+          "07": { name: "Kukës", cities: ["Kukës", "Bajram Curri", "Tropojë", "Other"] },
+          "08": { name: "Dibër", cities: ["Peshkopi", "Bulqizë", "Klos", "Other"] },
+          "09": { name: "Gjirokastër", cities: ["Gjirokastër", "Përmet", "Tepelenë", "Other"] }
+        }
+      },
+      "BA": {
+        name: "Bosnia and Herzegovina",
+        flag: "🇧🇦",
+        states: {
+          "01": { name: "Sarajevo", cities: ["Sarajevo", "Pale", "Ilidža", "Other"] },
+          "02": { name: "Banja Luka", cities: ["Banja Luka", "Prijedor", "Jajce", "Other"] },
+          "03": { name: "Mostar", cities: ["Mostar", "Čapljina", "Stolac", "Other"] },
+          "04": { name: "Tuzla", cities: ["Tuzla", "Srebrenica", "Zvornik", "Other"] },
+          "05": { name: "Zenica", cities: ["Zenica", "Zavidovići", "Vitez", "Other"] },
+          "06": { name: "Travnik", cities: ["Travnik", "Busovača", "Kiseljak", "Other"] }
+        }
+      },
+      "ME": {
+        name: "Montenegro",
+        flag: "🇲🇪",
+        states: {
+          "01": { name: "Podgorica", cities: ["Podgorica", "Nikšić", "Cetinje", "Other"] },
+          "02": { name: "Bar", cities: ["Bar", "Ulcinj", "Petrovac", "Other"] },
+          "03": { name: "Kotor", cities: ["Kotor", "Tivat", "Perast", "Other"] },
+          "04": { name: "Budva", cities: ["Budva", "Lastva Gorna", "Morinj", "Other"] },
+          "05": { name: "Cetinje", cities: ["Cetinje", "Rijeka Crnojevića", "Lovćen", "Other"] }
+        }
+      },
+      "MK": {
+        name: "North Macedonia",
+        flag: "🇲🇰",
+        states: {
+          "01": { name: "Skopje", cities: ["Skopje", "Kumanovo", "Veles", "Other"] },
+          "02": { name: "Bitola", cities: ["Bitola", "Prilep", "Kičevo", "Other"] },
+          "03": { name: "Ohrid", cities: ["Ohrid", "Struga", "Resen", "Other"] },
+          "04": { name: "Tetovo", cities: ["Tetovo", "Gostivar", "Kičevo", "Other"] },
+          "05": { name: "Štip", cities: ["Štip", "Kočani", "Vinica", "Other"] }
+        }
+      },
+      "XK": {
+        name: "Kosovo",
+        flag: "🇽🇰",
+        states: {
+          "01": { name: "Pristina", cities: ["Pristina", "Prizren", "Peja", "Other"] },
+          "02": { name: "Prizren", cities: ["Prizren", "Gjakova", "Suva Reka", "Other"] },
+          "03": { name: "Peja", cities: ["Peja", "Deçan", "Istok", "Other"] },
+          "04": { name: "Gjilan", cities: ["Gjilan", "Ferizaj", "Kaçanik", "Other"] },
+          "05": { name: "Mitrovica", cities: ["Mitrovica", "Vushtrri", "Leposavić", "Other"] }
+        }
+      },
+      "LU": {
+        name: "Luxembourg",
+        flag: "🇱🇺",
+        states: {
+          "01": { name: "Luxembourg", cities: ["Luxembourg City", "Esch-sur-Alzette", "Differdange", "Other"] },
+          "02": { name: "Grevenmacher", cities: ["Grevenmacher", "Echternach", "Remich", "Other"] },
+          "03": { name: "Diekirch", cities: ["Diekirch", "Vianden", "Clervaux", "Other"] }
         }
       }
+    };
+  }
+
+  /**
+   * Initialize the location selector
+   */
+  init() {
+    this.populateCountries();
+    this.attachEventListeners();
+  }
+
+  /**
+   * Populate the country dropdown with all available countries
+   */
+  populateCountries() {
+    const countrySelect = document.getElementById('country');
+    if (!countrySelect) {
+      console.error('Country select element not found');
+      return;
     }
-  },
-  "nationalities": [
-    "Paraguayan",
-    "Spanish",
-    "French",
-    "German",
-    "Italian",
-    "Portuguese",
-    "Polish",
-    "Romanian",
-    "Dutch",
-    "Belgian",
-    "Austrian",
-    "Swiss",
-    "Swedish",
-    "Norwegian",
-    "Danish",
-    "Finnish",
-    "Czech",
-    "Slovak",
-    "Hungarian",
-    "Croatian",
-    "Serbian",
-    "Bulgarian",
-    "Greek",
-    "Slovenian",
-    "Lithuanian",
-    "Latvian",
-    "Estonian",
-    "Icelandic",
-    "Irish",
-    "British",
-    "Russian",
-    "Ukrainian",
-    "Belarusian",
-    "Moldovan",
-    "Albanian",
-    "Bosnian",
-    "Montenegrin",
-    "Macedonian",
-    "Luxembourgish",
-    "Maltese",
-    "Cypriot",
-    "Monégasque",
-    "San Marinese",
-    "Andorran",
-    "Liechtensteiner"
-  ]
+
+    // Clear existing options (keep the placeholder)
+    countrySelect.innerHTML = '<option value="">Select a Country</option>';
+
+    // Add countries to the dropdown
+    Object.entries(this.locationData).forEach(([code, country]) => {
+      const option = document.createElement('option');
+      option.value = code;
+      option.textContent = `${country.flag} ${country.name}`;
+      countrySelect.appendChild(option);
+    });
+
+    console.log('Countries populated successfully');
+  }
+
+  /**
+   * Populate the state dropdown based on selected country
+   */
+  populateStates(countryCode) {
+    const stateSelect = document.getElementById('state');
+    const citySelect = document.getElementById('city');
+    
+    if (!stateSelect || !citySelect) {
+      console.error('State or city select element not found');
+      return;
+    }
+
+    // Reset city dropdown
+    citySelect.innerHTML = '<option value="">Select a City</option>';
+    citySelect.disabled = true;
+
+    if (!countryCode) {
+      stateSelect.innerHTML = '<option value="">Select a State/Province</option>';
+      stateSelect.disabled = true;
+      return;
+    }
+
+    const country = this.locationData[countryCode];
+    if (!country) {
+      console.error('Country not found:', countryCode);
+      return;
+    }
+
+    // Clear and populate state dropdown
+    stateSelect.innerHTML = '<option value="">Select a State/Province</option>';
+    Object.entries(country.states).forEach(([code, state]) => {
+      const option = document.createElement('option');
+      option.value = code;
+      option.textContent = state.name;
+      stateSelect.appendChild(option);
+    });
+
+    stateSelect.disabled = false;
+    this.selectedCountry = countryCode;
+  }
+
+  /**
+   * Populate the city dropdown based on selected state
+   */
+  populateCities(countryCode, stateCode) {
+    const citySelect = document.getElementById('city');
+    const customCityGroup = document.getElementById('city-custom-group');
+    const customCityInput = document.getElementById('city-custom');
+
+    if (!citySelect) {
+      console.error('City select element not found');
+      return;
+    }
+
+    if (!countryCode || !stateCode) {
+      citySelect.innerHTML = '<option value="">Select a City</option>';
+      citySelect.disabled = true;
+      if (customCityGroup) customCityGroup.style.display = 'none';
+      return;
+    }
+
+    const country = this.locationData[countryCode];
+    const state = country?.states[stateCode];
+
+    if (!state) {
+      console.error('State not found:', stateCode);
+      return;
+    }
+
+    // Clear and populate city dropdown
+    citySelect.innerHTML = '<option value="">Select a City</option>';
+    state.cities.forEach((city) => {
+      const option = document.createElement('option');
+      option.value = city;
+      option.textContent = city;
+      citySelect.appendChild(option);
+    });
+
+    citySelect.disabled = false;
+    this.selectedState = stateCode;
+
+    // Handle "Other" option
+    const otherOption = citySelect.querySelector('option[value="Other"]');
+    if (otherOption) {
+      citySelect.addEventListener('change', () => {
+        if (citySelect.value === 'Other') {
+          if (customCityGroup) customCityGroup.style.display = 'block';
+          if (customCityInput) customCityInput.required = true;
+        } else {
+          if (customCityGroup) customCityGroup.style.display = 'none';
+          if (customCityInput) {
+            customCityInput.required = false;
+            customCityInput.value = '';
+          }
+        }
+      });
+    }
+  }
+
+  /**
+   * Attach event listeners to dropdowns
+   */
+  attachEventListeners() {
+    const countrySelect = document.getElementById('country');
+    const stateSelect = document.getElementById('state');
+    const citySelect = document.getElementById('city');
+
+    if (countrySelect) {
+      countrySelect.addEventListener('change', (e) => {
+        this.populateStates(e.target.value);
+      });
+    }
+
+    if (stateSelect) {
+      stateSelect.addEventListener('change', (e) => {
+        this.populateCities(this.selectedCountry, e.target.value);
+      });
+    }
+
+    if (citySelect) {
+      citySelect.addEventListener('change', (e) => {
+        this.selectedCity = e.target.value;
+      });
+    }
+  }
+
+  /**
+   * Get the selected location values
+   */
+  getSelected() {
+    const countrySelect = document.getElementById('country');
+    const stateSelect = document.getElementById('state');
+    const citySelect = document.getElementById('city');
+    const customCityInput = document.getElementById('city-custom');
+
+    return {
+      country: countrySelect?.value || '',
+      state: stateSelect?.value || '',
+      city: citySelect?.value === 'Other' ? customCityInput?.value : citySelect?.value || '',
+      countryName: this.locationData[countrySelect?.value]?.name || '',
+      stateName: this.locationData[countrySelect?.value]?.states[stateSelect?.value]?.name || ''
+    };
+  }
 }
 
