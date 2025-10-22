@@ -223,14 +223,20 @@
                 <div class="nationality-field">
                     <label for="nationality" class="sophisticated-label">Your Nationality</label>
                     <div class="premium-nationality-input">
-                        <input 
-                            type="text" 
-                            id="nationality" 
+                        <input
+                            type="text"
+                            id="nationality"
                             class="nationality-input"
                             placeholder="Select or type your nationality..."
                             autocomplete="off"
                             required
                         >
+                        <div
+                            class="nationality-suggestion-container"
+                            id="nationality-suggestions"
+                            role="listbox"
+                            aria-label="Nationality suggestions"
+                        ></div>
                     </div>
                 </div>
 
@@ -829,6 +835,7 @@
     <script src="js/fixed-forms.js"></script>
     <script src="js/application-final-fixed.js"></script>
 
+    <script src="js/smart-country-selector.js"></script>
     <script src="js/enhanced-location-selector.js"></script>
     <script src="js/premium-nationality-selector.js"></script>
 
@@ -836,18 +843,6 @@
         document.addEventListener('DOMContentLoaded', function() {
             // Initialize Location Selector
             const locationSelector = new EnhancedLocationSelector();
-
-            // Initialize Premium Nationality Selector
-            const nationalitySelector = new PremiumNationalitySelector(
-                '#nationality',
-                {
-                    minChars: 1,
-                    maxSuggestions: 12,
-                    debounceDelay: 200,
-                    highlightMatches: true,
-                    showFlags: true
-                }
-            );
 
             // Optional: Handle form submission
             const applicationForm = document.getElementById('applicationForm');
@@ -863,7 +858,8 @@
                     console.log('Selected Country:', document.getElementById('country').value);
                     console.log('Selected State:', document.getElementById('state').value);
                     console.log('Selected City:', finalCity);
-                    console.log('Selected Nationality:', nationalitySelector.getSelectedName());
+                    const nationalityInput = document.getElementById('nationality');
+                    console.log('Selected Nationality:', nationalityInput ? nationalityInput.value : '');
                 });
             }
         });
