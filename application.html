@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="css/review-section-refined.css">
     <link rel="stylesheet" href="css/force-gold-title.css">
     <link rel="stylesheet" href="css/expansion-modal.css">
+    <link rel="stylesheet" href="css/enhanced-selectors-styles.css">
 </head>
 <body>
     <!-- Header -->
@@ -179,45 +180,58 @@
                 </div>
                 
                 <div class="location-selector-container">
-                    <div class="location-row">
-                        <div class="location-field">
-                            <label for="country" class="sophisticated-label">Country of Residence</label>
-                            <select id="country" class="location-select" required>
-                                <option value="">Select your country</option>
-                            </select>
-                            <div class="field-description">Select the country where you currently reside</div>
-                        </div>
-                        <div class="location-field">
-                            <label for="state" class="sophisticated-label">State/Province</label>
-                            <select id="state" class="location-select" disabled required>
-                                <option value="">Select your state/province</option>
-                            </select>
-                            <div class="field-description">Choose your state or province</div>
-                        </div>
-                        <div class="location-field">
-                            <label for="city" class="sophisticated-label">City</label>
-                            <select id="city" class="location-select" disabled required>
-                                <option value="">Select your city</option>
-                            </select>
-                            <div class="field-description">Choose your city or select "Other" to specify</div>
+                    <!-- Country Selection -->
+                    <div class="location-field">
+                        <label for="country" class="sophisticated-label">Country of Residence</label>
+                        <select id="country" class="country-select" required>
+                            <option value="">Select a Country</option>
+                        </select>
+                    </div>
+
+                    <!-- State/Province Selection -->
+                    <div class="location-field">
+                        <label for="state" class="sophisticated-label">State/Province</label>
+                        <select id="state" class="state-select" disabled required>
+                            <option value="">Select a State/Province</option>
+                        </select>
+                    </div>
+
+                    <!-- City Selection -->
+                    <div class="location-field">
+                        <label for="city" class="sophisticated-label">City</label>
+                        <select id="city" class="city-select" disabled required>
+                            <option value="">Select a City</option>
+                        </select>
+                        
+                        <!-- Custom City Input (appears when "Other" is selected) -->
+                        <div class="city-custom-input-wrapper">
+                            <label for="city-custom">Enter Your City</label>
+                            <input 
+                                type="text" 
+                                id="city-custom" 
+                                placeholder="Type your city name here..."
+                                maxlength="50"
+                            >
                         </div>
                     </div>
                 </div>
                 
-                <div class="form-group" id="custom-city-group" hidden>
-                    <div class="sophisticated-field">
-                        <label for="custom-city" class="sophisticated-label">Other city (specify)</label>
-                        <input type="text" id="custom-city" class="form-input custom-city-input" placeholder="Enter your city">
-                        <div class="field-description">Please specify your city if it is not listed above</div>
+
+                
+                <div class="nationality-field">
+                    <label for="nationality" class="sophisticated-label">Your Nationality</label>
+                    <div class="nationality-input-wrapper">
+                        <input 
+                            type="text" 
+                            id="nationality" 
+                            class="nationality-input"
+                            placeholder="Start typing your nationality..."
+                            autocomplete="off"
+                            required
+                        >
                     </div>
                 </div>
-                
-                <div class="sophisticated-field">
-                    <label for="nationality" class="sophisticated-label">Nationality</label>
-                    <input type="text" id="nationality" class="form-input" placeholder="Start typing your nationality" autocomplete="off" required>
-                    <div class="field-description">Your nationality or citizenship</div>
-                    <div class="nationality-suggestion-container" id="nationality-suggestions" role="listbox" aria-label="Nationality suggestions"></div>
-                    <!-- Legacy vertical nationality datalist removed: horizontal chip UI is primary -->
+
                 </div>
                 
                 <div class="sophisticated-field-group">
@@ -793,15 +807,7 @@
         </div>
     </footer>
 
-    <script src="js/smart-country-selector.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/comprehensive-city-database.js"></script>
-    <script src="js/creative-occupation-selector.js"></script>
-    <script src="js/elegant-languages-selector.js"></script>
-    <script src="js/values-preferences-components.js"></script>
-    <script src="js/references-verification-components.js"></script>
-    <script src="js/fixed-forms.js"></script>
-    <script src="js/application-final-fixed.js"></script>
+
     <script src="js/form-data-persistence.js"></script>
     <script src="js/fix-references-layout.js"></script>
     <script src="js/strategic-review.js"></script>
@@ -813,5 +819,46 @@
     <script src="js/test-mode.js"></script>
     <!-- Production API Integration -->
     <script src="js/application-production.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/creative-occupation-selector.js"></script>
+    <script src="js/elegant-languages-selector.js"></script>
+    <script src="js/values-preferences-components.js"></script>
+    <script src="js/references-verification-components.js"></script>
+    <script src="js/fixed-forms.js"></script>
+    <script src="js/application-final-fixed.js"></script>
+
+    <script src="js/enhanced-location-selector.js"></script>
+    <script src="js/smart-nationality-autocomplete.js"></script>
+
+    <script>
+        // Initialize Location Selector
+        const locationSelector = new EnhancedLocationSelector();
+
+        // Initialize Nationality Autocomplete (Horizontal Layout)
+        const nationalityAutocomplete = new SmartNationalityAutocomplete(
+            '#nationality',
+            {
+                layout: 'horizontal',
+                minChars: 1,
+                maxSuggestions: 10,
+                debounceDelay: 200
+            }
+        );
+
+        // Optional: Handle form submission
+        document.getElementById('applicationForm').addEventListener('submit', function(e) {
+            // This part should be handled by your existing form submission logic in form-logic.js or application-production.js
+            // Ensure that your existing form submission logic correctly retrieves values from the new selectors.
+            // For example, to get the city value:
+            const citySelect = document.getElementById('city');
+            const customCityInput = document.getElementById('city-custom');
+            const finalCity = citySelect.value === 'Other' ? customCityInput.value : citySelect.value;
+            
+            console.log('Selected Country:', document.getElementById('country').value);
+            console.log('Selected State:', document.getElementById('state').value);
+            console.log('Selected City:', finalCity);
+            console.log('Selected Nationality:', nationalityAutocomplete.getSelected());
+        });
+    </script>
 </body>
 </html>

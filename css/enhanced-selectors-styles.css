@@ -1,0 +1,457 @@
+/**
+ * Enhanced Selectors Styling for Tessera Amoris
+ * Premium styling for Country/State/City and Nationality selectors
+ */
+
+/* ===== LOCATION SELECTOR STYLES ===== */
+
+.location-selector-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+  margin: 24px 0;
+  padding: 20px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(245, 240, 235, 0.95) 100%);
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(200, 150, 120, 0.2);
+}
+
+.location-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.location-field label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #5a4a3a;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.location-field label::before {
+  content: '';
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #d4a574 0%, #c99a64 100%);
+}
+
+/* Country Select */
+.country-select,
+.state-select,
+.city-select {
+  padding: 12px 14px;
+  border: 2px solid #e0d5c7;
+  border-radius: 8px;
+  font-size: 15px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: white;
+  color: #4a4a4a;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  appearance: none;
+  padding-right: 40px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23d4a574' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 12px;
+  padding-right: 40px;
+}
+
+.country-select:hover,
+.state-select:hover,
+.city-select:hover {
+  border-color: #d4a574;
+  box-shadow: 0 4px 12px rgba(212, 165, 116, 0.15);
+}
+
+.country-select:focus,
+.state-select:focus,
+.city-select:focus {
+  outline: none;
+  border-color: #c99a64;
+  box-shadow: 0 0 0 3px rgba(212, 165, 116, 0.1), 0 4px 12px rgba(212, 165, 116, 0.2);
+}
+
+.country-select:disabled,
+.state-select:disabled,
+.city-select:disabled {
+  background-color: #f5f5f5;
+  color: #999;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Country Select with Flag */
+.country-option-with-flag {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.country-option-with-flag::before {
+  font-size: 18px;
+}
+
+/* "Other" Option Styling */
+.city-other-option {
+  font-style: italic;
+  color: #d4a574;
+  font-weight: 600;
+  border-top: 1px solid #e0d5c7;
+  padding-top: 4px;
+  margin-top: 4px;
+}
+
+/* Hidden City Input Field (appears when "Other" is selected) */
+.city-custom-input-wrapper {
+  display: none;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+  animation: slideDown 0.3s ease-out;
+}
+
+.city-custom-input-wrapper.active {
+  display: flex;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.city-custom-input-wrapper label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #5a4a3a;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.city-custom-input-wrapper input {
+  padding: 10px 12px;
+  border: 2px solid #e0d5c7;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: white;
+  color: #4a4a4a;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.city-custom-input-wrapper input:focus {
+  outline: none;
+  border-color: #c99a64;
+  box-shadow: 0 0 0 3px rgba(212, 165, 116, 0.1), 0 4px 12px rgba(212, 165, 116, 0.2);
+}
+
+.city-custom-input-wrapper input::placeholder {
+  color: #bbb;
+}
+
+/* ===== NATIONALITY AUTOCOMPLETE STYLES ===== */
+
+.nationality-field {
+  position: relative;
+  margin: 24px 0;
+}
+
+.nationality-field label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #5a4a3a;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.nationality-field label::before {
+  content: '';
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #d4a574 0%, #c99a64 100%);
+}
+
+.nationality-input-wrapper {
+  position: relative;
+}
+
+.nationality-input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 2px solid #e0d5c7;
+  border-radius: 8px;
+  font-size: 15px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: white;
+  color: #4a4a4a;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nationality-input:hover {
+  border-color: #d4a574;
+  box-shadow: 0 4px 12px rgba(212, 165, 116, 0.15);
+}
+
+.nationality-input:focus {
+  outline: none;
+  border-color: #c99a64;
+  box-shadow: 0 0 0 3px rgba(212, 165, 116, 0.1), 0 4px 12px rgba(212, 165, 116, 0.2);
+}
+
+.nationality-input::placeholder {
+  color: #bbb;
+}
+
+/* Autocomplete Suggestions Container */
+.nationality-suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 2px solid #e0d5c7;
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+  max-height: 300px;
+  overflow-y: auto;
+  z-index: 1000;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  display: none;
+  margin-top: -2px;
+}
+
+.nationality-suggestions.active {
+  display: block;
+  animation: slideDown 0.3s ease-out;
+}
+
+/* Horizontal Nationality Suggestions Layout */
+.nationality-suggestions-horizontal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.nationality-suggestion-item {
+  padding: 8px 12px;
+  background: #f9f7f5;
+  border: 1px solid #e0d5c7;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 13px;
+  color: #5a4a3a;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.nationality-suggestion-item:hover {
+  background: linear-gradient(135deg, #d4a574 0%, #c99a64 100%);
+  color: white;
+  border-color: #c99a64;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(212, 165, 116, 0.3);
+}
+
+.nationality-suggestion-item.selected {
+  background: linear-gradient(135deg, #d4a574 0%, #c99a64 100%);
+  color: white;
+  border-color: #c99a64;
+}
+
+/* Vertical Nationality Suggestions Layout (Alternative) */
+.nationality-suggestions-vertical {
+  display: flex;
+  flex-direction: column;
+}
+
+.nationality-suggestion-item-vertical {
+  padding: 12px 14px;
+  background: white;
+  border-bottom: 1px solid #e0d5c7;
+  cursor: pointer;
+  font-size: 14px;
+  color: #5a4a3a;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.nationality-suggestion-item-vertical:last-child {
+  border-bottom: none;
+}
+
+.nationality-suggestion-item-vertical:hover {
+  background: #f9f7f5;
+  padding-left: 18px;
+  color: #c99a64;
+}
+
+.nationality-suggestion-item-vertical.selected {
+  background: rgba(212, 165, 116, 0.1);
+  color: #c99a64;
+  font-weight: 700;
+}
+
+/* No Results Message */
+.nationality-no-results {
+  padding: 16px;
+  text-align: center;
+  color: #999;
+  font-size: 13px;
+  font-style: italic;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+
+@media (max-width: 768px) {
+  .location-selector-container {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 16px;
+  }
+
+  .country-select,
+  .state-select,
+  .city-select,
+  .nationality-input {
+    font-size: 16px; /* Prevents zoom on iOS */
+    padding: 14px 16px;
+  }
+
+  .nationality-suggestions {
+    max-height: 250px;
+  }
+
+  .nationality-suggestions-horizontal {
+    gap: 6px;
+    padding: 10px;
+  }
+
+  .nationality-suggestion-item {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .location-selector-container {
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .location-field label,
+  .nationality-field label {
+    font-size: 12px;
+  }
+
+  .country-select,
+  .state-select,
+  .city-select,
+  .nationality-input {
+    padding: 12px 14px;
+    font-size: 14px;
+  }
+
+  .nationality-suggestions-horizontal {
+    gap: 4px;
+    padding: 8px;
+  }
+
+  .nationality-suggestion-item {
+    padding: 5px 8px;
+    font-size: 11px;
+  }
+}
+
+/* ===== SCROLLBAR STYLING ===== */
+
+.nationality-suggestions::-webkit-scrollbar,
+.nationality-suggestions-horizontal::-webkit-scrollbar {
+  width: 6px;
+}
+
+.nationality-suggestions::-webkit-scrollbar-track,
+.nationality-suggestions-horizontal::-webkit-scrollbar-track {
+  background: #f5f5f5;
+  border-radius: 3px;
+}
+
+.nationality-suggestions::-webkit-scrollbar-thumb,
+.nationality-suggestions-horizontal::-webkit-scrollbar-thumb {
+  background: #d4a574;
+  border-radius: 3px;
+}
+
+.nationality-suggestions::-webkit-scrollbar-thumb:hover,
+.nationality-suggestions-horizontal::-webkit-scrollbar-thumb:hover {
+  background: #c99a64;
+}
+
+/* ===== ACCESSIBILITY ===== */
+
+.country-select:focus-visible,
+.state-select:focus-visible,
+.city-select:focus-visible,
+.nationality-input:focus-visible {
+  outline: 2px solid #c99a64;
+  outline-offset: 2px;
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: more) {
+  .country-select,
+  .state-select,
+  .city-select,
+  .nationality-input {
+    border-width: 3px;
+  }
+
+  .nationality-suggestion-item:hover {
+    text-decoration: underline;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .country-select,
+  .state-select,
+  .city-select,
+  .nationality-input,
+  .nationality-suggestion-item,
+  .city-custom-input-wrapper {
+    transition: none;
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}
+
