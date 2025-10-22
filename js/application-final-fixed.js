@@ -81,7 +81,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 currentStep++;
                 showSection(currentStep);
                 updateProgress();
-                window.scrollTo(0, 0);
+                
+                // Scroll to the form container smoothly
+                const formContainer = document.querySelector('.application-container');
+                if (formContainer) {
+                    const headerHeight = document.querySelector('header') ? document.querySelector('header').offsetHeight : 0;
+                    const targetPosition = formContainer.getBoundingClientRect().top + window.pageYOffset - headerHeight - 20;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+                
                 console.log('Advanced to step:', currentStep);
             }
         } else {
@@ -95,7 +107,18 @@ document.addEventListener('DOMContentLoaded', function() {
             currentStep--;
             showSection(currentStep);
             updateProgress();
-            window.scrollTo(0, 0);
+            
+            // Scroll to the form container smoothly
+            const formContainer = document.querySelector('.application-container');
+            if (formContainer) {
+                const headerHeight = document.querySelector('header') ? document.querySelector('header').offsetHeight : 0;
+                const targetPosition = formContainer.getBoundingClientRect().top + window.pageYOffset - headerHeight - 20;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
         }
     }
     
@@ -113,6 +136,18 @@ document.addEventListener('DOMContentLoaded', function() {
             if (formContent && successMessage) {
                 formContent.style.display = 'none';
                 successMessage.classList.add('active');
+                
+                // Scroll to success message
+                const formContainer = document.querySelector('.application-container');
+                if (formContainer) {
+                    const headerHeight = document.querySelector('header') ? document.querySelector('header').offsetHeight : 0;
+                    const targetPosition = formContainer.getBoundingClientRect().top + window.pageYOffset - headerHeight - 20;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
             }
         }
     }
