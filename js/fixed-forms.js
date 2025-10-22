@@ -248,6 +248,10 @@ async function initializeLocationSelectors() {
         || Array.from(countrySelect.options || []).some(option => option.value === 'OTHER');
 
     if (!hasSmartCountryOptions) {
+    // Populate country select only if the smart selector has not already handled it
+    const hasSmartSelector = countrySelect.dataset.smartSelector === 'true';
+
+    if (!hasSmartSelector) {
         try {
             const countriesObj = locationService.countries || {};
             const entries = Object.keys(countriesObj).map(code => ({ code, label: countriesObj[code].label || code }));
@@ -258,6 +262,7 @@ async function initializeLocationSelectors() {
                 const option = document.createElement('option');
                 option.value = entry.code;
                 option.textContent = entry.label;
+                option.dataset.source = 'location-service';
                 countrySelect.appendChild(option);
             });
         } catch (err) {
@@ -266,6 +271,9 @@ async function initializeLocationSelectors() {
     }
 
     countrySelect.disabled = false;
+    } else {
+        countrySelect.disabled = false;
+    }
 
     function resetStateSelect(placeholderText) {
         stateSelect.innerHTML = `<option value="">${placeholderText}</option>`;
