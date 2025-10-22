@@ -199,53 +199,106 @@ document.addEventListener('DOMContentLoaded', function() {
         const countrySelect = document.getElementById('country');
         const countryCodeSelect = document.getElementById('country-code');
         
-        if (!countrySelect || !countryCodeSelect) {
-            return;
-        }
-
-        const locationCountries = (typeof LOCATION_DATA !== 'undefined' && LOCATION_DATA.countries) ? LOCATION_DATA.countries : {};
-        const countryCodes = {};
-        const countryLabels = {};
-
-        Object.entries(locationCountries).forEach(([code, country]) => {
-            if (Array.isArray(country.dialCodes) && country.dialCodes.length) {
-                countryCodes[code] = [...country.dialCodes];
-            }
-            countryLabels[code] = country.name || code;
-        });
-
-        countryCodes.OTHER = countryCodes.OTHER || ['+1'];
-        countryLabels.OTHER = countryLabels.OTHER || 'Other';
-
-        const resolveCountry = () => {
-            const selected = countrySelect.value;
-            if (selected && countryCodes[selected]) {
-                return selected;
-            }
-            if (selected) {
-                return 'OTHER';
-            }
-            return 'PY';
-        };
-
-        const updateCodes = (countryCode) => {
-            const codes = countryCodes[countryCode] || countryCodes.OTHER || ['+1'];
-            countryCodeSelect.innerHTML = '';
-            codes.forEach(code => {
-                const label = countryLabels[countryCode] || countryLabels.OTHER;
-                const option = new Option(`${code} (${label})`, code);
-                countryCodeSelect.add(option);
+        if (countrySelect && countryCodeSelect) {
+            // Comprehensive country codes mapping
+            const countryCodes = {
+                'United States': ['+1'],
+                'Canada': ['+1'],
+                'Brazil': ['+55'],
+                'Argentina': ['+54'],
+                'Paraguay': ['+595'],
+                'Uruguay': ['+598'],
+                'Chile': ['+56'],
+                'Colombia': ['+57'],
+                'Peru': ['+51'],
+                'Venezuela': ['+58'],
+                'Bolivia': ['+591'],
+                'Ecuador': ['+593'],
+                'Mexico': ['+52'],
+                'Germany': ['+49'],
+                'France': ['+33'],
+                'Italy': ['+39'],
+                'Spain': ['+34'],
+                'United Kingdom': ['+44'],
+                'Russia': ['+7'],
+                'Poland': ['+48'],
+                'Netherlands': ['+31'],
+                'Belgium': ['+32'],
+                'Switzerland': ['+41'],
+                'Austria': ['+43'],
+                'Portugal': ['+351'],
+                'Sweden': ['+46'],
+                'Norway': ['+47'],
+                'Denmark': ['+45'],
+                'Finland': ['+358'],
+                'Ireland': ['+353'],
+                'Greece': ['+30'],
+                'Turkey': ['+90'],
+                'Czech Republic': ['+420'],
+                'Hungary': ['+36'],
+                'Romania': ['+40'],
+                'Bulgaria': ['+359'],
+                'Croatia': ['+385'],
+                'Serbia': ['+381'],
+                'Slovenia': ['+386'],
+                'Slovakia': ['+421'],
+                'Ukraine': ['+380'],
+                'Belarus': ['+375'],
+                'Lithuania': ['+370'],
+                'Latvia': ['+371'],
+                'Estonia': ['+372'],
+                'Australia': ['+61'],
+                'New Zealand': ['+64'],
+                'Japan': ['+81'],
+                'China': ['+86'],
+                'India': ['+91'],
+                'South Korea': ['+82'],
+                'Singapore': ['+65'],
+                'Malaysia': ['+60'],
+                'Indonesia': ['+62'],
+                'Philippines': ['+63'],
+                'Thailand': ['+66'],
+                'Vietnam': ['+84'],
+                'South Africa': ['+27'],
+                'Nigeria': ['+234'],
+                'Egypt': ['+20'],
+                'Morocco': ['+212'],
+                'Israel': ['+972'],
+                'Saudi Arabia': ['+966'],
+                'United Arab Emirates': ['+971'],
+                'Qatar': ['+974'],
+                'Kuwait': ['+965'],
+                'Bahrain': ['+973'],
+                'Oman': ['+968']
+            };
+            
+            // Update country code when country changes
+            countrySelect.addEventListener('change', function() {
+                const selectedCountry = this.value;
+                const codes = countryCodes[selectedCountry] || ['+1'];
+                
+                // Clear existing options except the first one
+                while (countryCodeSelect.options.length > 1) {
+                    countryCodeSelect.removeChild(countryCodeSelect.lastChild);
+                }
+                
+                // Add country codes for selected country
+                codes.forEach(code => {
+                    const option = new Option(code, code);
+                    countryCodeSelect.add(option);
+                });
+                
+                // Select the first available code
+                if (codes.length > 0) {
+                    countryCodeSelect.value = codes[0];
+                }
             });
-            if (codes.length) {
-                countryCodeSelect.value = codes[0];
+            
+            // Trigger change event to set initial value
+            if (countrySelect.value) {
+                countrySelect.dispatchEvent(new Event('change'));
             }
-        };
-
-        updateCodes(resolveCountry());
-
-        countrySelect.addEventListener('change', () => {
-            updateCodes(resolveCountry());
-        });
+        }
     }
     
     // Initialize value tags

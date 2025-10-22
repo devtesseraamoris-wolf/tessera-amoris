@@ -244,10 +244,8 @@ async function initializeLocationSelectors() {
 
     const allowedCountries = new Set(Object.keys(locationService.countries || {}));
 
-    // Populate country select only if the smart selector has not already handled it
-    const hasSmartSelector = countrySelect.dataset.smartSelector === 'true';
-
-    if (!hasSmartSelector) {
+    // Populate country select from the location service
+    (function populateCountries() {
         try {
             const countriesObj = locationService.countries || {};
             const entries = Object.keys(countriesObj).map(code => ({ code, label: countriesObj[code].label || code }));
@@ -258,16 +256,34 @@ async function initializeLocationSelectors() {
                 const option = document.createElement('option');
                 option.value = entry.code;
                 option.textContent = entry.label;
-                option.dataset.source = 'location-service';
                 countrySelect.appendChild(option);
             });
             countrySelect.disabled = false;
         } catch (err) {
             console.error('Failed to populate countries', err);
         }
-    } else {
-        countrySelect.disabled = false;
-    }
+    })();
+
+    // Populate country select from the location service
+    (function populateCountries() {
+        try {
+            const countriesObj = locationService.countries || {};
+            const entries = Object.keys(countriesObj).map(code => ({ code, label: countriesObj[code].label || code }));
+            // Sort by label
+            entries.sort((a, b) => a.label.localeCompare(b.label));
+
+            countrySelect.innerHTML = '<option value="">Select your country</option>';
+            entries.forEach(entry => {
+                const option = document.createElement('option');
+                option.value = entry.code;
+                option.textContent = entry.label;
+                countrySelect.appendChild(option);
+            });
+            countrySelect.disabled = false;
+        } catch (err) {
+            console.error('Failed to populate countries', err);
+        }
+    })();
 
     function resetStateSelect(placeholderText) {
         stateSelect.innerHTML = `<option value="">${placeholderText}</option>`;

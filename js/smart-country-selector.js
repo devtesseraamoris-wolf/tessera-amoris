@@ -1,31 +1,27 @@
 /**
  * Smart Country Selector with Expansion Modal
- * Paraguay + Complete European Country Coverage (UN Members + Kosovo)
+ * Paraguay + ALL 44 European Countries (UN Official List)
  * With warm, professional messaging
  */
 
-// Paraguay + Complete European Country Coverage (UN Members + Kosovo)
+// Paraguay + ALL 44 European Countries (Complete List - UN Official)
 const COUNTRIES = [
     { value: 'PY', label: '🇵🇾 Paraguay', region: 'paraguay' },
     { value: 'divider1', label: '─────────────── Europe ───────────────', disabled: true, style: 'divider' },
     { value: 'AL', label: '🇦🇱 Albania', region: 'europe' },
     { value: 'AD', label: '🇦🇩 Andorra', region: 'europe' },
-    { value: 'AM', label: '🇦🇲 Armenia', region: 'europe' },
     { value: 'AT', label: '🇦🇹 Austria', region: 'europe' },
-    { value: 'AZ', label: '🇦🇿 Azerbaijan', region: 'europe' },
     { value: 'BY', label: '🇧🇾 Belarus', region: 'europe' },
     { value: 'BE', label: '🇧🇪 Belgium', region: 'europe' },
     { value: 'BA', label: '🇧🇦 Bosnia and Herzegovina', region: 'europe' },
     { value: 'BG', label: '🇧🇬 Bulgaria', region: 'europe' },
     { value: 'HR', label: '🇭🇷 Croatia', region: 'europe' },
-    { value: 'CY', label: '🇨🇾 Cyprus', region: 'europe' },
     { value: 'CZ', label: '🇨🇿 Czech Republic', region: 'europe' },
     { value: 'DK', label: '🇩🇰 Denmark', region: 'europe' },
     { value: 'EE', label: '🇪🇪 Estonia', region: 'europe' },
     { value: 'FI', label: '🇫🇮 Finland', region: 'europe' },
     { value: 'FR', label: '🇫🇷 France', region: 'europe' },
     { value: 'DE', label: '🇩🇪 Germany', region: 'europe' },
-    { value: 'GE', label: '🇬🇪 Georgia', region: 'europe' },
     { value: 'GR', label: '🇬🇷 Greece', region: 'europe' },
     { value: 'VA', label: '🇻🇦 Holy See (Vatican City)', region: 'europe' },
     { value: 'HU', label: '🇭🇺 Hungary', region: 'europe' },
@@ -49,8 +45,6 @@ const COUNTRIES = [
     { value: 'RU', label: '🇷🇺 Russia', region: 'europe' },
     { value: 'SM', label: '🇸🇲 San Marino', region: 'europe' },
     { value: 'RS', label: '🇷🇸 Serbia', region: 'europe' },
-    { value: 'XK', label: '🇽🇰 Kosovo', region: 'europe' },
-    { value: 'TR', label: '🇹🇷 Türkiye', region: 'europe' },
     { value: 'SK', label: '🇸🇰 Slovakia', region: 'europe' },
     { value: 'SI', label: '🇸🇮 Slovenia', region: 'europe' },
     { value: 'ES', label: '🇪🇸 Spain', region: 'europe' },
@@ -66,7 +60,7 @@ const COUNTRIES = [
 const EXPANSION_REGIONS = [
     { value: 'americas', label: 'Americas', icon: '🌎', examples: 'USA, Canada, Brazil, Argentina, Chile, Mexico...' },
     { value: 'asia', label: 'Asia', icon: '🌏', examples: 'Japan, Singapore, South Korea, India, China...' },
-    { value: 'middle_east', label: 'Middle East', icon: '🕌', examples: 'UAE, Israel, Saudi Arabia, Qatar, Bahrain...' },
+    { value: 'middle_east', label: 'Middle East', icon: '🕌', examples: 'UAE, Israel, Saudi Arabia, Qatar, Turkey...' },
     { value: 'oceania', label: 'Oceania', icon: '🦘', examples: 'Australia, New Zealand, Fiji, Papua New Guinea...' },
     { value: 'africa', label: 'Africa', icon: '🦁', examples: 'South Africa, Kenya, Egypt, Morocco, Nigeria...' }
 ];
@@ -79,11 +73,7 @@ class SmartCountrySelector {
             country: null,
             email: null
         };
-
-        if (this.countrySelect) {
-            this.countrySelect.dataset.smartSelector = 'true';
-        }
-
+        
         this.init();
     }
     

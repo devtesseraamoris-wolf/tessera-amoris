@@ -104,7 +104,6 @@ document.addEventListener('DOMContentLoaded', function() {
             email: document.getElementById('email')?.value || '',
             phone: document.getElementById('phone')?.value || '',
             country: document.getElementById('country')?.value || '',
-            state: document.getElementById('state')?.value || '',
             city: document.getElementById('city')?.value || document.getElementById('custom-city')?.value || '',
             nationality: document.getElementById('nationality')?.value || '',
             

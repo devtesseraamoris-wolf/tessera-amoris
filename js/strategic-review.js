@@ -282,46 +282,15 @@
     }
     
     function getLocation() {
-        const countrySelect = document.getElementById('country');
-        const stateSelect = document.getElementById('state');
-        const citySelect = document.getElementById('city');
-        const customCityInput = document.getElementById('custom-city');
-
-        const countryCode = countrySelect ? countrySelect.value : '';
-        const stateCode = stateSelect ? stateSelect.value : '';
-        const locationData = (typeof LOCATION_DATA !== 'undefined' && LOCATION_DATA.countries) ? LOCATION_DATA.countries : {};
-        const locationService = window.locationDataService;
-
-        const countryName = countryCode === 'OTHER'
-            ? 'Other'
-            : (locationData[countryCode]?.name || countryCode || '');
-
-        let stateName = '';
-        if (countryCode && stateCode) {
-            stateName = (locationService && typeof locationService.getStateLabel === 'function')
-                ? locationService.getStateLabel(countryCode, stateCode)
-                : '';
-            if (!stateName && locationData[countryCode]?.states?.[stateCode]) {
-                stateName = locationData[countryCode].states[stateCode].name;
-            }
+        const country = document.getElementById('country')?.value || '';
+        const city = document.getElementById('city')?.value || '';
+        
+        if (city && country) {
+            return `${city}, ${country}`;
+        } else if (country) {
+            return country;
         }
-
-        let cityName = '';
-        if (citySelect) {
-            const selectedCity = citySelect.value;
-            if (selectedCity === 'other') {
-                cityName = customCityInput?.value?.trim() || 'Other';
-            } else if (citySelect.selectedIndex >= 0) {
-                cityName = citySelect.options[citySelect.selectedIndex]?.textContent?.trim() || '';
-            }
-        }
-
-        const parts = [];
-        if (cityName) parts.push(cityName);
-        if (stateName) parts.push(stateName);
-        if (countryName) parts.push(countryName);
-
-        return parts.length ? parts.join(', ') : 'Not provided';
+        return 'Not provided';
     }
     
     function getOccupation() {
