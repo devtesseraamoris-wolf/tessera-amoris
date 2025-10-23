@@ -4,11 +4,15 @@
  */
 
 :root {
-  --error-color: #e74c3c;
-  --error-light: #fadbd8;
+  --error-color: #d3544a;
+  --error-light: #fdeae7;
   --success-color: #27ae60;
   --warning-color: #f39c12;
-  --info-color: #3498db;
+  --info-color: #274060;
+  --notice-bg-start: #fffdf7;
+  --notice-bg-end: #f8f1e4;
+  --notice-border: rgba(212, 175, 55, 0.36);
+  --notice-shadow: rgba(12, 27, 51, 0.08);
 }
 
 /* Validation Notification Container */
@@ -45,6 +49,7 @@
   color: var(--info-color);
   margin-bottom: 8px;
   font-family: 'Montserrat', sans-serif;
+  letter-spacing: 0.4px;
 }
 
 /* Notification Message */
