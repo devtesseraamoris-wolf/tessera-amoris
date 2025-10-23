@@ -328,7 +328,7 @@
                 
                 <div class="form-group">
                     <label for="faith-tradition" class="form-label">Faith/Spiritual Tradition</label>
-                    <select id="faith-tradition" class="form-select">
+                    <select id="faith-tradition" class="form-select" required>
                         <option value="" selected disabled>Select your tradition</option>
                         <option value="Catholic">Catholic</option>
                         <option value="Protestant">Protestant</option>
@@ -352,7 +352,7 @@
                 
                 <div class="form-group">
                     <label for="community-involvement" class="form-label">Religious/Spiritual Community Involvement</label>
-                    <select id="community-involvement" class="form-select">
+                    <select id="community-involvement" class="form-select" required>
                         <option value="" selected disabled>Select your level of involvement</option>
                         <option value="Very active">Very active</option>
                         <option value="Regularly participate">Regularly participate</option>
@@ -535,7 +535,7 @@
                         <i class="fas fa-images file-upload-icon"></i>
                         <p class="file-upload-text">Drag and drop your photos here, or click to browse</p>
                         <button type="button" class="file-upload-btn">Browse Files</button>
-                        <input type="file" class="file-upload-input" accept="image/*" multiple required>
+                        <input type="file" id="verification-photos" class="file-upload-input" accept="image/*" multiple required>
                     </div>
                     <div class="file-preview"></div>
                     <p class="form-note"><small>Note: Photo requirements may vary based on your preferences. Additional verification documents will be requested during the matching process.</small></p>
