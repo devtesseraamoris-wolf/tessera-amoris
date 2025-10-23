@@ -230,50 +230,33 @@
 
 /* Form Content Adjustment */
 .form-content {
+  padding-bottom: 100px;
   position: relative;
   overflow: hidden;
-  padding: 2.5rem 2.5rem 4rem;
-  transition: min-height 0.45s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Smooth Transition Between Sections */
-.form-content .form-section {
-  display: block;
+.form-section {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
   width: 100%;
   opacity: 0;
-  transform: translateX(48px) scale(0.96);
-  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-    transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateX(50px) scale(0.95);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   pointer-events: none;
   visibility: hidden;
   z-index: 1;
 }
 
-.form-content .form-section.active {
+.form-section.active {
   position: relative;
   opacity: 1;
   transform: translateX(0) scale(1);
   pointer-events: auto;
   visibility: visible;
-  z-index: 5;
-}
-
-.form-content .form-section.active + .form-section {
-  z-index: 1;
-}
-
-@media (max-width: 768px) {
-  .form-content {
-    padding: 2rem 1.5rem 3rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .form-content {
-    padding: 1.75rem 1.25rem 2.75rem;
-  }
+  z-index: 10;
 }
 
 /* Accessibility */
