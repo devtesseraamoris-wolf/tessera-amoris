@@ -88,6 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!skipScroll) {
             scrollToCurrentSection();
         }
+        updateNavigationButtons();
     }
 
     // Update progress bar
@@ -155,6 +156,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 window.currentStep = currentStep;
                 showSection(currentStep);
                 updateProgress();
+                scrollToCurrentSection();
             }
         } else {
             handleValidationErrors(validationResult);
@@ -168,6 +170,7 @@ document.addEventListener('DOMContentLoaded', function() {
             window.currentStep = currentStep;
             showSection(currentStep);
             updateProgress();
+            scrollToCurrentSection();
         }
     }
 
@@ -193,6 +196,59 @@ document.addEventListener('DOMContentLoaded', function() {
     function handleValidationErrors(validationResult) {
         if (window.formValidation && validationResult.errors && validationResult.errors.length > 0) {
             window.formValidation.showValidationNotification(validationResult.errors);
+        }
+        focusFirstError();
+    }
+
+    function scrollToCurrentSection() {
+        const activeSection = formSections[currentStep];
+
+        if (!activeSection) {
+            return;
+        }
+
+        const header = document.querySelector('header');
+        const headerOffset = header ? header.offsetHeight : 0;
+        const targetPosition = activeSection.getBoundingClientRect().top + window.pageYOffset - (headerOffset + 24);
+
+        window.scrollTo({
+            top: targetPosition < 0 ? 0 : targetPosition,
+            behavior: 'smooth'
+        });
+    }
+
+    function focusFirstError() {
+        const activeSection = formSections[currentStep];
+
+        if (!activeSection) {
+            return;
+        }
+
+        const errorElement = activeSection.querySelector('.form-error-message, .error, [aria-invalid="true"], input:invalid, select:invalid, textarea:invalid');
+
+        if (!errorElement) {
+            return;
+        }
+
+        const focusableScope = errorElement.classList && errorElement.classList.contains('form-error-message')
+            ? (errorElement.parentElement || errorElement)
+            : errorElement;
+
+        let focusTarget = null;
+
+        if (focusableScope && typeof focusableScope.matches === 'function' && focusableScope.matches('input, select, textarea, button')) {
+            focusTarget = focusableScope;
+        } else if (focusableScope && typeof focusableScope.querySelector === 'function') {
+            focusTarget = focusableScope.querySelector('input, select, textarea, button');
+        }
+
+        if (focusTarget && typeof focusTarget.focus === 'function') {
+            focusTarget.focus({ preventScroll: true });
+        }
+
+        const scrollTarget = focusableScope || errorElement;
+        if (scrollTarget && typeof scrollTarget.scrollIntoView === 'function') {
+            scrollTarget.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
         focusFirstError();
         syncFormHeight(formSections[currentStep]);
