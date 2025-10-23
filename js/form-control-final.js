@@ -157,8 +157,19 @@
     transitionToSection(stepNumber) {
       console.log('Transitioning to section:', stepNumber);
 
+      // Prevent any automatic scrolling
+      const preventScroll = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+      };
+
+      // Temporarily disable scroll events
+      window.addEventListener('scroll', preventScroll, { passive: false });
+      document.addEventListener('scroll', preventScroll, { passive: false });
+
       // Store current scroll position
       const currentScrollY = window.pageYOffset || document.documentElement.scrollTop;
+      const currentScrollX = window.pageXOffset || document.documentElement.scrollLeft;
 
       // Hide all sections
       this.formSections.forEach(section => {
@@ -174,12 +185,19 @@
       // Update UI
       this.updateUI();
 
-      // Restore scroll position immediately
-      window.scrollTo(0, currentScrollY);
+      // Force scroll position to stay exactly where it was
+      window.scrollTo(currentScrollX, currentScrollY);
 
-      // Use requestAnimationFrame to ensure scroll stays in place
+      // Use multiple methods to ensure scroll stays in place
+      setTimeout(() => {
+        window.scrollTo(currentScrollX, currentScrollY);
+        // Re-enable scroll events
+        window.removeEventListener('scroll', preventScroll);
+        document.removeEventListener('scroll', preventScroll);
+      }, 100);
+
       requestAnimationFrame(() => {
-        window.scrollTo(0, currentScrollY);
+        window.scrollTo(currentScrollX, currentScrollY);
       });
     }
 

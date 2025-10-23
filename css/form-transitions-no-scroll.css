@@ -3,10 +3,20 @@
  * Ensures smooth transitions between form sections without any page scrolling
  */
 
+/* Prevent smooth scrolling globally */
+html {
+  scroll-behavior: auto !important;
+}
+
+body {
+  scroll-behavior: auto !important;
+}
+
 /* Form Content Container */
 .form-content {
   position: relative;
   padding-bottom: 120px;
+  scroll-behavior: auto !important;
 }
 
 /* Hide all sections by default */
