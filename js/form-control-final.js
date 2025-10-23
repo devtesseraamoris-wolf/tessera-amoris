@@ -1,0 +1,399 @@
+/**
+ * Final Form Control System for Tessera Amoris
+ * Comprehensive validation, smooth transitions, and elegant error messages
+ * Version: 1.0 - Final
+ */
+
+(function() {
+  'use strict';
+
+  // Prevent multiple initializations
+  if (window.TesseraFormControl) {
+    return;
+  }
+
+  class TesseraFormControl {
+    constructor() {
+      this.currentStep = 1;
+      this.totalSteps = 5;
+      this.isInitialized = false;
+      
+      // Required fields for each section
+      this.requiredFields = {
+        1: ['full-name', 'birth-month', 'birth-day', 'birth-year', 'gender', 'email', 'phone', 'country', 'state', 'city', 'nationality'],
+        2: ['faith-tradition', 'church-involvement', 'faith-importance'],
+        3: ['relationship-goals', 'family-vision'],
+        4: ['references-name', 'references-email', 'background-check'],
+        5: []
+      };
+
+      this.init();
+    }
+
+    init() {
+      if (this.isInitialized) return;
+      
+      // Wait for DOM to be fully loaded
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => this.setup());
+      } else {
+        this.setup();
+      }
+    }
+
+    setup() {
+      // Get DOM elements
+      this.formContent = document.querySelector('.form-content');
+      this.formSections = document.querySelectorAll('.form-section');
+      this.nextBtn = document.querySelector('.btn-next');
+      this.prevBtn = document.querySelector('.btn-prev');
+      this.submitBtn = document.querySelector('.btn-submit');
+      this.progressSteps = document.querySelectorAll('.progress-step');
+
+      if (!this.formContent || !this.formSections.length) {
+        console.warn('Form elements not found');
+        return;
+      }
+
+      // Setup event listeners
+      this.setupEventListeners();
+      
+      // Initialize form state
+      this.updateUI();
+      
+      this.isInitialized = true;
+      console.log('Tessera Form Control initialized successfully');
+    }
+
+    setupEventListeners() {
+      // Remove any existing listeners by cloning buttons
+      if (this.nextBtn) {
+        const newNextBtn = this.nextBtn.cloneNode(true);
+        this.nextBtn.parentNode.replaceChild(newNextBtn, this.nextBtn);
+        this.nextBtn = newNextBtn;
+        this.nextBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          this.handleNext();
+        });
+      }
+
+      if (this.prevBtn) {
+        const newPrevBtn = this.prevBtn.cloneNode(true);
+        this.prevBtn.parentNode.replaceChild(newPrevBtn, this.prevBtn);
+        this.prevBtn = newPrevBtn;
+        this.prevBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          this.handlePrev();
+        });
+      }
+
+      if (this.submitBtn) {
+        const newSubmitBtn = this.submitBtn.cloneNode(true);
+        this.submitBtn.parentNode.replaceChild(newSubmitBtn, this.submitBtn);
+        this.submitBtn = newSubmitBtn;
+        this.submitBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          this.handleSubmit();
+        });
+      }
+    }
+
+    handleNext() {
+      console.log('Next button clicked, current step:', this.currentStep);
+      
+      // Validate current section
+      const validation = this.validateSection(this.currentStep);
+      
+      if (!validation.isValid) {
+        console.log('Validation failed:', validation.missingFields);
+        this.showValidationError(validation.missingFields);
+        return false;
+      }
+
+      // Clear any error messages
+      this.clearValidationError();
+
+      // Move to next section
+      if (this.currentStep < this.totalSteps) {
+        this.currentStep++;
+        this.transitionToSection(this.currentStep);
+      }
+
+      return true;
+    }
+
+    handlePrev() {
+      console.log('Previous button clicked, current step:', this.currentStep);
+      
+      // Clear any error messages
+      this.clearValidationError();
+
+      // Move to previous section
+      if (this.currentStep > 1) {
+        this.currentStep--;
+        this.transitionToSection(this.currentStep);
+      }
+    }
+
+    handleSubmit() {
+      console.log('Submit button clicked');
+      
+      // Validate current section
+      const validation = this.validateSection(this.currentStep);
+      
+      if (!validation.isValid) {
+        console.log('Validation failed:', validation.missingFields);
+        this.showValidationError(validation.missingFields);
+        return false;
+      }
+
+      // Submit form
+      console.log('Form validation passed, submitting...');
+      // Add your submission logic here
+      
+      return true;
+    }
+
+    transitionToSection(stepNumber) {
+      console.log('Transitioning to section:', stepNumber);
+
+      // Hide all sections
+      this.formSections.forEach(section => {
+        section.classList.remove('active');
+      });
+
+      // Show target section
+      const targetSection = document.querySelector(`.form-section[data-section="${stepNumber}"]`);
+      if (targetSection) {
+        targetSection.classList.add('active');
+      }
+
+      // Update UI
+      this.updateUI();
+
+      // Prevent any scrolling
+      if (this.formContent) {
+        this.formContent.scrollTop = 0;
+      }
+      window.scrollTo(0, 0);
+    }
+
+    updateUI() {
+      // Update progress bar
+      this.progressSteps.forEach((step, index) => {
+        const stepNumber = index + 1;
+        if (stepNumber <= this.currentStep) {
+          step.classList.add('active');
+        } else {
+          step.classList.remove('active');
+        }
+      });
+
+      // Update button visibility
+      if (this.prevBtn) {
+        this.prevBtn.style.display = this.currentStep === 1 ? 'none' : 'flex';
+      }
+
+      if (this.nextBtn && this.submitBtn) {
+        if (this.currentStep === this.totalSteps) {
+          this.nextBtn.style.display = 'none';
+          this.submitBtn.style.display = 'flex';
+        } else {
+          this.nextBtn.style.display = 'flex';
+          this.submitBtn.style.display = 'none';
+        }
+      }
+    }
+
+    validateSection(sectionNumber) {
+      const requiredFieldIds = this.requiredFields[sectionNumber] || [];
+      const missingFields = [];
+
+      requiredFieldIds.forEach(fieldId => {
+        const field = document.getElementById(fieldId);
+        if (!field) {
+          console.warn(`Field ${fieldId} not found`);
+          return;
+        }
+
+        const value = this.getFieldValue(field);
+        const label = this.getFieldLabel(field);
+
+        if (!this.isFieldValid(fieldId, value, field)) {
+          missingFields.push({
+            id: fieldId,
+            label: label,
+            field: field
+          });
+        }
+      });
+
+      // Special validation for section 1 (age check)
+      if (sectionNumber === 1) {
+        const ageValidation = this.validateAge();
+        if (!ageValidation.isValid) {
+          missingFields.push({
+            id: 'age-check',
+            label: ageValidation.message,
+            field: null
+          });
+        }
+      }
+
+      return {
+        isValid: missingFields.length === 0,
+        missingFields: missingFields
+      };
+    }
+
+    getFieldValue(field) {
+      if (!field) return '';
+
+      const type = field.type;
+      
+      if (type === 'checkbox') {
+        return field.checked ? field.value : '';
+      } else if (type === 'radio') {
+        const name = field.name;
+        const checked = document.querySelector(`input[name="${name}"]:checked`);
+        return checked ? checked.value : '';
+      } else if (field.tagName === 'SELECT') {
+        return field.value || '';
+      } else {
+        return (field.value || '').trim();
+      }
+    }
+
+    getFieldLabel(field) {
+      if (!field) return 'Unknown field';
+
+      const label = document.querySelector(`label[for="${field.id}"]`);
+      if (label) {
+        return label.textContent.replace('*', '').replace('Required', '').trim();
+      }
+      
+      // Fallback to field name
+      return field.id.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+    }
+
+    isFieldValid(fieldId, value, field) {
+      // Empty check
+      if (!value || value.length === 0) {
+        return false;
+      }
+
+      // Email validation
+      if (fieldId === 'email') {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(value);
+      }
+
+      // Phone validation
+      if (fieldId === 'phone') {
+        const phoneRegex = /^[\d\s\-\+\(\)]{7,}$/;
+        return phoneRegex.test(value);
+      }
+
+      return true;
+    }
+
+    validateAge() {
+      const birthMonth = document.getElementById('birth-month');
+      const birthDay = document.getElementById('birth-day');
+      const birthYear = document.getElementById('birth-year');
+
+      if (!birthMonth || !birthDay || !birthYear) {
+        return { isValid: true };
+      }
+
+      const month = birthMonth.value;
+      const day = birthDay.value;
+      const year = birthYear.value;
+
+      if (!month || !day || !year) {
+        return { isValid: true }; // Already caught by required field validation
+      }
+
+      const today = new Date();
+      const birthDate = new Date(year, month - 1, day);
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const monthDiff = today.getMonth() - birthDate.getMonth();
+
+      if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+      }
+
+      if (age < 18) {
+        return {
+          isValid: false,
+          message: 'You must be at least 18 years old to apply'
+        };
+      }
+
+      return { isValid: true };
+    }
+
+    showValidationError(missingFields) {
+      // Clear existing errors
+      this.clearValidationError();
+
+      // Create error notification
+      const notification = document.createElement('div');
+      notification.className = 'tessera-validation-error';
+      notification.setAttribute('role', 'alert');
+      notification.setAttribute('aria-live', 'assertive');
+
+      notification.innerHTML = `
+        <div class="validation-error-container">
+          <div class="validation-error-header">
+            <div class="validation-error-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
+            </div>
+            <div class="validation-error-title">Please Complete Required Information</div>
+          </div>
+          <div class="validation-error-body">
+            <p class="validation-error-message">To continue your journey with Tessera Amoris, we need the following information:</p>
+            <ul class="validation-error-list">
+              ${missingFields.map(field => `<li class="validation-error-item">${field.label}</li>`).join('')}
+            </ul>
+          </div>
+          <div class="validation-error-footer">
+            <p class="validation-error-note">Every detail helps us find your perfect match</p>
+          </div>
+        </div>
+      `;
+
+      // Insert at the top of form content
+      if (this.formContent) {
+        this.formContent.insertBefore(notification, this.formContent.firstChild);
+        
+        // Scroll to error message smoothly
+        notification.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+        // Auto-remove after 10 seconds
+        setTimeout(() => {
+          if (notification.parentNode) {
+            notification.classList.add('fade-out');
+            setTimeout(() => notification.remove(), 300);
+          }
+        }, 10000);
+      }
+    }
+
+    clearValidationError() {
+      const existingError = document.querySelector('.tessera-validation-error');
+      if (existingError) {
+        existingError.classList.add('fade-out');
+        setTimeout(() => existingError.remove(), 300);
+      }
+    }
+  }
+
+  // Initialize and expose globally
+  window.TesseraFormControl = new TesseraFormControl();
+})();
+

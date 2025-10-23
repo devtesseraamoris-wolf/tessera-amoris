@@ -1,0 +1,304 @@
+/**
+ * Final Validation Error Styling for Tessera Amoris
+ * Elegant, persuasive, and highly creative error messages
+ */
+
+:root {
+  --error-primary: #c0392b;
+  --error-secondary: #e74c3c;
+  --error-light: #fadbd8;
+  --error-bg: #fef9f8;
+  --gold-accent: #D4AF37;
+  --text-dark: #1a1a1a;
+  --text-medium: #555;
+  --text-light: #888;
+}
+
+/* Main Error Container */
+.tessera-validation-error {
+  position: relative;
+  margin: 0 0 32px 0;
+  animation: slideInFromTop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 100;
+}
+
+@keyframes slideInFromTop {
+  from {
+    transform: translateY(-40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Error Container */
+.validation-error-container {
+  background: linear-gradient(135deg, #ffffff 0%, #fef9f8 100%);
+  border: 2px solid var(--error-light);
+  border-left: 6px solid var(--error-primary);
+  border-radius: 16px;
+  padding: 28px 32px;
+  box-shadow: 
+    0 12px 40px rgba(192, 57, 43, 0.15),
+    0 4px 12px rgba(192, 57, 43, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  position: relative;
+  overflow: hidden;
+}
+
+.validation-error-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--error-primary), var(--error-secondary), var(--gold-accent));
+  opacity: 0.6;
+}
+
+/* Error Header */
+.validation-error-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid rgba(192, 57, 43, 0.15);
+}
+
+/* Error Icon */
+.validation-error-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  background: linear-gradient(135deg, var(--error-primary) 0%, var(--error-secondary) 100%);
+  border-radius: 50%;
+  color: white;
+  flex-shrink: 0;
+  box-shadow: 
+    0 6px 20px rgba(192, 57, 43, 0.3),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.2);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.validation-error-icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+/* Error Title */
+.validation-error-title {
+  flex: 1;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--error-primary);
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 0.3px;
+  line-height: 1.3;
+}
+
+/* Error Body */
+.validation-error-body {
+  margin-bottom: 20px;
+}
+
+/* Error Message */
+.validation-error-message {
+  font-size: 15px;
+  color: var(--text-medium);
+  line-height: 1.7;
+  margin: 0 0 18px 0;
+  font-family: 'Lora', serif;
+  font-style: italic;
+}
+
+/* Error List */
+.validation-error-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 12px;
+}
+
+/* Error Item */
+.validation-error-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(254, 249, 248, 0.9) 100%);
+  border: 1px solid rgba(192, 57, 43, 0.2);
+  border-left: 4px solid var(--error-primary);
+  border-radius: 10px;
+  font-size: 14px;
+  color: var(--text-dark);
+  font-weight: 600;
+  font-family: 'Montserrat', sans-serif;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(192, 57, 43, 0.08);
+  animation: slideInLeft 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation-fill-mode: both;
+}
+
+.validation-error-item::before {
+  content: '✓';
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: linear-gradient(135deg, var(--error-primary), var(--error-secondary));
+  border-radius: 50%;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(192, 57, 43, 0.25);
+}
+
+.validation-error-item:hover {
+  transform: translateX(4px);
+  box-shadow: 0 4px 16px rgba(192, 57, 43, 0.15);
+  border-color: var(--error-primary);
+}
+
+/* Staggered animation for list items */
+.validation-error-item:nth-child(1) { animation-delay: 0.1s; }
+.validation-error-item:nth-child(2) { animation-delay: 0.15s; }
+.validation-error-item:nth-child(3) { animation-delay: 0.2s; }
+.validation-error-item:nth-child(4) { animation-delay: 0.25s; }
+.validation-error-item:nth-child(5) { animation-delay: 0.3s; }
+.validation-error-item:nth-child(6) { animation-delay: 0.35s; }
+.validation-error-item:nth-child(7) { animation-delay: 0.4s; }
+.validation-error-item:nth-child(8) { animation-delay: 0.45s; }
+.validation-error-item:nth-child(9) { animation-delay: 0.5s; }
+.validation-error-item:nth-child(10) { animation-delay: 0.55s; }
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Error Footer */
+.validation-error-footer {
+  padding-top: 16px;
+  border-top: 1px solid rgba(192, 57, 43, 0.12);
+}
+
+/* Error Note */
+.validation-error-note {
+  font-size: 13px;
+  color: var(--text-light);
+  margin: 0;
+  font-family: 'Lora', serif;
+  font-style: italic;
+  text-align: center;
+  opacity: 0.9;
+}
+
+/* Fade Out Animation */
+.tessera-validation-error.fade-out {
+  animation: fadeOut 0.3s ease-out forwards;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .validation-error-container {
+    padding: 20px 24px;
+    border-left-width: 5px;
+    border-radius: 12px;
+  }
+
+  .validation-error-header {
+    gap: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+  }
+
+  .validation-error-icon {
+    width: 44px;
+    height: 44px;
+  }
+
+  .validation-error-icon svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .validation-error-title {
+    font-size: 17px;
+  }
+
+  .validation-error-message {
+    font-size: 14px;
+    margin-bottom: 14px;
+  }
+
+  .validation-error-list {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .validation-error-item {
+    padding: 12px 16px;
+    font-size: 13px;
+  }
+
+  .validation-error-item::before {
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+  }
+
+  .validation-error-note {
+    font-size: 12px;
+  }
+}
+
+/* Accessibility */
+.tessera-validation-error:focus-within {
+  outline: 3px solid var(--error-primary);
+  outline-offset: 4px;
+  border-radius: 16px;
+}
+
+/* Print Styles */
+@media print {
+  .tessera-validation-error {
+    display: none;
+  }
+}
+
