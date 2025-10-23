@@ -157,9 +157,8 @@
     transitionToSection(stepNumber) {
       console.log('Transitioning to section:', stepNumber);
 
-      // Prevent any scroll during transition
-      const scrollY = window.scrollY;
-      const formContentScrollTop = this.formContent ? this.formContent.scrollTop : 0;
+      // Store current scroll position
+      const currentScrollY = window.pageYOffset || document.documentElement.scrollTop;
 
       // Hide all sections
       this.formSections.forEach(section => {
@@ -175,19 +174,13 @@
       // Update UI
       this.updateUI();
 
-      // Force scroll position to remain unchanged
-      window.scrollTo(0, scrollY);
-      if (this.formContent) {
-        this.formContent.scrollTop = formContentScrollTop;
-      }
+      // Restore scroll position immediately
+      window.scrollTo(0, currentScrollY);
 
-      // Additional scroll prevention
-      setTimeout(() => {
-        window.scrollTo(0, scrollY);
-        if (this.formContent) {
-          this.formContent.scrollTop = formContentScrollTop;
-        }
-      }, 50);
+      // Use requestAnimationFrame to ensure scroll stays in place
+      requestAnimationFrame(() => {
+        window.scrollTo(0, currentScrollY);
+      });
     }
 
     updateUI() {
