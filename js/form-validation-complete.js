@@ -352,15 +352,7 @@ class FormValidationComplete {
       </svg>
     `;
 
-    const text = document.createElement('span');
-    text.className = 'form-error-text';
-    text.textContent = message;
-
-    errorElement.appendChild(icon);
-    errorElement.appendChild(text);
-
     container.classList.add('error');
-    container.classList.add('has-error');
     container.appendChild(errorElement);
   }
 
@@ -381,7 +373,6 @@ class FormValidationComplete {
 
     if (container.classList) {
       container.classList.remove('error');
-      container.classList.remove('has-error');
     }
 
     const errorElement = container.querySelector('.form-error-message');
@@ -479,37 +470,22 @@ class FormValidationComplete {
 
     // Create notification element
     const notification = document.createElement('div');
-    notification.className = 'validation-notification info refined';
+    notification.className = 'validation-notification info';
     notification.setAttribute('role', 'alert');
     notification.setAttribute('aria-live', 'polite');
 
-    const icon = document.createElement('div');
-    icon.className = 'notification-icon';
-    icon.setAttribute('aria-hidden', 'true');
-    icon.innerHTML = `
-      <svg viewBox="0 0 28 28" focusable="false" aria-hidden="true">
-        <path d="M12.053 3.843a2.25 2.25 0 0 1 3.894 0l9.402 16.154A2.25 2.25 0 0 1 23.402 24H4.598a2.25 2.25 0 0 1-1.947-3.999Z" fill="currentColor" opacity="0.16"/>
-        <path d="M12.053 3.843a2.25 2.25 0 0 1 3.894 0l9.402 16.154A2.25 2.25 0 0 1 23.402 24H4.598a2.25 2.25 0 0 1-1.947-3.999Z" stroke="currentColor" stroke-width="1.5" fill="none"/>
-        <path d="M14 10v5.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
-        <circle cx="14" cy="19" r="1" fill="currentColor"/>
-      </svg>
-    `;
-
-    const content = document.createElement('div');
-    content.className = 'notification-content';
-
     const title = document.createElement('div');
     title.className = 'notification-title';
-    title.textContent = 'We just need a touch more detail ✨';
+    title.textContent = "Let's gently complete a few details 💛";
 
     const message = document.createElement('div');
     message.className = 'notification-message';
     message.innerHTML = `
-      <p>Thank you for sharing your story with us. To continue, kindly complete the details below:</p>
+      <p>Thank you for sharing your story with us. To continue, could you kindly revisit the items below?</p>
       <ul>
         ${errors.map(error => `<li>${error}</li>`).join('')}
       </ul>
-      <p>Once everything feels ready, press <strong>Continue</strong> and we'll guide you forward.</p>
+      <p>Once these are polished, press <strong>Continue</strong> again and we'll guide you forward. We're cheering you on!</p>
     `;
 
     const closeButton = document.createElement('button');
@@ -565,9 +541,6 @@ class FormValidationComplete {
         field.removeAttribute('aria-invalid');
       }
     });
-
-    const errorContainers = document.querySelectorAll('.has-error');
-    errorContainers.forEach(container => container.classList.remove('has-error'));
 
     this.errors = {};
   }

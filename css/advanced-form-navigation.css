@@ -231,24 +231,37 @@
 /* Form Content Adjustment */
 .form-content {
   position: relative;
-  overflow: visible;
+  overflow: hidden;
   padding: 2.5rem 2.5rem 4rem;
-  transition: padding 0.25s ease, background-color 0.3s ease;
+  transition: min-height 0.45s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Smooth Transition Between Sections */
 .form-content .form-section {
-  display: none;
+  display: block;
+  position: absolute;
+  inset: 0;
+  width: 100%;
   opacity: 0;
-  transform: translateY(18px);
-  transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-    transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateX(48px) scale(0.96);
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+  visibility: hidden;
+  z-index: 1;
 }
 
 .form-content .form-section.active {
-  display: block;
+  position: relative;
   opacity: 1;
-  transform: translateY(0);
+  transform: translateX(0) scale(1);
+  pointer-events: auto;
+  visibility: visible;
+  z-index: 5;
+}
+
+.form-content .form-section.active + .form-section {
+  z-index: 1;
 }
 
 @media (max-width: 768px) {
