@@ -1,6 +1,6 @@
 /**
  * Form Section Transitions - No Scroll
- * Ensures smooth transitions between form sections without any page scrolling
+ * Sections overlay each other in the same position
  */
 
 /* Prevent smooth scrolling globally */
@@ -12,37 +12,38 @@ body {
   scroll-behavior: auto !important;
 }
 
-/* Form Content Container */
+/* Form Content Container - Must have defined height */
 .form-content {
   position: relative;
   padding-bottom: 120px;
   scroll-behavior: auto !important;
+  min-height: 800px; /* Ensure container has height */
 }
 
-/* Hide all sections by default */
+/* All form sections positioned absolutely to overlay */
 .form-section {
-  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
   opacity: 0;
-  transition: opacity 0.5s ease-in-out;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.4s ease-in-out;
+  z-index: 1;
 }
 
-/* Show only active section */
+/* Active section is visible and interactive */
 .form-section.active {
-  display: block;
   opacity: 1;
-  animation: fadeIn 0.5s ease-in-out;
-}
-
-/* Fade in animation */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  visibility: visible;
+  pointer-events: auto;
+  z-index: 10;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
 }
 
 /* Prevent any layout shifts */
@@ -53,6 +54,7 @@ body {
 /* Mobile adjustments */
 @media (max-width: 768px) {
   .form-content {
+    min-height: 600px;
     padding-bottom: 100px;
   }
 }
