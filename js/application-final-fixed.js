@@ -3,6 +3,8 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Form sections and progress steps
     const formSections = document.querySelectorAll('.form-section');
+    const formContent = document.querySelector('.form-content');
+    const applicationContainer = document.getElementById('application-form-container');
     const progressSteps = document.querySelectorAll('.progress-step');
     const btnNext = document.querySelectorAll('.btn-next');
     const btnPrev = document.querySelectorAll('.btn-prev');
@@ -15,10 +17,13 @@ document.addEventListener('DOMContentLoaded', function() {
     window.currentStep = currentStep;
     
     // Initialize form
+    let heightResetTimeout = null;
+
     function initForm() {
-        showSection(currentStep);
+        showSection(currentStep, { skipScroll: true });
         updateProgress();
         updateNavigationButtons();
+        syncFormHeight(formSections[currentStep]);
 
         // Add event listeners to navigation buttons
         btnNext.forEach(button => {
@@ -44,14 +49,45 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Show specific form section
-    function showSection(index) {
+    function showSection(index, options = {}) {
+        const { skipScroll = false } = options;
+
+        if (!formSections.length) {
+            return;
+        }
+
+        const targetSection = formSections[index];
+        if (!targetSection) {
+            return;
+        }
+
+        const previousSection = document.querySelector('.form-section.active');
+        const startingHeight = previousSection ? previousSection.offsetHeight : targetSection.offsetHeight;
+
+        if (formContent && startingHeight) {
+            formContent.style.minHeight = `${startingHeight}px`;
+        }
+
         formSections.forEach((section, i) => {
-            if (i === index) {
+            const isActive = i === index;
+            if (isActive) {
                 section.classList.add('active');
+                section.setAttribute('aria-hidden', 'false');
             } else {
                 section.classList.remove('active');
+                section.setAttribute('aria-hidden', 'true');
             }
         });
+
+        requestAnimationFrame(() => {
+            syncFormHeight(targetSection);
+        });
+
+        updateNavigationButtons();
+
+        if (!skipScroll) {
+            scrollToCurrentSection();
+        }
         updateNavigationButtons();
     }
 
@@ -214,7 +250,87 @@ document.addEventListener('DOMContentLoaded', function() {
         if (scrollTarget && typeof scrollTarget.scrollIntoView === 'function') {
             scrollTarget.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
+        focusFirstError();
+        syncFormHeight(formSections[currentStep]);
     }
+
+    function scrollToCurrentSection() {
+        if (!applicationContainer) {
+            return;
+        }
+
+        const header = document.querySelector('header');
+        const headerOffset = header ? header.offsetHeight : 0;
+        const targetPosition = applicationContainer.getBoundingClientRect().top + window.pageYOffset - (headerOffset + 24);
+
+        window.scrollTo({
+            top: targetPosition < 0 ? 0 : targetPosition,
+            behavior: 'smooth'
+        });
+    }
+
+    function focusFirstError() {
+        const activeSection = formSections[currentStep];
+
+        if (!activeSection) {
+            return;
+        }
+
+        const errorElement = activeSection.querySelector('.form-error-message, .error, [aria-invalid="true"], input:invalid, select:invalid, textarea:invalid');
+
+        if (!errorElement) {
+            return;
+        }
+
+        const focusableScope = errorElement.classList && errorElement.classList.contains('form-error-message')
+            ? (errorElement.parentElement || errorElement)
+            : errorElement;
+
+        let focusTarget = null;
+
+        if (focusableScope && typeof focusableScope.matches === 'function' && focusableScope.matches('input, select, textarea, button')) {
+            focusTarget = focusableScope;
+        } else if (focusableScope && typeof focusableScope.querySelector === 'function') {
+            focusTarget = focusableScope.querySelector('input, select, textarea, button');
+        }
+
+        if (focusTarget && typeof focusTarget.focus === 'function') {
+            focusTarget.focus({ preventScroll: true });
+        }
+
+        const scrollTarget = focusableScope || errorElement;
+        if (scrollTarget && typeof scrollTarget.scrollIntoView === 'function') {
+            scrollTarget.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    }
+
+    function syncFormHeight(section = formSections[currentStep]) {
+        if (!formContent || !section) {
+            return;
+        }
+
+        if (heightResetTimeout) {
+            clearTimeout(heightResetTimeout);
+        }
+
+        const targetHeight = section.offsetHeight;
+
+        if (targetHeight) {
+            formContent.style.minHeight = `${targetHeight}px`;
+
+            heightResetTimeout = setTimeout(() => {
+                formContent.style.minHeight = `${section.offsetHeight}px`;
+            }, 450);
+        }
+    }
+
+    window.addEventListener('resize', () => {
+        syncFormHeight();
+    });
+
+    window.syncApplicationFormHeight = function() {
+        syncFormHeight();
+    };
     
     // Initialize country code selector with comprehensive codes
     function initCountryCodeSelector() {

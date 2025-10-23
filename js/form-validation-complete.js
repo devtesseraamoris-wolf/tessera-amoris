@@ -340,8 +340,17 @@ class FormValidationComplete {
 
     const errorElement = document.createElement('div');
     errorElement.className = 'form-error-message';
-    errorElement.textContent = message;
     errorElement.setAttribute('role', 'alert');
+    errorElement.setAttribute('aria-live', 'polite');
+
+    const icon = document.createElement('span');
+    icon.className = 'form-error-icon';
+    icon.setAttribute('aria-hidden', 'true');
+    icon.innerHTML = `
+      <svg viewBox="0 0 20 20" focusable="false" aria-hidden="true">
+        <path d="M10 1.667a8.333 8.333 0 1 0 0 16.666 8.333 8.333 0 0 0 0-16.666Zm0 12.5a.833.833 0 1 1 0 1.666.833.833 0 0 1 0-1.666Zm0-8.334a.833.833 0 0 1 .833.834v4.166a.833.833 0 0 1-1.666 0V6.667A.833.833 0 0 1 10 5.833Z" fill="currentColor"/>
+      </svg>
+    `;
 
     container.classList.add('error');
     container.appendChild(errorElement);
@@ -478,26 +487,41 @@ class FormValidationComplete {
       </ul>
       <p>Once these are polished, press <strong>Continue</strong> again and we'll guide you forward. We're cheering you on!</p>
     `;
-    
+
     const closeButton = document.createElement('button');
     closeButton.className = 'notification-close';
     closeButton.innerHTML = '×';
     closeButton.setAttribute('aria-label', 'Close notification');
-    closeButton.addEventListener('click', () => notification.remove());
-    
+    closeButton.addEventListener('click', () => {
+      notification.remove();
+      if (typeof window.syncApplicationFormHeight === 'function') {
+        window.syncApplicationFormHeight();
+      }
+    });
+
+    content.appendChild(title);
+    content.appendChild(message);
+
     notification.appendChild(closeButton);
-    notification.appendChild(title);
-    notification.appendChild(message);
-    
+    notification.appendChild(icon);
+    notification.appendChild(content);
+
     // Insert at the top of the form content
     const formContent = document.querySelector('.form-content');
     if (formContent) {
       formContent.insertBefore(notification, formContent.firstChild);
-      
+
+      if (typeof window.syncApplicationFormHeight === 'function') {
+        requestAnimationFrame(() => window.syncApplicationFormHeight());
+      }
+
       // Auto-remove after 6 seconds
       setTimeout(() => {
         if (notification.parentNode) {
           notification.remove();
+          if (typeof window.syncApplicationFormHeight === 'function') {
+            window.syncApplicationFormHeight();
+          }
         }
       }, 6000);
     }
