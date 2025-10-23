@@ -68,18 +68,20 @@ document.addEventListener('DOMContentLoaded', function() {
     // Validate current section
     function validateSection(index) {
         if (window.formValidation) {
-            const isValid = window.formValidation.validateSection(index);
-            console.log(`Section ${index} validation: ${isValid ? 'passed' : 'failed'}`);
-            return isValid;
+            const result = window.formValidation.validateSection(index);
+            console.log(`Section ${index} validation: ${result.isValid ? 'passed' : 'failed'}`);
+            return result;
         }
-        return true;
+        return { isValid: true, errors: [] };
     }
     
     // Go to next step
     function nextStep() {
         console.log('Next step clicked, current step:', currentStep);
         
-        if (validateSection(currentStep)) {
+        const validationResult = validateSection(currentStep);
+        
+        if (validationResult.isValid) {
             if (currentStep < formSections.length - 1) {
                 currentStep++;
                 showSection(currentStep);
@@ -88,6 +90,9 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         } else {
             console.log('Validation failed for step:', currentStep);
+            if (window.formValidation && validationResult.errors && validationResult.errors.length > 0) {
+                window.formValidation.showValidationNotification(validationResult.errors);
+            }
         }
     }
     
@@ -104,16 +109,19 @@ document.addEventListener('DOMContentLoaded', function() {
     function submitForm(e) {
         e.preventDefault();
         
-        if (validateSection(currentStep)) {
-            // Here you would typically send the form data to a server
-            // For demo purposes, we'll just show a success message
-            
+        const validationResult = validateSection(currentStep);
+        
+        if (validationResult.isValid) {
             const formContent = document.querySelector('.form-content');
             const successMessage = document.querySelector('.success-message');
             
             if (formContent && successMessage) {
                 formContent.style.display = 'none';
                 successMessage.classList.add('active');
+            }
+        } else {
+            if (window.formValidation && validationResult.errors) {
+                window.formValidation.showValidationNotification(validationResult.errors);
             }
         }
     }

@@ -1,0 +1,237 @@
+/**
+ * Validation Notifications and Error Messages
+ * User-friendly error display for form validation
+ */
+
+:root {
+  --error-color: #e74c3c;
+  --error-light: #fadbd8;
+  --success-color: #27ae60;
+  --warning-color: #f39c12;
+  --info-color: #3498db;
+}
+
+/* Validation Notification Container */
+.validation-notification {
+  position: relative;
+  margin-bottom: 24px;
+  padding: 20px 24px;
+  background: linear-gradient(135deg, #fadbd8 0%, #f5b7b1 100%);
+  border-left: 5px solid var(--error-color);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(231, 76, 60, 0.15);
+  animation: slideInDown 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 50;
+}
+
+@keyframes slideInDown {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Notification Title */
+.notification-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--error-color);
+  margin-bottom: 12px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Notification Message */
+.notification-message {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.6;
+  font-family: 'Lora', serif;
+}
+
+.notification-message p {
+  margin: 0 0 8px 0;
+}
+
+.notification-message ul {
+  margin: 8px 0 0 20px;
+  padding: 0;
+  list-style: disc;
+}
+
+.notification-message li {
+  margin-bottom: 6px;
+  color: #666;
+}
+
+/* Close Button */
+.notification-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  font-size: 28px;
+  color: var(--error-color);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+
+.notification-close:hover {
+  background: rgba(231, 76, 60, 0.1);
+  transform: scale(1.1);
+}
+
+.notification-close:active {
+  transform: scale(0.95);
+}
+
+/* Form Error Messages (Inline) */
+.form-error-message {
+  display: block;
+  margin-top: 6px;
+  padding: 8px 12px;
+  background-color: var(--error-light);
+  border-left: 3px solid var(--error-color);
+  border-radius: 4px;
+  font-size: 13px;
+  color: var(--error-color);
+  font-weight: 500;
+  animation: slideInLeft 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: 'Montserrat', sans-serif;
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Error Field Styling */
+input.error,
+select.error,
+textarea.error {
+  border-color: var(--error-color) !important;
+  background-color: rgba(231, 76, 60, 0.02) !important;
+  box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1) !important;
+}
+
+input.error:focus,
+select.error:focus,
+textarea.error:focus {
+  outline: none;
+  border-color: var(--error-color) !important;
+  box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.15) !important;
+}
+
+/* Success State */
+.form-success-message {
+  display: block;
+  margin-top: 6px;
+  padding: 8px 12px;
+  background-color: #d5f4e6;
+  border-left: 3px solid var(--success-color);
+  border-radius: 4px;
+  font-size: 13px;
+  color: var(--success-color);
+  font-weight: 500;
+  animation: slideInLeft 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Warning Notification */
+.validation-notification.warning {
+  background: linear-gradient(135deg, #fef5e7 0%, #fdebd0 100%);
+  border-left-color: var(--warning-color);
+}
+
+.validation-notification.warning .notification-title {
+  color: var(--warning-color);
+}
+
+.validation-notification.warning .notification-close {
+  color: var(--warning-color);
+}
+
+.validation-notification.warning .notification-close:hover {
+  background: rgba(243, 156, 18, 0.1);
+}
+
+/* Info Notification */
+.validation-notification.info {
+  background: linear-gradient(135deg, #ebf5fb 0%, #d6eaf8 100%);
+  border-left-color: var(--info-color);
+}
+
+.validation-notification.info .notification-title {
+  color: var(--info-color);
+}
+
+.validation-notification.info .notification-close {
+  color: var(--info-color);
+}
+
+.validation-notification.info .notification-close:hover {
+  background: rgba(52, 152, 219, 0.1);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .validation-notification {
+    margin-bottom: 16px;
+    padding: 16px 20px;
+    border-left-width: 4px;
+  }
+
+  .notification-title {
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
+
+  .notification-message {
+    font-size: 13px;
+  }
+
+  .notification-close {
+    width: 28px;
+    height: 28px;
+    font-size: 24px;
+    top: 10px;
+    right: 10px;
+  }
+
+  .form-error-message {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+}
+
+/* Accessibility */
+.validation-notification:focus-within {
+  outline: 2px solid var(--error-color);
+  outline-offset: 2px;
+}
+
+/* Print Styles */
+@media print {
+  .validation-notification,
+  .form-error-message {
+    display: none;
+  }
+}
+

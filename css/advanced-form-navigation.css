@@ -232,7 +232,7 @@
 .form-content {
   padding-bottom: 100px;
   position: relative;
-  min-height: 600px;
+  overflow: hidden;
 }
 
 /* Smooth Transition Between Sections */
@@ -243,10 +243,11 @@
   right: 0;
   width: 100%;
   opacity: 0;
-  transform: translateX(100px) scale(0.98);
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateX(50px) scale(0.95);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   pointer-events: none;
   visibility: hidden;
+  z-index: 1;
 }
 
 .form-section.active {
@@ -255,6 +256,7 @@
   transform: translateX(0) scale(1);
   pointer-events: auto;
   visibility: visible;
+  z-index: 10;
 }
 
 /* Accessibility */
