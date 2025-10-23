@@ -157,6 +157,10 @@
     transitionToSection(stepNumber) {
       console.log('Transitioning to section:', stepNumber);
 
+      // Prevent any scroll during transition
+      const scrollY = window.scrollY;
+      const formContentScrollTop = this.formContent ? this.formContent.scrollTop : 0;
+
       // Hide all sections
       this.formSections.forEach(section => {
         section.classList.remove('active');
@@ -171,11 +175,19 @@
       // Update UI
       this.updateUI();
 
-      // Prevent any scrolling
+      // Force scroll position to remain unchanged
+      window.scrollTo(0, scrollY);
       if (this.formContent) {
-        this.formContent.scrollTop = 0;
+        this.formContent.scrollTop = formContentScrollTop;
       }
-      window.scrollTo(0, 0);
+
+      // Additional scroll prevention
+      setTimeout(() => {
+        window.scrollTo(0, scrollY);
+        if (this.formContent) {
+          this.formContent.scrollTop = formContentScrollTop;
+        }
+      }, 50);
     }
 
     updateUI() {
