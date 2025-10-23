@@ -7,15 +7,19 @@ document.addEventListener('DOMContentLoaded', function() {
     const btnNext = document.querySelectorAll('.btn-next');
     const btnPrev = document.querySelectorAll('.btn-prev');
     const btnSubmit = document.querySelector('.btn-submit');
-    
+    const primaryNextButton = btnNext.length > 0 ? btnNext[0] : null;
+    const primaryPrevButton = btnPrev.length > 0 ? btnPrev[0] : null;
+
     // Current step index
     let currentStep = 0;
+    window.currentStep = currentStep;
     
     // Initialize form
     function initForm() {
         showSection(currentStep);
         updateProgress();
-        
+        updateNavigationButtons();
+
         // Add event listeners to navigation buttons
         btnNext.forEach(button => {
             button.addEventListener('click', nextStep);
@@ -48,8 +52,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 section.classList.remove('active');
             }
         });
+        updateNavigationButtons();
     }
-    
+
     // Update progress bar
     function updateProgress() {
         progressSteps.forEach((step, i) => {
@@ -64,7 +69,37 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-    
+
+    function updateNavigationButtons() {
+        if (primaryPrevButton) {
+            if (currentStep === 0) {
+                primaryPrevButton.setAttribute('disabled', 'disabled');
+                primaryPrevButton.classList.add('is-disabled');
+                primaryPrevButton.style.visibility = 'hidden';
+                primaryPrevButton.setAttribute('aria-hidden', 'true');
+            } else {
+                primaryPrevButton.removeAttribute('disabled');
+                primaryPrevButton.classList.remove('is-disabled');
+                primaryPrevButton.style.visibility = 'visible';
+                primaryPrevButton.setAttribute('aria-hidden', 'false');
+            }
+        }
+
+        if (primaryNextButton && btnSubmit) {
+            if (currentStep === formSections.length - 1) {
+                primaryNextButton.style.display = 'none';
+                primaryNextButton.setAttribute('aria-hidden', 'true');
+                btnSubmit.style.display = 'inline-flex';
+                btnSubmit.setAttribute('aria-hidden', 'false');
+            } else {
+                primaryNextButton.style.display = 'inline-flex';
+                primaryNextButton.setAttribute('aria-hidden', 'false');
+                btnSubmit.style.display = 'none';
+                btnSubmit.setAttribute('aria-hidden', 'true');
+            }
+        }
+    }
+
     // Validate current section
     function validateSection(index) {
         if (window.formValidation) {
@@ -77,52 +112,107 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Go to next step
     function nextStep() {
-        console.log('Next step clicked, current step:', currentStep);
-        
         const validationResult = validateSection(currentStep);
-        
+
         if (validationResult.isValid) {
             if (currentStep < formSections.length - 1) {
                 currentStep++;
+                window.currentStep = currentStep;
                 showSection(currentStep);
                 updateProgress();
-                console.log('Advanced to step:', currentStep);
+                scrollToCurrentSection();
             }
         } else {
-            console.log('Validation failed for step:', currentStep);
-            if (window.formValidation && validationResult.errors && validationResult.errors.length > 0) {
-                window.formValidation.showValidationNotification(validationResult.errors);
-            }
+            handleValidationErrors(validationResult);
         }
     }
-    
+
     // Go to previous step
     function prevStep() {
         if (currentStep > 0) {
             currentStep--;
+            window.currentStep = currentStep;
             showSection(currentStep);
             updateProgress();
+            scrollToCurrentSection();
         }
     }
-    
+
     // Submit form
     function submitForm(e) {
         e.preventDefault();
-        
+
         const validationResult = validateSection(currentStep);
-        
+
         if (validationResult.isValid) {
             const formContent = document.querySelector('.form-content');
             const successMessage = document.querySelector('.success-message');
-            
+
             if (formContent && successMessage) {
                 formContent.style.display = 'none';
                 successMessage.classList.add('active');
             }
         } else {
-            if (window.formValidation && validationResult.errors) {
-                window.formValidation.showValidationNotification(validationResult.errors);
-            }
+            handleValidationErrors(validationResult);
+        }
+    }
+
+    function handleValidationErrors(validationResult) {
+        if (window.formValidation && validationResult.errors && validationResult.errors.length > 0) {
+            window.formValidation.showValidationNotification(validationResult.errors);
+        }
+        focusFirstError();
+    }
+
+    function scrollToCurrentSection() {
+        const activeSection = formSections[currentStep];
+
+        if (!activeSection) {
+            return;
+        }
+
+        const header = document.querySelector('header');
+        const headerOffset = header ? header.offsetHeight : 0;
+        const targetPosition = activeSection.getBoundingClientRect().top + window.pageYOffset - (headerOffset + 24);
+
+        window.scrollTo({
+            top: targetPosition < 0 ? 0 : targetPosition,
+            behavior: 'smooth'
+        });
+    }
+
+    function focusFirstError() {
+        const activeSection = formSections[currentStep];
+
+        if (!activeSection) {
+            return;
+        }
+
+        const errorElement = activeSection.querySelector('.form-error-message, .error, [aria-invalid="true"], input:invalid, select:invalid, textarea:invalid');
+
+        if (!errorElement) {
+            return;
+        }
+
+        const focusableScope = errorElement.classList && errorElement.classList.contains('form-error-message')
+            ? (errorElement.parentElement || errorElement)
+            : errorElement;
+
+        let focusTarget = null;
+
+        if (focusableScope && typeof focusableScope.matches === 'function' && focusableScope.matches('input, select, textarea, button')) {
+            focusTarget = focusableScope;
+        } else if (focusableScope && typeof focusableScope.querySelector === 'function') {
+            focusTarget = focusableScope.querySelector('input, select, textarea, button');
+        }
+
+        if (focusTarget && typeof focusTarget.focus === 'function') {
+            focusTarget.focus({ preventScroll: true });
+        }
+
+        const scrollTarget = focusableScope || errorElement;
+        if (scrollTarget && typeof scrollTarget.scrollIntoView === 'function') {
+            scrollTarget.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
     }
     
@@ -300,6 +390,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
+    window.validateSection = validateSection;
+
     // Initialize form when DOM is ready
     initForm();
 });
