@@ -171,30 +171,47 @@
       const currentScrollY = window.pageYOffset || document.documentElement.scrollTop;
       const currentScrollX = window.pageXOffset || document.documentElement.scrollLeft;
 
-      // Hide all sections
-      this.formSections.forEach(section => {
-        section.classList.remove('active');
-      });
-
-      // Show target section
+      // Find current active section
+      const currentSection = document.querySelector('.form-section.active');
       const targetSection = document.querySelector(`.form-section[data-section="${stepNumber}"]`);
-      if (targetSection) {
-        targetSection.classList.add('active');
+
+      if (!targetSection) {
+        console.warn('Target section not found:', stepNumber);
+        return;
       }
 
-      // Update UI
-      this.updateUI();
+      // If there's a current section, fade it out first
+      if (currentSection && currentSection !== targetSection) {
+        // Add fade-out class to current section
+        currentSection.classList.add('fade-out');
+        
+        // Wait for fade-out animation to complete, then show next section
+        setTimeout(() => {
+          // Remove active and fade-out from current section
+          currentSection.classList.remove('active', 'fade-out');
+          
+          // Add active to target section (triggers fade-in)
+          targetSection.classList.add('active');
+          
+          // Update UI
+          this.updateUI();
+          
+          // Maintain scroll position
+          window.scrollTo(currentScrollX, currentScrollY);
+        }, 400); // Match the CSS animation duration
+      } else {
+        // No current section, just show target
+        targetSection.classList.add('active');
+        this.updateUI();
+        window.scrollTo(currentScrollX, currentScrollY);
+      }
 
-      // Force scroll position to stay exactly where it was
-      window.scrollTo(currentScrollX, currentScrollY);
-
-      // Use multiple methods to ensure scroll stays in place
+      // Re-enable scroll events after animations complete
       setTimeout(() => {
         window.scrollTo(currentScrollX, currentScrollY);
-        // Re-enable scroll events
         window.removeEventListener('scroll', preventScroll);
         document.removeEventListener('scroll', preventScroll);
-      }, 100);
+      }, 500);
 
       requestAnimationFrame(() => {
         window.scrollTo(currentScrollX, currentScrollY);

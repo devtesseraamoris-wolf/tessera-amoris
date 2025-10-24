@@ -1,6 +1,7 @@
 /**
  * Form Section Transitions - No Scroll
- * Sections overlay each other in the same position
+ * Ensures smooth transitions between form sections without any page scrolling
+ * Updated: Proper fade-out before fade-in
  */
 
 /* Prevent smooth scrolling globally */
@@ -12,38 +13,56 @@ body {
   scroll-behavior: auto !important;
 }
 
-/* Form Content Container - Must have defined height */
+/* Form Content Container */
 .form-content {
   position: relative;
   padding-bottom: 120px;
   scroll-behavior: auto !important;
-  min-height: 800px; /* Ensure container has height */
 }
 
-/* All form sections positioned absolutely to overlay */
+/* Hide all sections by default */
 .form-section {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
+  display: none;
   opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
   transition: opacity 0.4s ease-in-out;
-  z-index: 1;
 }
 
-/* Active section is visible and interactive */
+/* Show active section with fade-in */
 .form-section.active {
+  display: block;
   opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-  z-index: 10;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+  animation: fadeIn 0.4s ease-in-out forwards;
+}
+
+/* Fade out animation for sections being hidden */
+.form-section.fade-out {
+  display: block;
+  opacity: 1;
+  animation: fadeOut 0.4s ease-in-out forwards;
+}
+
+/* Fade in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Fade out animation */
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
 }
 
 /* Prevent any layout shifts */
@@ -54,7 +73,6 @@ body {
 /* Mobile adjustments */
 @media (max-width: 768px) {
   .form-content {
-    min-height: 600px;
     padding-bottom: 100px;
   }
 }

@@ -251,10 +251,7 @@
 }
 
 .form-section.active {
-  position: absolute !important;
-  top: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
+  position: static;
   opacity: 1;
   transform: translateX(0) scale(1);
   pointer-events: auto;
