@@ -135,7 +135,7 @@
       }
     }
 
-    handleSubmit() {
+    async handleSubmit() {
       console.log('Submit button clicked');
       
       // Validate current section
@@ -147,11 +147,17 @@
         return false;
       }
 
-      // Submit form
-      console.log('Form validation passed, submitting...');
-      // Add your submission logic here
+      // Submit form to Supabase
+      console.log('Form validation passed, submitting to Supabase...');
       
-      return true;
+      if (window.supabaseFormHandler) {
+        const result = await window.supabaseFormHandler.handleFormSubmission();
+        return result.success;
+      } else {
+        console.error('Supabase Form Handler not initialized');
+        alert('Error: Database connection not available. Please refresh the page and try again.');
+        return false;
+      }
     }
 
     transitionToSection(stepNumber) {
