@@ -20,11 +20,11 @@
       
       // Required fields for each section
       this.requiredFields = {
-        1: ['full-name', 'birth-month', 'birth-day', 'birth-year', 'gender', 'email', 'phone', 'country', 'state', 'city', 'nationality'],
-        2: ['faith-tradition', 'church-involvement', 'faith-importance'],
-        3: ['relationship-goals', 'family-vision'],
-        4: ['references-name', 'references-email', 'background-check'],
-        5: []
+        1: ['full-name', 'birth-month', 'birth-day', 'birth-year', 'gender', 'email', 'phone', 'country', 'state', 'city', 'nationality', 'occupation', 'education'],
+        2: ['faith-tradition', 'community-involvement', 'values-importance'],
+        3: ['relationship-goal', 'previous-marriage', 'have-children', 'want-children', 'relocation'],
+        4: ['background-check'],
+        5: ['terms-agreement', 'privacy-agreement']
       };
 
       this.init();
@@ -323,7 +323,12 @@
     }
 
     isFieldValid(fieldId, value, field) {
-      // Empty check
+      // Checkbox validation - must be checked
+      if (field && field.type === 'checkbox') {
+        return field.checked === true;
+      }
+
+      // Empty check for other fields
       if (!value || value.length === 0) {
         return false;
       }

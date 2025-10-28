@@ -175,8 +175,8 @@
             languages: getLanguages(),
             
             faithTradition: document.getElementById('faith-tradition')?.value || 'Not provided',
-            churchInvolvement: document.getElementById('church-involvement')?.value || 'Not provided',
-            faithImportance: document.getElementById('faith-importance')?.value || 'Not provided',
+            churchInvolvement: document.getElementById('community-involvement')?.value || 'Not provided',
+            faithImportance: document.getElementById('values-importance')?.value || 'Not provided',
             
             relationshipGoal: document.getElementById('relationship-goal')?.value || 'Not provided',
             geographicPreference: getGeographicPreference(),
@@ -294,22 +294,49 @@
     }
     
     function getOccupation() {
+        // Try hidden input first
+        const occupationInput = document.getElementById('occupation');
+        if (occupationInput && occupationInput.value) {
+            return occupationInput.value;
+        }
+        // Fallback to selected display
         const occupation = document.querySelector('.occupation-selector-selected')?.textContent;
         return occupation || 'Not provided';
     }
     
     function getLanguages() {
+        // Try hidden input first (JSON array)
+        const languagesInput = document.getElementById('languages');
+        if (languagesInput && languagesInput.value) {
+            try {
+                const langs = JSON.parse(languagesInput.value);
+                if (langs.length > 0) {
+                    return langs.join(', ');
+                }
+            } catch (e) {
+                // Fall through to visual method
+            }
+        }
+        // Fallback to selected tags
         const selected = document.querySelectorAll('.language-tag.selected');
         if (selected.length === 0) return 'Not provided';
-        return Array.from(selected).map(tag => tag.textContent).join(', ');
+        return Array.from(selected).map(tag => tag.textContent.trim()).join(', ');
     }
     
     function getGeographicPreference() {
+        const partnerLocation = document.getElementById('partner-location')?.value;
+        if (partnerLocation && partnerLocation !== '') {
+            return partnerLocation;
+        }
         const selected = document.querySelector('input[name="geographic-preference"]:checked');
         return selected ? selected.nextElementSibling?.textContent || 'Not provided' : 'Not provided';
     }
     
     function getAgeRange() {
+        const ageRangeSelect = document.getElementById('partner-age-range');
+        if (ageRangeSelect && ageRangeSelect.value) {
+            return ageRangeSelect.value;
+        }
         const min = document.getElementById('age-min')?.value;
         const max = document.getElementById('age-max')?.value;
         

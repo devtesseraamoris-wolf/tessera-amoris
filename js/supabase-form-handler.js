@@ -222,6 +222,14 @@ class SupabaseFormHandler {
             console.log('✅ Application submitted successfully!');
             console.log('📄 Response data:', data);
 
+            // Link quiz to application if quiz was taken
+            if (window.supabaseQuizHandler) {
+                const applicationId = data[0].id;
+                const email = data[0].email;
+                console.log('🔗 Attempting to link quiz to application...');
+                await window.supabaseQuizHandler.linkQuizToApplication(email, applicationId);
+            }
+
             return {
                 success: true,
                 data: data[0],

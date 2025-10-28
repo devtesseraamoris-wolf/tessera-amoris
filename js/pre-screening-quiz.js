@@ -403,10 +403,31 @@ function showResults() {
 }
 
 /**
- * Save quiz data to localStorage (will be sent with application)
+ * Save quiz data to localStorage and submit to Supabase
  */
-function saveQuizData(quizData) {
+async function saveQuizData(quizData) {
+    // Save to localStorage (backward compatibility)
     localStorage.setItem('tesseraQuizData', JSON.stringify(quizData));
+    
+    // Submit to Supabase if handler is available
+    if (window.supabaseQuizHandler) {
+        console.log('📤 Submitting quiz to Supabase...');
+        const result = await window.supabaseQuizHandler.submitQuizToSupabase({
+            answers: quizData.responses,
+            passed: quizData.category !== 'poor',
+            score: quizData.score,
+            maxScore: quizData.maxScore,
+            percentage: quizData.percentage
+        });
+        
+        if (result.success) {
+            console.log('✅ Quiz saved to database!');
+        } else {
+            console.warn('⚠️ Failed to save quiz to database, but saved locally');
+        }
+    } else {
+        console.warn('⚠️ Supabase Quiz Handler not available, quiz saved locally only');
+    }
 }
 
 /**
