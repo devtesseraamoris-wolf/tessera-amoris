@@ -3,17 +3,27 @@
    Based on Lifestyle & Goals section design
    ============================================ */
 
+/* ===== GLOBAL TYPOGRAPHY SCALE ===== */
+
+:root {
+    --section-heading-font-size: clamp(2.125rem, 1.85rem + 0.6vw, 2.5rem);
+    --section-heading-line-height: 1.28;
+    --section-heading-letter-spacing: 0.01em;
+    --section-heading-margin: 12px;
+    --section-step-title-size: clamp(0.95rem, 0.9rem + 0.15vw, 1.05rem);
+}
+
 /* ===== SECTION TITLES (H2) ===== */
 
 .form-section h2,
 .section-title {
     font-family: 'Cormorant Garamond', serif !important;
-    font-size: 32px !important;
+    font-size: var(--section-heading-font-size) !important;
     font-weight: 600 !important;
     color: #1a365d !important;
-    margin-bottom: 12px !important;
-    line-height: 1.3 !important;
-    letter-spacing: normal !important;
+    margin-bottom: var(--section-heading-margin) !important;
+    line-height: var(--section-heading-line-height) !important;
+    letter-spacing: var(--section-heading-letter-spacing) !important;
     text-transform: none !important;
 }
 
@@ -202,6 +212,20 @@ button,
     color: #64748b !important;
 }
 
+.progress-step .step-title {
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: var(--section-step-title-size) !important;
+    font-weight: 500 !important;
+    color: #64748b !important;
+    text-align: center !important;
+    line-height: 1.4 !important;
+}
+
+.progress-step.active .step-title {
+    color: #1a365d !important;
+    font-weight: 600 !important;
+}
+
 .progress-step.active .progress-step-label {
     font-weight: 600 !important;
     color: #1a365d !important;
@@ -228,42 +252,42 @@ button,
 
 /* Section 1: Your Vision */
 [data-section="1"] h2 {
-    font-size: 32px !important;
+    font-size: var(--section-heading-font-size) !important;
 }
 
 /* Section 2: About You */
 [data-section="2"] h2 {
-    font-size: 32px !important;
+    font-size: var(--section-heading-font-size) !important;
 }
 
 /* Section 3: Faith & Values */
 [data-section="3"] h2 {
-    font-size: 32px !important;
+    font-size: var(--section-heading-font-size) !important;
 }
 
 /* Section 4: Lifestyle & Goals */
 [data-section="4"] h2 {
-    font-size: 32px !important;
+    font-size: var(--section-heading-font-size) !important;
 }
 
 /* Section 5: Final Steps */
 [data-section="5"] h2 {
-    font-size: 32px !important;
+    font-size: var(--section-heading-font-size) !important;
 }
 
 /* Section 6: Review */
 [data-section="6"] h2 {
-    font-size: 32px !important;
+    font-size: var(--section-heading-font-size) !important;
 }
 
 /* ===== RESPONSIVE TYPOGRAPHY ===== */
 
 @media (max-width: 768px) {
-    .form-section h2,
-    .section-title {
-        font-size: 28px !important;
+    :root {
+        --section-heading-font-size: clamp(1.85rem, 1.75rem + 0.3vw, 2.1rem);
+        --section-step-title-size: clamp(0.9rem, 0.85rem + 0.1vw, 1rem);
     }
-    
+
     .form-section h3,
     .subsection-title {
         font-size: 22px !important;
