@@ -1,0 +1,538 @@
+/**
+ * EXCEPTIONAL REVIEW SECTION - Journey to Legacy
+ * Premium, persuasive design for Tessera Amoris
+ */
+
+/* ============================================
+   HERO SECTION
+   ============================================ */
+
+.review-section-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 20px;
+    font-family: 'Cormorant Garamond', 'Georgia', serif;
+}
+
+.review-hero {
+    background: linear-gradient(135deg, #1B3A57 0%, #2C5F8D 100%);
+    border-radius: 20px;
+    padding: 60px 40px;
+    text-align: center;
+    margin-bottom: 60px;
+    box-shadow: 0 20px 60px rgba(27, 58, 87, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.review-hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+    animation: pulse 8s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.1); opacity: 0.8; }
+}
+
+.review-hero-content {
+    position: relative;
+    z-index: 1;
+}
+
+.review-title {
+    font-size: 48px;
+    font-weight: 600;
+    color: #FFFFFF;
+    margin: 0 0 16px 0;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+}
+
+.review-subtitle {
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0 0 40px 0;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+}
+
+/* Progress Bar */
+.journey-progress {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.progress-bar-container {
+    height: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 100px;
+    overflow: hidden;
+    margin-bottom: 12px;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #D4AF37 0%, #F4E4A6 100%);
+    border-radius: 100px;
+    transition: width 1s ease-out;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+}
+
+.progress-text {
+    color: #D4AF37;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+    letter-spacing: 0.5px;
+}
+
+/* ============================================
+   TIMELINE SECTIONS
+   ============================================ */
+
+.review-timeline {
+    position: relative;
+}
+
+.timeline-section {
+    display: flex;
+    gap: 40px;
+    margin-bottom: 60px;
+    position: relative;
+}
+
+.timeline-section:last-child {
+    margin-bottom: 0;
+}
+
+/* Timeline Marker */
+.timeline-marker {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60px;
+}
+
+.marker-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    position: relative;
+    z-index: 2;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.timeline-section:hover .marker-icon {
+    transform: scale(1.1);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+}
+
+.personal-icon {
+    background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
+    color: white;
+}
+
+.faith-icon {
+    background: linear-gradient(135deg, #8B7355 0%, #6B5744 100%);
+    color: white;
+}
+
+.relationship-icon {
+    background: linear-gradient(135deg, #E91E63 0%, #C2185B 100%);
+    color: white;
+}
+
+.verification-icon {
+    background: linear-gradient(135deg, #4CAF50 0%, #388E3C 100%);
+    color: white;
+}
+
+.marker-line {
+    flex: 1;
+    width: 3px;
+    background: linear-gradient(180deg, #D4AF37 0%, rgba(212, 175, 55, 0.2) 100%);
+    margin-top: 12px;
+    min-height: 100px;
+}
+
+.timeline-section:last-child .marker-line {
+    display: none;
+}
+
+/* Timeline Content */
+.timeline-content {
+    flex: 1;
+    background: white;
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(212, 175, 55, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.timeline-content:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid rgba(212, 175, 55, 0.2);
+}
+
+.section-title {
+    font-size: 28px;
+    font-weight: 600;
+    color: #1B3A57;
+    margin: 0;
+    letter-spacing: -0.3px;
+}
+
+.edit-button {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background: transparent;
+    border: 1.5px solid #D4AF37;
+    border-radius: 8px;
+    color: #D4AF37;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.edit-button:hover {
+    background: #D4AF37;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+}
+
+.edit-button svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* Data Grid */
+.data-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.data-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.data-item.full-width {
+    grid-column: 1 / -1;
+}
+
+.data-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.data-value {
+    font-size: 18px;
+    color: #1B3A57;
+    font-weight: 500;
+}
+
+.data-text {
+    font-size: 16px;
+    color: #333;
+    line-height: 1.7;
+    margin: 0;
+    padding: 16px;
+    background: #F8F9FA;
+    border-radius: 8px;
+    border-left: 4px solid #D4AF37;
+}
+
+/* Verification Status */
+.verification-status {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.status-badge {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 24px;
+    background: #F0F8F5;
+    border-radius: 12px;
+    border: 2px solid #4CAF50;
+    font-size: 16px;
+    font-weight: 600;
+    color: #2E7D32;
+}
+
+.status-badge svg {
+    flex-shrink: 0;
+}
+
+/* ============================================
+   FINAL CTA SECTION
+   ============================================ */
+
+.review-cta {
+    background: linear-gradient(135deg, #F8F9FA 0%, #FFFFFF 100%);
+    border-radius: 20px;
+    padding: 60px 40px;
+    text-align: center;
+    margin-top: 60px;
+    border: 2px solid rgba(212, 175, 55, 0.2);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+}
+
+.cta-content {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.cta-title {
+    font-size: 36px;
+    font-weight: 600;
+    color: #1B3A57;
+    margin: 0 0 16px 0;
+}
+
+.cta-text {
+    font-size: 18px;
+    color: #666;
+    line-height: 1.7;
+    margin: 0 0 40px 0;
+}
+
+/* Final Checkboxes */
+.final-checkboxes {
+    text-align: left;
+    margin-bottom: 40px;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.checkbox-label input[type="checkbox"] {
+    margin-top: 4px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: #D4AF37;
+}
+
+.checkbox-text {
+    font-size: 15px;
+    color: #333;
+    line-height: 1.6;
+}
+
+.checkbox-text .link {
+    color: #D4AF37;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.checkbox-text .link:hover {
+    text-decoration: underline;
+}
+
+/* Submit Button */
+.submit-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 48px;
+    background: linear-gradient(135deg, #D4AF37 0%, #F4E4A6 100%);
+    border: none;
+    border-radius: 12px;
+    color: #1B3A57;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(212, 175, 55, 0.4);
+    transition: all 0.3s ease;
+    letter-spacing: 0.5px;
+}
+
+.submit-button:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(212, 175, 55, 0.5);
+}
+
+.submit-button:active {
+    transform: translateY(-2px);
+}
+
+.submit-button svg {
+    transition: transform 0.3s ease;
+}
+
+.submit-button:hover svg {
+    transform: translateX(4px);
+}
+
+/* Trust Message */
+.trust-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 24px;
+    font-size: 14px;
+    color: #666;
+}
+
+.trust-message svg {
+    flex-shrink: 0;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 768px) {
+    .review-section-container {
+        padding: 40px 16px;
+    }
+    
+    .review-hero {
+        padding: 40px 24px;
+        margin-bottom: 40px;
+    }
+    
+    .review-title {
+        font-size: 32px;
+    }
+    
+    .review-subtitle {
+        font-size: 16px;
+    }
+    
+    .timeline-section {
+        gap: 20px;
+    }
+    
+    .timeline-marker {
+        width: 40px;
+    }
+    
+    .marker-icon {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .marker-icon svg {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .timeline-content {
+        padding: 24px;
+    }
+    
+    .section-title {
+        font-size: 22px;
+    }
+    
+    .data-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .review-cta {
+        padding: 40px 24px;
+    }
+    
+    .cta-title {
+        font-size: 28px;
+    }
+    
+    .submit-button {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.timeline-section {
+    animation: fadeInUp 0.6s ease-out;
+    animation-fill-mode: both;
+}
+
+.timeline-section:nth-child(1) { animation-delay: 0.1s; }
+.timeline-section:nth-child(2) { animation-delay: 0.2s; }
+.timeline-section:nth-child(3) { animation-delay: 0.3s; }
+.timeline-section:nth-child(4) { animation-delay: 0.4s; }
+
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+
+@media print {
+    .review-hero {
+        background: white;
+        color: black;
+        box-shadow: none;
+    }
+    
+    .edit-button {
+        display: none;
+    }
+    
+    .submit-button {
+        display: none;
+    }
+    
+    .timeline-content {
+        box-shadow: none;
+        border: 1px solid #ddd;
+    }
+}
+

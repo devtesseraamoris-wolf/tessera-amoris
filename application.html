@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="css/clean-references.css">
     <link rel="stylesheet" href="css/fix-review-title.css">
     <link rel="stylesheet" href="css/strategic-review.css">
+    <link rel="stylesheet" href="css/snapshot-cards.css">
     <link rel="stylesheet" href="css/pre-screening-quiz.css">
     <link rel="stylesheet" href="css/review-section-refined.css">
     <link rel="stylesheet" href="css/force-gold-title.css">
@@ -28,6 +29,8 @@
     <link rel="stylesheet" href="css/enhanced-selectors-styles.css">
     <link rel="stylesheet" href="css/advanced-form-design.css">
     <link rel="stylesheet" href="css/advanced-form-navigation.css">
+    <script src="js/form-data-store.js"></script>
+    
     <!-- Supabase Client Library -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link rel="stylesheet" href="css/validation-notifications.css">
@@ -628,6 +631,87 @@
                 <h2>Review Your Application</h2>
                 <p>Please review your information before submitting your application.</p>
                 
+                <!-- Enhanced Visual Snapshot Cards -->
+                <div class="snapshot-container">
+                    <!-- Personal Profile Snapshot -->
+                    <div class="snapshot-card" id="personal-snapshot">
+                        <div class="snapshot-header">
+                            <div class="snapshot-icon">👤</div>
+                            <h3 class="snapshot-title">Your Profile</h3>
+                        </div>
+                        <div class="snapshot-body">
+                            <div class="snapshot-field" data-field="name">
+                                <div class="snapshot-label">Name:</div>
+                                <div class="snapshot-value">Not provided</div>
+                            </div>
+                            <div class="snapshot-field" data-field="age">
+                                <div class="snapshot-label">Age:</div>
+                                <div class="snapshot-value">Not provided</div>
+                            </div>
+                            <div class="snapshot-field" data-field="location">
+                                <div class="snapshot-label">Location:</div>
+                                <div class="snapshot-value">Not provided</div>
+                            </div>
+                            <div class="snapshot-field" data-field="occupation">
+                                <div class="snapshot-label">Occupation:</div>
+                                <div class="snapshot-value">Not provided</div>
+                            </div>
+                            <div class="snapshot-field" data-field="education">
+                                <div class="snapshot-label">Education:</div>
+                                <div class="snapshot-value">Not provided</div>
+                            </div>
+                            <div class="snapshot-field" data-field="languages">
+                                <div class="snapshot-label">Languages:</div>
+                                <div class="snapshot-value">Not provided</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Faith Journey Snapshot -->
+                    <div class="snapshot-card" id="faith-snapshot">
+                        <div class="snapshot-header">
+                            <div class="snapshot-icon">✟</div>
+                            <h3 class="snapshot-title">Faith Journey</h3>
+                        </div>
+                        <div class="snapshot-body">
+                            <div class="snapshot-field" data-field="tradition">
+                                <div class="snapshot-label">Tradition:</div>
+                                <div class="snapshot-value">Not provided</div>
+                            </div>
+                            <div class="snapshot-field" data-field="involvement">
+                                <div class="snapshot-label">Involvement:</div>
+                                <div class="snapshot-value">Not provided</div>
+                            </div>
+                            <div class="snapshot-field" data-field="importance">
+                                <div class="snapshot-label">Importance:</div>
+                                <div class="snapshot-value">Not provided</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Relationship Vision Snapshot -->
+                    <div class="snapshot-card" id="relationship-snapshot">
+                        <div class="snapshot-header">
+                            <div class="snapshot-icon">💕</div>
+                            <h3 class="snapshot-title">Relationship Vision</h3>
+                        </div>
+                        <div class="snapshot-body">
+                            <div class="snapshot-field" data-field="goal">
+                                <div class="snapshot-label">Goal:</div>
+                                <div class="snapshot-value">Not provided</div>
+                            </div>
+                            <div class="snapshot-field" data-field="location">
+                                <div class="snapshot-label">Location:</div>
+                                <div class="snapshot-value">Not provided</div>
+                            </div>
+                            <div class="snapshot-field" data-field="age-range">
+                                <div class="snapshot-label">Age Range:</div>
+                                <div class="snapshot-value">Not provided</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
                 <div class="review-section">
                     <div class="review-group">
                         <h3 class="review-title">Personal Information</h3>
@@ -847,6 +931,13 @@
     <script src="js/supabase-client.js"></script>
     <script src="js/supabase-quiz-handler.js"></script>
     <script src="js/supabase-form-handler.js"></script>
+    
+    <!-- Auto Test Suite (for development/testing) -->
+    <script src="js/auto-test-suite.js"></script>
+    <script src="js/quick-test.js"></script>
+    <script src="js/complete-test.js"></script>
+    <script src="js/final-complete-test.js"></script>
+    <script src="js/ultimate-complete-test.js"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {

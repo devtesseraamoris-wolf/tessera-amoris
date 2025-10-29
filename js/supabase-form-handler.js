@@ -14,52 +14,51 @@ class SupabaseFormHandler {
 
     /**
      * Collect all form data from the application
+     * Now reads from global formDataStore to prevent data loss
      * @returns {Object} Complete form data object
      */
     collectFormData() {
+        const store = window.formDataStore || {};
         const data = {};
 
+        console.log('📊 Collecting form data from data store...');
+
         // SECTION 1: Personal Information
-        data.full_name = document.getElementById('full-name')?.value || '';
+        data.full_name = store.full_name || '';
         
-        // Date of birth - combine month, day, year
-        const birthMonth = document.getElementById('birth-month')?.value || '';
-        const birthDay = document.getElementById('birth-day')?.value || '';
-        const birthYear = document.getElementById('birth-year')?.value || '';
+        // Date of birth - combine from store
+        const birthMonth = store.birth_month || '';
+        const birthDay = store.birth_day || '';
+        const birthYear = store.birth_year || '';
         if (birthMonth && birthDay && birthYear) {
-            data.date_of_birth = `${birthYear}-${birthMonth.padStart(2, '0')}-${birthDay.padStart(2, '0')}`;
+            data.date_of_birth = `${birthYear}-${String(birthMonth).padStart(2, '0')}-${String(birthDay).padStart(2, '0')}`;
         }
         
-        data.gender = document.getElementById('gender')?.value || '';
-        data.email = document.getElementById('email')?.value || '';
+        data.gender = store.gender || '';
+        data.email = store.email || '';
         
-        // Phone with country code
-        const countryCode = document.getElementById('country-code')?.value || '';
-        const phone = document.getElementById('phone')?.value || '';
+        // Phone with country code from store
+        const countryCode = store.country_code || '';
+        const phone = store.phone || '';
         data.phone = `${countryCode} ${phone}`.trim();
         data.country_code = countryCode;
         
-        data.country = document.getElementById('country')?.value || '';
-        data.state = document.getElementById('state')?.value || '';
-        data.city = document.getElementById('city')?.value || '';
-        data.nationality = document.getElementById('nationality')?.value || '';
-        data.occupation = document.getElementById('occupation')?.value || '';
-        data.education = document.getElementById('education')?.value || '';
+        data.country = store.country || '';
+        data.state = store.state || '';
+        data.city = store.city || '';
+        data.nationality = store.nationality || '';
+        data.occupation = store.occupation || '';
+        data.education = store.education || '';
         
-        // Languages - collect from hidden field (should be JSON array)
-        const languagesValue = document.getElementById('languages')?.value || '[]';
-        try {
-            data.languages = JSON.parse(languagesValue);
-        } catch (e) {
-            data.languages = [];
-        }
+        // Languages from store
+        data.languages = Array.isArray(store.languages) ? store.languages : [];
 
-        // SECTION 2: Faith & Values
-        data.faith_tradition = document.getElementById('faith-tradition')?.value || '';
-        data.faith_custom = document.getElementById('faith-custom')?.value || '';
-        data.community_involvement = document.getElementById('community-involvement')?.value || '';
-        data.values_importance = document.getElementById('values-importance')?.value || '';
-        data.values_journey = document.getElementById('values-journey')?.value || '';
+        // SECTION 2: Faith & Values from store
+        data.faith_tradition = store.faith_tradition || '';
+        data.faith_custom = ''; // Not in store yet
+        data.community_involvement = store.community_involvement || '';
+        data.values_importance = store.values_importance || '';
+        data.values_journey = store.values_journey || '';
         
         // Core values - collect selected values
         const coreValues = [];
@@ -73,17 +72,16 @@ class SupabaseFormHandler {
         
         data.family_vision = document.getElementById('family-vision')?.value || '';
 
-        // SECTION 3: Relationship Preferences
-        data.relationship_goal = document.getElementById('relationship-goal')?.value || '';
-        data.previous_marriage = document.getElementById('previous-marriage')?.value || '';
-        data.have_children = document.getElementById('have-children')?.value || '';
-        data.want_children = document.getElementById('want-children')?.value || '';
-        data.partner_location_preference = document.getElementById('partner-location')?.value || '';
+        // SECTION 3: Relationship Preferences from store
+        data.relationship_goal = store.relationship_goal || '';
+        data.previous_marriage = store.previous_marriage || '';
+        data.have_children = store.have_children || '';
+        data.want_children = store.want_children || '';
+        data.partner_location_preference = store.partner_location || '';
         
-        // Partner age range
-        const ageRangeElement = document.getElementById('partner-age-range');
-        if (ageRangeElement) {
-            const ageRange = ageRangeElement.value || '';
+        // Partner age range from store
+        const ageRange = store.partner_age_range || '';
+        if (ageRange) {
             const match = ageRange.match(/(\d+)-(\d+)/);
             if (match) {
                 data.partner_age_min = parseInt(match[1]);
@@ -91,7 +89,7 @@ class SupabaseFormHandler {
             }
         }
         
-        data.relocation_willingness = document.getElementById('relocation')?.value || '';
+        data.relocation_willingness = store.relocation || '';
         
         // Lifestyle preferences - collect selected checkboxes
         const lifestylePrefs = {
@@ -113,15 +111,15 @@ class SupabaseFormHandler {
         data.lifestyle_preferences = lifestylePrefs;
         data.partner_qualities = document.getElementById('partner-qualities')?.value || '';
 
-        // SECTION 4: Verification
-        data.background_check_consent = document.getElementById('background-check')?.checked || false;
+        // SECTION 4: Verification from store
+        data.background_check_consent = store.background_check || false;
         // Note: File uploads would be handled separately and URLs stored here
         data.verification_photo_url = null;
         data.identity_document_url = null;
 
-        // SECTION 5: Review & Agreements
-        data.terms_agreement = document.getElementById('terms-agreement')?.checked || false;
-        data.privacy_agreement = document.getElementById('privacy-agreement')?.checked || false;
+        // SECTION 5: Review & Agreements from store
+        data.terms_agreement = store.terms_agreement || false;
+        data.privacy_agreement = store.privacy_agreement || false;
         data.submitted_at = new Date().toISOString();
 
         // Set initial status

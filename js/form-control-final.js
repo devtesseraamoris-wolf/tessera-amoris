@@ -202,6 +202,12 @@
           // Update UI
           this.updateUI();
           
+          // Dispatch event for section transition
+          const event = new CustomEvent('sectionTransitioned', {
+            detail: { section: stepNumber }
+          });
+          document.dispatchEvent(event);
+          
           // Maintain scroll position
           window.scrollTo(currentScrollX, currentScrollY);
         }, 400); // Match the CSS animation duration

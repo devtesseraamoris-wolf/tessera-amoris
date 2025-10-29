@@ -1,0 +1,239 @@
+/**
+ * Strategic Review - Enhanced Form Summary
+ * Now reads from global formDataStore and updates existing HTML elements
+ */
+
+(function() {
+    'use strict';
+
+    let isInitialized = false;
+
+    function init() {
+        if (isInitialized) return;
+        isInitialized = true;
+        console.log('✅ Strategic Review (Data Store Version) initialized');
+    }
+    
+    // Listen for section transitions
+    document.addEventListener('sectionTransitioned', function(e) {
+        if (e.detail && e.detail.section === 5) {
+            setTimeout(() => {
+                populateReview();
+            }, 500);
+        }
+    });
+    
+    // Also listen for form data updates
+    document.addEventListener('formDataUpdated', function(e) {
+        // If we're on section 5, update the display
+        const section5 = document.querySelector('[data-section="5"].active');
+        if (section5) {
+            setTimeout(() => {
+                populateReview();
+            }, 100);
+        }
+    });
+    
+    function populateReview() {
+        console.log('🔄 Populating review section from data store...');
+        
+        const store = window.formDataStore || {};
+        
+        // Personal Information
+        setElementText('review-full-name', store.full_name || 'Not provided');
+        setElementText('review-date-of-birth', formatDateOfBirth(store));
+        setElementText('review-gender', formatGender(store.gender));
+        setElementText('review-email', store.email || 'Not provided');
+        setElementText('review-phone', formatPhone(store));
+        setElementText('review-country', store.country || 'Not provided');
+        setElementText('review-state', store.state || '');
+        setElementText('review-city', store.city || '');
+        setElementText('review-nationality', store.nationality || 'Not provided');
+        setElementText('review-occupation', store.occupation || 'Not provided');
+        setElementText('review-education', formatEducation(store.education));
+        setElementText('review-languages', formatLanguages(store.languages));
+        
+        // Faith & Values
+        setElementText('review-faith-tradition', formatFaithTradition(store.faith_tradition));
+        setElementText('review-church-involvement', formatInvolvement(store.community_involvement));
+        setElementText('review-faith-importance', formatImportance(store.values_importance));
+        setElementText('review-faith-journey', store.values_journey || 'Not provided');
+        setElementText('review-values', formatCoreValues(store.core_values));
+        setElementText('review-family-vision', store.family_vision || 'Not provided');
+        
+        // Relationship Preferences
+        setElementText('review-relationship-goal', formatRelationshipGoal(store.relationship_goal));
+        setElementText('review-previous-marriage', formatYesNo(store.previous_marriage));
+        setElementText('review-have-children', formatYesNo(store.have_children));
+        setElementText('review-want-children', formatWantChildren(store.want_children));
+        setElementText('review-partner-age-range', store.partner_age_range || 'Not provided');
+        setElementText('review-partner-location', store.partner_location || 'Not provided');
+        setElementText('review-relocation', formatRelocation(store.relocation));
+        setElementText('review-partner-qualities', store.partner_qualities || 'Not provided');
+        
+        console.log('✅ Review section populated from data store');
+    }
+    
+    function setElementText(elementId, value) {
+        const element = document.getElementById(elementId);
+        if (element) {
+            element.textContent = value;
+        }
+    }
+    
+    function formatDateOfBirth(store) {
+        const month = store.birth_month;
+        const day = store.birth_day;
+        const year = store.birth_year;
+        
+        if (!month || !day || !year) return 'Not provided';
+        
+        const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+                          'July', 'August', 'September', 'October', 'November', 'December'];
+        
+        return `${monthNames[parseInt(month) - 1]} ${day}, ${year}`;
+    }
+    
+    function formatGender(gender) {
+        if (!gender) return 'Not provided';
+        return gender.charAt(0).toUpperCase() + gender.slice(1);
+    }
+    
+    function formatPhone(store) {
+        const countryCode = store.country_code || '';
+        const phone = store.phone || '';
+        
+        if (!phone) return 'Not provided';
+        
+        return `${countryCode} ${phone}`.trim();
+    }
+    
+    function formatEducation(education) {
+        if (!education) return 'Not provided';
+        
+        const educationMap = {
+            'high-school': 'High School',
+            'bachelors': "Bachelor's Degree",
+            'masters': "Master's Degree",
+            'doctorate': 'Doctorate',
+            'professional': 'Professional Degree'
+        };
+        
+        return educationMap[education] || education;
+    }
+    
+    function formatLanguages(languages) {
+        if (!languages || languages.length === 0) return 'Not provided';
+        if (Array.isArray(languages)) {
+            return languages.join(', ');
+        }
+        return languages;
+    }
+    
+    function formatFaithTradition(tradition) {
+        if (!tradition) return 'Not provided';
+        
+        const traditionMap = {
+            'christian-catholic': 'Catholic',
+            'christian-protestant': 'Protestant',
+            'christian-orthodox': 'Orthodox',
+            'christian-other': 'Christian (Other)',
+            'jewish': 'Jewish',
+            'muslim': 'Muslim',
+            'hindu': 'Hindu',
+            'buddhist': 'Buddhist',
+            'other': 'Other'
+        };
+        
+        return traditionMap[tradition] || tradition;
+    }
+    
+    function formatInvolvement(involvement) {
+        if (!involvement) return 'Not provided';
+        
+        const involvementMap = {
+            'very-active': 'Very Active - Weekly attendance',
+            'active': 'Active - Regular attendance',
+            'occasional': 'Occasional attendance',
+            'rarely': 'Rarely attend'
+        };
+        
+        return involvementMap[involvement] || involvement;
+    }
+    
+    function formatImportance(importance) {
+        if (!importance) return 'Not provided';
+        
+        const importanceMap = {
+            'essential': 'Essential - Core to my life',
+            'very-important': 'Very Important',
+            'important': 'Important',
+            'somewhat-important': 'Somewhat Important'
+        };
+        
+        return importanceMap[importance] || importance;
+    }
+    
+    function formatCoreValues(values) {
+        if (!values || values.length === 0) return 'Not provided';
+        if (Array.isArray(values)) {
+            return values.map(v => v.name || v).join(', ');
+        }
+        return values;
+    }
+    
+    function formatRelationshipGoal(goal) {
+        if (!goal) return 'Not provided';
+        
+        const goalMap = {
+            'marriage': 'Marriage and family',
+            'long-term': 'Long-term committed relationship',
+            'companionship': 'Companionship'
+        };
+        
+        return goalMap[goal] || goal;
+    }
+    
+    function formatYesNo(value) {
+        if (!value) return 'Not provided';
+        return value === 'yes' ? 'Yes' : 'No';
+    }
+    
+    function formatWantChildren(value) {
+        if (!value) return 'Not provided';
+        
+        const wantChildrenMap = {
+            'yes': 'Yes, definitely',
+            'maybe': 'Maybe/Open to discussion',
+            'no': 'No'
+        };
+        
+        return wantChildrenMap[value] || value;
+    }
+    
+    function formatRelocation(value) {
+        if (!value) return 'Not provided';
+        
+        const relocationMap = {
+            'yes': 'Yes, willing to relocate',
+            'specific': 'Yes, to specific countries',
+            'no': 'No, prefer to stay in current location'
+        };
+        
+        return relocationMap[value] || value;
+    }
+    
+    // Initialize when DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+    
+    // Expose populate function globally for testing
+    window.populateReviewSection = populateReview;
+    
+    console.log('✅ Strategic Review (Data Store Version) loaded!');
+
+})();
+
