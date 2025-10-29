@@ -39,7 +39,7 @@
     border: 2px solid #D4AF37;
     border-radius: 16px;
     padding: 60px 40px;
-    margin-bottom: 60px;
+    margin-bottom: 80px;
     text-align: center;
     position: relative;
     box-shadow: 0 8px 32px rgba(212, 175, 55, 0.1);
@@ -98,7 +98,7 @@
    ============================================ */
 
 .snapshot-section {
-    margin-bottom: 60px;
+    margin-bottom: 80px;
 }
 
 .snapshot-title {
@@ -106,13 +106,13 @@
     font-size: clamp(1.75rem, 1.5rem + 1.25vw, 2.25rem);
     color: #1a365d;
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 48px;
 }
 
 .snapshot-cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 24px;
+    gap: 28px;
 }
 
 .snapshot-card {
@@ -181,7 +181,7 @@
     background: linear-gradient(135deg, #1a365d 0%, #2d4a7c 100%);
     border-radius: 16px;
     padding: 48px 40px;
-    margin-bottom: 60px;
+    margin-bottom: 80px;
     text-align: center;
     color: white;
 }
@@ -219,7 +219,7 @@
    ============================================ */
 
 .values-section {
-    margin-bottom: 60px;
+    margin-bottom: 80px;
     text-align: center;
 }
 
@@ -227,7 +227,7 @@
     font-family: 'Cormorant Garamond', serif;
     font-size: clamp(1.75rem, 1.5rem + 1.25vw, 2.25rem);
     color: #1a365d;
-    margin-bottom: 12px;
+    margin-bottom: 16px;
 }
 
 .values-subtitle {
@@ -241,7 +241,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 16px;
+    gap: 20px;
     max-width: 700px;
     margin: 0 auto;
 }
@@ -285,7 +285,7 @@
    ============================================ */
 
 .journey-timeline-section {
-    margin-bottom: 60px;
+    margin-bottom: 80px;
 }
 
 .timeline-title {
@@ -293,7 +293,7 @@
     font-size: clamp(1.75rem, 1.5rem + 1.25vw, 2.25rem);
     color: #1a365d;
     text-align: center;
-    margin-bottom: 48px;
+    margin-bottom: 56px;
 }
 
 .journey-timeline {
@@ -350,8 +350,8 @@
 .match-criteria-section {
     background: #f8f9fa;
     border-radius: 16px;
-    padding: 48px 40px;
-    margin-bottom: 60px;
+    padding: 56px 48px;
+    margin-bottom: 80px;
 }
 
 .criteria-title {
@@ -359,7 +359,7 @@
     font-size: clamp(1.75rem, 1.5rem + 1.25vw, 2.25rem);
     color: #1a365d;
     text-align: center;
-    margin-bottom: 32px;
+    margin-bottom: 40px;
 }
 
 .criteria-list {
@@ -422,7 +422,7 @@
    ============================================ */
 
 .social-proof-section {
-    margin-bottom: 60px;
+    margin-bottom: 80px;
     text-align: center;
 }
 
@@ -430,14 +430,14 @@
     font-family: 'Cormorant Garamond', serif;
     font-size: clamp(1.75rem, 1.5rem + 1.25vw, 2.25rem);
     color: #1a365d;
-    margin-bottom: 40px;
+    margin-bottom: 48px;
 }
 
 .social-proof-stats {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 24px;
-    margin-bottom: 32px;
+    gap: 32px;
+    margin-bottom: 40px;
 }
 
 .stat-card {
@@ -497,7 +497,7 @@
    ============================================ */
 
 .success-story-section {
-    margin-bottom: 60px;
+    margin-bottom: 80px;
 }
 
 .success-story-quote {
@@ -535,7 +535,7 @@
    ============================================ */
 
 .detailed-review-section {
-    margin-bottom: 60px;
+    margin-bottom: 80px;
 }
 
 .toggle-details-btn {
