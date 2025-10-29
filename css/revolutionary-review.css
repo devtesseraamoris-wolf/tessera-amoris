@@ -195,7 +195,7 @@
     font-family: 'Cormorant Garamond', serif;
     font-size: clamp(1.375rem, 1.25rem + 0.625vw, 1.875rem);
     margin-bottom: 24px;
-    color: #D4AF37;
+    color: #ffffff;
 }
 
 .why-here-quote {
@@ -709,7 +709,7 @@
     font-family: 'Cormorant Garamond', serif;
     font-size: clamp(2rem, 1.75rem + 1.25vw, 2.75rem);
     margin-bottom: 24px;
-    color: #D4AF37;
+    color: #ffffff;
 }
 
 .cta-description {
@@ -745,6 +745,7 @@
     font-family: 'Montserrat', sans-serif;
     font-size: clamp(0.9375rem, 0.875rem + 0.3125vw, 1.0625rem);
     line-height: 1.6;
+    color: #ffffff;
 }
 
 .checkbox-text .link {

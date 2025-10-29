@@ -1,0 +1,426 @@
+/**
+ * ENHANCED SNAPSHOT CARDS - BUSINESS-FOCUSED
+ * 
+ * Value-driven, strategic cards that showcase what makes
+ * the applicant an exceptional match candidate.
+ * 
+ * Author: High Web Strategist & Designer
+ * Date: October 29, 2025
+ */
+
+/* ============================================
+   SNAPSHOT SECTION
+   ============================================ */
+
+.snapshot-section {
+    margin-bottom: 80px;
+}
+
+.snapshot-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.75rem, 1.5rem + 1.25vw, 2.25rem);
+    color: #1a365d;
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.snapshot-subtitle {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+    color: #64748b;
+    text-align: center;
+    margin-bottom: 48px;
+}
+
+/* ============================================
+   ENHANCED SNAPSHOT CARDS GRID
+   ============================================ */
+
+.snapshot-cards-enhanced {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 32px;
+}
+
+/* ============================================
+   ENHANCED SNAPSHOT CARD
+   ============================================ */
+
+.snapshot-card-enhanced {
+    background: #ffffff;
+    border: 2px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 0;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.snapshot-card-enhanced:hover {
+    border-color: #cbd5e1;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    transform: translateY(-4px);
+}
+
+/* Standout card - special styling */
+.snapshot-card-standout {
+    border-color: #D4AF37;
+    background: linear-gradient(135deg, #fefdf8 0%, #ffffff 100%);
+}
+
+.snapshot-card-standout:hover {
+    border-color: #C9A52F;
+    box-shadow: 0 8px 24px rgba(212, 175, 55, 0.15);
+}
+
+/* ============================================
+   CARD HEADER
+   ============================================ */
+
+.snapshot-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 24px 16px 24px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.snapshot-icon-enhanced {
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, #D4AF37 0%, #f0d98f 100%);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    flex-shrink: 0;
+}
+
+.snapshot-badge {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 6px 12px;
+    background: #e0f2fe;
+    color: #0369a1;
+    border-radius: 20px;
+}
+
+.snapshot-badge-gold {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    color: #92400e;
+}
+
+/* ============================================
+   CARD BODY
+   ============================================ */
+
+.snapshot-card-body {
+    padding: 24px;
+}
+
+.snapshot-card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.25rem, 1.125rem + 0.625vw, 1.5rem);
+    color: #1a365d;
+    margin-bottom: 16px;
+    font-weight: 600;
+}
+
+.snapshot-card-value-large {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 2rem + 2.5vw, 3.5rem);
+    color: #D4AF37;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 12px;
+}
+
+.snapshot-card-description {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(0.875rem, 0.8125rem + 0.3125vw, 1rem);
+    color: #64748b;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+/* ============================================
+   CARD DETAILS
+   ============================================ */
+
+.snapshot-card-details {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.detail-icon {
+    width: 20px;
+    height: 20px;
+    background: #10b981;
+    color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.detail-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(0.875rem, 0.8125rem + 0.3125vw, 1rem);
+    color: #334155;
+}
+
+/* ============================================
+   COMPATIBILITY GRID
+   ============================================ */
+
+.compatibility-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.compatibility-item {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 12px;
+}
+
+.compatibility-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #64748b;
+    margin-bottom: 6px;
+}
+
+.compatibility-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+    color: #1a365d;
+    font-weight: 600;
+}
+
+/* ============================================
+   VALUES PREVIEW
+   ============================================ */
+
+.values-preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.value-pill {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 600;
+    padding: 8px 16px;
+    background: linear-gradient(135deg, #D4AF37 0%, #f0d98f 100%);
+    color: #1a365d;
+    border-radius: 20px;
+}
+
+/* ============================================
+   LIFESTYLE HIGHLIGHTS
+   ============================================ */
+
+.lifestyle-highlights {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.lifestyle-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.lifestyle-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+}
+
+.lifestyle-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(0.875rem, 0.8125rem + 0.3125vw, 1rem);
+    color: #334155;
+}
+
+/* ============================================
+   CARD INSIGHT
+   ============================================ */
+
+.snapshot-card-insight {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border-left: 3px solid #3b82f6;
+    border-radius: 8px;
+    padding: 14px;
+    margin-top: 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(0.875rem, 0.8125rem + 0.3125vw, 1rem);
+    color: #1e40af;
+    line-height: 1.5;
+}
+
+.insight-icon {
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+/* ============================================
+   STANDOUT REASONS
+   ============================================ */
+
+.standout-reasons {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+.standout-item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+}
+
+.standout-number {
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, #D4AF37 0%, #f0d98f 100%);
+    color: #1a365d;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.125rem;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.standout-content {
+    flex: 1;
+}
+
+.standout-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.125rem, 1rem + 0.625vw, 1.375rem);
+    color: #1a365d;
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+.standout-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(0.875rem, 0.8125rem + 0.3125vw, 1rem);
+    color: #64748b;
+    line-height: 1.6;
+}
+
+/* ============================================
+   STANDOUT CTA
+   ============================================ */
+
+.standout-cta {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+}
+
+.standout-cta-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(0.875rem, 0.8125rem + 0.3125vw, 1rem);
+    color: #92400e;
+    font-weight: 600;
+    margin: 0;
+}
+
+/* ============================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================ */
+
+@media (max-width: 1024px) {
+    .snapshot-cards-enhanced {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 24px;
+    }
+}
+
+@media (max-width: 768px) {
+    .snapshot-cards-enhanced {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .snapshot-card-header {
+        padding: 20px 20px 14px 20px;
+    }
+    
+    .snapshot-card-body {
+        padding: 20px;
+    }
+    
+    .snapshot-icon-enhanced {
+        width: 48px;
+        height: 48px;
+    }
+    
+    .compatibility-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .snapshot-card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+    
+    .snapshot-badge {
+        align-self: flex-start;
+    }
+}
+
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+
+@media print {
+    .snapshot-card-enhanced {
+        break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid #000;
+    }
+    
+    .snapshot-card-enhanced:hover {
+        transform: none;
+    }
+}

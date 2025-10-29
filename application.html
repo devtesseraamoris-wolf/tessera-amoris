@@ -53,6 +53,7 @@
     
     <!-- REVOLUTIONARY REVIEW SECTION -->
     <link rel="stylesheet" href="css/revolutionary-review.css">
+    <link rel="stylesheet" href="css/enhanced-snapshot-cards.css">
     
     <!-- REVOLUTIONARY NAVIGATION & INPUTS -->
     <link rel="stylesheet" href="css/lightweight-navigation.css">
@@ -661,51 +662,162 @@
         <div class="vision-ornament-bottom">✦</div>
     </div>
 
-    <!-- Snapshot Cards: Your Story at a Glance -->
-    <div class="snapshot-section">
-        <h2 class="snapshot-title">Your Story at a Glance</h2>
-        <div class="snapshot-cards">
-            <div class="snapshot-card">
-                <div class="snapshot-icon">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
-                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" fill="currentColor"/>
+    <!-- Enhanced Snapshot Cards: Business-Focused Value Propositions -->
+<div class="snapshot-section">
+    <h2 class="snapshot-title">Your Unique Profile</h2>
+    <p class="snapshot-subtitle">What makes you an exceptional match candidate</p>
+    
+    <div class="snapshot-cards-enhanced">
+        <!-- Card 1: Relationship Readiness Score -->
+        <div class="snapshot-card-enhanced">
+            <div class="snapshot-card-header">
+                <div class="snapshot-icon-enhanced">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="currentColor"/>
                     </svg>
                 </div>
-                <div class="snapshot-label">Your Name</div>
-                <div class="snapshot-value" id="snapshot-name">—</div>
+                <div class="snapshot-badge">Premium Candidate</div>
             </div>
-            
-            <div class="snapshot-card">
-                <div class="snapshot-icon">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
-                        <path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z" fill="currentColor"/>
-                    </svg>
+            <div class="snapshot-card-body">
+                <h3 class="snapshot-card-title">Relationship Readiness</h3>
+                <div class="snapshot-card-value-large" id="snapshot-readiness-score">95%</div>
+                <p class="snapshot-card-description">Based on your values alignment, life stage, and commitment level</p>
+                <div class="snapshot-card-details">
+                    <div class="detail-item">
+                        <span class="detail-icon">✓</span>
+                        <span class="detail-text">Clear vision for future</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-icon">✓</span>
+                        <span class="detail-text">Strong value foundation</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-icon">✓</span>
+                        <span class="detail-text">Ready for commitment</span>
+                    </div>
                 </div>
-                <div class="snapshot-label">Your Age</div>
-                <div class="snapshot-value" id="snapshot-age">—</div>
             </div>
-            
-            <div class="snapshot-card">
-                <div class="snapshot-icon">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
-                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="currentColor"/>
+        </div>
+
+        <!-- Card 2: Match Compatibility Factors -->
+        <div class="snapshot-card-enhanced">
+            <div class="snapshot-card-header">
+                <div class="snapshot-icon-enhanced">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="currentColor"/>
                     </svg>
                 </div>
-                <div class="snapshot-label">Your Location</div>
-                <div class="snapshot-value" id="snapshot-location">—</div>
+                <div class="snapshot-badge">High Compatibility</div>
             </div>
-            
-            <div class="snapshot-card">
-                <div class="snapshot-icon">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
-                        <path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z" fill="currentColor"/>
+            <div class="snapshot-card-body">
+                <h3 class="snapshot-card-title">Your Match Profile</h3>
+                <div class="compatibility-grid">
+                    <div class="compatibility-item">
+                        <div class="compatibility-label">Faith</div>
+                        <div class="compatibility-value" id="snapshot-faith">Orthodox</div>
+                    </div>
+                    <div class="compatibility-item">
+                        <div class="compatibility-label">Age Range</div>
+                        <div class="compatibility-value" id="snapshot-age-range">28-35</div>
+                    </div>
+                    <div class="compatibility-item">
+                        <div class="compatibility-label">Location</div>
+                        <div class="compatibility-value" id="snapshot-location-enhanced">Asunción, PY</div>
+                    </div>
+                    <div class="compatibility-item">
+                        <div class="compatibility-label">Family Goals</div>
+                        <div class="compatibility-value" id="snapshot-family-goals">Wants children</div>
+                    </div>
+                </div>
+                <p class="snapshot-card-insight">
+                    <span class="insight-icon">💡</span>
+                    <span id="snapshot-match-insight">Your profile aligns with 23 potential matches in our network</span>
+                </p>
+            </div>
+        </div>
+
+        <!-- Card 3: Lifestyle & Values Alignment -->
+        <div class="snapshot-card-enhanced">
+            <div class="snapshot-card-header">
+                <div class="snapshot-icon-enhanced">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="currentColor"/>
                     </svg>
                 </div>
-                <div class="snapshot-label">Your Occupation</div>
-                <div class="snapshot-value" id="snapshot-occupation">—</div>
+                <div class="snapshot-badge">Values-Driven</div>
+            </div>
+            <div class="snapshot-card-body">
+                <h3 class="snapshot-card-title">Core Values & Lifestyle</h3>
+                <div class="values-preview" id="snapshot-values-preview">
+                    <!-- Top 3 values will be populated -->
+                    <div class="value-pill">Faith</div>
+                    <div class="value-pill">Family</div>
+                    <div class="value-pill">Legacy</div>
+                </div>
+                <div class="lifestyle-highlights">
+                    <div class="lifestyle-item">
+                        <span class="lifestyle-icon">💼</span>
+                        <span class="lifestyle-text" id="snapshot-profession">CEO/Executive</span>
+                    </div>
+                    <div class="lifestyle-item">
+                        <span class="lifestyle-icon">🎯</span>
+                        <span class="lifestyle-text" id="snapshot-ambition">Building lasting legacy</span>
+                    </div>
+                    <div class="lifestyle-item">
+                        <span class="lifestyle-icon">🌍</span>
+                        <span class="lifestyle-text" id="snapshot-mobility">Open to relocation</span>
+                    </div>
+                </div>
+                <p class="snapshot-card-insight">
+                    <span class="insight-icon">⭐</span>
+                    <span>Your values create strong foundation for meaningful partnership</span>
+                </p>
+            </div>
+        </div>
+
+        <!-- Card 4: What Sets You Apart -->
+        <div class="snapshot-card-enhanced snapshot-card-standout">
+            <div class="snapshot-card-header">
+                <div class="snapshot-icon-enhanced">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" fill="currentColor"/>
+                    </svg>
+                </div>
+                <div class="snapshot-badge snapshot-badge-gold">Exceptional</div>
+            </div>
+            <div class="snapshot-card-body">
+                <h3 class="snapshot-card-title">What Makes You Stand Out</h3>
+                <div class="standout-reasons">
+                    <div class="standout-item">
+                        <div class="standout-number">1</div>
+                        <div class="standout-content">
+                            <h4 class="standout-heading">Clear Life Vision</h4>
+                            <p class="standout-text">You've articulated a compelling vision for your future and legacy</p>
+                        </div>
+                    </div>
+                    <div class="standout-item">
+                        <div class="standout-number">2</div>
+                        <div class="standout-content">
+                            <h4 class="standout-heading">Strong Value System</h4>
+                            <p class="standout-text">Your Orthodox faith and family values create solid foundation</p>
+                        </div>
+                    </div>
+                    <div class="standout-item">
+                        <div class="standout-number">3</div>
+                        <div class="standout-content">
+                            <h4 class="standout-heading">Genuine Commitment</h4>
+                            <p class="standout-text">You're ready to invest in finding the right partner for life</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="standout-cta">
+                    <p class="standout-cta-text">These qualities place you in the top 15% of our applicants</p>
+                </div>
             </div>
         </div>
     </div>
+</div>
+
 
     <!-- Why You're Here -->
     <div class="why-here-section">
@@ -1132,6 +1244,7 @@
     
     <!-- REVOLUTIONARY REVIEW DATA HANDLER -->
     <script src="js/revolutionary-review-data.js"></script>
+    <script src="js/enhanced-snapshot-data.js"></script>
     <script src="js/ultimate-complete-test-v2.js"></script>
     <script src="js/ultimate-test-v3-final.js"></script>
     <script src="js/robust-test-final.js"></script>
