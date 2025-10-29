@@ -1,0 +1,320 @@
+/**
+ * REVOLUTIONARY NAVIGATION DESIGN
+ * 
+ * Modern, elegant, and sophisticated navigation buttons
+ * that go beyond the traditional circular design.
+ * 
+ * Author: High Web Strategist & Designer
+ * Date: October 29, 2025
+ */
+
+/* ============================================
+   PROGRESS STEPS - REVOLUTIONARY DESIGN
+   ============================================ */
+
+.progress-step {
+    position: relative !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.step-number {
+    /* Modern hexagonal/diamond shape with gradient */
+    width: 56px !important;
+    height: 56px !important;
+    background: linear-gradient(145deg, #f8f9fa, #e9ecef) !important;
+    border: 2px solid #e2e8f0 !important;
+    border-radius: 12px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-family: 'Cormorant Garamond', serif !important;
+    font-size: 22px !important;
+    font-weight: 700 !important;
+    color: #94a3b8 !important;
+    position: relative !important;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Elegant inner glow effect */
+.step-number::before {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.2));
+    border-radius: 9px;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+/* Active state - Elegant gold with sophisticated gradient */
+.progress-step.active .step-number {
+    background: linear-gradient(145deg, #D4AF37, #B8941F) !important;
+    border-color: #D4AF37 !important;
+    color: #ffffff !important;
+    box-shadow: 
+        0 0 0 4px rgba(212, 175, 55, 0.1),
+        0 4px 16px rgba(212, 175, 55, 0.3),
+        0 8px 24px rgba(212, 175, 55, 0.15) !important;
+    transform: translateY(-2px) scale(1.05) !important;
+}
+
+.progress-step.active .step-number::before {
+    opacity: 1;
+}
+
+/* Completed state - Sophisticated navy with checkmark */
+.progress-step.completed .step-number {
+    background: linear-gradient(145deg, #1a365d, #0f2744) !important;
+    border-color: #1a365d !important;
+    color: #ffffff !important;
+    box-shadow: 
+        0 0 0 4px rgba(26, 54, 93, 0.1),
+        0 4px 12px rgba(26, 54, 93, 0.2) !important;
+}
+
+/* Add checkmark for completed steps */
+.progress-step.completed .step-number::after {
+    content: '✓';
+    position: absolute;
+    font-size: 14px;
+    color: #D4AF37;
+    top: -6px;
+    right: -6px;
+    width: 20px;
+    height: 20px;
+    background: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    font-weight: 700;
+}
+
+/* Step title styling */
+.step-title {
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: clamp(0.8125rem, 0.75rem + 0.3125vw, 0.9375rem) !important;
+    font-weight: 500 !important;
+    color: #64748b !important;
+    margin-top: 10px !important;
+    text-align: center !important;
+    transition: all 0.3s ease !important;
+    line-height: 1.3 !important;
+}
+
+.progress-step.active .step-title {
+    color: #1a365d !important;
+    font-weight: 700 !important;
+    transform: translateY(-1px) !important;
+}
+
+.progress-step.completed .step-title {
+    color: #475569 !important;
+    font-weight: 600 !important;
+}
+
+/* Hover effects for interactivity */
+.progress-step:hover .step-number {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1) !important;
+}
+
+.progress-step.active:hover .step-number {
+    transform: translateY(-3px) scale(1.07) !important;
+    box-shadow: 
+        0 0 0 4px rgba(212, 175, 55, 0.15),
+        0 6px 20px rgba(212, 175, 55, 0.4),
+        0 12px 32px rgba(212, 175, 55, 0.2) !important;
+}
+
+/* ============================================
+   FORM NAVIGATION BUTTONS - REVOLUTIONARY DESIGN
+   ============================================ */
+
+.form-navigation button {
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: clamp(0.9375rem, 0.875rem + 0.3125vw, 1.0625rem) !important;
+    font-weight: 600 !important;
+    padding: 14px 32px !important;
+    border-radius: 10px !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    position: relative !important;
+    overflow: hidden !important;
+    letter-spacing: 0.3px !important;
+}
+
+/* Previous button - Subtle and elegant */
+.form-navigation button[type="button"] {
+    background: linear-gradient(145deg, #ffffff, #f8f9fa) !important;
+    color: #475569 !important;
+    border: 2px solid #e2e8f0 !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05) !important;
+}
+
+.form-navigation button[type="button"]:hover {
+    background: linear-gradient(145deg, #f8f9fa, #f1f5f9) !important;
+    border-color: #cbd5e1 !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Next/Submit button - Bold and prominent */
+.form-navigation button[type="submit"],
+.form-navigation button:not([type="button"]) {
+    background: linear-gradient(145deg, #D4AF37, #B8941F) !important;
+    color: #ffffff !important;
+    border: 2px solid #D4AF37 !important;
+    box-shadow: 
+        0 4px 16px rgba(212, 175, 55, 0.25),
+        0 2px 8px rgba(212, 175, 55, 0.15) !important;
+    position: relative !important;
+}
+
+/* Shimmer effect on hover */
+.form-navigation button[type="submit"]::before,
+.form-navigation button:not([type="button"])::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s ease;
+}
+
+.form-navigation button[type="submit"]:hover::before,
+.form-navigation button:not([type="button"]):hover::before {
+    left: 100%;
+}
+
+.form-navigation button[type="submit"]:hover,
+.form-navigation button:not([type="button"]):hover {
+    background: linear-gradient(145deg, #E5C047, #C9A52F) !important;
+    transform: translateY(-3px) !important;
+    box-shadow: 
+        0 6px 24px rgba(212, 175, 55, 0.35),
+        0 4px 12px rgba(212, 175, 55, 0.25) !important;
+}
+
+.form-navigation button[type="submit"]:active,
+.form-navigation button:not([type="button"]):active {
+    transform: translateY(-1px) !important;
+}
+
+/* Disabled state */
+.form-navigation button:disabled {
+    background: #e2e8f0 !important;
+    color: #94a3b8 !important;
+    border-color: #e2e8f0 !important;
+    cursor: not-allowed !important;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+/* ============================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================ */
+
+@media (max-width: 768px) {
+    .step-number {
+        width: 48px !important;
+        height: 48px !important;
+        font-size: 20px !important;
+        border-radius: 10px !important;
+    }
+    
+    .step-title {
+        font-size: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem) !important;
+        margin-top: 8px !important;
+    }
+    
+    .form-navigation button {
+        padding: 12px 24px !important;
+        font-size: clamp(0.875rem, 0.8125rem + 0.3125vw, 1rem) !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .step-number {
+        width: 44px !important;
+        height: 44px !important;
+        font-size: 18px !important;
+        border-radius: 8px !important;
+    }
+    
+    .progress-step.completed .step-number::after {
+        width: 18px;
+        height: 18px;
+        font-size: 12px;
+        top: -5px;
+        right: -5px;
+    }
+}
+
+/* ============================================
+   ANIMATION ENHANCEMENTS
+   ============================================ */
+
+/* Pulse animation for active step */
+@keyframes pulse-gold {
+    0%, 100% {
+        box-shadow: 
+            0 0 0 4px rgba(212, 175, 55, 0.1),
+            0 4px 16px rgba(212, 175, 55, 0.3),
+            0 8px 24px rgba(212, 175, 55, 0.15);
+    }
+    50% {
+        box-shadow: 
+            0 0 0 6px rgba(212, 175, 55, 0.15),
+            0 4px 16px rgba(212, 175, 55, 0.35),
+            0 8px 24px rgba(212, 175, 55, 0.2);
+    }
+}
+
+.progress-step.active .step-number {
+    animation: pulse-gold 2s ease-in-out infinite;
+}
+
+/* Smooth transition when step becomes active */
+.progress-step {
+    animation: fadeInUp 0.5s ease-out backwards;
+}
+
+.progress-step:nth-child(1) { animation-delay: 0.05s; }
+.progress-step:nth-child(2) { animation-delay: 0.1s; }
+.progress-step:nth-child(3) { animation-delay: 0.15s; }
+.progress-step:nth-child(4) { animation-delay: 0.2s; }
+.progress-step:nth-child(5) { animation-delay: 0.25s; }
+.progress-step:nth-child(6) { animation-delay: 0.3s; }
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+
+@media print {
+    .step-number {
+        box-shadow: none !important;
+        border: 2px solid #000 !important;
+    }
+    
+    .progress-step.active .step-number {
+        background: #D4AF37 !important;
+    }
+}

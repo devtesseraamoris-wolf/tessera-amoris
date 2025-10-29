@@ -195,6 +195,7 @@
     font-family: 'Cormorant Garamond', serif;
     font-size: clamp(1.375rem, 1.25rem + 0.625vw, 1.875rem);
     margin-bottom: 24px;
+    color: #D4AF37;
 }
 
 .why-here-quote {
@@ -708,6 +709,7 @@
     font-family: 'Cormorant Garamond', serif;
     font-size: clamp(2rem, 1.75rem + 1.25vw, 2.75rem);
     margin-bottom: 24px;
+    color: #D4AF37;
 }
 
 .cta-description {
