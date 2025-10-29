@@ -1,0 +1,394 @@
+/**
+ * PHOTO UPLOAD PREVIEW
+ * 
+ * Elegant, high-quality preview styling for uploaded photos
+ * with clear visual feedback.
+ * 
+ * Author: High Web Strategist & Designer
+ * Date: October 29, 2025
+ */
+
+/* ============================================
+   PHOTO PREVIEW CONTAINER
+   ============================================ */
+
+.photo-preview-container {
+    margin-top: 32px;
+    animation: fadeInUp 0.4s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.preview-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(1.125rem, 1rem + 0.625vw, 1.375rem);
+    color: #1a365d;
+    font-weight: 600;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.preview-title svg {
+    color: #10b981;
+    flex-shrink: 0;
+}
+
+/* ============================================
+   PHOTO PREVIEW GRID
+   ============================================ */
+
+.photo-preview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+/* ============================================
+   PHOTO CARD
+   ============================================ */
+
+.photo-card {
+    background: #ffffff;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    transition: all 0.3s ease;
+    animation: scaleIn 0.3s ease-out backwards;
+}
+
+.photo-card:nth-child(1) { animation-delay: 0.1s; }
+.photo-card:nth-child(2) { animation-delay: 0.2s; }
+.photo-card:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.photo-card:hover {
+    border-color: #D4AF37;
+    box-shadow: 0 8px 24px rgba(212, 175, 55, 0.15);
+    transform: translateY(-4px);
+}
+
+/* ============================================
+   PHOTO IMAGE CONTAINER
+   ============================================ */
+
+.photo-img-container {
+    position: relative;
+    width: 100%;
+    padding-top: 100%; /* 1:1 Aspect Ratio */
+    background: #f8f9fa;
+    overflow: hidden;
+}
+
+.photo-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.photo-card:hover .photo-img {
+    transform: scale(1.05);
+}
+
+/* ============================================
+   SUCCESS BADGE
+   ============================================ */
+
+.photo-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 32px;
+    height: 32px;
+    background: #10b981;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+    animation: popIn 0.4s ease-out 0.3s backwards;
+}
+
+@keyframes popIn {
+    0% {
+        opacity: 0;
+        transform: scale(0);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* ============================================
+   PHOTO INFO
+   ============================================ */
+
+.photo-info {
+    padding: 12px;
+    background: #ffffff;
+}
+
+.photo-name {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #1a365d;
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.photo-size {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.75rem;
+    color: #64748b;
+}
+
+/* ============================================
+   REMOVE BUTTON
+   ============================================ */
+
+.photo-remove-btn {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    width: 32px;
+    height: 32px;
+    background: rgba(239, 68, 68, 0.95);
+    border: none;
+    border-radius: 50%;
+    color: #ffffff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+}
+
+.photo-card:hover .photo-remove-btn {
+    opacity: 1;
+}
+
+.photo-remove-btn:hover {
+    background: #dc2626;
+    transform: scale(1.1);
+}
+
+.photo-remove-btn:active {
+    transform: scale(0.95);
+}
+
+/* ============================================
+   UPLOAD MORE BUTTON
+   ============================================ */
+
+.upload-more-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 14px 24px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    border: 2px dashed #cbd5e1;
+    border-radius: 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(0.9375rem, 0.875rem + 0.3125vw, 1.0625rem);
+    font-weight: 600;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.upload-more-btn:hover {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border-color: #D4AF37;
+    color: #1a365d;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.upload-more-btn svg {
+    flex-shrink: 0;
+}
+
+/* ============================================
+   NOTIFICATION
+   ============================================ */
+
+.photo-notification {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    padding: 16px 24px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    opacity: 0;
+    transform: translateX(400px);
+    transition: all 0.3s ease;
+    z-index: 10000;
+}
+
+.photo-notification.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.notification-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.photo-notification-success {
+    border-left: 4px solid #10b981;
+    color: #065f46;
+}
+
+.photo-notification-success .notification-icon {
+    background: #d1fae5;
+    color: #10b981;
+}
+
+.photo-notification-warning {
+    border-left: 4px solid #f59e0b;
+    color: #92400e;
+}
+
+.photo-notification-warning .notification-icon {
+    background: #fef3c7;
+    color: #f59e0b;
+}
+
+.photo-notification-info {
+    border-left: 4px solid #3b82f6;
+    color: #1e40af;
+}
+
+.photo-notification-info .notification-icon {
+    background: #dbeafe;
+    color: #3b82f6;
+}
+
+/* ============================================
+   DRAG OVER STATE
+   ============================================ */
+
+.upload-zone.dragover {
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border-color: #3b82f6;
+    transform: scale(1.02);
+}
+
+/* ============================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================ */
+
+@media (max-width: 768px) {
+    .photo-preview-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 16px;
+    }
+    
+    .photo-notification {
+        top: 16px;
+        right: 16px;
+        left: 16px;
+        font-size: 0.875rem;
+        padding: 14px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .photo-preview-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    
+    .photo-badge {
+        width: 28px;
+        height: 28px;
+        top: 10px;
+        right: 10px;
+    }
+    
+    .photo-badge svg {
+        width: 14px;
+        height: 14px;
+    }
+    
+    .photo-remove-btn {
+        width: 28px;
+        height: 28px;
+        top: 10px;
+        left: 10px;
+    }
+    
+    .photo-remove-btn svg {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+
+@media print {
+    .photo-remove-btn,
+    .upload-more-btn,
+    .photo-notification {
+        display: none;
+    }
+    
+    .photo-card {
+        break-inside: avoid;
+    }
+}

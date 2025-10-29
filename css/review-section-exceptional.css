@@ -329,7 +329,7 @@
 .cta-title {
     font-size: 36px;
     font-weight: 600;
-    color: #1B3A57;
+    color: #ffffff !important;
     margin: 0 0 16px 0;
 }
 
@@ -371,7 +371,7 @@
 
 .checkbox-text {
     font-size: 15px;
-    color: #333;
+    color: #ffffff !important;
     line-height: 1.6;
 }
 
