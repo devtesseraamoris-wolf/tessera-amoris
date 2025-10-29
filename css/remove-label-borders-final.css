@@ -1,0 +1,87 @@
+/* ============================================
+   REMOVE ALL LABEL BORDERS - FINAL FIX
+   Ultra-aggressive override to remove colored borders
+   ============================================ */
+
+/* Target ALL possible label selectors */
+label,
+label *,
+.form-label,
+.form-label *,
+label[for],
+label[for] *,
+.form-group label,
+.form-group label *,
+div label,
+div label *,
+form label,
+form label * {
+    border: 0 !important;
+    border-top: 0 !important;
+    border-bottom: 0 !important;
+    border-left: 0 !important;
+    border-right: 0 !important;
+    border-width: 0 !important;
+    border-style: none !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+/* Remove pseudo-elements that might add borders */
+label::before,
+label::after,
+.form-label::before,
+.form-label::after,
+label[for]::before,
+label[for]::after {
+    display: none !important;
+    content: none !important;
+    border: none !important;
+    background: transparent !important;
+}
+
+/* Specific overrides for common patterns */
+label[for="legacy-vision"],
+label[for="why-now"],
+label[for="personal-growth"],
+label[for="occupation"],
+label[for="education"],
+label[for="languages"],
+label[for="full-name"],
+label[for="email"],
+label[for="phone"],
+label[for="date-of-birth"],
+label[for="gender"],
+label[for="nationality"],
+label[for="country"],
+label[for="state"],
+label[for="city"],
+label[for="religious-background"],
+label[for="denomination"],
+label[for="faith-importance"],
+label[for="relationship-goal"],
+label[for="previous-marriage"],
+label[for="have-children"],
+label[for="want-children"],
+label[for="partner-age-range"],
+label[for="partner-location"],
+label[for="relocation"],
+label[for="partner-qualities"] {
+    border: none !important;
+    border-top: none !important;
+    border-bottom: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-width: 0 !important;
+    border-style: none !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+    background: transparent !important;
+}
+
+/* Override any inline styles */
+label[style*="border"],
+.form-label[style*="border"] {
+    border: none !important;
+}

@@ -29,10 +29,7 @@
     <link rel="stylesheet" href="css/enhanced-selectors-styles.css">
     <link rel="stylesheet" href="css/advanced-form-design.css">
     <link rel="stylesheet" href="css/advanced-form-navigation.css">
-    <script src="js/remove-label-borders.js"></script>
-    <script src="js/location-autocomplete.js"></script>
     <script src="js/form-data-store.js"></script>
-    <script src="js/genius-character-counters.js"></script>
     
     <!-- Supabase Client Library -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -44,13 +41,6 @@
     <link rel="stylesheet" href="css/data-text-golden-override.css">
     <link rel="stylesheet" href="css/genius-summary.css">
     <link rel="stylesheet" href="css/inspiration-text-enhanced.css">
-    <link rel="stylesheet" href="css/revolutionary-ux.css">
-    <link rel="stylesheet" href="css/remove-label-borders-final.css">
-    <link rel="stylesheet" href="css/fix-checkbox-radio-visibility.css">
-    <link rel="stylesheet" href="css/standardize-typography.css">
-    <link rel="stylesheet" href="css/location-autocomplete.css">
-    <link rel="stylesheet" href="css/elegant-custom-inputs.css">
-    <script src="js/custom-input-styling.js"></script>
 </head>
 <body>
     <!-- Header -->
@@ -78,8 +68,7 @@
         </div>
     </header>
 
-    <!-- Pre-Screening Quiz Modal (REMOVED FOR GENIUS v3.0) -->
-    <!--
+    <!-- Pre-Screening Quiz Modal -->
     <div id="quiz-modal-overlay" class="quiz-modal-overlay">
         <div id="quiz-container" class="quiz-container">
             <div class="quiz-header">
@@ -105,10 +94,9 @@
             </div>
         </div>
     </div>
-    -->
 
-    <!-- Application Form (Now Shows Immediately) -->
-    <div id="application-form-container" class="application-container">
+    <!-- Application Form (Initially Hidden) -->
+    <div id="application-form-container" class="application-container" style="display: none;">
         <div class="application-header">
             <h1 class="application-title">Begin Your Journey</h1>
             <p class="application-subtitle">Complete this application to take the first step toward finding a relationship with purpose and building a lasting legacy.</p>
@@ -117,66 +105,29 @@
         <div class="progress-bar">
             <div class="progress-step active" data-step="1">
                 <div class="step-number">1</div>
-                <div class="step-title">Your Vision</div>
+                <div class="step-title">Personal</div>
             </div>
             <div class="progress-step" data-step="2">
                 <div class="step-number">2</div>
-                <div class="step-title">About You</div>
+                <div class="step-title">Faith & Values</div>
             </div>
             <div class="progress-step" data-step="3">
                 <div class="step-number">3</div>
-                <div class="step-title">Faith & Values</div>
+                <div class="step-title">Relationship</div>
             </div>
             <div class="progress-step" data-step="4">
                 <div class="step-number">4</div>
-                <div class="step-title">Lifestyle & Goals</div>
+                <div class="step-title">Verification</div>
             </div>
             <div class="progress-step" data-step="5">
                 <div class="step-number">5</div>
-                <div class="step-title">Final Steps</div>
-            </div>
-            <div class="progress-step" data-step="6">
-                <div class="step-number">6</div>
                 <div class="step-title">Review</div>
             </div>
         </div>
         
         <div class="form-content">
-            <!-- Section 1: Your Vision (NEW - GENIUS v3.0) -->
+            <!-- Personal Information Section -->
             <div class="form-section active" data-section="1">
-                <div class="inspiration-reference">
-                    <p class="inspiration-text">"The quality of your life is determined by the quality of the questions you ask yourself. Let's start with the most important ones."</p>
-                    <p class="inspiration-source">Tessera Amoris Philosophy</p>
-                </div>
-                
-                <h2>Your Vision</h2>
-                <p>Before we dive into details, help us understand your deeper aspirations and what brought you here.</p>
-                
-                <div class="form-group">
-                    <label for="legacy-vision" class="form-label">Imagine your life 20 years from now</label>
-                    <p class="field-description">You're looking back on a life well-lived. What does your relationship and family look like? What legacy have you built together? Paint us a picture of this future.</p>
-                    <textarea id="legacy-vision" class="form-textarea" rows="6" minlength="100" maxlength="1000" required placeholder="In 20 years, I see myself..."></textarea>
-                    <div class="character-count">
-                        <span id="legacy-vision-count">0</span> / 1000 characters (minimum 100)
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="why-now" class="form-label">What brought you to Tessera Amoris at this moment in your life?</label>
-                    <p class="field-description">What shifted? What are you ready for now that you weren't before?</p>
-                    <textarea id="why-now" class="form-textarea" rows="4" minlength="50" maxlength="500" required placeholder="I'm here because..."></textarea>
-                    <div class="character-count">
-                        <span id="why-now-count">0</span> / 500 characters (minimum 50)
-                    </div>
-                </div>
-                
-                <div class="encouragement-note">
-                    <p>✨ <strong>Take your time.</strong> These questions set the foundation for everything that follows. Thoughtful, authentic answers help us find your ideal match.</p>
-                </div>
-            </div>
-            
-            <!-- Section 2: About You (Personal Information) -->
-            <div class="form-section" data-section="2">
                 <div class="inspiration-reference">
                     <p class="inspiration-text">"Every individual brings unique gifts and perspectives to a relationship. We celebrate the distinctive qualities that make you who you are."</p>
                     <p class="inspiration-source">Tessera Amoris Values</p>
@@ -243,32 +194,44 @@
                     </div>
                 </div>
                 
-                <!-- Simplified Location Input -->
-                <div class="location-autocomplete-container">
-                    <div class="location-field-single">
-                        <label for="location" class="form-label required">Where do you live?</label>
-                        <div class="location-input-wrapper">
+                <div class="location-selector-container">
+                    <!-- Country Selection -->
+                    <div class="location-field">
+                        <label for="country" class="sophisticated-label">Country of Residence</label>
+                        <select id="country" class="country-select" required>
+                            <option value="">Select a Country</option>
+                        </select>
+                        <div id="country-custom-group" class="country-custom-input-wrapper" style="display: none;">
+                            <label for="country-custom">Enter Your Country</label>
+                            <input type="text" id="country-custom" class="form-input" placeholder="e.g., Brazil" autocomplete="off">
+                        </div>
+                    </div>
+
+                    <!-- State/Province Selection -->
+                    <div class="location-field">
+                        <label for="state" class="sophisticated-label">State/Province</label>
+                        <select id="state" class="state-select" disabled required>
+                            <option value="">Select a State/Province</option>
+                        </select>
+                    </div>
+
+                    <!-- City Selection -->
+                    <div class="location-field">
+                        <label for="city" class="sophisticated-label">City</label>
+                        <select id="city" class="city-select" disabled required>
+                            <option value="">Select a City</option>
+                        </select>
+                        
+                        <!-- Custom City Input (appears when "Other" is selected) -->
+                        <div class="city-custom-input-wrapper">
+                            <label for="city-custom">Enter Your City</label>
                             <input 
                                 type="text" 
-                                id="location" 
-                                class="location-autocomplete-input"
-                                placeholder="Start typing your city (e.g., 'Asunción, Paraguay' or 'Rome, Italy')..."
-                                autocomplete="off"
-                                required
+                                id="city-custom" 
+                                placeholder="Type your city name here..."
+                                maxlength="50"
                             >
-                            <div class="location-icon">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="#D4AF37"/>
-                                </svg>
-                            </div>
                         </div>
-                        <div class="location-suggestions" id="location-suggestions" style="display: none;"></div>
-                        <div class="field-description">Type your city and select from suggestions (like Google Maps or Uber)</div>
-                        
-                        <!-- Hidden fields for form submission -->
-                        <input type="hidden" id="country" name="country">
-                        <input type="hidden" id="state" name="state">
-                        <input type="hidden" id="city" name="city">
                     </div>
                 </div>
                 
@@ -364,8 +327,8 @@
                 </div>
             </div>
             
-            <!-- Section 3: Faith & Values -->
-            <div class="form-section" data-section="3">
+            <!-- Faith & Values Section -->
+            <div class="form-section" data-section="2">
                 <div class="inspiration-reference">
                     <p class="inspiration-text">"Shared values and mutual respect form the foundation of lasting relationships, regardless of specific beliefs or traditions."</p>
                     <p class="inspiration-source">Tessera Amoris Philosophy</p>
@@ -461,27 +424,23 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="personal-growth" class="form-label">Personal Growth & Self-Awareness</label>
-                    <p class="field-description">What have you learned about yourself from past relationships? What patterns have you noticed, and how have you grown?</p>
-                    <textarea id="personal-growth" class="form-textarea" rows="5" minlength="100" maxlength="800" required placeholder="Looking back, I've learned that..."></textarea>
-                    <div class="character-count">
-                        <span id="personal-growth-count">0</span> / 800 characters (minimum 100)
-                    </div>
+                    <label for="family-vision" class="form-label">What is your vision for family life? (optional)</label>
+                    <textarea id="family-vision" class="form-textarea" rows="4"></textarea>
                 </div>
             </div>
             
-            <!-- Section 4: Lifestyle & Goals (Relationship) -->
-            <div class="form-section" data-section="4">
+            <!-- Relationship Section -->
+            <div class="form-section" data-section="3">
                 <div class="inspiration-reference">
                     <p class="inspiration-text">"True partnership is built on mutual respect, shared dreams, and the courage to build a life together."</p>
                     <p class="inspiration-source">Tessera Amoris Philosophy</p>
                 </div>
                 
-                <h2>Lifestyle & Relationship Goals</h2>
-                <p>Help us understand your lifestyle and what you're looking for in a partnership.</p>
+                <h2>Relationship Preferences</h2>
+                <p>Please share your preferences and expectations for a potential partner.</p>
                 
                 <div class="form-group">
-                    <label for="relationship-goal" class="form-label">Your relationship goal</label>
+                    <label for="relationship-goal" class="form-label">What is your primary goal in seeking a relationship?</label>
                     <select id="relationship-goal" class="form-select" required>
                         <option value="" selected disabled>Select your goal</option>
                         <option value="Marriage and family">Marriage and family</option>
@@ -492,7 +451,7 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="previous-marriage" class="form-label">Previously married?</label>
+                    <label for="previous-marriage" class="form-label">Have you been previously married?</label>
                     <select id="previous-marriage" class="form-select" required>
                         <option value="" selected disabled>Select an option</option>
                         <option value="No">No</option>
@@ -513,7 +472,7 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="want-children" class="form-label">Want (more) children?</label>
+                    <label for="want-children" class="form-label">Do you want (more) children?</label>
                     <select id="want-children" class="form-select" required>
                         <option value="" selected disabled>Select an option</option>
                         <option value="Yes, definitely">Yes, definitely</option>
@@ -524,7 +483,7 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="partner-age-range" class="form-label">Preferred age range</label>
+                    <label for="partner-age-range" class="form-label">Preferred age range for a partner</label>
                     <select id="partner-age-range" class="form-select" required>
                         <option value="" selected disabled>Select age range</option>
                         <option value="20-30">20-30</option>
@@ -541,7 +500,7 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="partner-location" class="form-label">Preferred location</label>
+                    <label for="partner-location" class="form-label">Preferred location for a partner</label>
                     <select id="partner-location" class="form-select" required>
                         <option value="" selected disabled>Select location preference</option>
                         <option value="Same country">Same country</option>
@@ -553,7 +512,7 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="relocation" class="form-label">Willing to relocate?</label>
+                    <label for="relocation" class="form-label">Would you be willing to relocate for the right relationship?</label>
                     <select id="relocation" class="form-select" required>
                         <option value="" selected disabled>Select an option</option>
                         <option value="Yes, anywhere">Yes, anywhere</option>
@@ -565,74 +524,109 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="partner-qualities" class="form-label">What do you bring to a relationship? (optional)</label>
-                    <p class="field-description">Instead of what you want, tell us what you offer. What makes you a great partner?</p>
-                    <textarea id="partner-qualities" class="form-textarea" rows="4" placeholder="I bring..."></textarea>
+                    <label for="partner-qualities" class="form-label">What qualities are most important to you in a partner? (optional)</label>
+                    <textarea id="partner-qualities" class="form-textarea" rows="4"></textarea>
                 </div>
             </div>
             
-            <!-- Section 5: Final Steps (Verification) -->
-            <div class="form-section" data-section="5">
+            <!-- Verification Section -->
+            <div class="form-section" data-section="4">
                 <div class="inspiration-reference">
                     <p class="inspiration-text">"Trust is built through transparency and genuine connections. We create a safe space for authentic relationships to flourish."</p>
                     <p class="inspiration-source">Tessera Amoris Community Standards</p>
                 </div>
                 
-                <h2>Your Visual Story</h2>
-                <p>Share 2-3 photos that authentically represent you. Quality over quantity—choose images that tell your story.</p>
+                <h2>Photos & Verification</h2>
+                <p>Help us get to know you better by sharing some photos. Additional verification steps will be completed later in the process.</p>
                 
-                <div class="photo-strategy-guide">
-                    <div class="photo-card">
-                        <div class="photo-card-icon">📸</div>
-                        <h4>Photo 1: Your Authentic Self</h4>
-                        <p>A clear, recent photo where you're comfortable and confident. Natural lighting preferred.</p>
+                <div class="form-group">
+                    <label class="form-label">Recent Photos</label>
+                    <p class="form-text" id="photo-requirements">Please upload 1-2 recent photos of yourself (taken within the last 6 months)</p>
+                    <div class="file-upload">
+                        <i class="fas fa-images file-upload-icon"></i>
+                        <p class="file-upload-text">Drag and drop your photos here, or click to browse</p>
+                        <button type="button" class="file-upload-btn">Browse Files</button>
+                        <input type="file" class="file-upload-input" accept="image/*" multiple required>
                     </div>
-                    <div class="photo-card">
-                        <div class="photo-card-icon">🌟</div>
-                        <h4>Photo 2: Your Lifestyle</h4>
-                        <p>Show us your world—a hobby, passion, or environment where you thrive.</p>
+                    <div class="file-preview"></div>
+                    <p class="form-note"><small>Note: Photo requirements may vary based on your preferences. Additional verification documents will be requested during the matching process.</small></p>
+                </div>
+                
+                <div class="form-group">
+                    <label for="reference-name-1" class="form-label">Character Reference #1</label>
+                    <div class="form-row">
+                        <div class="form-col-6">
+                            <div class="form-group">
+                                <label for="reference-name-1" class="form-label">Name</label>
+                                <input type="text" id="reference-name-1" class="form-input" required>
+                            </div>
+                        </div>
+                        <div class="form-col-6">
+                            <div class="form-group">
+                                <label for="reference-relationship-1" class="form-label">Relationship</label>
+                                <input type="text" id="reference-relationship-1" class="form-input" placeholder="e.g., Mentor, Friend, Family Member, Colleague" required>
+                            </div>
+                        </div>
                     </div>
-                    <div class="photo-card">
-                        <div class="photo-card-icon">✨</div>
-                        <h4>Photo 3: Optional Context</h4>
-                        <p>Another angle of you, or something that represents your values and aspirations.</p>
+                    <div class="form-row">
+                        <div class="form-col-6">
+                            <div class="form-group">
+                                <label for="reference-email-1" class="form-label">Email</label>
+                                <input type="email" id="reference-email-1" class="form-input" required>
+                            </div>
+                        </div>
+                        <div class="form-col-6">
+                            <div class="form-group">
+                                <label for="reference-phone-1" class="form-label">Phone</label>
+                                <input type="tel" id="reference-phone-1" class="form-input" required>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
                 <div class="form-group">
-                    <div class="photo-upload-modern">
-                        <div class="upload-zone">
-                            <svg class="upload-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                            </svg>
-                            <h3>Upload 2-3 Photos</h3>
-                            <p>Drag photos here or click to browse</p>
-                            <button type="button" class="upload-button">Choose Photos</button>
-                            <input type="file" class="file-upload-input" accept="image/*" multiple required>
+                    <label for="reference-name-2" class="form-label">Character Reference #2</label>
+                    <div class="form-row">
+                        <div class="form-col-6">
+                            <div class="form-group">
+                                <label for="reference-name-2" class="form-label">Name</label>
+                                <input type="text" id="reference-name-2" class="form-input" required>
+                            </div>
                         </div>
-                        <div class="file-preview"></div>
+                        <div class="form-col-6">
+                            <div class="form-group">
+                                <label for="reference-relationship-2" class="form-label">Relationship</label>
+                                <input type="text" id="reference-relationship-2" class="form-input" placeholder="e.g., Mentor, Friend, Family Member, Colleague" required>
+                            </div>
+                        </div>
                     </div>
-                    <p class="photo-note">💡 <strong>Pro tip:</strong> Authentic photos perform better than heavily edited ones. Be yourself—that's who we want to match.</p>
+                    <div class="form-row">
+                        <div class="form-col-6">
+                            <div class="form-group">
+                                <label for="reference-email-2" class="form-label">Email</label>
+                                <input type="email" id="reference-email-2" class="form-input" required>
+                            </div>
+                        </div>
+                        <div class="form-col-6">
+                            <div class="form-group">
+                                <label for="reference-phone-2" class="form-label">Phone</label>
+                                <input type="tel" id="reference-phone-2" class="form-input" required>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 
-
-                <div class="form-group verification-section">
-                    <div class="verification-box">
-                        <div class="verification-icon">🛡️</div>
-                        <div class="verification-content">
-                            <h4>Safety & Verification</h4>
-                            <div class="form-check">
-                                <input type="checkbox" id="background-check" class="form-check-input" required>
-                                <label for="background-check" class="form-check-label">I authorize Tessera Amoris to conduct verification checks to ensure community safety and authenticity.</label>
-                            </div>
-                            <p class="verification-note">All members undergo verification. References and additional documents will be requested during the matching process.</p>
-                        </div>
+                <div class="form-group">
+                    <label class="form-label">Background Check Authorization</label>
+                    <div class="form-check">
+                        <input type="checkbox" id="background-check" class="form-check-input" required>
+                        <label for="background-check" class="form-check-label">I authorize Tessera Amoris to conduct a background check to verify my identity and ensure the safety of the community.</label>
                     </div>
                 </div>
             </div>
             
-            <!-- Section 6: Review -->
-            <div class="form-section" data-section="6">
+            <!-- Review Section -->
+            <div class="form-section" data-section="5">
                 
                 <!-- EXCEPTIONAL REVIEW SECTION - Journey to Legacy -->
                 <div class="review-section-container">
@@ -975,8 +969,8 @@
     <script src="js/form-data-persistence.js"></script>
     <script src="js/fix-references-layout.js"></script>
     <script src="js/strategic-review.js"></script>
-    <!-- Pre-Screening Quiz (REMOVED FOR GENIUS v3.0) -->
-    <!-- <script src="js/pre-screening-quiz.js"></script> -->
+    <!-- Pre-Screening Quiz -->
+    <script src="js/pre-screening-quiz.js"></script>
     <!-- Review Refined (Vertical Layout) -->
     <script src="js/review-refined.js"></script>
     <!-- Test Mode (Remove in production or set TEST_MODE = false) -->

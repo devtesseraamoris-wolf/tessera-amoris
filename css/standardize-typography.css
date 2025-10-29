@@ -1,0 +1,302 @@
+/* ============================================
+   STANDARDIZE TYPOGRAPHY ACROSS ALL SECTIONS
+   Based on Lifestyle & Goals section design
+   ============================================ */
+
+/* ===== SECTION TITLES (H2) ===== */
+
+.form-section h2,
+.section-title {
+    font-family: 'Cormorant Garamond', serif !important;
+    font-size: 32px !important;
+    font-weight: 600 !important;
+    color: #1a365d !important;
+    margin-bottom: 12px !important;
+    line-height: 1.3 !important;
+    letter-spacing: normal !important;
+    text-transform: none !important;
+}
+
+/* ===== SECTION SUBTITLES/DESCRIPTIONS ===== */
+
+.form-section > p,
+.section-description {
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 15px !important;
+    font-weight: 400 !important;
+    color: #64748b !important;
+    margin-bottom: 24px !important;
+    line-height: 1.6 !important;
+}
+
+/* ===== SUBSECTION TITLES (H3) ===== */
+
+.form-section h3,
+.subsection-title {
+    font-family: 'Cormorant Garamond', serif !important;
+    font-size: 24px !important;
+    font-weight: 600 !important;
+    color: #1a365d !important;
+    margin-top: 32px !important;
+    margin-bottom: 16px !important;
+    line-height: 1.3 !important;
+    letter-spacing: normal !important;
+    text-transform: none !important;
+}
+
+/* ===== SUBSECTION SUBTITLES (H4) ===== */
+
+.form-section h4,
+.subsubsection-title {
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 18px !important;
+    font-weight: 600 !important;
+    color: #1e293b !important;
+    margin-top: 24px !important;
+    margin-bottom: 12px !important;
+    line-height: 1.4 !important;
+}
+
+/* ===== FORM LABELS ===== */
+
+label,
+.form-label,
+.sophisticated-label {
+    font-family: 'Cormorant Garamond', serif !important;
+    font-size: 18px !important;
+    font-weight: 500 !important;
+    color: #1a365d !important;
+    margin-bottom: 8px !important;
+    display: block !important;
+    line-height: 1.4 !important;
+    letter-spacing: normal !important;
+    text-transform: none !important;
+    
+    /* REMOVE ALL BORDERS */
+    border: none !important;
+    border-top: none !important;
+    border-bottom: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-width: 0 !important;
+    border-style: none !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+    outline: none !important;
+    background: transparent !important;
+    padding-left: 0 !important;
+}
+
+/* Remove pseudo-elements from labels */
+label::before,
+label::after,
+.form-label::before,
+.form-label::after {
+    display: none !important;
+    content: none !important;
+}
+
+/* ===== FIELD DESCRIPTIONS ===== */
+
+.field-description,
+.field-hint {
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    color: #64748b !important;
+    margin-top: 6px !important;
+    line-height: 1.5 !important;
+    font-style: italic !important;
+}
+
+/* ===== INPUT FIELDS ===== */
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="number"],
+input[type="date"],
+select,
+textarea {
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 15px !important;
+    font-weight: 400 !important;
+    color: #1e293b !important;
+    line-height: 1.5 !important;
+}
+
+/* ===== PLACEHOLDER TEXT ===== */
+
+::placeholder {
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 15px !important;
+    color: #94a3b8 !important;
+    font-style: italic !important;
+}
+
+/* ===== BUTTONS ===== */
+
+button,
+.btn,
+.form-button {
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.5px !important;
+    text-transform: none !important;
+}
+
+/* ===== CHARACTER COUNTERS ===== */
+
+.character-counter,
+.char-count {
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    color: #64748b !important;
+}
+
+/* ===== INSPIRATION QUOTES ===== */
+
+.inspiration-box,
+.quote-box {
+    font-family: 'Cormorant Garamond', serif !important;
+    font-size: 18px !important;
+    font-weight: 400 !important;
+    font-style: italic !important;
+    line-height: 1.6 !important;
+}
+
+.inspiration-source,
+.quote-source {
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    letter-spacing: 1px !important;
+    text-transform: uppercase !important;
+}
+
+/* ===== TIPS & NOTES ===== */
+
+.tip-box,
+.note-box,
+.encouragement-note {
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    line-height: 1.6 !important;
+}
+
+.tip-box strong,
+.note-box strong {
+    font-weight: 600 !important;
+}
+
+/* ===== PROGRESS STEPS ===== */
+
+.progress-step-label,
+.step-label {
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    color: #64748b !important;
+}
+
+.progress-step.active .progress-step-label {
+    font-weight: 600 !important;
+    color: #1a365d !important;
+}
+
+/* ===== VALIDATION MESSAGES ===== */
+
+.error-message,
+.validation-error {
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    color: #dc2626 !important;
+}
+
+.success-message {
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    color: #059669 !important;
+}
+
+/* ===== SPECIFIC SECTION OVERRIDES ===== */
+
+/* Section 1: Your Vision */
+[data-section="1"] h2 {
+    font-size: 32px !important;
+}
+
+/* Section 2: About You */
+[data-section="2"] h2 {
+    font-size: 32px !important;
+}
+
+/* Section 3: Faith & Values */
+[data-section="3"] h2 {
+    font-size: 32px !important;
+}
+
+/* Section 4: Lifestyle & Goals */
+[data-section="4"] h2 {
+    font-size: 32px !important;
+}
+
+/* Section 5: Final Steps */
+[data-section="5"] h2 {
+    font-size: 32px !important;
+}
+
+/* Section 6: Review */
+[data-section="6"] h2 {
+    font-size: 32px !important;
+}
+
+/* ===== RESPONSIVE TYPOGRAPHY ===== */
+
+@media (max-width: 768px) {
+    .form-section h2,
+    .section-title {
+        font-size: 28px !important;
+    }
+    
+    .form-section h3,
+    .subsection-title {
+        font-size: 22px !important;
+    }
+    
+    .form-section h4,
+    .subsubsection-title {
+        font-size: 16px !important;
+    }
+    
+    label,
+    .form-label {
+        font-size: 16px !important;
+    }
+    
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="number"],
+    input[type="date"],
+    select,
+    textarea {
+        font-size: 16px !important; /* Prevents zoom on iOS */
+    }
+}
+
+/* ===== ENSURE CONSISTENCY ===== */
+
+/* Override any conflicting styles */
+* {
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
+}
+
+/* Ensure fonts are loaded */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap');

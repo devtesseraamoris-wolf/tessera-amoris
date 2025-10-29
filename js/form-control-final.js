@@ -15,16 +15,17 @@
   class TesseraFormControl {
     constructor() {
       this.currentStep = 1;
-      this.totalSteps = 5;
+      this.totalSteps = 6;  // Updated for GENIUS v3.0
       this.isInitialized = false;
       
-      // Required fields for each section
+      // Required fields for each section (GENIUS v3.0)
       this.requiredFields = {
-        1: ['full-name', 'birth-month', 'birth-day', 'birth-year', 'gender', 'email', 'phone', 'country', 'state', 'city', 'nationality', 'occupation', 'education'],
-        2: ['faith-tradition', 'community-involvement', 'values-importance'],
-        3: ['relationship-goal', 'previous-marriage', 'have-children', 'want-children', 'relocation'],
-        4: ['background-check'],
-        5: ['terms-agreement', 'privacy-agreement']
+        1: ['legacy-vision', 'why-now'],  // Section 1: Your Vision
+        2: ['full-name', 'birth-month', 'birth-day', 'birth-year', 'gender', 'email', 'phone', 'country', 'state', 'city', 'nationality', 'occupation', 'education'],  // Section 2: About You
+        3: ['faith-tradition', 'community-involvement', 'values-importance', 'personal-growth'],  // Section 3: Faith & Values
+        4: ['relationship-goal', 'previous-marriage', 'have-children', 'want-children', 'relocation'],  // Section 4: Lifestyle & Goals
+        5: ['background-check'],  // Section 5: Final Steps
+        6: ['terms-agreement', 'privacy-agreement']  // Section 6: Review
       };
 
       this.init();

@@ -9,7 +9,11 @@
 
     // Initialize global data store
     window.formDataStore = {
-        // Section 1: Personal Information
+        // Section 1: Your Vision (GENIUS v3.0)
+        legacy_vision: '',
+        why_now: '',
+        
+        // Section 2: Personal Information (About You)
         full_name: '',
         birth_month: '',
         birth_day: '',
@@ -26,12 +30,12 @@
         education: '',
         languages: [],
         
-        // Section 2: Faith & Values
+        // Section 3: Faith & Values
         faith_tradition: '',
         community_involvement: '',
         values_importance: '',
         values_journey: '',
-        family_vision: '',
+        personal_growth: '',  // GENIUS v3.0
         core_values: [],
         
         // Section 3: Relationship Preferences
@@ -53,6 +57,11 @@
 
     // Field ID to store key mapping
     const fieldMapping = {
+        // Section 1: Your Vision
+        'legacy-vision': 'legacy_vision',
+        'why-now': 'why_now',
+        
+        // Section 2: About You
         'full-name': 'full_name',
         'birth-month': 'birth_month',
         'birth-day': 'birth_day',
@@ -72,7 +81,7 @@
         'community-involvement': 'community_involvement',
         'values-importance': 'values_importance',
         'values-journey': 'values_journey',
-        'family-vision': 'family_vision',
+        'personal-growth': 'personal_growth',  // GENIUS v3.0
         'relationship-goal': 'relationship_goal',
         'previous-marriage': 'previous_marriage',
         'have-children': 'have_children',

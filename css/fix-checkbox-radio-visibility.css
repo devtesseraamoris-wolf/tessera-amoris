@@ -1,0 +1,219 @@
+/* ============================================
+   FIX CHECKBOX & RADIO BUTTON VISIBILITY
+   Ensures checkboxes and radio buttons are visible
+   ============================================ */
+
+/* ===== CHECKBOXES ===== */
+
+/* Reset any hiding styles */
+input[type="checkbox"] {
+    appearance: auto !important;
+    -webkit-appearance: checkbox !important;
+    -moz-appearance: checkbox !important;
+    width: 20px !important;
+    height: 20px !important;
+    min-width: 20px !important;
+    min-height: 20px !important;
+    margin: 0 12px 0 0 !important;
+    cursor: pointer !important;
+    display: inline-block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: relative !important;
+    flex-shrink: 0 !important;
+    border: 2px solid #cbd5e0 !important;
+    border-radius: 4px !important;
+    background: white !important;
+    transition: all 0.2s ease !important;
+}
+
+input[type="checkbox"]:hover {
+    border-color: #D4AF37 !important;
+}
+
+input[type="checkbox"]:checked {
+    background-color: #D4AF37 !important;
+    border-color: #D4AF37 !important;
+}
+
+input[type="checkbox"]:focus {
+    outline: 2px solid #D4AF37 !important;
+    outline-offset: 2px !important;
+}
+
+/* Verification consent checkbox */
+#verification-consent {
+    appearance: auto !important;
+    -webkit-appearance: checkbox !important;
+    width: 20px !important;
+    height: 20px !important;
+    margin-right: 12px !important;
+}
+
+/* Section 3 value checkboxes */
+.value-input[type="checkbox"] {
+    appearance: auto !important;
+    -webkit-appearance: checkbox !important;
+    width: 18px !important;
+    height: 18px !important;
+    margin-right: 10px !important;
+}
+
+/* ===== RADIO BUTTONS ===== */
+
+/* Reset any hiding styles */
+input[type="radio"] {
+    appearance: auto !important;
+    -webkit-appearance: radio !important;
+    -moz-appearance: radio !important;
+    width: 20px !important;
+    height: 20px !important;
+    min-width: 20px !important;
+    min-height: 20px !important;
+    margin: 0 12px 0 0 !important;
+    cursor: pointer !important;
+    display: inline-block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: relative !important;
+    flex-shrink: 0 !important;
+    border: 2px solid #cbd5e0 !important;
+    border-radius: 50% !important;
+    background: white !important;
+    transition: all 0.2s ease !important;
+}
+
+input[type="radio"]:hover {
+    border-color: #D4AF37 !important;
+}
+
+input[type="radio"]:checked {
+    background-color: #D4AF37 !important;
+    border-color: #D4AF37 !important;
+}
+
+input[type="radio"]:focus {
+    outline: 2px solid #D4AF37 !important;
+    outline-offset: 2px !important;
+}
+
+/* Willingness to relocate radio buttons */
+input[name="relocation"][type="radio"] {
+    appearance: auto !important;
+    -webkit-appearance: radio !important;
+    width: 20px !important;
+    height: 20px !important;
+    margin-right: 12px !important;
+}
+
+/* ===== CHECKBOX CONTAINERS ===== */
+
+.checkbox-container {
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+    padding: 16px !important;
+    cursor: pointer !important;
+    border-radius: 8px !important;
+    transition: background-color 0.2s ease !important;
+}
+
+.checkbox-container:hover {
+    background-color: #f8fafc !important;
+}
+
+.checkbox-text {
+    flex: 1 !important;
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 15px !important;
+    color: #1e293b !important;
+    line-height: 1.6 !important;
+}
+
+/* Remove custom checkmark if it's hiding the real checkbox */
+.checkmark-custom {
+    display: none !important;
+}
+
+/* ===== RADIO BUTTON CONTAINERS ===== */
+
+.radio-option,
+.relocation-option {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    padding: 14px 16px !important;
+    border: 2px solid #e2e8f0 !important;
+    border-radius: 10px !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    background: white !important;
+}
+
+.radio-option:hover,
+.relocation-option:hover {
+    border-color: #D4AF37 !important;
+    background-color: #fffbf0 !important;
+}
+
+.radio-option input[type="radio"]:checked + label,
+.relocation-option:has(input[type="radio"]:checked) {
+    border-color: #D4AF37 !important;
+    background-color: #fffbf0 !important;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1) !important;
+}
+
+/* ===== FORM GROUP LAYOUTS ===== */
+
+.checkbox-group,
+.radio-group {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    margin-top: 12px !important;
+}
+
+/* ===== ENSURE VISIBILITY ===== */
+
+/* Override any JavaScript or CSS that might be hiding these */
+input[type="checkbox"],
+input[type="radio"] {
+    position: relative !important;
+    clip: auto !important;
+    clip-path: none !important;
+    width: auto !important;
+    height: auto !important;
+    overflow: visible !important;
+}
+
+/* Remove any absolute positioning that hides them */
+input[type="checkbox"]:not([style*="position: absolute"]),
+input[type="radio"]:not([style*="position: absolute"]) {
+    position: relative !important;
+}
+
+/* ===== ACCESSIBILITY ===== */
+
+input[type="checkbox"]:disabled,
+input[type="radio"]:disabled {
+    opacity: 0.5 !important;
+    cursor: not-allowed !important;
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media (max-width: 768px) {
+    input[type="checkbox"],
+    input[type="radio"] {
+        width: 18px !important;
+        height: 18px !important;
+        min-width: 18px !important;
+        min-height: 18px !important;
+    }
+    
+    .checkbox-container,
+    .radio-option,
+    .relocation-option {
+        padding: 12px !important;
+    }
+}
