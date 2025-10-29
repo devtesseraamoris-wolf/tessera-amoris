@@ -1,0 +1,119 @@
+/**
+ * ENHANCED INSPIRATION TEXT
+ * Elegant, visible, and persuasive design for the inspiration quotes
+ */
+
+.inspiration-reference {
+    background: linear-gradient(135deg, #1B3A57 0%, #2C4A67 100%);
+    border-radius: 12px;
+    padding: 24px 32px;
+    margin-bottom: 32px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(27, 58, 87, 0.2);
+}
+
+.inspiration-reference::before {
+    content: '"';
+    position: absolute;
+    top: -20px;
+    left: 20px;
+    font-size: 120px;
+    font-family: Georgia, serif;
+    color: rgba(212, 175, 55, 0.15);
+    line-height: 1;
+    pointer-events: none;
+}
+
+.inspiration-reference::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle at center, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.inspiration-text {
+    font-size: 18px !important;
+    line-height: 1.8 !important;
+    color: #FFFFFF !important;
+    font-weight: 500 !important;
+    font-style: italic !important;
+    margin: 0 0 12px 0 !important;
+    position: relative;
+    z-index: 1;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.inspiration-source {
+    font-size: 14px !important;
+    color: #D4AF37 !important;
+    font-weight: 600 !important;
+    text-align: right !important;
+    margin: 0 !important;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    position: relative;
+    z-index: 1;
+}
+
+.inspiration-source::before {
+    content: '— ';
+    color: rgba(212, 175, 55, 0.6);
+}
+
+/* Hover effect for interactivity */
+.inspiration-reference:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(27, 58, 87, 0.3);
+    transition: all 0.3s ease;
+}
+
+.inspiration-reference:hover .inspiration-text {
+    color: #FFFFFF !important;
+}
+
+.inspiration-reference:hover .inspiration-source {
+    color: #F4E4A6 !important;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .inspiration-reference {
+        padding: 20px 24px;
+    }
+    
+    .inspiration-text {
+        font-size: 16px !important;
+    }
+    
+    .inspiration-source {
+        font-size: 12px !important;
+    }
+    
+    .inspiration-reference::before {
+        font-size: 80px;
+        top: -10px;
+        left: 10px;
+    }
+}
+
+/* Animation on page load */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.inspiration-reference {
+    animation: fadeInUp 0.6s ease-out;
+}
+

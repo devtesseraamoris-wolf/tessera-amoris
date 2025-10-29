@@ -76,9 +76,10 @@ async function setFieldV2(id, value) {
         if (tagName === 'select') {
             // For SELECT elements
             field.value = value;
-            await wait(50); // Small delay to ensure value is set
+            await wait(500); // Much longer delay for select fields
             field.dispatchEvent(new Event('change', { bubbles: true }));
             field.dispatchEvent(new Event('input', { bubbles: true }));
+            await wait(200); // Wait after events
             console.log(`  ✓ ${id}: ${value} (select)`);
         } else if (fieldType === 'checkbox') {
             // For CHECKBOX elements

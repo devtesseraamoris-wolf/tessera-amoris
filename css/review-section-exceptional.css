@@ -3,9 +3,14 @@
  * Premium, persuasive design for Tessera Amoris
  */
 
+/* Hide old submit button */
+.btn-submit {
+    display: none !important;
+}
+
 /* ============================================
-   HERO SECTION
-   ============================================ */
+   CTA SECTION
+   ============================================ *//
 
 .review-section-container {
     max-width: 1200px;
@@ -265,14 +270,17 @@
 }
 
 .data-text {
-    font-size: 16px;
-    color: #333;
-    line-height: 1.7;
-    margin: 0;
-    padding: 16px;
-    background: #F8F9FA;
-    border-radius: 8px;
-    border-left: 4px solid #D4AF37;
+    font-size: 17px !important;
+    color: #B8941E !important;
+    line-height: 1.8 !important;
+    margin: 0 !important;
+    padding: 20px !important;
+    background: linear-gradient(135deg, #FEFDFB 0%, #FFF9F0 100%) !important;
+    border-radius: 12px !important;
+    border-left: 5px solid #D4AF37 !important;
+    font-weight: 700 !important;
+    font-style: italic !important;
+    box-shadow: 0 2px 8px rgba(212, 175, 55, 0.15) !important;
 }
 
 /* Verification Status */
@@ -348,10 +356,17 @@
 
 .checkbox-label input[type="checkbox"] {
     margin-top: 4px;
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
     cursor: pointer;
     accent-color: #D4AF37;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.checkbox-label input[type="checkbox"]:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
 }
 
 .checkbox-text {
@@ -370,6 +385,16 @@
     text-decoration: underline;
 }
 
+/* Button Container */
+.cta-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+}
+
 /* Submit Button */
 .submit-button {
     display: inline-flex;
@@ -386,6 +411,29 @@
     box-shadow: 0 8px 24px rgba(212, 175, 55, 0.4);
     transition: all 0.3s ease;
     letter-spacing: 0.5px;
+}
+
+/* Review Button */
+.review-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 48px;
+    background: transparent;
+    border: 2px solid #D4AF37;
+    border-radius: 12px;
+    color: #D4AF37;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 0.5px;
+}
+
+.review-button:hover {
+    background: rgba(212, 175, 55, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(212, 175, 55, 0.2);
 }
 
 .submit-button:hover {

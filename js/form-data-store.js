@@ -91,6 +91,21 @@
     function saveFieldToStore(fieldId, value) {
         const storeKey = fieldMapping[fieldId];
         if (storeKey) {
+            // Don't save empty values (except for checkboxes which can be false)
+            if (value === '' || value === null || value === undefined) {
+                // Only skip if it's not a checkbox (checkboxes can be false)
+                if (typeof value !== 'boolean') {
+                    console.log(`⏭️  Skipped empty value for: ${storeKey}`);
+                    return;
+                }
+            }
+            
+            // Don't overwrite existing non-empty values with empty values
+            if ((value === '' || value === null || value === undefined) && window.formDataStore[storeKey]) {
+                console.log(`⏭️  Skipped overwriting ${storeKey} with empty value`);
+                return;
+            }
+            
             window.formDataStore[storeKey] = value;
             console.log(`💾 Saved to store: ${storeKey} = ${typeof value === 'object' ? JSON.stringify(value) : value}`);
             

@@ -1,0 +1,341 @@
+/**
+ * GENIUS SUMMARY ENHANCEMENTS CSS
+ * Styles for the out-of-the-box summary features
+ */
+
+/* Compatibility Score Circle */
+.genius-compatibility-score {
+    background: linear-gradient(135deg, #1B3A57 0%, #2C4A67 100%);
+    border-radius: 16px;
+    padding: 32px;
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    box-shadow: 0 8px 24px rgba(27, 58, 87, 0.2);
+}
+
+.score-circle {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.score-circle svg {
+    transform: rotate(-90deg);
+}
+
+.score-progress {
+    transition: stroke-dasharray 1.5s ease-out;
+}
+
+.score-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.score-number {
+    font-size: 32px;
+    font-weight: 700;
+    color: #D4AF37;
+    line-height: 1;
+}
+
+.score-label {
+    font-size: 12px;
+    color: #E5E7EB;
+    margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.score-description {
+    flex: 1;
+    color: #FFFFFF;
+}
+
+.score-description h4 {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0 0 12px 0;
+    color: #FFFFFF;
+}
+
+.score-description p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 0 0 16px 0;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.score-tips {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 16px;
+    margin-top: 16px;
+}
+
+.score-tips strong {
+    display: block;
+    margin-bottom: 8px;
+    color: #D4AF37;
+    font-size: 14px;
+}
+
+.score-tips ul {
+    margin: 0;
+    padding-left: 20px;
+    list-style: none;
+}
+
+.score-tips li {
+    font-size: 14px;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.85);
+    position: relative;
+    padding-left: 8px;
+}
+
+.score-tips li:before {
+    content: "→";
+    position: absolute;
+    left: -12px;
+    color: #D4AF37;
+}
+
+/* Profile Strength Badges */
+.genius-profile-strengths {
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.genius-profile-strengths h4 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 0 16px 0;
+    color: #2C3E50;
+}
+
+.strength-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.strength-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: transform 0.2s ease;
+}
+
+.strength-badge:hover {
+    transform: translateY(-2px);
+}
+
+.strength-badge.gold {
+    background: linear-gradient(135deg, #D4AF37 0%, #F4E4A6 100%);
+    color: #1B3A57;
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+}
+
+.strength-badge.silver {
+    background: linear-gradient(135deg, #C0C0C0 0%, #E8E8E8 100%);
+    color: #2C3E50;
+    box-shadow: 0 4px 12px rgba(192, 192, 192, 0.3);
+}
+
+.badge-icon {
+    font-size: 18px;
+    line-height: 1;
+}
+
+.badge-text {
+    line-height: 1;
+}
+
+/* Personalized Insights */
+.genius-insights {
+    background: linear-gradient(135deg, #FFF9F0 0%, #FFFFFF 100%);
+    border-radius: 16px;
+    padding: 32px;
+    margin-top: 32px;
+    border-left: 4px solid #D4AF37;
+    box-shadow: 0 4px 16px rgba(212, 175, 55, 0.1);
+}
+
+.genius-insights h4 {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0 0 20px 0;
+    color: #1B3A57;
+}
+
+.insights-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.insight-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 16px;
+    background: #FFFFFF;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.insight-item:hover {
+    transform: translateX(4px);
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.15);
+}
+
+.insight-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+.insight-item p {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.6;
+    color: #2C3E50;
+}
+
+/* Journey Timeline */
+.genius-timeline {
+    background: #FFFFFF;
+    border-radius: 16px;
+    padding: 32px;
+    margin-top: 32px;
+    border: 2px solid #D4AF37;
+    box-shadow: 0 4px 16px rgba(212, 175, 55, 0.1);
+}
+
+.genius-timeline h4 {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0 0 24px 0;
+    color: #1B3A57;
+    text-align: center;
+}
+
+.timeline-steps {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.timeline-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+    position: relative;
+}
+
+.step-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    background: #E5E7EB;
+    border: 3px solid #E5E7EB;
+    transition: all 0.3s ease;
+    z-index: 2;
+    position: relative;
+}
+
+.timeline-step.complete .step-icon {
+    background: linear-gradient(135deg, #D4AF37 0%, #F4E4A6 100%);
+    border-color: #D4AF37;
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+}
+
+.timeline-step.pending .step-icon {
+    background: #FFFFFF;
+    border-color: #D4AF37;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.timeline-step.future .step-icon {
+    background: #F3F4F6;
+    border-color: #D1D5DB;
+    opacity: 0.6;
+}
+
+.step-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #2C3E50;
+    text-align: center;
+    max-width: 100px;
+}
+
+.timeline-step.future .step-label {
+    opacity: 0.5;
+}
+
+.step-connector {
+    position: absolute;
+    top: 28px;
+    left: 50%;
+    width: 100%;
+    height: 3px;
+    background: #E5E7EB;
+    z-index: 1;
+}
+
+.timeline-step.complete .step-connector {
+    background: linear-gradient(90deg, #D4AF37 0%, #F4E4A6 100%);
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 4px 12px rgba(212, 175, 55, 0.2);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 6px 16px rgba(212, 175, 55, 0.4);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .genius-compatibility-score {
+        flex-direction: column;
+        text-align: center;
+        padding: 24px;
+    }
+
+    .timeline-steps {
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .step-connector {
+        display: none;
+    }
+
+    .strength-badges {
+        justify-content: center;
+    }
+}
+

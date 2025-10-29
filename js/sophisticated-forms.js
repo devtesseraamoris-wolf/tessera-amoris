@@ -175,6 +175,9 @@ function initializeDatePicker() {
         const month = parseInt(monthSelect.value);
         const year = parseInt(yearSelect.value);
         
+        // Preserve currently selected day
+        const currentDay = daySelect.value;
+        
         daySelect.innerHTML = '<option value="">Day</option>';
         
         if (month && year) {
@@ -184,6 +187,11 @@ function initializeDatePicker() {
                 option.value = day;
                 option.textContent = day;
                 daySelect.appendChild(option);
+            }
+            
+            // Restore previously selected day if it's still valid
+            if (currentDay && parseInt(currentDay) <= daysInMonth) {
+                daySelect.value = currentDay;
             }
         }
     }

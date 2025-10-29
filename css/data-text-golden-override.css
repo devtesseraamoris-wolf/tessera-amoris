@@ -1,0 +1,95 @@
+/**
+ * DATA TEXT GOLDEN OVERRIDE
+ * Maximum specificity to override all other CSS
+ */
+
+/* Override with maximum specificity - Harmonious proportions */
+.review-section-container .timeline-card .data-item .data-text,
+.timeline-card .data-item .data-text,
+.data-item .data-text,
+p.data-text,
+.data-text {
+    color: #B8941E !important;
+    font-size: 15px !important;  /* Reduced from 16px for better harmony */
+    font-weight: 600 !important;  /* Reduced from 700 for elegance */
+    font-style: italic !important;
+    line-height: 1.7 !important;  /* Optimal readability */
+    margin: 0 !important;
+    padding: 16px 20px !important;  /* Balanced padding */
+    background: linear-gradient(135deg, #FEFDFB 0%, #FFF9F0 100%) !important;
+    border-radius: 8px !important;  /* Softer corners */
+    border-left: 3px solid #D4AF37 !important;  /* Thinner for elegance */
+    box-shadow: 0 1px 4px rgba(212, 175, 55, 0.1) !important;  /* Subtle shadow */
+    min-height: 60px !important;  /* Minimum height for consistency */
+}
+
+/* Ensure visibility */
+.data-text * {
+    color: inherit !important;
+}
+
+
+
+
+/* Reduce Verification Complete section size for better proportion */
+.verification-status {
+    padding: 16px 20px !important;  /* Reduced from larger padding */
+    margin-bottom: 20px !important;  /* Reduced spacing */
+}
+
+.verification-status h4 {
+    font-size: 18px !important;  /* Reduced from larger */
+    margin-bottom: 12px !important;
+}
+
+.verification-status p {
+    font-size: 14px !important;  /* Reduced for harmony */
+    line-height: 1.6 !important;
+}
+
+.verification-item {
+    padding: 10px 0 !important;  /* Reduced padding */
+    font-size: 14px !important;
+}
+
+
+
+
+/* Standardize ALL checkbox sizes for consistency */
+input[type="checkbox"],
+.checkbox-label input[type="checkbox"],
+.terms-checkbox input[type="checkbox"],
+.privacy-checkbox input[type="checkbox"] {
+    width: 20px !important;
+    height: 20px !important;
+    min-width: 20px !important;
+    min-height: 20px !important;
+    border-radius: 4px !important;
+    border: 2px solid #D4AF37 !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    vertical-align: middle !important;
+    margin-right: 10px !important;
+}
+
+input[type="checkbox"]:hover {
+    transform: scale(1.05) !important;
+    box-shadow: 0 0 8px rgba(212, 175, 55, 0.25) !important;
+}
+
+input[type="checkbox"]:checked {
+    background-color: #D4AF37 !important;
+    border-color: #D4AF37 !important;
+}
+
+/* Ensure checkbox labels are aligned */
+.checkbox-label,
+.terms-checkbox label,
+.privacy-checkbox label {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    font-size: 15px !important;
+    line-height: 1.5 !important;
+}
+

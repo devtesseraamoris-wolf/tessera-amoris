@@ -190,8 +190,30 @@
             const button = event.target.closest('.edit-button');
             const sectionNum = button.getAttribute('data-edit-section');
             
-            if (sectionNum && window.tesseraFormControl) {
-                window.tesseraFormControl.transitionToSection(parseInt(sectionNum));
+            if (sectionNum) {
+                const targetSection = parseInt(sectionNum) - 1; // Convert to 0-based index
+                
+                // Find and trigger the navigation
+                const formSections = document.querySelectorAll('.form-section');
+                const currentStepElement = document.querySelector('[data-current-step]');
+                
+                if (formSections && formSections.length > targetSection) {
+                    // Hide all sections
+                    formSections.forEach(section => section.classList.remove('active'));
+                    
+                    // Show target section
+                    formSections[targetSection].classList.add('active');
+                    
+                    // Update progress
+                    if (currentStepElement) {
+                        currentStepElement.setAttribute('data-current-step', targetSection);
+                    }
+                    
+                    // Scroll to top
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    
+                    console.log(`✏️  Navigated to section ${sectionNum} for editing`);
+                }
             }
         }
     });
