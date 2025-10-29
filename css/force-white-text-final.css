@@ -1,0 +1,121 @@
+/**
+ * FORCE WHITE TEXT - FINAL OVERRIDE
+ * 
+ * This file MUST be loaded LAST to override all other CSS files
+ * that are making text black on dark backgrounds.
+ * 
+ * Author: High Web Strategist & Designer
+ * Date: October 29, 2025
+ */
+
+/* ============================================
+   REVIEW SECTION - FORCE WHITE TEXT
+   ============================================ */
+
+/* Your Future Starts Now - Title */
+.cta-title,
+.final-cta-section .cta-title,
+.review-cta .cta-title,
+h2.cta-title {
+    color: #ffffff !important;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* What Brought You Here - Title */
+.why-here-title,
+h3.why-here-title {
+    color: #ffffff !important;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Checkbox Text - All variations */
+.checkbox-text,
+.final-checkboxes .checkbox-text,
+.checkbox-label .checkbox-text,
+span.checkbox-text,
+label .checkbox-text {
+    color: #ffffff !important;
+}
+
+/* Links inside checkbox text */
+.checkbox-text .link,
+.checkbox-text a,
+.checkbox-text a.link {
+    color: #D4AF37 !important;
+    text-decoration: underline !important;
+}
+
+.checkbox-text .link:hover,
+.checkbox-text a:hover {
+    color: #f0d98f !important;
+}
+
+/* CTA Description */
+.cta-description,
+.final-cta-section .cta-description {
+    color: #ffffff !important;
+}
+
+/* All text inside final-cta-section */
+.final-cta-section,
+.final-cta-section * {
+    color: #ffffff !important;
+}
+
+/* Exception for links */
+.final-cta-section a,
+.final-cta-section .link {
+    color: #D4AF37 !important;
+}
+
+/* All text inside why-here section */
+.why-here-section,
+.why-here-section * {
+    color: #ffffff !important;
+}
+
+/* Why here quote */
+.why-here-quote {
+    color: #ffffff !important;
+}
+
+/* ============================================
+   TRUST INDICATORS
+   ============================================ */
+
+.trust-indicators,
+.trust-indicators * {
+    color: #ffffff !important;
+}
+
+/* ============================================
+   RESPONSIVE - MAINTAIN WHITE TEXT
+   ============================================ */
+
+@media (max-width: 768px) {
+    .cta-title,
+    .why-here-title,
+    .checkbox-text {
+        color: #ffffff !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .cta-title,
+    .why-here-title,
+    .checkbox-text {
+        color: #ffffff !important;
+    }
+}
+
+/* ============================================
+   PRINT - MAINTAIN READABILITY
+   ============================================ */
+
+@media print {
+    .cta-title,
+    .why-here-title,
+    .checkbox-text {
+        color: #000000 !important;
+    }
+}

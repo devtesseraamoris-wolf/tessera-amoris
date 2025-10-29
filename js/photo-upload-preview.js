@@ -45,8 +45,8 @@
         // Update preview
         updatePreview();
         
-        // Show success message
-        showNotification(`${newFiles.length} photo(s) uploaded successfully!`, 'success');
+        // Show success message (longer duration)
+        showNotification(`${newFiles.length} photo(s) uploaded successfully! ✓`, 'success', 5000);
         
         // Hide upload zone if we have 3 photos
         if (uploadedFiles.length >= 3) {
@@ -223,7 +223,7 @@
     /**
      * Show notification
      */
-    function showNotification(message, type = 'info') {
+    function showNotification(message, type = 'info', duration = 3000) {
         const notification = document.createElement('div');
         notification.className = `photo-notification photo-notification-${type}`;
         
@@ -235,11 +235,11 @@
         // Animate in
         setTimeout(() => notification.classList.add('show'), 10);
         
-        // Remove after 3 seconds
+        // Remove after specified duration
         setTimeout(() => {
             notification.classList.remove('show');
             setTimeout(() => notification.remove(), 300);
-        }, 3000);
+        }, duration);
     }
     
     /**
