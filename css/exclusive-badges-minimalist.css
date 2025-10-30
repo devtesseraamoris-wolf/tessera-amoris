@@ -1,0 +1,212 @@
+/**
+ * EXCLUSIVE BADGES - MINIMALIST ELEGANCE
+ * Clean white text with flag emoji and subtle gradient underline
+ * 
+ * Concept: Less is more. Simple, sophisticated, always works.
+ * No animations, no boxes, no gimmicks. Pure elegance.
+ * 
+ * Author: High Web Strategist & Creative Designer
+ * Date: October 30, 2025
+ */
+
+/* ============================================
+   MINIMALIST BADGE BASE
+   ============================================ */
+
+.badge-highlight {
+    display: inline;
+    position: relative;
+    padding: 0;
+    margin: 0 2px;
+    color: #FFFFFF;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-shadow: 
+        0 1px 3px rgba(0, 0, 0, 0.7),
+        0 0 15px rgba(0, 0, 0, 0.5);
+    background: transparent;
+}
+
+/* ============================================
+   PARAGUAY - FLAG + GRADIENT UNDERLINE
+   ============================================ */
+
+.badge-paraguay::before {
+    content: '🇵🇾 ';
+    font-size: 1.1em;
+    vertical-align: middle;
+    margin-right: 2px;
+    filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.2));
+}
+
+.badge-paraguay {
+    position: relative;
+    padding-bottom: 3px;
+}
+
+.badge-paraguay::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1.5px;
+    background: linear-gradient(
+        90deg,
+        #D52B1E 0%,
+        #FFFFFF 50%,
+        #0038A8 100%
+    );
+    opacity: 0.7;
+    border-radius: 1px;
+}
+
+/* ============================================
+   EUROPE - FLAG + GRADIENT UNDERLINE
+   ============================================ */
+
+.badge-europe::before {
+    content: '🇪🇺 ';
+    font-size: 1.1em;
+    vertical-align: middle;
+    margin-right: 2px;
+    filter: drop-shadow(0 0 3px rgba(255, 215, 0, 0.2));
+}
+
+.badge-europe {
+    position: relative;
+    padding-bottom: 3px;
+}
+
+.badge-europe::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1.5px;
+    background: linear-gradient(
+        90deg,
+        #003399 0%,
+        #FFCC00 50%,
+        #003399 100%
+    );
+    opacity: 0.7;
+    border-radius: 1px;
+}
+
+/* ============================================
+   SUBTLE HOVER (Optional Enhancement)
+   ============================================ */
+
+.badge-paraguay:hover::after {
+    opacity: 1;
+    height: 2px;
+    transition: all 0.2s ease;
+}
+
+.badge-europe:hover::after {
+    opacity: 1;
+    height: 2px;
+    transition: all 0.2s ease;
+}
+
+.badge-paraguay:hover::before,
+.badge-europe:hover::before {
+    transform: scale(1.05);
+    transition: transform 0.2s ease;
+}
+
+/* ============================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================ */
+
+@media (max-width: 768px) {
+    .badge-highlight {
+        font-size: 1em;
+        letter-spacing: 0.3px;
+    }
+    
+    .badge-paraguay::before,
+    .badge-europe::before {
+        font-size: 1em;
+    }
+    
+    .badge-paraguay::after,
+    .badge-europe::after {
+        height: 1px;
+    }
+}
+
+@media (max-width: 480px) {
+    .badge-highlight {
+        font-size: 0.95em;
+        letter-spacing: 0.2px;
+    }
+    
+    .badge-paraguay::before,
+    .badge-europe::before {
+        font-size: 0.95em;
+        margin-right: 1px;
+    }
+    
+    .badge-paraguay::after,
+    .badge-europe::after {
+        height: 1px;
+        opacity: 0.6;
+    }
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+    .badge-highlight {
+        color: #FFFFFF;
+        text-shadow: 0 0 5px #000000;
+    }
+    
+    .badge-paraguay::after,
+    .badge-europe::after {
+        opacity: 1;
+        height: 2px;
+    }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .badge-paraguay:hover::before,
+    .badge-europe:hover::before {
+        transform: none;
+    }
+    
+    .badge-paraguay:hover::after,
+    .badge-europe:hover::after {
+        transition: none;
+    }
+}
+
+/* Print styles */
+@media print {
+    .badge-highlight {
+        color: #000000;
+        text-shadow: none;
+    }
+    
+    .badge-paraguay::before {
+        content: 'PY ';
+        filter: none;
+    }
+    
+    .badge-europe::before {
+        content: 'EU ';
+        filter: none;
+    }
+    
+    .badge-paraguay::after,
+    .badge-europe::after {
+        display: none;
+    }
+}
