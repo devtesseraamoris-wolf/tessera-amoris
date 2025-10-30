@@ -331,6 +331,150 @@
 }
 
 /* ============================================
+   PARTÍCULAS DOURADAS FLUTUANTES
+   ============================================ */
+
+.golden-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: radial-gradient(circle, #FFD700, transparent);
+    border-radius: 50%;
+    opacity: 0;
+    animation: float-up 3s ease-in-out infinite;
+}
+
+.particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+.particle:nth-child(2) { left: 20%; animation-delay: 0.3s; }
+.particle:nth-child(3) { left: 30%; animation-delay: 0.6s; }
+.particle:nth-child(4) { left: 40%; animation-delay: 0.9s; }
+.particle:nth-child(5) { left: 50%; animation-delay: 1.2s; }
+.particle:nth-child(6) { left: 60%; animation-delay: 0.4s; }
+.particle:nth-child(7) { left: 70%; animation-delay: 0.7s; }
+.particle:nth-child(8) { left: 80%; animation-delay: 1.0s; }
+.particle:nth-child(9) { left: 90%; animation-delay: 1.3s; }
+.particle:nth-child(10) { left: 15%; animation-delay: 0.5s; }
+.particle:nth-child(11) { left: 25%; animation-delay: 0.8s; }
+.particle:nth-child(12) { left: 35%; animation-delay: 1.1s; }
+.particle:nth-child(13) { left: 45%; animation-delay: 0.2s; }
+.particle:nth-child(14) { left: 55%; animation-delay: 0.6s; }
+.particle:nth-child(15) { left: 65%; animation-delay: 0.9s; }
+.particle:nth-child(16) { left: 75%; animation-delay: 1.2s; }
+.particle:nth-child(17) { left: 85%; animation-delay: 0.3s; }
+.particle:nth-child(18) { left: 95%; animation-delay: 0.7s; }
+.particle:nth-child(19) { left: 5%; animation-delay: 1.0s; }
+.particle:nth-child(20) { left: 50%; animation-delay: 0.4s; }
+
+@keyframes float-up {
+    0% {
+        bottom: 0;
+        opacity: 0;
+        transform: translateX(0) scale(0.5);
+    }
+    10% {
+        opacity: 0.8;
+    }
+    50% {
+        opacity: 1;
+        transform: translateX(20px) scale(1);
+    }
+    100% {
+        bottom: 100%;
+        opacity: 0;
+        transform: translateX(-20px) scale(0.5);
+    }
+}
+
+/* ============================================
+   PULSO DE LUZ NO LOGO
+   ============================================ */
+
+.tessera-logo-text {
+    position: relative;
+    animation: logo-pulse 2s ease-in-out infinite;
+}
+
+@keyframes logo-pulse {
+    0%, 100% {
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    50% {
+        text-shadow: 
+            0 2px 10px rgba(0, 0, 0, 0.1),
+            0 0 20px rgba(255, 215, 0, 0.3),
+            0 0 30px rgba(255, 215, 0, 0.2);
+    }
+}
+
+/* ============================================
+   GRADIENTE ANIMADO NO FUNDO
+   ============================================ */
+
+.tessera-transition-overlay {
+    background: linear-gradient(
+        135deg,
+        rgba(201, 169, 97, 0.95) 0%,
+        rgba(212, 175, 55, 0.95) 50%,
+        rgba(184, 134, 11, 0.95) 100%
+    );
+    background-size: 200% 200%;
+    animation: gradient-shift 3s ease infinite;
+}
+
+@keyframes gradient-shift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* ============================================
+   BRILHO NAS PALAVRAS-CHAVE
+   ============================================ */
+
+.tessera-message {
+    position: relative;
+}
+
+.tessera-message::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    background: radial-gradient(circle, rgba(255, 215, 0, 0.2), transparent);
+    opacity: 0;
+    animation: word-glow 2s ease-in-out infinite;
+    border-radius: 10px;
+    z-index: -1;
+}
+
+@keyframes word-glow {
+    0%, 100% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+/* ============================================
    ACCESSIBILITY
    ============================================ */
 

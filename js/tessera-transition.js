@@ -14,24 +14,29 @@
             this.isAnimating = false;
             this.messages = {
                 1: {
-                    main: 'Your Vision Shines Bright',
-                    sub: 'Now, let's discover the beautiful soul behind it...'
+                    main: "✨ Your Vision Opens the Path Ahead",
+                    sub: "Every extraordinary love story begins with a dream like yours...",
+                    icon: "✨"
                 },
                 2: {
-                    main: 'Your Story Takes Shape',
-                    sub: 'Every chapter leads to something extraordinary...'
+                    main: "💫 Your Authentic Self Speaks Volumes",
+                    sub: "The right person will cherish exactly who you are...",
+                    icon: "💫"
                 },
                 3: {
-                    main: 'Your Heart Speaks Volumes',
-                    sub: 'These values will guide you to your perfect match...'
+                    main: "💖 Your Heart Reveals Your True North",
+                    sub: "These sacred values will guide you to your soulmate...",
+                    icon: "💖"
                 },
                 4: {
-                    main: 'Your Future Awaits',
-                    sub: 'Every dream deserves a partner to share it with...'
+                    main: "🌟 Your Perfect Match Is Waiting",
+                    sub: "Someone extraordinary is ready to build this future with you...",
+                    icon: "🌟"
                 },
                 5: {
-                    main: 'Almost There, Beautiful Soul',
-                    sub: 'Your legacy is being woven with golden threads...'
+                    main: "🎨 Your Legacy Awaits Its Final Touch",
+                    sub: "In moments, your journey to extraordinary love begins...",
+                    icon: "🎨"
                 }
             };
             
@@ -98,7 +103,19 @@
             const shimmer = document.createElement('div');
             shimmer.className = 'golden-shimmer';
             
+            // Create golden particles
+            const particlesContainer = document.createElement('div');
+            particlesContainer.className = 'golden-particles';
+            
+            // Add 20 particles
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particlesContainer.appendChild(particle);
+            }
+            
             // Assemble overlay
+            this.overlay.appendChild(particlesContainer);
             this.overlay.appendChild(logoContainer);
             this.overlay.appendChild(messageContainer);
             this.overlay.appendChild(weavingAnimation);
@@ -111,35 +128,53 @@
         setupListeners() {
             // Listen for custom event from form control
             document.addEventListener('tessera:sectionComplete', (e) => {
+                console.log('Tessera transition event received:', e.detail);
                 const fromSection = e.detail.fromSection;
                 const toSection = e.detail.toSection;
                 this.showTransition(fromSection, toSection);
             });
+            console.log('Tessera transition listeners setup complete');
         }
         
         showTransition(fromSection, toSection) {
-            if (this.isAnimating) return;
+            console.log('showTransition called:', fromSection, '->', toSection);
+            
+            if (this.isAnimating) {
+                console.log('Already animating, skipping');
+                return;
+            }
             
             this.isAnimating = true;
             
             // Update messages
             const messageData = this.messages[fromSection];
+            console.log('Message data for section', fromSection, ':', messageData);
+            
             if (messageData) {
                 const messageEl = this.overlay.querySelector('.tessera-message');
                 const submessageEl = this.overlay.querySelector('.tessera-submessage');
                 
+                console.log('Message elements:', messageEl, submessageEl);
+                
                 messageEl.textContent = messageData.main;
                 submessageEl.textContent = messageData.sub;
+                
+                console.log('Messages updated:', messageData.main, messageData.sub);
+            } else {
+                console.warn('No message data found for section:', fromSection);
             }
             
             // Set data attribute for section-specific styling
             this.overlay.setAttribute('data-from-section', fromSection);
             
             // Show overlay
+            console.log('Adding active class to overlay');
             this.overlay.classList.add('active');
+            console.log('Overlay classes:', this.overlay.className);
             
             // Hide after animation duration (3 seconds)
             setTimeout(() => {
+                console.log('Hiding transition after 3s');
                 this.hideTransition();
             }, 3000);
         }

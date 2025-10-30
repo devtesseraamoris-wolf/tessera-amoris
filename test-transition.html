@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Tessera Transition</title>
+    <link rel="stylesheet" href="css/tessera-transition-animation.css">
+</head>
+<body>
+    <h1>Test Tessera Transition Animation</h1>
+    <button id="testBtn">Test Transition (Section 1)</button>
+    <button id="testBtn2">Test Transition (Section 2)</button>
+    <button id="testBtn3">Test Transition (Section 3)</button>
+    
+    <script src="js/tessera-transition.js"></script>
+    <script>
+        document.getElementById('testBtn').addEventListener('click', () => {
+            console.log('Dispatching event for section 1');
+            const event = new CustomEvent('tessera:sectionComplete', {
+                detail: {
+                    fromSection: 1,
+                    toSection: 2
+                }
+            });
+            document.dispatchEvent(event);
+        });
+        
+        document.getElementById('testBtn2').addEventListener('click', () => {
+            console.log('Dispatching event for section 2');
+            const event = new CustomEvent('tessera:sectionComplete', {
+                detail: {
+                    fromSection: 2,
+                    toSection: 3
+                }
+            });
+            document.dispatchEvent(event);
+        });
+        
+        document.getElementById('testBtn3').addEventListener('click', () => {
+            console.log('Dispatching event for section 3');
+            const event = new CustomEvent('tessera:sectionComplete', {
+                detail: {
+                    fromSection: 3,
+                    toSection: 4
+                }
+            });
+            document.dispatchEvent(event);
+        });
+        
+        // Check if tesseraTransition is initialized
+        setTimeout(() => {
+            console.log('TesseraTransition initialized:', window.tesseraTransition);
+        }, 1000);
+    </script>
+</body>
+</html>
