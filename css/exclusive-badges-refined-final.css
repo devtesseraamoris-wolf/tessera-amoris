@@ -1,0 +1,256 @@
+/**
+ * EXCLUSIVE BADGES - REFINED & ELEGANT
+ * White text, larger flags, subtle border, innovative glow
+ * NO aggressive backgrounds
+ * 
+ * Author: High Web Strategist & Creative Designer
+ * Date: October 30, 2025
+ */
+
+/* ============================================
+   CLEAN WHITE TEXT WITH SUBTLE BORDER
+   ============================================ */
+
+.badge-highlight {
+    display: inline-block;
+    position: relative;
+    padding: 4px 12px 4px 32px;
+    margin: 0 4px;
+    color: #FFFFFF;
+    font-weight: 600;
+    letter-spacing: 0.6px;
+    text-shadow: 
+        0 1px 4px rgba(0, 0, 0, 0.8),
+        0 0 20px rgba(0, 0, 0, 0.6);
+    border-radius: 6px;
+    background: transparent;
+    border: 1.5px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(2px);
+    transition: all 0.3s ease;
+}
+
+/* ============================================
+   PARAGUAY - SUBTLE GLOW + LARGE FLAG
+   ============================================ */
+
+.badge-paraguay {
+    border-image: linear-gradient(
+        120deg,
+        rgba(213, 43, 30, 0.4) 0%,
+        rgba(255, 255, 255, 0.3) 50%,
+        rgba(0, 56, 168, 0.4) 100%
+    ) 1;
+    box-shadow: 
+        0 0 15px rgba(213, 43, 30, 0.15),
+        0 0 25px rgba(0, 56, 168, 0.1),
+        inset 0 0 30px rgba(255, 255, 255, 0.03);
+}
+
+/* Large flag icon */
+.badge-paraguay::before {
+    content: '🇵🇾';
+    position: absolute;
+    left: 7px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    line-height: 1;
+    filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.3));
+}
+
+/* Subtle shimmer effect */
+.badge-paraguay::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.1) 50%,
+        transparent 100%
+    );
+    animation: shimmer 3s ease-in-out infinite;
+}
+
+/* ============================================
+   EUROPE - SUBTLE GLOW + LARGE FLAG
+   ============================================ */
+
+.badge-europe {
+    border-image: linear-gradient(
+        120deg,
+        rgba(0, 51, 153, 0.4) 0%,
+        rgba(255, 204, 0, 0.3) 50%,
+        rgba(0, 51, 153, 0.4) 100%
+    ) 1;
+    box-shadow: 
+        0 0 15px rgba(0, 51, 153, 0.15),
+        0 0 25px rgba(255, 204, 0, 0.1),
+        inset 0 0 30px rgba(255, 255, 255, 0.03);
+}
+
+/* Large flag icon */
+.badge-europe::before {
+    content: '🇪🇺';
+    position: absolute;
+    left: 7px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    line-height: 1;
+    filter: drop-shadow(0 0 4px rgba(255, 215, 0, 0.3));
+}
+
+/* Subtle shimmer effect */
+.badge-europe::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 215, 0, 0.1) 50%,
+        transparent 100%
+    );
+    animation: shimmer 3s ease-in-out infinite 1.5s;
+}
+
+/* ============================================
+   SHIMMER ANIMATION
+   ============================================ */
+
+@keyframes shimmer {
+    0%, 100% {
+        left: -100%;
+    }
+    50% {
+        left: 100%;
+    }
+}
+
+/* ============================================
+   HOVER EFFECTS
+   ============================================ */
+
+.badge-paraguay:hover {
+    border-image: linear-gradient(
+        120deg,
+        rgba(213, 43, 30, 0.6) 0%,
+        rgba(255, 255, 255, 0.5) 50%,
+        rgba(0, 56, 168, 0.6) 100%
+    ) 1;
+    box-shadow: 
+        0 0 20px rgba(213, 43, 30, 0.25),
+        0 0 35px rgba(0, 56, 168, 0.15),
+        inset 0 0 40px rgba(255, 255, 255, 0.05);
+    transform: translateY(-1px);
+}
+
+.badge-europe:hover {
+    border-image: linear-gradient(
+        120deg,
+        rgba(0, 51, 153, 0.6) 0%,
+        rgba(255, 204, 0, 0.5) 50%,
+        rgba(0, 51, 153, 0.6) 100%
+    ) 1;
+    box-shadow: 
+        0 0 20px rgba(0, 51, 153, 0.25),
+        0 0 35px rgba(255, 204, 0, 0.15),
+        inset 0 0 40px rgba(255, 255, 255, 0.05);
+    transform: translateY(-1px);
+}
+
+.badge-paraguay:hover::before,
+.badge-europe:hover::before {
+    transform: translateY(-50%) scale(1.1);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+    .badge-highlight {
+        padding: 3px 10px 3px 28px;
+        font-size: 0.95em;
+        letter-spacing: 0.4px;
+    }
+    
+    .badge-paraguay::before,
+    .badge-europe::before {
+        font-size: 18px;
+        left: 6px;
+    }
+}
+
+@media (max-width: 480px) {
+    .badge-highlight {
+        padding: 2px 8px 2px 24px;
+        font-size: 0.9em;
+        letter-spacing: 0.3px;
+        border-width: 1px;
+    }
+    
+    .badge-paraguay::before,
+    .badge-europe::before {
+        font-size: 16px;
+        left: 5px;
+    }
+    
+    .badge-paraguay::after,
+    .badge-europe::after {
+        animation: none;
+    }
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    .badge-paraguay::after,
+    .badge-europe::after {
+        animation: none;
+    }
+    
+    .badge-paraguay:hover,
+    .badge-europe:hover {
+        transform: none;
+    }
+}
+
+@media (prefers-contrast: high) {
+    .badge-highlight {
+        border: 2px solid #FFFFFF;
+        box-shadow: none;
+    }
+}
+
+@media print {
+    .badge-highlight {
+        color: #000000;
+        text-shadow: none;
+        border: 1px solid #000000;
+        box-shadow: none;
+        background: none;
+    }
+    
+    .badge-paraguay::before {
+        content: 'PY';
+    }
+    
+    .badge-europe::before {
+        content: 'EU';
+    }
+    
+    .badge-paraguay::after,
+    .badge-europe::after {
+        display: none;
+    }
+}
