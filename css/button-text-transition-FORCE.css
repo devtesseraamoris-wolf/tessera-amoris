@@ -1,0 +1,223 @@
+/**
+ * START YOUR LEGACY BUTTON - TEXT TRANSITION ON HOVER
+ * MAXIMUM SPECIFICITY VERSION - FORCES STYLES
+ * Muda o texto de "Start Your Legacy" para "Build Your Bond"
+ * 
+ * Author: Tessera Amoris Design Team
+ * Date: October 30, 2025
+ */
+
+/* ============================================
+   BUTTON BASE STYLES - MAXIMUM SPECIFICITY
+   ============================================ */
+
+.hero .hero-content a.hero-btn,
+a.btn.hero-btn {
+    position: relative !important;
+    overflow: hidden !important;
+    background: linear-gradient(135deg, #C9A961 0%, #D4AF37 100%) !important;
+    color: #1a1a1a !important;
+    font-weight: 700 !important;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    z-index: 1 !important;
+}
+
+/* ============================================
+   TEXT TRANSITION - MAXIMUM SPECIFICITY
+   ============================================ */
+
+/* Original text */
+.hero .hero-content a.hero-btn .btn-text,
+a.btn.hero-btn .btn-text,
+.hero-btn span.btn-text {
+    position: relative !important;
+    z-index: 3 !important;
+    color: #1a1a1a !important;
+    transition: all 0.3s ease !important;
+    display: inline-block !important;
+}
+
+/* Hidden hover text */
+.hero .hero-content a.hero-btn .btn-text::after,
+a.btn.hero-btn .btn-text::after,
+.hero-btn span.btn-text::after {
+    content: 'Build Your Bond' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    opacity: 0 !important;
+    transform: translateY(100%) !important;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    color: #1a1a1a !important;
+    font-weight: 700 !important;
+}
+
+/* Hide original text on hover */
+.hero .hero-content a.hero-btn:hover .btn-text,
+a.btn.hero-btn:hover .btn-text,
+.hero-btn:hover span.btn-text {
+    color: transparent !important;
+}
+
+/* Show hover text */
+.hero .hero-content a.hero-btn:hover .btn-text::after,
+a.btn.hero-btn:hover .btn-text::after,
+.hero-btn:hover span.btn-text::after {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+
+/* ============================================
+   HOVER EFFECT - PY+EU GRADIENT
+   ============================================ */
+
+/* PY+EU gradient overlay (hidden by default) */
+.hero .hero-content a.hero-btn .gradient-overlay,
+a.btn.hero-btn .gradient-overlay,
+.hero-btn span.gradient-overlay {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: linear-gradient(
+        135deg,
+        #D52B1E 0%,      /* PY: Red */
+        #FFFFFF 15%,     /* PY: White */
+        #0038A8 30%,     /* PY: Blue */
+        #003399 50%,     /* EU: Blue */
+        #FFCC00 70%,     /* EU: Gold */
+        #D4AF37 100%     /* Back to original gold */
+    ) !important;
+    opacity: 0 !important;
+    transition: opacity 0.5s ease !important;
+    z-index: 1 !important;
+    pointer-events: none !important;
+}
+
+/* Soft golden overlay to keep text readable and add warmth */
+.hero .hero-content a.hero-btn .white-overlay,
+a.btn.hero-btn .white-overlay,
+.hero-btn span.white-overlay {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: linear-gradient(
+        135deg,
+        rgba(255, 250, 240, 0.75) 0%,   /* Soft cream */
+        rgba(255, 245, 220, 0.7) 50%,   /* Warm beige */
+        rgba(250, 240, 210, 0.75) 100%  /* Light golden */
+    ) !important;
+    opacity: 0 !important;
+    transition: opacity 0.5s ease !important;
+    z-index: 2 !important;
+    pointer-events: none !important;
+}
+
+/* ============================================
+   HOVER STATE - MAXIMUM SPECIFICITY
+   ============================================ */
+
+/* Show gradient with white overlay */
+.hero .hero-content a.hero-btn:hover .gradient-overlay,
+a.btn.hero-btn:hover .gradient-overlay,
+.hero-btn:hover span.gradient-overlay {
+    opacity: 1 !important;
+}
+
+.hero .hero-content a.hero-btn:hover .white-overlay,
+a.btn.hero-btn:hover .white-overlay,
+.hero-btn:hover span.white-overlay {
+    opacity: 1 !important;
+}
+
+/* Multi-color glow effect */
+.hero .hero-content a.hero-btn:hover,
+a.btn.hero-btn:hover {
+    box-shadow: 
+        0 0 20px rgba(213, 43, 30, 0.4),
+        0 0 30px rgba(0, 51, 153, 0.3),
+        0 0 40px rgba(255, 204, 0, 0.3),
+        0 4px 15px rgba(0, 0, 0, 0.3) !important;
+    transform: translateY(-3px) scale(1.02) !important;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+    .hero .hero-content a.hero-btn:hover,
+    a.btn.hero-btn:hover {
+        transform: translateY(-2px) scale(1.01) !important;
+    }
+    
+    .hero .hero-content a.hero-btn .btn-text::after,
+    a.btn.hero-btn .btn-text::after,
+    .hero-btn span.btn-text::after {
+        font-size: 0.95em !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero .hero-content a.hero-btn:hover,
+    a.btn.hero-btn:hover {
+        transform: translateY(-1px) !important;
+    }
+    
+    .hero .hero-content a.hero-btn .btn-text::after,
+    a.btn.hero-btn .btn-text::after,
+    .hero-btn span.btn-text::after {
+        font-size: 0.9em !important;
+    }
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    .hero .hero-content a.hero-btn,
+    a.btn.hero-btn,
+    .hero .hero-content a.hero-btn .gradient-overlay,
+    a.btn.hero-btn .gradient-overlay,
+    .hero .hero-content a.hero-btn .white-overlay,
+    a.btn.hero-btn .white-overlay,
+    .hero .hero-content a.hero-btn .btn-text,
+    a.btn.hero-btn .btn-text,
+    .hero .hero-content a.hero-btn .btn-text::after,
+    a.btn.hero-btn .btn-text::after {
+        transition: none !important;
+    }
+    
+    .hero .hero-content a.hero-btn:hover,
+    a.btn.hero-btn:hover {
+        transform: none !important;
+    }
+    
+    .hero .hero-content a.hero-btn:hover .btn-text::after,
+    a.btn.hero-btn:hover .btn-text::after {
+        transform: none !important;
+    }
+}
+
+@media print {
+    .hero .hero-content a.hero-btn .gradient-overlay,
+    a.btn.hero-btn .gradient-overlay,
+    .hero .hero-content a.hero-btn .white-overlay,
+    a.btn.hero-btn .white-overlay {
+        display: none !important;
+    }
+    
+    .hero .hero-content a.hero-btn .btn-text::after,
+    a.btn.hero-btn .btn-text::after {
+        display: none !important;
+    }
+}

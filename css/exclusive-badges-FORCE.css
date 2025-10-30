@@ -1,0 +1,235 @@
+/**
+ * EXCLUSIVE BADGES - MAXIMUM SPECIFICITY VERSION
+ * White text + large flag + subtle shimmer
+ * FORCES styles to override any conflicts
+ * 
+ * Author: High Web Strategist & Creative Designer
+ * Date: October 30, 2025
+ */
+
+/* ============================================
+   WHITE TEXT WITH FLAG (NO GRADIENT) - FORCED
+   ============================================ */
+
+.hero-subtitle .badge-highlight,
+span.badge-highlight,
+.badge-paraguay,
+.badge-europe {
+    display: inline !important;
+    position: relative !important;
+    padding-left: 28px !important;
+    margin: 0 4px !important;
+    color: #FFFFFF !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.6px !important;
+    text-shadow: 
+        0 2px 4px rgba(0, 0, 0, 0.8),
+        0 0 20px rgba(0, 0, 0, 0.6) !important;
+}
+
+/* ============================================
+   PARAGUAY - WHITE TEXT + SHIMMER - FORCED
+   ============================================ */
+
+.hero-subtitle .badge-paraguay,
+span.badge-paraguay {
+    position: relative !important;
+}
+
+/* Large flag - FORCED */
+.hero-subtitle .badge-paraguay::before,
+span.badge-paraguay::before {
+    content: '🇵🇾' !important;
+    position: absolute !important;
+    left: -26px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    font-size: 24px !important;
+    line-height: 1 !important;
+    filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.3)) !important;
+}
+
+/* Subtle shimmer with flag colors - FORCED */
+.hero-subtitle .badge-paraguay::after,
+span.badge-paraguay::after {
+    content: '' !important;
+    position: absolute !important;
+    top: -4px !important;
+    left: -100% !important;
+    width: 100% !important;
+    height: calc(100% + 8px) !important;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(213, 43, 30, 0.15) 25%,
+        rgba(255, 255, 255, 0.2) 50%,
+        rgba(0, 56, 168, 0.15) 75%,
+        transparent 100%
+    ) !important;
+    animation: shimmerSubtle 4s ease-in-out infinite !important;
+    pointer-events: none !important;
+    border-radius: 4px !important;
+}
+
+/* ============================================
+   EUROPE - WHITE TEXT + SHIMMER - FORCED
+   ============================================ */
+
+.hero-subtitle .badge-europe,
+span.badge-europe {
+    position: relative !important;
+}
+
+/* Large flag - FORCED */
+.hero-subtitle .badge-europe::before,
+span.badge-europe::before {
+    content: '🇪🇺' !important;
+    position: absolute !important;
+    left: -26px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    font-size: 24px !important;
+    line-height: 1 !important;
+    filter: drop-shadow(0 0 4px rgba(255, 215, 0, 0.3)) !important;
+}
+
+/* Subtle shimmer with flag colors - FORCED */
+.hero-subtitle .badge-europe::after,
+span.badge-europe::after {
+    content: '' !important;
+    position: absolute !important;
+    top: -4px !important;
+    left: -100% !important;
+    width: 100% !important;
+    height: calc(100% + 8px) !important;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(0, 51, 153, 0.15) 25%,
+        rgba(255, 204, 0, 0.2) 50%,
+        rgba(0, 51, 153, 0.15) 75%,
+        transparent 100%
+    ) !important;
+    animation: shimmerSubtle 4s ease-in-out infinite !important;
+    pointer-events: none !important;
+    border-radius: 4px !important;
+}
+
+/* ============================================
+   SHIMMER ANIMATION
+   ============================================ */
+
+@keyframes shimmerSubtle {
+    0% {
+        left: -100%;
+    }
+    50% {
+        left: 100%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+/* ============================================
+   HOVER EFFECTS - FORCED
+   ============================================ */
+
+.hero-subtitle .badge-paraguay:hover::before,
+span.badge-paraguay:hover::before {
+    transform: translateY(-50%) scale(1.15) !important;
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.5)) !important;
+    transition: all 0.3s ease !important;
+}
+
+.hero-subtitle .badge-europe:hover::before,
+span.badge-europe:hover::before {
+    transform: translateY(-50%) scale(1.15) !important;
+    filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.5)) !important;
+    transition: all 0.3s ease !important;
+}
+
+.hero-subtitle .badge-paraguay:hover::after,
+span.badge-paraguay:hover::after {
+    animation: shimmerSubtle 2s ease-in-out infinite !important;
+}
+
+.hero-subtitle .badge-europe:hover::after,
+span.badge-europe:hover::after {
+    animation: shimmerSubtle 2s ease-in-out infinite !important;
+}
+
+/* ============================================
+   RESPONSIVE - FORCED
+   ============================================ */
+
+@media (max-width: 768px) {
+    .hero-subtitle .badge-highlight,
+    span.badge-highlight {
+        padding-left: 26px !important;
+        font-size: 0.95em !important;
+    }
+    
+    .hero-subtitle .badge-paraguay::before,
+    span.badge-paraguay::before,
+    .hero-subtitle .badge-europe::before,
+    span.badge-europe::before {
+        font-size: 20px !important;
+        left: -24px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-subtitle .badge-highlight,
+    span.badge-highlight {
+        padding-left: 24px !important;
+        font-size: 0.9em !important;
+    }
+    
+    .hero-subtitle .badge-paraguay::before,
+    span.badge-paraguay::before,
+    .hero-subtitle .badge-europe::before,
+    span.badge-europe::before {
+        font-size: 18px !important;
+        left: -22px !important;
+    }
+}
+
+/* ============================================
+   ACCESSIBILITY - FORCED
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-subtitle .badge-paraguay::after,
+    span.badge-paraguay::after,
+    .hero-subtitle .badge-europe::after,
+    span.badge-europe::after {
+        animation: none !important;
+    }
+    
+    .hero-subtitle .badge-paraguay:hover::before,
+    span.badge-paraguay:hover::before,
+    .hero-subtitle .badge-europe:hover::before,
+    span.badge-europe:hover::before {
+        transition: none !important;
+    }
+}
+
+@media print {
+    .hero-subtitle .badge-paraguay::before,
+    span.badge-paraguay::before {
+        content: '🇵🇾' !important;
+    }
+    
+    .hero-subtitle .badge-europe::before,
+    span.badge-europe::before {
+        content: '🇪🇺' !important;
+    }
+    
+    .hero-subtitle .badge-paraguay::after,
+    span.badge-paraguay::after,
+    .hero-subtitle .badge-europe::after,
+    span.badge-europe::after {
+        display: none !important;
+    }
+}
