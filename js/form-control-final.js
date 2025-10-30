@@ -114,10 +114,25 @@
       // Clear any error messages
       this.clearValidationError();
 
+      // Trigger Tessera transition animation
+      const fromSection = this.currentStep;
+      
       // Move to next section
       if (this.currentStep < this.totalSteps) {
-        this.currentStep++;
-        this.transitionToSection(this.currentStep);
+        // Dispatch event for transition animation
+        const event = new CustomEvent('tessera:sectionComplete', {
+          detail: {
+            fromSection: fromSection,
+            toSection: this.currentStep + 1
+          }
+        });
+        document.dispatchEvent(event);
+        
+        // Wait for animation to start before transitioning
+        setTimeout(() => {
+          this.currentStep++;
+          this.transitionToSection(this.currentStep);
+        }, 400);
       }
 
       return true;

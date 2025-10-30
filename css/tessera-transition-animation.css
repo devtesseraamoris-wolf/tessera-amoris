@@ -1,0 +1,357 @@
+/**
+ * TESSERA TRANSITION ANIMATION
+ * Animação elegante de transição entre seções do formulário
+ * Tema: "Weaving Your Legacy"
+ * Data: 30 de outubro de 2025
+ */
+
+/* ============================================
+   OVERLAY DE TRANSIÇÃO
+   ============================================ */
+
+.tessera-transition-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        135deg,
+        rgba(201, 169, 97, 0.95) 0%,
+        rgba(212, 175, 55, 0.95) 50%,
+        rgba(184, 134, 11, 0.95) 100%
+    );
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+}
+
+.tessera-transition-overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* ============================================
+   LOGO TESSERA ANIMADO
+   ============================================ */
+
+.tessera-logo-container {
+    margin-bottom: 40px;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.tessera-transition-overlay.active .tessera-logo-container {
+    opacity: 1;
+    transform: scale(1);
+    transition-delay: 0.2s;
+}
+
+.tessera-logo-text {
+    font-family: 'Georgia', serif;
+    font-size: 48px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    color: #1a1a1a;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin: 0;
+}
+
+/* ============================================
+   TEXTO "WEAVING YOUR LEGACY"
+   ============================================ */
+
+.tessera-message-container {
+    text-align: center;
+    max-width: 600px;
+    padding: 0 20px;
+}
+
+.tessera-message {
+    font-family: 'Georgia', serif;
+    font-size: 28px;
+    font-weight: 400;
+    font-style: italic;
+    color: #1a1a1a;
+    margin: 0 0 20px 0;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease;
+}
+
+.tessera-transition-overlay.active .tessera-message {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.4s;
+}
+
+.tessera-submessage {
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
+    color: rgba(26, 26, 26, 0.8);
+    margin: 0;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.6s ease;
+}
+
+.tessera-transition-overlay.active .tessera-submessage {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.6s;
+}
+
+/* ============================================
+   ANIMAÇÃO DE TECELAGEM (WEAVING)
+   ============================================ */
+
+.weaving-animation {
+    position: relative;
+    width: 200px;
+    height: 80px;
+    margin: 30px auto 0;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+}
+
+.tessera-transition-overlay.active .weaving-animation {
+    opacity: 1;
+    transition-delay: 0.3s;
+}
+
+/* Linhas horizontais (trama) */
+.weaving-line {
+    position: absolute;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #1a1a1a, transparent);
+    animation: weave-horizontal 2s ease-in-out infinite;
+}
+
+.weaving-line:nth-child(1) {
+    top: 20px;
+    width: 0;
+    left: 50%;
+    animation-delay: 0s;
+}
+
+.weaving-line:nth-child(2) {
+    top: 40px;
+    width: 0;
+    left: 50%;
+    animation-delay: 0.3s;
+}
+
+.weaving-line:nth-child(3) {
+    top: 60px;
+    width: 0;
+    left: 50%;
+    animation-delay: 0.6s;
+}
+
+/* Linhas verticais (urdidura) */
+.weaving-vertical {
+    position: absolute;
+    width: 2px;
+    background: linear-gradient(180deg, transparent, rgba(26, 26, 26, 0.5), transparent);
+    animation: weave-vertical 2s ease-in-out infinite;
+}
+
+.weaving-vertical:nth-child(4) {
+    left: 60px;
+    height: 0;
+    top: 50%;
+    animation-delay: 0.2s;
+}
+
+.weaving-vertical:nth-child(5) {
+    left: 100px;
+    height: 0;
+    top: 50%;
+    animation-delay: 0.5s;
+}
+
+.weaving-vertical:nth-child(6) {
+    left: 140px;
+    height: 0;
+    top: 50%;
+    animation-delay: 0.8s;
+}
+
+@keyframes weave-horizontal {
+    0% {
+        width: 0;
+        left: 50%;
+    }
+    50% {
+        width: 200px;
+        left: 0;
+    }
+    100% {
+        width: 0;
+        left: 50%;
+    }
+}
+
+@keyframes weave-vertical {
+    0% {
+        height: 0;
+        top: 50%;
+    }
+    50% {
+        height: 80px;
+        top: 0;
+    }
+    100% {
+        height: 0;
+        top: 50%;
+    }
+}
+
+/* ============================================
+   BRILHO DOURADO SUTIL
+   ============================================ */
+
+.golden-shimmer {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 215, 0, 0.2) 50%,
+        transparent 100%
+    );
+    animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        left: -100%;
+    }
+    50% {
+        left: 100%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+/* ============================================
+   MENSAGENS PERSONALIZADAS POR SEÇÃO
+   ============================================ */
+
+.tessera-transition-overlay[data-from-section="1"] .tessera-message::after {
+    content: 'Your vision is taking shape...';
+}
+
+.tessera-transition-overlay[data-from-section="2"] .tessera-message::after {
+    content: 'Building your story...';
+}
+
+.tessera-transition-overlay[data-from-section="3"] .tessera-message::after {
+    content: 'Weaving your values...';
+}
+
+.tessera-transition-overlay[data-from-section="4"] .tessera-message::after {
+    content: 'Crafting your future...';
+}
+
+.tessera-transition-overlay[data-from-section="5"] .tessera-message::after {
+    content: 'Almost there...';
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+    .tessera-logo-text {
+        font-size: 36px;
+        letter-spacing: 3px;
+    }
+    
+    .tessera-message {
+        font-size: 22px;
+    }
+    
+    .tessera-submessage {
+        font-size: 14px;
+    }
+    
+    .weaving-animation {
+        width: 150px;
+        height: 60px;
+    }
+    
+    .weaving-line:nth-child(1) { top: 15px; }
+    .weaving-line:nth-child(2) { top: 30px; }
+    .weaving-line:nth-child(3) { top: 45px; }
+    
+    .weaving-vertical:nth-child(4) { left: 45px; }
+    .weaving-vertical:nth-child(5) { left: 75px; }
+    .weaving-vertical:nth-child(6) { left: 105px; }
+    
+    @keyframes weave-horizontal {
+        0%, 100% { width: 0; left: 50%; }
+        50% { width: 150px; left: 0; }
+    }
+    
+    @keyframes weave-vertical {
+        0%, 100% { height: 0; top: 50%; }
+        50% { height: 60px; top: 0; }
+    }
+}
+
+@media (max-width: 480px) {
+    .tessera-logo-text {
+        font-size: 28px;
+        letter-spacing: 2px;
+    }
+    
+    .tessera-message {
+        font-size: 18px;
+    }
+    
+    .tessera-submessage {
+        font-size: 13px;
+    }
+    
+    .weaving-animation {
+        width: 120px;
+        height: 50px;
+    }
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    .tessera-transition-overlay,
+    .tessera-logo-container,
+    .tessera-message,
+    .tessera-submessage,
+    .weaving-animation {
+        transition: none !important;
+        animation: none !important;
+    }
+    
+    .weaving-line,
+    .weaving-vertical {
+        animation: none !important;
+        opacity: 0.5;
+    }
+    
+    .golden-shimmer {
+        animation: none !important;
+        display: none;
+    }
+}
