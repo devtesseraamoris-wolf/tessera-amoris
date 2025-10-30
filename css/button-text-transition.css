@@ -1,0 +1,181 @@
+/**
+ * START YOUR LEGACY BUTTON - TEXT TRANSITION ON HOVER
+ * Muda o texto de "Start Your Legacy" para "Build Your Bond"
+ * 
+ * Author: Tessera Amoris Design Team
+ * Date: October 30, 2025
+ */
+
+/* ============================================
+   BUTTON BASE STYLES
+   ============================================ */
+
+.hero-btn {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #C9A961 0%, #D4AF37 100%);
+    color: #1a1a1a !important;
+    font-weight: 700;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1;
+}
+
+/* ============================================
+   TEXT TRANSITION
+   ============================================ */
+
+/* Original text */
+.hero-btn .btn-text {
+    position: relative;
+    z-index: 3;
+    color: #1a1a1a !important;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+/* Hidden hover text */
+.hero-btn .btn-text::after {
+    content: 'Build Your Bond';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: translateY(100%);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    color: #1a1a1a;
+    font-weight: 700;
+}
+
+/* Hide original text on hover */
+.hero-btn:hover .btn-text {
+    color: transparent !important;
+}
+
+/* Show hover text */
+.hero-btn:hover .btn-text::after {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ============================================
+   HOVER EFFECT - PY+EU GRADIENT
+   ============================================ */
+
+/* PY+EU gradient overlay (hidden by default) */
+.hero-btn .gradient-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        135deg,
+        #D52B1E 0%,      /* PY: Red */
+        #FFFFFF 15%,     /* PY: White */
+        #0038A8 30%,     /* PY: Blue */
+        #003399 50%,     /* EU: Blue */
+        #FFCC00 70%,     /* EU: Gold */
+        #D4AF37 100%     /* Back to original gold */
+    );
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: 1;
+}
+
+/* White overlay to keep text readable */
+.hero-btn .white-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.7);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: 2;
+}
+
+/* ============================================
+   HOVER STATE
+   ============================================ */
+
+/* Show gradient with white overlay */
+.hero-btn:hover .gradient-overlay {
+    opacity: 1;
+}
+
+.hero-btn:hover .white-overlay {
+    opacity: 1;
+}
+
+/* Multi-color glow effect */
+.hero-btn:hover {
+    box-shadow: 
+        0 0 20px rgba(213, 43, 30, 0.4),
+        0 0 30px rgba(0, 51, 153, 0.3),
+        0 0 40px rgba(255, 204, 0, 0.3),
+        0 4px 15px rgba(0, 0, 0, 0.3);
+    transform: translateY(-3px) scale(1.02);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+    .hero-btn:hover {
+        transform: translateY(-2px) scale(1.01);
+    }
+    
+    .hero-btn .btn-text::after {
+        font-size: 0.95em;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-btn:hover {
+        transform: translateY(-1px);
+    }
+    
+    .hero-btn .btn-text::after {
+        font-size: 0.9em;
+    }
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-btn,
+    .hero-btn .gradient-overlay,
+    .hero-btn .white-overlay,
+    .hero-btn .btn-text,
+    .hero-btn .btn-text::after {
+        transition: none !important;
+    }
+    
+    .hero-btn:hover {
+        transform: none;
+    }
+    
+    .hero-btn:hover .btn-text::after {
+        transform: none;
+    }
+}
+
+@media print {
+    .hero-btn .gradient-overlay,
+    .hero-btn .white-overlay {
+        display: none;
+    }
+    
+    .hero-btn .btn-text::after {
+        display: none;
+    }
+}
