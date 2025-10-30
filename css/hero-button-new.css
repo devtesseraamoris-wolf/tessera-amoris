@@ -1,0 +1,152 @@
+/**
+ * HERO BUTTON - Novo design com cor criativa
+ * Cor: Gradiente roxo/magenta vibrante com efeito neon
+ * Data: 30 de outubro de 2025
+ */
+
+/* Botão base - Gradiente roxo/magenta vibrante */
+.hero .hero-content a.hero-btn,
+a.btn.hero-btn {
+    position: relative !important;
+    overflow: hidden !important;
+    background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 50%, #F43F5E 100%) !important;
+    color: #FFFFFF !important;
+    font-weight: 700 !important;
+    padding: 16px 40px !important;
+    border-radius: 8px !important;
+    text-decoration: none !important;
+    display: inline-block !important;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    box-shadow: 
+        0 4px 15px rgba(139, 92, 246, 0.4),
+        0 0 30px rgba(236, 72, 153, 0.3) !important;
+}
+
+/* Texto do botão */
+.hero .hero-content a.hero-btn .btn-text,
+a.btn.hero-btn .btn-text {
+    position: relative !important;
+    z-index: 3 !important;
+    color: #FFFFFF !important;
+    display: inline-block !important;
+    font-size: 16px !important;
+    letter-spacing: 1px !important;
+    text-transform: uppercase !important;
+}
+
+/* Efeito de brilho animado */
+.hero .hero-content a.hero-btn::before,
+a.btn.hero-btn::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: -100% !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.3) 50%,
+        transparent 100%
+    ) !important;
+    transition: left 0.6s ease !important;
+    z-index: 1 !important;
+}
+
+/* Hover - Intensifica o brilho e o glow */
+.hero .hero-content a.hero-btn:hover,
+a.btn.hero-btn:hover {
+    background: linear-gradient(135deg, #9D6EFF 0%, #FF5AAD 50%, #FF4D6D 100%) !important;
+    transform: translateY(-3px) scale(1.02) !important;
+    box-shadow: 
+        0 6px 25px rgba(139, 92, 246, 0.6),
+        0 0 50px rgba(236, 72, 153, 0.5),
+        0 0 80px rgba(244, 63, 94, 0.3) !important;
+}
+
+.hero .hero-content a.hero-btn:hover::before,
+a.btn.hero-btn:hover::before {
+    left: 100% !important;
+}
+
+/* Efeito de pulso sutil */
+@keyframes pulse-glow {
+    0%, 100% {
+        box-shadow: 
+            0 4px 15px rgba(139, 92, 246, 0.4),
+            0 0 30px rgba(236, 72, 153, 0.3);
+    }
+    50% {
+        box-shadow: 
+            0 4px 20px rgba(139, 92, 246, 0.6),
+            0 0 40px rgba(236, 72, 153, 0.5);
+    }
+}
+
+.hero .hero-content a.hero-btn,
+a.btn.hero-btn {
+    animation: pulse-glow 3s ease-in-out infinite !important;
+}
+
+/* Active state */
+.hero .hero-content a.hero-btn:active,
+a.btn.hero-btn:active {
+    transform: translateY(-1px) scale(0.98) !important;
+}
+
+/* Remover overlays antigos */
+.hero .hero-content a.hero-btn .gradient-overlay,
+a.btn.hero-btn .gradient-overlay,
+.hero .hero-content a.hero-btn .white-overlay,
+a.btn.hero-btn .white-overlay {
+    display: none !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero .hero-content a.hero-btn,
+    a.btn.hero-btn {
+        padding: 14px 32px !important;
+    }
+    
+    .hero .hero-content a.hero-btn .btn-text,
+    a.btn.hero-btn .btn-text {
+        font-size: 14px !important;
+    }
+    
+    .hero .hero-content a.hero-btn:hover,
+    a.btn.hero-btn:hover {
+        transform: translateY(-2px) scale(1.01) !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero .hero-content a.hero-btn,
+    a.btn.hero-btn {
+        padding: 12px 28px !important;
+    }
+    
+    .hero .hero-content a.hero-btn .btn-text,
+    a.btn.hero-btn .btn-text {
+        font-size: 13px !important;
+    }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    .hero .hero-content a.hero-btn,
+    a.btn.hero-btn {
+        animation: none !important;
+        transition: none !important;
+    }
+    
+    .hero .hero-content a.hero-btn:hover,
+    a.btn.hero-btn:hover {
+        transform: none !important;
+    }
+    
+    .hero .hero-content a.hero-btn::before,
+    a.btn.hero-btn::before {
+        transition: none !important;
+    }
+}

@@ -1,0 +1,53 @@
+/**
+ * FLAGS SIMPLE - Criado do zero
+ * Sistema simples de bandeiras sem conflitos
+ * Data: 30 de outubro de 2025
+ */
+
+/* Estilo base para os badges de país */
+.country-badge {
+    display: inline-block;
+    position: relative;
+    padding-left: 28px;
+    font-weight: 700;
+    color: #FFFFFF;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+/* Bandeira do Paraguai */
+.country-badge.paraguay::before {
+    content: '🇵🇾';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+}
+
+/* Bandeira da Europa */
+.country-badge.europe::before {
+    content: '🇪🇺';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+}
+
+/* Hover effect */
+.country-badge:hover::before {
+    transform: translateY(-50%) scale(1.1);
+    transition: transform 0.3s ease;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .country-badge {
+        padding-left: 24px;
+    }
+    
+    .country-badge.paraguay::before,
+    .country-badge.europe::before {
+        font-size: 18px;
+    }
+}
