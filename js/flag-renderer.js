@@ -49,7 +49,7 @@
                 </svg>
             `);
             flagImg.style.cssText = 'position:absolute;left:6px;top:50%;transform:translateY(-50%);width:16px;height:11px;';
-            flagImg.alt = 'PY';
+            // flagImg.alt = 'PY'; // REMOVED - was causing PY text to appear
             
             // Remove emoji, add image
             const style = window.getComputedStyle(badge, '::before');
@@ -81,7 +81,7 @@
                 </svg>
             `);
             flagImg.style.cssText = 'position:absolute;left:6px;top:50%;transform:translateY(-50%);width:16px;height:11px;';
-            flagImg.alt = 'EU';
+            // flagImg.alt = 'EU'; // REMOVED - was causing EU text to appear
             
             // Remove emoji, add image
             const style = window.getComputedStyle(badge, '::before');
