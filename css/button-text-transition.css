@@ -87,14 +87,19 @@
     z-index: 1;
 }
 
-/* White overlay to keep text readable */
+/* Soft golden overlay to keep text readable and add warmth */
 .hero-btn .white-overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(255, 255, 255, 0.7);
+    background: linear-gradient(
+        135deg,
+        rgba(255, 250, 240, 0.75) 0%,   /* Soft cream */
+        rgba(255, 245, 220, 0.7) 50%,   /* Warm beige */
+        rgba(250, 240, 210, 0.75) 100%  /* Light golden */
+    );
     opacity: 0;
     transition: opacity 0.5s ease;
     z-index: 2;

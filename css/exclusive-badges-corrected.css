@@ -258,11 +258,11 @@
 
 @media print {
     .badge-paraguay::before {
-        content: 'PY';
+        content: '🇵🇾';
     }
     
     .badge-europe::before {
-        content: 'EU';
+        content: '🇪🇺';
     }
     
     .badge-paraguay::after,
