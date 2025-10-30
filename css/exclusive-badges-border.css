@@ -1,0 +1,156 @@
+/**
+ * EXCLUSIVE BADGES - GRADIENT BORDERS
+ * White text with subtle gradient borders in flag colors
+ * Plus visible flag icons
+ * 
+ * Author: High Web Strategist & Creative Designer
+ * Date: October 30, 2025
+ */
+
+/* ============================================
+   WHITE TEXT WITH GRADIENT BORDER
+   ============================================ */
+
+.badge-highlight {
+    display: inline-block;
+    position: relative;
+    padding: 3px 10px 3px 28px;
+    margin: 0 4px;
+    color: #FFFFFF;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-shadow: 
+        0 1px 3px rgba(0, 0, 0, 0.7),
+        0 0 15px rgba(0, 0, 0, 0.5);
+    border-radius: 4px;
+    background: transparent;
+}
+
+/* ============================================
+   PARAGUAY - GRADIENT BORDER + FLAG
+   ============================================ */
+
+.badge-paraguay {
+    border: 1.5px solid transparent;
+    background-image: 
+        linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+        linear-gradient(
+            120deg,
+            #D52B1E 0%,
+            #FFFFFF 33%,
+            #0038A8 66%,
+            #D52B1E 100%
+        );
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+}
+
+/* Flag icon using Unicode */
+.badge-paraguay::before {
+    content: '🇵🇾';
+    position: absolute;
+    left: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    line-height: 1;
+}
+
+/* ============================================
+   EUROPE - GRADIENT BORDER + FLAG
+   ============================================ */
+
+.badge-europe {
+    border: 1.5px solid transparent;
+    background-image: 
+        linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+        linear-gradient(
+            120deg,
+            #003399 0%,
+            #FFCC00 50%,
+            #003399 100%
+        );
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+}
+
+/* Flag icon using Unicode */
+.badge-europe::before {
+    content: '🇪🇺';
+    position: absolute;
+    left: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    line-height: 1;
+}
+
+/* ============================================
+   HOVER EFFECTS
+   ============================================ */
+
+.badge-paraguay:hover,
+.badge-europe:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s ease;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+    .badge-highlight {
+        padding: 2px 8px 2px 24px;
+        font-size: 0.95em;
+    }
+    
+    .badge-paraguay::before,
+    .badge-europe::before {
+        font-size: 14px;
+        left: 5px;
+    }
+}
+
+@media (max-width: 480px) {
+    .badge-highlight {
+        padding: 2px 6px 2px 20px;
+        font-size: 0.9em;
+        border-width: 1px;
+    }
+    
+    .badge-paraguay::before,
+    .badge-europe::before {
+        font-size: 12px;
+        left: 4px;
+    }
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    .badge-paraguay:hover,
+    .badge-europe:hover {
+        transform: none;
+    }
+}
+
+@media print {
+    .badge-highlight {
+        color: #000000;
+        text-shadow: none;
+        border: 1px solid #000000;
+        background: none;
+    }
+    
+    .badge-paraguay::before {
+        content: 'PY';
+    }
+    
+    .badge-europe::before {
+        content: 'EU';
+    }
+}
