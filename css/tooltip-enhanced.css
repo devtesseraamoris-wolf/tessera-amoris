@@ -1,0 +1,126 @@
+/**
+ * ENHANCED TOOLTIP FOR START YOUR LEGACY BUTTON
+ * Mostra resultado e valor ao passar o mouse
+ * 
+ * Author: Tessera Amoris Design Team
+ * Date: October 30, 2025
+ */
+
+/* ============================================
+   TOOLTIP STRUCTURE
+   ============================================ */
+
+.hero-btn {
+    position: relative;
+    overflow: visible !important;
+}
+
+/* Tooltip container with formatted content */
+.hero-btn::before {
+    content: '✨ Begin Your Journey\A\AComplete our exclusive application\A\AInvestment: Upon Approval\A\AClick to start →';
+    white-space: pre-line;
+    position: absolute;
+    bottom: calc(100% + 20px);
+    left: 50%;
+    transform: translateX(-50%) translateY(15px);
+    background: linear-gradient(135deg, rgba(26, 26, 26, 0.98) 0%, rgba(40, 40, 40, 0.98) 100%);
+    backdrop-filter: blur(15px);
+    color: #FFFFFF;
+    padding: 20px 28px;
+    border-radius: 16px;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.8;
+    text-align: center;
+    min-width: 280px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1000;
+    box-shadow: 
+        0 12px 32px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(212, 175, 55, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    pointer-events: none;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Tooltip arrow */
+.hero-btn::after {
+    content: '';
+    position: absolute;
+    bottom: calc(100% + 12px);
+    left: 50%;
+    transform: translateX(-50%) translateY(15px);
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid rgba(26, 26, 26, 0.98);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 999;
+    pointer-events: none;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+/* Hover: Show tooltip with animation */
+.hero-btn:hover::before,
+.hero-btn:hover::after {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Add golden glow to tooltip on hover */
+.hero-btn:hover::before {
+    box-shadow: 
+        0 12px 32px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(212, 175, 55, 0.5),
+        0 0 20px rgba(212, 175, 55, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+    .hero-btn::before {
+        font-size: 11px;
+        padding: 16px 22px;
+        min-width: 240px;
+        bottom: calc(100% + 15px);
+    }
+    
+    .hero-btn::after {
+        bottom: calc(100% + 7px);
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-btn::before,
+    .hero-btn::after {
+        display: none;
+    }
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-btn::before,
+    .hero-btn::after {
+        transition: opacity 0.2s ease;
+        transform: translateX(-50%) translateY(0) !important;
+    }
+}
+
+@media print {
+    .hero-btn::before,
+    .hero-btn::after {
+        display: none;
+    }
+}

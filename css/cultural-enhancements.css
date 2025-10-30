@@ -1,0 +1,477 @@
+/**
+ * CULTURAL ENHANCEMENTS - INNOVATIVE DESIGN
+ * Mescla cultura de Paraguay e Europe de forma elegante e criativa
+ * 
+ * Conceito: "Cultural Mosaic Effect"
+ * - Paraguay: Padrão inspirado no Ñandutí (renda tradicional)
+ * - Europe: Círculo de estrelas (união europeia)
+ * 
+ * Author: Tessera Amoris Design Team
+ * Date: October 30, 2025
+ */
+
+/* ============================================
+   RESET & BASE STYLES
+   ============================================ */
+
+.badge-highlight {
+    display: inline-block;
+    position: relative;
+    padding: 4px 12px 4px 32px;
+    margin: 0 6px;
+    color: #FFFFFF !important;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-shadow: 
+        0 2px 6px rgba(0, 0, 0, 0.9),
+        0 0 25px rgba(0, 0, 0, 0.7);
+    transition: all 0.3s ease;
+    border-radius: 6px;
+}
+
+/* ============================================
+   PARAGUAY - ÑANDUTÍ PATTERN
+   ============================================ */
+
+.badge-paraguay {
+    position: relative;
+    background: linear-gradient(
+        135deg,
+        rgba(213, 43, 30, 0.08) 0%,
+        rgba(0, 56, 168, 0.08) 100%
+    );
+}
+
+/* Ícone cultural: Estrela (do brasão paraguaio) */
+.badge-paraguay::before {
+    content: '⭐';
+    position: absolute;
+    left: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    line-height: 1;
+    filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.6));
+    animation: paraguayPulse 3s ease-in-out infinite;
+}
+
+/* Padrão Ñandutí - Shimmer geométrico */
+.badge-paraguay::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 200%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 50%, rgba(213, 43, 30, 0.25) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 50%, rgba(0, 56, 168, 0.25) 0%, transparent 50%),
+        linear-gradient(
+            90deg,
+            transparent 0%,
+            rgba(213, 43, 30, 0.15) 20%,
+            rgba(255, 255, 255, 0.25) 50%,
+            rgba(0, 56, 168, 0.15) 80%,
+            transparent 100%
+        );
+    animation: nandutiFlow 5s ease-in-out infinite;
+    pointer-events: none;
+    border-radius: 6px;
+    mix-blend-mode: screen;
+}
+
+/* Hover: Revela mais do padrão */
+.badge-paraguay:hover {
+    background: linear-gradient(
+        135deg,
+        rgba(213, 43, 30, 0.15) 0%,
+        rgba(0, 56, 168, 0.15) 100%
+    );
+    transform: scale(1.05);
+}
+
+.badge-paraguay:hover::before {
+    animation: paraguayPulse 1s ease-in-out infinite;
+    transform: translateY(-50%) scale(1.2);
+}
+
+/* ============================================
+   EUROPE - CIRCLE OF STARS
+   ============================================ */
+
+.badge-europe {
+    position: relative;
+    background: linear-gradient(
+        135deg,
+        rgba(0, 51, 153, 0.08) 0%,
+        rgba(255, 204, 0, 0.08) 100%
+    );
+}
+
+/* Ícone cultural: Coroa de estrelas */
+.badge-europe::before {
+    content: '✨';
+    position: absolute;
+    left: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    line-height: 1;
+    filter: drop-shadow(0 0 6px rgba(255, 204, 0, 0.6));
+    animation: europeRotate 4s linear infinite;
+}
+
+/* Padrão Circle of Stars - Shimmer circular */
+.badge-europe::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 200%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 30% 50%, rgba(255, 204, 0, 0.3) 0%, transparent 40%),
+        radial-gradient(circle at 70% 50%, rgba(0, 51, 153, 0.25) 0%, transparent 40%),
+        linear-gradient(
+            90deg,
+            transparent 0%,
+            rgba(0, 51, 153, 0.15) 25%,
+            rgba(255, 204, 0, 0.25) 50%,
+            rgba(0, 51, 153, 0.15) 75%,
+            transparent 100%
+        );
+    animation: europeFlow 5s ease-in-out infinite 1s;
+    pointer-events: none;
+    border-radius: 6px;
+    mix-blend-mode: screen;
+}
+
+/* Hover: Revela mais do padrão */
+.badge-europe:hover {
+    background: linear-gradient(
+        135deg,
+        rgba(0, 51, 153, 0.15) 0%,
+        rgba(255, 204, 0, 0.15) 100%
+    );
+    transform: scale(1.05);
+}
+
+.badge-europe:hover::before {
+    animation: europeRotate 2s linear infinite;
+    transform: translateY(-50%) scale(1.2);
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+@keyframes nandutiFlow {
+    0%, 100% {
+        left: -100%;
+        opacity: 0;
+    }
+    15% {
+        opacity: 1;
+    }
+    85% {
+        opacity: 1;
+    }
+    100% {
+        left: 100%;
+        opacity: 0;
+    }
+}
+
+@keyframes europeFlow {
+    0%, 100% {
+        left: -100%;
+        opacity: 0;
+    }
+    15% {
+        opacity: 1;
+    }
+    85% {
+        opacity: 1;
+    }
+    100% {
+        left: 100%;
+        opacity: 0;
+    }
+}
+
+@keyframes paraguayPulse {
+    0%, 100% {
+        filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.6));
+        opacity: 1;
+    }
+    50% {
+        filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.9));
+        opacity: 0.8;
+    }
+}
+
+@keyframes europeRotate {
+    0% {
+        transform: translateY(-50%) rotate(0deg);
+    }
+    100% {
+        transform: translateY(-50%) rotate(360deg);
+    }
+}
+
+/* ============================================
+   START YOUR LEGACY BUTTON - TOOLTIP
+   ============================================ */
+
+.hero-btn {
+    position: relative;
+    overflow: visible !important; /* Permite tooltip aparecer */
+    background: linear-gradient(135deg, #C9A961 0%, #D4AF37 100%);
+    color: #1a1a1a !important;
+    font-weight: 700;
+    transition: all 0.4s ease;
+    z-index: 1;
+}
+
+/* Tooltip container */
+.hero-btn::before {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: calc(100% + 15px);
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: rgba(26, 26, 26, 0.95);
+    backdrop-filter: blur(10px);
+    color: #FFFFFF;
+    padding: 16px 24px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.6;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    box-shadow: 
+        0 8px 24px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(255, 255, 255, 0.1);
+    pointer-events: none;
+}
+
+/* Tooltip arrow */
+.hero-btn::after {
+    content: '';
+    position: absolute;
+    bottom: calc(100% + 7px);
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid rgba(26, 26, 26, 0.95);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 999;
+    pointer-events: none;
+}
+
+/* Hover: Show tooltip */
+.hero-btn:hover::before,
+.hero-btn:hover::after {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* PY+EU gradient overlay */
+.hero-btn .gradient-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        135deg,
+        #D52B1E 0%,      /* PY: Red */
+        #FFFFFF 15%,     /* PY: White */
+        #0038A8 30%,     /* PY: Blue */
+        #003399 50%,     /* EU: Blue */
+        #FFCC00 70%,     /* EU: Gold */
+        #D4AF37 100%     /* Back to original gold */
+    );
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: 1;
+}
+
+/* White overlay to keep text readable */
+.hero-btn .white-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.7);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: 2;
+}
+
+/* Button text */
+.hero-btn .btn-text {
+    position: relative;
+    z-index: 3;
+    color: #1a1a1a !important;
+    transition: all 0.3s ease;
+}
+
+/* Hover: Show gradient with white overlay */
+.hero-btn:hover .gradient-overlay {
+    opacity: 1;
+}
+
+.hero-btn:hover .white-overlay {
+    opacity: 1;
+}
+
+/* Hover: Multi-color glow */
+.hero-btn:hover {
+    box-shadow: 
+        0 0 20px rgba(213, 43, 30, 0.4),
+        0 0 30px rgba(0, 51, 153, 0.3),
+        0 0 40px rgba(255, 204, 0, 0.3),
+        0 4px 15px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+}
+
+/* Hover: Pulso no texto */
+.hero-btn:hover .btn-text {
+    animation: textPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes textPulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.02);
+    }
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+    .badge-highlight {
+        padding: 3px 10px 3px 28px;
+        font-size: 0.95em;
+    }
+    
+    .badge-paraguay::before,
+    .badge-europe::before {
+        font-size: 16px;
+        left: 5px;
+    }
+    
+    .hero-btn::before {
+        font-size: 12px;
+        padding: 12px 18px;
+        white-space: normal;
+        max-width: 250px;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .badge-highlight {
+        padding: 2px 8px 2px 24px;
+        font-size: 0.9em;
+    }
+    
+    .badge-paraguay::before,
+    .badge-europe::before {
+        font-size: 14px;
+        left: 4px;
+    }
+    
+    .badge-paraguay::after,
+    .badge-europe::after {
+        animation: none;
+        opacity: 0.3;
+    }
+    
+    .hero-btn::before,
+    .hero-btn::after {
+        display: none; /* Esconde tooltip em mobile */
+    }
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    .badge-paraguay::after,
+    .badge-europe::after,
+    .badge-paraguay::before,
+    .badge-europe::before {
+        animation: none !important;
+    }
+    
+    .hero-btn .gradient-overlay,
+    .hero-btn .white-overlay,
+    .hero-btn::before,
+    .hero-btn::after {
+        transition: none;
+    }
+    
+    .hero-btn:hover .btn-text {
+        animation: none;
+    }
+}
+
+@media print {
+    .badge-paraguay::before {
+        content: '🇵🇾';
+        animation: none;
+    }
+    
+    .badge-europe::before {
+        content: '🇪🇺';
+        animation: none;
+    }
+    
+    .badge-paraguay::after,
+    .badge-europe::after {
+        display: none;
+    }
+    
+    .hero-btn::before,
+    .hero-btn::after,
+    .hero-btn .gradient-overlay,
+    .hero-btn .white-overlay {
+        display: none;
+    }
+}
+
+/* ============================================
+   DARK MODE SUPPORT
+   ============================================ */
+
+@media (prefers-color-scheme: dark) {
+    .badge-highlight {
+        text-shadow: 
+            0 2px 6px rgba(0, 0, 0, 1),
+            0 0 30px rgba(0, 0, 0, 0.9);
+    }
+    
+    .hero-btn::before {
+        background: rgba(40, 40, 40, 0.98);
+        border-color: rgba(255, 255, 255, 0.15);
+    }
+}

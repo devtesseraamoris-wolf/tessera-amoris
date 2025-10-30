@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="css/hero-branding.css">
     <link rel="stylesheet" href="css/hero-enhanced.css">
     <link rel="stylesheet" href="css/exclusive-badges-corrected.css">
+    <link rel="stylesheet" href="css/cultural-enhancements.css">
+    <link rel="stylesheet" href="css/tooltip-enhanced.css">
+    <link rel="stylesheet" href="css/custom-tooltip.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
@@ -47,7 +50,11 @@
         <div class="hero-content">
             <h1 class="hero-title">Where Continents Connect, Legacies Begin.</h1>
             <p class="hero-subtitle">An exclusive international matchmaking community connecting purpose-driven individuals between <span class="badge-highlight badge-paraguay" data-text="Paraguay">Paraguay</span> and <span class="badge-highlight badge-europe" data-text="Europe">Europe</span>.</p>
-            <a href="application.html" class="btn hero-btn">Start Your Legacy</a>
+            <a href="application.html" class="btn hero-btn" data-tooltip="✨ Begin Your Journey | Complete our exclusive application | Investment: Upon Approval | Click to start →">
+                <span class="gradient-overlay"></span>
+                <span class="white-overlay"></span>
+                <span class="btn-text">Start Your Legacy</span>
+            </a>
         </div>
     </section>
 
@@ -364,5 +371,6 @@
 
     <script src="js/main.js"></script>
     <script src="js/flag-renderer.js"></script>
+    <script src="js/tooltip.js"></script>
 </body>
 </html>
