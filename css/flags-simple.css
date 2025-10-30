@@ -1,6 +1,6 @@
 /**
- * FLAGS SIMPLE - Criado do zero
- * Sistema simples de bandeiras sem conflitos
+ * FLAGS SIMPLE - Usando imagens SVG
+ * Sistema simples de bandeiras com SVG ao invés de emojis
  * Data: 30 de outubro de 2025
  */
 
@@ -8,30 +8,41 @@
 .country-badge {
     display: inline-block;
     position: relative;
-    padding-left: 28px;
+    padding-left: 32px;
     font-weight: 700;
     color: #FFFFFF;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    vertical-align: middle;
 }
 
-/* Bandeira do Paraguai */
+/* Bandeira do Paraguai - usando imagem SVG */
 .country-badge.paraguay::before {
-    content: '🇵🇾';
+    content: '';
     position: absolute;
     left: 0;
     top: 50%;
     transform: translateY(-50%);
-    font-size: 20px;
+    width: 24px;
+    height: 16px;
+    background-image: url('../images/flags/paraguay.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
-/* Bandeira da Europa */
+/* Bandeira da Europa - usando imagem SVG */
 .country-badge.europe::before {
-    content: '🇪🇺';
+    content: '';
     position: absolute;
     left: 0;
     top: 50%;
     transform: translateY(-50%);
-    font-size: 20px;
+    width: 24px;
+    height: 16px;
+    background-image: url('../images/flags/europe.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 /* Hover effect */
@@ -43,11 +54,24 @@
 /* Responsive */
 @media (max-width: 768px) {
     .country-badge {
-        padding-left: 24px;
+        padding-left: 28px;
     }
     
     .country-badge.paraguay::before,
     .country-badge.europe::before {
-        font-size: 18px;
+        width: 20px;
+        height: 13.33px;
+    }
+}
+
+@media (max-width: 480px) {
+    .country-badge {
+        padding-left: 26px;
+    }
+    
+    .country-badge.paraguay::before,
+    .country-badge.europe::before {
+        width: 18px;
+        height: 12px;
     }
 }

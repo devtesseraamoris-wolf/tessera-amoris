@@ -1,16 +1,17 @@
 /**
- * HERO BUTTON - Novo design com cor criativa
- * Cor: Gradiente roxo/magenta vibrante com efeito neon
+ * HERO BUTTON - Gradiente dourado com mudança de texto no hover
+ * Cor: Gradiente dourado para combinar com o padrão do site
+ * Hover: Muda texto para "Build Your Bond"
  * Data: 30 de outubro de 2025
  */
 
-/* Botão base - Gradiente roxo/magenta vibrante */
+/* Botão base - Gradiente dourado elegante */
 .hero .hero-content a.hero-btn,
 a.btn.hero-btn {
     position: relative !important;
     overflow: hidden !important;
-    background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 50%, #F43F5E 100%) !important;
-    color: #FFFFFF !important;
+    background: linear-gradient(135deg, #C9A961 0%, #D4AF37 50%, #B8860B 100%) !important;
+    color: #1a1a1a !important;
     font-weight: 700 !important;
     padding: 16px 40px !important;
     border-radius: 8px !important;
@@ -18,8 +19,8 @@ a.btn.hero-btn {
     display: inline-block !important;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
     box-shadow: 
-        0 4px 15px rgba(139, 92, 246, 0.4),
-        0 0 30px rgba(236, 72, 153, 0.3) !important;
+        0 4px 15px rgba(212, 175, 55, 0.4),
+        0 2px 8px rgba(0, 0, 0, 0.2) !important;
 }
 
 /* Texto do botão */
@@ -27,11 +28,37 @@ a.btn.hero-btn {
 a.btn.hero-btn .btn-text {
     position: relative !important;
     z-index: 3 !important;
-    color: #FFFFFF !important;
+    color: #1a1a1a !important;
     display: inline-block !important;
     font-size: 16px !important;
     letter-spacing: 1px !important;
     text-transform: uppercase !important;
+    transition: opacity 0.3s ease !important;
+}
+
+/* Texto alternativo (escondido por padrão) */
+.hero .hero-content a.hero-btn .btn-text::after,
+a.btn.hero-btn .btn-text::after {
+    content: 'Build Your Bond' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    opacity: 0 !important;
+    transition: opacity 0.3s ease !important;
+    color: #1a1a1a !important;
+}
+
+/* Esconder texto original no hover */
+.hero .hero-content a.hero-btn:hover .btn-text,
+a.btn.hero-btn:hover .btn-text {
+    color: transparent !important;
+}
+
+/* Mostrar texto alternativo no hover */
+.hero .hero-content a.hero-btn:hover .btn-text::after,
+a.btn.hero-btn:hover .btn-text::after {
+    opacity: 1 !important;
 }
 
 /* Efeito de brilho animado */
@@ -53,15 +80,15 @@ a.btn.hero-btn::before {
     z-index: 1 !important;
 }
 
-/* Hover - Intensifica o brilho e o glow */
+/* Hover - Intensifica o dourado e o brilho */
 .hero .hero-content a.hero-btn:hover,
 a.btn.hero-btn:hover {
-    background: linear-gradient(135deg, #9D6EFF 0%, #FF5AAD 50%, #FF4D6D 100%) !important;
+    background: linear-gradient(135deg, #D4AF37 0%, #FFD700 50%, #DAA520 100%) !important;
     transform: translateY(-3px) scale(1.02) !important;
     box-shadow: 
-        0 6px 25px rgba(139, 92, 246, 0.6),
-        0 0 50px rgba(236, 72, 153, 0.5),
-        0 0 80px rgba(244, 63, 94, 0.3) !important;
+        0 6px 25px rgba(212, 175, 55, 0.6),
+        0 0 40px rgba(255, 215, 0, 0.4),
+        0 2px 10px rgba(0, 0, 0, 0.3) !important;
 }
 
 .hero .hero-content a.hero-btn:hover::before,
@@ -70,36 +97,28 @@ a.btn.hero-btn:hover::before {
 }
 
 /* Efeito de pulso sutil */
-@keyframes pulse-glow {
+@keyframes pulse-gold {
     0%, 100% {
         box-shadow: 
-            0 4px 15px rgba(139, 92, 246, 0.4),
-            0 0 30px rgba(236, 72, 153, 0.3);
+            0 4px 15px rgba(212, 175, 55, 0.4),
+            0 2px 8px rgba(0, 0, 0, 0.2);
     }
     50% {
         box-shadow: 
-            0 4px 20px rgba(139, 92, 246, 0.6),
-            0 0 40px rgba(236, 72, 153, 0.5);
+            0 4px 20px rgba(212, 175, 55, 0.5),
+            0 2px 10px rgba(0, 0, 0, 0.25);
     }
 }
 
 .hero .hero-content a.hero-btn,
 a.btn.hero-btn {
-    animation: pulse-glow 3s ease-in-out infinite !important;
+    animation: pulse-gold 3s ease-in-out infinite !important;
 }
 
 /* Active state */
 .hero .hero-content a.hero-btn:active,
 a.btn.hero-btn:active {
     transform: translateY(-1px) scale(0.98) !important;
-}
-
-/* Remover overlays antigos */
-.hero .hero-content a.hero-btn .gradient-overlay,
-a.btn.hero-btn .gradient-overlay,
-.hero .hero-content a.hero-btn .white-overlay,
-a.btn.hero-btn .white-overlay {
-    display: none !important;
 }
 
 /* Responsive */
