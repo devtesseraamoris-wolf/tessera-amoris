@@ -1,0 +1,212 @@
+/**
+ * EXCLUSIVE BADGES - Paraguay & Europe
+ * 
+ * Elegant badge-style highlighting for Paraguay and Europe
+ * using their respective flag colors to emphasize exclusivity.
+ * 
+ * Author: High Web Strategist & Creative Designer
+ * Date: October 29, 2025
+ */
+
+/* ============================================
+   BADGE WRAPPER
+   ============================================ */
+
+.badge-highlight {
+    display: inline-block;
+    position: relative;
+    padding: 4px 16px;
+    margin: 0 4px;
+    border-radius: 6px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* ============================================
+   PARAGUAY BADGE
+   Colors: Red (#D52B1E), White (#FFFFFF), Blue (#0038A8)
+   ============================================ */
+
+.badge-paraguay {
+    background: linear-gradient(
+        to bottom,
+        #D52B1E 0%,
+        #D52B1E 33%,
+        #FFFFFF 33%,
+        #FFFFFF 66%,
+        #0038A8 66%,
+        #0038A8 100%
+    );
+    color: #FFFFFF;
+    text-shadow: 
+        0 1px 2px rgba(0, 0, 0, 0.3),
+        0 0 8px rgba(0, 0, 0, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Add subtle glow effect */
+.badge-paraguay::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 6px;
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.2) 0%,
+        rgba(255, 255, 255, 0) 50%,
+        rgba(0, 0, 0, 0.1) 100%
+    );
+    pointer-events: none;
+}
+
+/* ============================================
+   EUROPE BADGE
+   Colors: EU Blue (#003399), Gold (#FFCC00)
+   ============================================ */
+
+.badge-europe {
+    background: linear-gradient(
+        135deg,
+        #003399 0%,
+        #0047b3 100%
+    );
+    color: #FFCC00;
+    text-shadow: 
+        0 1px 2px rgba(0, 0, 0, 0.4),
+        0 0 10px rgba(255, 204, 0, 0.3);
+    border: 2px solid #FFCC00;
+    position: relative;
+}
+
+/* Add star pattern overlay (subtle) */
+.badge-europe::before {
+    content: '★';
+    position: absolute;
+    top: 50%;
+    left: 8px;
+    transform: translateY(-50%);
+    font-size: 10px;
+    color: #FFCC00;
+    opacity: 0.4;
+}
+
+.badge-europe::after {
+    content: '★';
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    transform: translateY(-50%);
+    font-size: 10px;
+    color: #FFCC00;
+    opacity: 0.4;
+}
+
+/* ============================================
+   HOVER EFFECTS
+   ============================================ */
+
+.badge-paraguay:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 4px 16px rgba(213, 43, 30, 0.4);
+}
+
+.badge-europe:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 4px 16px rgba(255, 204, 0, 0.4);
+}
+
+/* ============================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================ */
+
+@media (max-width: 768px) {
+    .badge-highlight {
+        padding: 3px 12px;
+        margin: 0 2px;
+        font-size: 0.95em;
+    }
+    
+    .badge-europe::before,
+    .badge-europe::after {
+        font-size: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .badge-highlight {
+        padding: 2px 10px;
+        margin: 0 1px;
+        font-size: 0.9em;
+        border-radius: 4px;
+    }
+    
+    .badge-europe::before,
+    .badge-europe::after {
+        display: none; /* Hide stars on very small screens */
+    }
+}
+
+/* ============================================
+   ANIMATION ON PAGE LOAD
+   ============================================ */
+
+@keyframes badgeFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.badge-highlight {
+    animation: badgeFadeIn 0.6s ease-out;
+}
+
+.badge-paraguay {
+    animation-delay: 0.2s;
+}
+
+.badge-europe {
+    animation-delay: 0.4s;
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+
+.badge-highlight:focus {
+    outline: 3px solid rgba(212, 175, 55, 0.5);
+    outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .badge-paraguay {
+        border: 3px solid #FFFFFF;
+    }
+    
+    .badge-europe {
+        border: 3px solid #FFCC00;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .badge-highlight {
+        animation: none;
+        transition: none;
+    }
+    
+    .badge-paraguay:hover,
+    .badge-europe:hover {
+        transform: none;
+    }
+}
