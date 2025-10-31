@@ -103,7 +103,18 @@ header.scrolled {
 /* Mobile responsiveness */
 @media (max-width: 768px) {
     .logo {
-        padding: 0.5rem 1rem;
+        padding: 0.5rem 0;
+        background: transparent !important;
+        backdrop-filter: none !important;
+        border: none !important;
+    }
+    
+    .logo::before {
+        display: none;
+    }
+    
+    .logo::after {
+        display: none;
     }
     
     .logo-main-text {
@@ -113,12 +124,18 @@ header.scrolled {
     
     .logo-tagline {
         font-size: 0.65rem;
+        opacity: 0.9;
     }
 }
 
 @media (max-width: 480px) {
+    .logo {
+        padding: 0.4rem 0;
+    }
+    
     .logo-main-text {
         font-size: 1.2rem;
+        letter-spacing: 0.5px;
     }
     
     .logo-tagline {
