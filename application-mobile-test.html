@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Form - Mobile Test | Tessera Amoris</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            color: #0c1b33;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .device-frame {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .device-header {
+            background: linear-gradient(135deg, #0c1b33 0%, #1a2f4f 100%);
+            color: white;
+            padding: 15px 20px;
+            text-align: center;
+        }
+        
+        .device-name {
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+        
+        .device-size {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+        
+        .device-screen {
+            width: 100%;
+            height: 700px;
+            border: none;
+            display: block;
+        }
+        
+        .status {
+            padding: 15px 20px;
+            background: #f8f9fa;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .status-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+        
+        .status-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .status-icon {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            margin-right: 8px;
+            flex-shrink: 0;
+        }
+        
+        .status-icon.success {
+            background: #28a745;
+        }
+        
+        .status-icon.warning {
+            background: #ffc107;
+        }
+        
+        .status-icon.error {
+            background: #dc3545;
+        }
+        
+        .instructions {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }
+        
+        .instructions h2 {
+            color: #0c1b33;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        
+        .instructions ul {
+            padding-left: 20px;
+        }
+        
+        .instructions li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        
+        .legend {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            font-size: 13px;
+        }
+        
+        .section-list {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }
+        
+        .section-list h2 {
+            color: #0c1b33;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        
+        .section-item {
+            padding: 12px 16px;
+            margin-bottom: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #D4AF37;
+        }
+        
+        .section-item strong {
+            color: #0c1b33;
+            display: block;
+            margin-bottom: 4px;
+        }
+        
+        .section-item span {
+            font-size: 13px;
+            color: #666;
+        }
+        
+        @media (max-width: 768px) {
+            .test-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .device-screen {
+                height: 600px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📋 Application Form - Mobile Responsive Test</h1>
+        
+        <div class="instructions">
+            <h2>🎯 Checklist de Testes do Formulário</h2>
+            <ul>
+                <li><strong>Progress Bar:</strong> Deve mostrar 6 passos de forma compacta e legível</li>
+                <li><strong>Campos de Texto:</strong> Devem ter 16px (prevenir zoom iOS)</li>
+                <li><strong>Textareas:</strong> Altura adequada, fácil de escrever</li>
+                <li><strong>Botões:</strong> Full-width ou lado a lado, mínimo 44px de altura</li>
+                <li><strong>Selects:</strong> Dropdowns nativos funcionando bem</li>
+                <li><strong>Checkboxes/Radios:</strong> Área de toque aumentada (22px)</li>
+                <li><strong>Character Count:</strong> Visível e legível</li>
+                <li><strong>Validation Messages:</strong> Claras e bem posicionadas</li>
+                <li><strong>Review Section:</strong> Informações organizadas e editáveis</li>
+            </ul>
+            
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="status-icon success"></div>
+                    <span>Funcionando perfeitamente</span>
+                </div>
+                <div class="legend-item">
+                    <div class="status-icon warning"></div>
+                    <span>Precisa atenção</span>
+                </div>
+                <div class="legend-item">
+                    <div class="status-icon error"></div>
+                    <span>Problema identificado</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section-list">
+            <h2>📝 Seções do Formulário (6 no total)</h2>
+            <div class="section-item">
+                <strong>1. Your Vision</strong>
+                <span>2 textareas grandes com character count, encouragement note</span>
+            </div>
+            <div class="section-item">
+                <strong>2. About You (Personal Information)</strong>
+                <span>Nome, data de nascimento, gênero, email, telefone, localização, nacionalidade, ocupação, idiomas</span>
+            </div>
+            <div class="section-item">
+                <strong>3. Faith & Values</strong>
+                <span>Religião, valores, práticas espirituais, importância da fé</span>
+            </div>
+            <div class="section-item">
+                <strong>4. Lifestyle & Goals</strong>
+                <span>Objetivos de relacionamento, estilo de vida, preferências, planos futuros</span>
+            </div>
+            <div class="section-item">
+                <strong>5. Final Steps (Verification)</strong>
+                <span>Upload de foto, referências, verificações finais</span>
+            </div>
+            <div class="section-item">
+                <strong>6. Review</strong>
+                <span>Revisão completa de todas as informações com opção de editar</span>
+            </div>
+        </div>
+        
+        <div class="test-grid">
+            <!-- iPhone SE -->
+            <div class="device-frame">
+                <div class="device-header">
+                    <div class="device-name">iPhone SE</div>
+                    <div class="device-size">375 × 667px</div>
+                </div>
+                <iframe class="device-screen" src="application.html"></iframe>
+                <div class="status">
+                    <div class="status-item">
+                        <div class="status-icon success"></div>
+                        <span>Prioridade ALTA - Tela pequena crítica</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- iPhone 14 Pro -->
+            <div class="device-frame">
+                <div class="device-header">
+                    <div class="device-name">iPhone 14 Pro</div>
+                    <div class="device-size">393 × 852px</div>
+                </div>
+                <iframe class="device-screen" src="application.html"></iframe>
+                <div class="status">
+                    <div class="status-item">
+                        <div class="status-icon success"></div>
+                        <span>Prioridade ALTA - Dispositivo comum</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Google Pixel -->
+            <div class="device-frame">
+                <div class="device-header">
+                    <div class="device-name">Google Pixel 6</div>
+                    <div class="device-size">412 × 915px</div>
+                </div>
+                <iframe class="device-screen" src="application.html"></iframe>
+                <div class="status">
+                    <div class="status-item">
+                        <div class="status-icon success"></div>
+                        <span>Prioridade ALTA - Android reference</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- iPad -->
+            <div class="device-frame">
+                <div class="device-header">
+                    <div class="device-name">iPad</div>
+                    <div class="device-size">768 × 1024px</div>
+                </div>
+                <iframe class="device-screen" src="application.html"></iframe>
+                <div class="status">
+                    <div class="status-item">
+                        <div class="status-icon success"></div>
+                        <span>Prioridade MÉDIA - Tablet</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="instructions">
+            <h2>📝 Como Testar o Formulário</h2>
+            <ul>
+                <li><strong>Navegação:</strong> Clique no botão "Continue" para avançar entre as seções</li>
+                <li><strong>Progress Bar:</strong> Verifique se os 6 passos estão visíveis e compactos</li>
+                <li><strong>Campos:</strong> Tente preencher campos em cada iframe - não deve dar zoom no iOS</li>
+                <li><strong>Textareas:</strong> Escreva texto longo e verifique se o character count funciona</li>
+                <li><strong>Botões:</strong> Verifique se são fáceis de clicar (mínimo 44px)</li>
+                <li><strong>Selects:</strong> Teste os dropdowns (data de nascimento, gênero, etc)</li>
+                <li><strong>Checkboxes:</strong> Verifique se a área de toque é grande o suficiente</li>
+                <li><strong>Review:</strong> Navegue até a seção 6 e veja se as informações estão organizadas</li>
+                <li><strong>Responsividade:</strong> Compare entre os 4 dispositivos para ver consistência</li>
+            </ul>
+        </div>
+        
+        <div class="instructions">
+            <h2>✅ Critérios de Aprovação</h2>
+            <ul>
+                <li>✅ Progress bar visível e compacta em todas as telas</li>
+                <li>✅ Todos os campos com font-size 16px (sem zoom iOS)</li>
+                <li>✅ Botões com altura mínima de 44px (touch-friendly)</li>
+                <li>✅ Textareas com altura adequada para escrever</li>
+                <li>✅ Character count visível e atualizado</li>
+                <li>✅ Selects funcionando nativamente</li>
+                <li>✅ Checkboxes/radios com área de toque aumentada</li>
+                <li>✅ Espaçamento adequado entre elementos</li>
+                <li>✅ Validation messages claras</li>
+                <li>✅ Review section organizada e editável</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
